@@ -27,6 +27,7 @@ namespace CodeStatistics{
             inputTabs.AddTab("Folder",new MultiFolderDialog());
             inputTabs.AddTab("GitHub",new MultiFolderDialog());
             inputTabs.AddTab("Magic",new MultiFolderDialog());
+            inputTabs.AddTab("Quit",new QuitProgram());
 
             inputTabs.Select += inputMethod => true; // breaks out
             inputTabs.Render();
