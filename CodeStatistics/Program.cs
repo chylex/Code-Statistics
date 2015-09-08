@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.ConsoleUtil;
 using CodeStatistics.Input;
 using System;
+using System.Collections.Generic;
 
 namespace CodeStatistics{
     class Program{
@@ -43,13 +44,11 @@ namespace CodeStatistics{
                 console.WriteCenter(3,fileCount.ToString());
             };
 
-            search.Finish += foundFiles => {
-                
-            };
-
             Console.CursorVisible = false;
-            search.Search();
+            HashSet<File> foundFiles = search.Search();
             Console.CursorVisible = true;
+
+            // File parsing
 
             // Pause
             Console.ReadKey();

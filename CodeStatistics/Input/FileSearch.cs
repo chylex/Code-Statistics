@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 namespace CodeStatistics.Input{
     class FileSearch{
         public delegate void RefreshEventHandler(int filesFound);
-        public delegate void FinishEventHandler(HashSet<File> files);
 
         public event RefreshEventHandler Refresh;
-        public event FinishEventHandler Finish;
 
         private string[] rootFiles;
 
@@ -16,7 +14,7 @@ namespace CodeStatistics.Input{
             this.rootFiles = files;
         }
 
-        public void Search(){
+        public HashSet<File> Search(){
             Task<HashSet<File>> searchTask = Task<HashSet<File>>.Factory.StartNew(() => {
                 HashSet<File> foundFiles = new HashSet<File>();
                 Random rand = new Random();
@@ -50,7 +48,7 @@ namespace CodeStatistics.Input{
                 return foundFiles;
             });
 
-            if (Finish != null)Finish(searchTask.Result);
+            return searchTask.Result;
         }
     }
 }
