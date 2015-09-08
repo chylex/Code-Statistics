@@ -53,9 +53,14 @@ namespace CodeStatistics.ConsoleUtil{
         }
 
         public T HandleInput(){
+            return HandleInput(false);
+        }
+
+        public T HandleInput(bool selectFirstTab){
             if (tabs.Count == 0)return default(T);
 
             Console.CursorVisible = false;
+            if (selectFirstTab)Select(tabs[0].Object);
 
             while(true){
                 ConsoleKeyInfo info = Console.ReadKey(true);

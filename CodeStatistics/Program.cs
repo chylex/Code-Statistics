@@ -78,12 +78,13 @@ namespace CodeStatistics{
             foreach(IHandlerTab tab in generatedTabs)tabs.AddTab(tab.GetName(),tab);
 
             tabs.Select += tab => {
+                for(int py = y+2; py < height-1; py++)console.ClearLine(py);
                 tab.RenderInfo(console,y+2);
                 return false;
             };
 
             tabs.Render();
-            tabs.HandleInput();
+            tabs.HandleInput(true);
 
             // Pause
             Console.ReadKey();
