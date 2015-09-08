@@ -7,7 +7,7 @@ namespace CodeStatistics.Input{
 
         public File(string FullName){
             this.FullName = Path.GetFileName(FullName);
-            this.Ext = Path.GetExtension(FullName);
+            this.Ext = Path.GetExtension(FullName).Replace(".","");
         }
 
         public override bool Equals(object obj){
