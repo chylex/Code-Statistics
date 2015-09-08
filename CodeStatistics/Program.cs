@@ -15,6 +15,7 @@ namespace CodeStatistics{
 
             ConsoleWrapper console = ConsoleWrapper.console;
 
+            // Project input method
             console.SetForeground(ConsoleColor.White);
             console.WriteCenter(1,"Choose your project selection method:");
 
@@ -23,14 +24,16 @@ namespace CodeStatistics{
             inputTabs.AddTab("GitHub",new MultiFolderDialog());
             inputTabs.AddTab("Magic",new MultiFolderDialog());
 
-            inputTabs.Select += inputMethod => {
-                inputMethod.Run(new string[0]);
-                return true;
+            inputTabs.Select += inputMethod => true; // breaks out
+            inputTabs.Render();
+            IProjectInputMethod selectedInputMethod = inputTabs.HandleInput();
+
             };
 
             inputTabs.Render();
             inputTabs.HandleInput();
 
+            // Pause
             Console.ReadKey();
         }
     }

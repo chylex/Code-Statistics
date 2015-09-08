@@ -52,13 +52,13 @@ namespace CodeStatistics.ConsoleUtil{
             console.Write("]");
         }
 
-        public void HandleInput(){
-            if (tabs.Count == 0)return;
+        public T HandleInput(){
+            if (tabs.Count == 0)return default(T);
 
             Console.CursorVisible = false;
 
             while(true){
-                ConsoleKeyInfo info = Console.ReadKey();
+                ConsoleKeyInfo info = Console.ReadKey(true);
 
                 if (info.Key == ConsoleKey.LeftArrow){
                     if (--selectedIndex < 0)selectedIndex = tabs.Count-1;
@@ -73,6 +73,7 @@ namespace CodeStatistics.ConsoleUtil{
             }
 
             Console.CursorVisible = true;
+            return tabs[selectedIndex].Object;
         }
 
         private struct Tab{
