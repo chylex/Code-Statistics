@@ -1,10 +1,19 @@
 ﻿using CodeStatistics.ConsoleUtil;
 using CodeStatistics.Input;
+using System;
 
 namespace CodeStatistics.Handlers{
     abstract class FileHandler{
-        public abstract class Minor : FileHandler{
-            public Minor(){}
+        public abstract class Minor : FileHandler, IComparable<Minor>{
+            private readonly int priority;
+
+            public Minor(int priority){
+                this.priority = priority;
+            }
+
+            public int CompareTo(Minor other){
+                return priority-other.priority;
+            }
         }
 
         public abstract class Major : FileHandler{
