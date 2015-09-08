@@ -6,12 +6,13 @@ using System.Collections.Generic;
 
 namespace CodeStatistics{
     class Program{
-        private static readonly int ConsoleWidth = 120, ConsoleHeight = 40;
+        private static readonly int TargetConsoleWidth = 120, TargetConsoleHeight = 40;
 
         [STAThread]
         static void Main(string[] args){
-            int width = Math.Min(ConsoleWidth,Console.LargestWindowWidth);
-            int height = Math.Min(ConsoleHeight,Console.LargestWindowHeight);
+            int width = Math.Min(TargetConsoleWidth,Console.LargestWindowWidth);
+            int height = Math.Min(TargetConsoleHeight,Console.LargestWindowHeight);
+            int centerY = height/2-1;
             Console.SetWindowSize(width,height);
             Console.SetBufferSize(width,height);
 
@@ -19,9 +20,9 @@ namespace CodeStatistics{
 
             // Project input method
             console.SetForeground(ConsoleColor.White);
-            console.WriteCenter(1,"Choose your project selection method:");
+            console.WriteCenter(centerY-1,"Choose your project selection method:");
 
-            ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(3,true);
+            ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(centerY+1,true);
             inputTabs.AddTab("Folder",new MultiFolderDialog());
             inputTabs.AddTab("GitHub",new MultiFolderDialog());
             inputTabs.AddTab("Magic",new MultiFolderDialog());
@@ -38,11 +39,11 @@ namespace CodeStatistics{
 
             console.Clear();
             console.SetForeground(ConsoleColor.White);
-            console.WriteCenter(1,"Searching for files...");
+            console.WriteCenter(centerY-1,"Searching for files...");
             console.SetForeground(ConsoleColor.Yellow);
 
             search.Refresh += fileCount => {
-                console.WriteCenter(3,fileCount.ToString());
+                console.WriteCenter(centerY+1,fileCount.ToString());
             };
 
             Console.CursorVisible = false;
@@ -53,20 +54,24 @@ namespace CodeStatistics{
 
             console.Clear();
             console.SetForeground(ConsoleColor.White);
-            console.WriteCenter(1,"Processing files...");
+            console.WriteCenter(centerY-2,"Processing files...");
 
             analyzer.Update += (percentage, handledFiles, totalFiles) => {
-                console.ClearLine(3);
+                console.ClearLine(centerY);
                 console.SetForeground(ConsoleColor.Yellow);
-                console.MoveToCenter(50,3);
+                console.MoveToCenter(50,centerY);
                 console.Write(new string('▒',(int)Math.Floor(percentage*50F)));
                 console.SetForeground(ConsoleColor.Gray);
-                console.WriteCenter(5,handledFiles+" / "+totalFiles);
+                console.WriteCenter(centerY+2,handledFiles+" / "+totalFiles);
             };
 
             List<IHandlerTab> generatedTabs = analyzer.Run();
 
             // Tab generation
+            console.Clear();
+            console.SetForeground(ConsoleColor.White);
+            console.WriteCenter(1,"");
+
             const int y = 1;
 
             ConsoleTabs<IHandlerTab> tabs = new ConsoleTabs<IHandlerTab>(y,false);
