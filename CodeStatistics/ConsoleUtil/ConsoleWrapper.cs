@@ -73,6 +73,12 @@ namespace CodeStatistics.ConsoleUtil{
             Console.Write(text);
         }
 
+        public void Write(string text, params object[] data){
+            Console.ForegroundColor = Foreground;
+            Console.BackgroundColor = Background;
+            Console.Write(text,data);
+        }
+
         public void WriteCenter(int y, string text){
             MoveToCenter(text.Length,y);
             Write(text);

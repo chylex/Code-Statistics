@@ -77,15 +77,10 @@ namespace CodeStatistics.Handlers.Objects{
                     foreach(KeyValuePair<string,int> kvp in usedExts.OrderByDescending(kvp => kvp.Value).ToList()){
                         c.MoveTo(px,++py);
                         c.SetForeground(ConsoleColor.White);
-                        c.Write(".");
-                        c.Write(kvp.Key);
-                        c.Write(": ");
+                        c.Write(".{0}: ",kvp.Key);
                         c.SetForeground(ConsoleColor.Gray);
                         c.Write(new string(' ',longestExt-kvp.Key.Length));
-                        c.Write(kvp.Value.ToString());
-                        c.Write(" (");
-                        c.Write(Math.Round(100*(decimal)kvp.Value/total,2).ToString());
-                        c.Write("%)");
+                        c.Write("{0} ({1}%)",kvp.Value,Math.Round(100*(decimal)kvp.Value/total,2));
                     }
 
                     c.MoveTo(px,py += 3);
