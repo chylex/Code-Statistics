@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.ConsoleUtil;
 using CodeStatistics.Handlers;
 using CodeStatistics.Input;
+using CodeStatistics.Input.Methods;
 using System;
 using System.Collections.Generic;
 
