@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleUtil\ConsoleWrapper.cs" />
-    <Compile Include="Input\FileDialog.cs" />
+    <Compile Include="Input\MultiFolderDialog.cs" />
     <Compile Include="Input\IProjectInputMethod.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
