@@ -28,10 +28,28 @@ namespace CodeStatistics{
             inputTabs.Render();
             IProjectInputMethod selectedInputMethod = inputTabs.HandleInput();
 
+            // File search
+            string[] files = selectedInputMethod.Run(new string[0]);
+            if (files.Length == 0)return;
+
+            FileSearch search = new FileSearch(files);
+
+            console.Clear();
+            console.SetForeground(ConsoleColor.White);
+            console.WriteCenter(1,"Searching for files...");
+            console.SetForeground(ConsoleColor.Yellow);
+
+            search.Refresh += fileCount => {
+                console.WriteCenter(3,fileCount.ToString());
             };
 
-            inputTabs.Render();
-            inputTabs.HandleInput();
+            search.Finish += foundFiles => {
+                
+            };
+
+            Console.CursorVisible = false;
+            search.Search();
+            Console.CursorVisible = true;
 
             // Pause
             Console.ReadKey();
