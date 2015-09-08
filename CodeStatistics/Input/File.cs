@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text;
 
 namespace CodeStatistics.Input{
     struct File{
@@ -8,6 +9,10 @@ namespace CodeStatistics.Input{
         public File(string FullName){
             this.FullName = Path.GetFileName(FullName);
             this.Ext = Path.GetExtension(FullName).Replace(".","");
+        }
+
+        public string Read(){
+            return System.IO.File.ReadAllText(FullName,Encoding.UTF8).Replace("\\r","");
         }
 
         public override bool Equals(object obj){
