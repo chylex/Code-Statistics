@@ -53,8 +53,10 @@
   <ItemGroup>
     <Compile Include="ConsoleUtil\ConsoleWrapper.cs" />
     <Compile Include="ConsoleUtil\ConsoleTabs.cs" />
+    <Compile Include="Handlers\FileHandlers.cs" />
     <Compile Include="Handlers\FileHandler.cs" />
     <Compile Include="Handlers\IHandlerTab.cs" />
+    <Compile Include="Handlers\Objects\AssetHandler.cs" />
     <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
     <Compile Include="Input\MultiFolderDialog.cs" />
