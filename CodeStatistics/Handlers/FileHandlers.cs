@@ -6,6 +6,8 @@ namespace CodeStatistics.Handlers{
         private static readonly Dictionary<string,FileHandler> handlers = new Dictionary<string,FileHandler>();
 
         static FileHandlers(){
+            handlers.Add("java",new JavaHandler());
+
             AssetHandler assetHandler = new AssetHandler(10);
 
             foreach(string ext in new string[]{
@@ -39,4 +41,3 @@ namespace CodeStatistics.Handlers{
         }
     }
 }
-
