@@ -6,6 +6,18 @@ namespace CodeStatistics.Tests{
     public class ParseUtilsTests{
         [TestMethod]
         public void TestStringExtract(){
+            Assert.AreEqual("do not touch letters","...do not touch letters".ExtractStart("..."));
+            Assert.AreEqual("..do not touch letters","..do not touch letters".ExtractStart("..."));
+            Assert.AreEqual("do not touch letters","do not touch letters...".ExtractEnd("..."));
+            Assert.AreEqual("do not touch letters..","do not touch letters..".ExtractEnd("..."));
+            Assert.AreEqual("do not touch letters","...do not touch letters___".ExtractBoth("...","___"));
+            Assert.AreEqual("do not touch letters__","...do not touch letters__".ExtractBoth("...","___"));
+            Assert.AreEqual("..do not touch letters","..do not touch letters___".ExtractBoth("...","___"));
+            Assert.AreEqual("..do not touch letters__","..do not touch letters__".ExtractBoth("...","___"));
+        }
+
+        [TestMethod]
+        public void TestStringExtractOut(){
             string res;
 
             Assert.IsTrue("...do not touch letters".ExtractStart("...",out res));

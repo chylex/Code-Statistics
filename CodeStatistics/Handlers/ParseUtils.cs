@@ -5,7 +5,14 @@ namespace CodeStatistics.Handlers{
         public static readonly StringComparison cmp = StringComparison.Ordinal;
 
         /// <summary>
-        /// If the string starts with searched string, it is removed, assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
+        /// If the string starts with searched string, it is removed and the rest is returned. If not, the original string is returned.
+        /// </summary>
+        public static string ExtractStart(this string me, string search){
+            return me.StartsWith(search,cmp) ? me.Substring(search.Length) : me;
+        }
+
+        /// <summary>
+        /// If the string starts with searched string, it is removed, the rest is assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
         /// </summary>
         public static bool ExtractStart(this string me, string search, out string result){
             if (me.StartsWith(search,cmp)){
@@ -17,9 +24,16 @@ namespace CodeStatistics.Handlers{
                 return false;
             }
         }
+        
+        /// <summary>
+        /// If the string ends with searched string, it is removed and the rest is returned. If not, the original string is returned.
+        /// </summary>
+        public static string ExtractEnd(this string me, string search){
+            return me.EndsWith(search,cmp) ? me.Substring(0,me.Length-search.Length) : me;
+        }
 
         /// <summary>
-        /// If the string ends with searched string, it is removed, assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
+        /// If the string ends with searched string, it is removed, the rest is assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
         /// </summary>
         public static bool ExtractEnd(this string me, string search, out string result){
             if (me.EndsWith(search,cmp)){
@@ -31,9 +45,16 @@ namespace CodeStatistics.Handlers{
                 return false;
             }
         }
+        
+        /// <summary>
+        /// Tries to remove searched strings from both start and end of the string and returns the rest.
+        /// </summary>
+        public static string ExtractBoth(this string me, string searchStart, string searchEnd){
+            return me.ExtractStart(searchStart).ExtractEnd(searchEnd);
+        }
 
         /// <summary>
-        /// If the string starts and ends with searched strings, they are removed, assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
+        /// If the string starts and ends with searched strings, they are removed, the rest is assigned to the result and the function returns true. If not, the function returns false and the result will be empty.
         /// </summary>
         public static bool ExtractBoth(this string me, string searchStart, string searchEnd, out string result){
             if (me.StartsWith(searchStart,cmp) && me.EndsWith(searchEnd,cmp)){
