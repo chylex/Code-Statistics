@@ -11,7 +11,7 @@ namespace CodeStatistics.Handlers.Objects{
         }
 
         public override void Handle(File file){
-            JavaParser.Parse(file,stats);
+            JavaParser.Parse(file.Read(),stats);
         }
 
         public override IHandlerTab[] GenerateTabs(){
