@@ -59,12 +59,19 @@ namespace CodeStatistics{
             console.WriteCenter(centerY-2,"Processing files...");
 
             analyzer.Update += (percentage, handledFiles, totalFiles) => {
-                console.ClearLine(centerY);
-                console.SetForeground(ConsoleColor.Yellow);
-                console.MoveToCenter(50,centerY);
-                console.Write(new string('▒',(int)Math.Floor(percentage*50F)));
-                console.SetForeground(ConsoleColor.Gray);
-                console.WriteCenter(centerY+2,handledFiles+" / "+totalFiles);
+                if (handledFiles == totalFiles){
+                    console.ClearLine(centerY-2);
+                    console.SetForeground(ConsoleColor.White);
+                    console.WriteCenter(centerY-2,"Generating tabs...");
+                }
+                else{
+                    console.ClearLine(centerY);
+                    console.SetForeground(ConsoleColor.Yellow);
+                    console.MoveToCenter(50,centerY);
+                    console.Write(new string('▒',(int)Math.Floor(percentage*50F)));
+                    console.SetForeground(ConsoleColor.Gray);
+                    console.WriteCenter(centerY+2,handledFiles+" / "+totalFiles);
+                }
             };
 
             List<IHandlerTab> generatedTabs = analyzer.Run();
