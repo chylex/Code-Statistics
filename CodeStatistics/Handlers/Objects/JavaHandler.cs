@@ -15,7 +15,7 @@ namespace CodeStatistics.Handlers.Objects{
         }
 
         public override IHandlerTab[] GenerateTabs(){
-            return JavaTabs.GenerateTabs(stats);
+            return JavaTab.GenerateTabs(stats);
         }
     }
 }
