@@ -17,8 +17,6 @@ namespace CodeStatistics.Handlers.Objects.Java{
             JavaType _currentType = JavaType.Invalid;
             string _simpleType = null;
             string _fullType;
-            int _totalLines;
-            int _totalCharacters;
 
             // Package
             if (linesParsed.FirstOrDefault(line => line.ExtractBoth("package ",";",out _package)) == null)return; // should not happen, but what if...
@@ -41,15 +39,13 @@ namespace CodeStatistics.Handlers.Objects.Java{
             _info = stats.CreateFileInfo(_fullType);
 
             // Lines
-            _totalLines = linesPlain.Count(line => !line.TrimStart().Equals("{"));
-
-            _info.Lines = _totalLines;
-            stats.LinesTotal += _totalLines;
+            _info.Lines = linesPlain.Count(line => !line.TrimStart().Equals("{"));
+            stats.LinesTotal += _info.Lines;
 
             // Characters
             int spaces = 0;
 
-            _totalCharacters = linesPlain.Select(line => {
+            _info.Characters = linesPlain.Select(line => {
                 string noSpaces = line.TrimStart(' ');
 
                 int diff = line.Length-noSpaces.Length;
@@ -58,8 +54,17 @@ namespace CodeStatistics.Handlers.Objects.Java{
                 return diff > 0 ? noSpaces.PadLeft(noSpaces.Length+diff/spaces,'\t').Length : line.Length; // replaces spaces with tabs if there are any
             }).Sum();
 
-            _info.Characters = _totalCharacters;
-            stats.CharactersTotal += _totalCharacters;
+            stats.CharactersTotal += _info.Characters;
+
+            // Imports
+            foreach(string line in linesParsed){
+                string trimmed = line.TrimStart();
+
+                if (trimmed.StartsWith("import "))++_info.Imports;
+                else if (trimmed.Length != 0 && !trimmed.StartsWith("package "))break;
+            }
+
+            stats.ImportsTotal += _info.Imports;
 
             // Nested types
         }
