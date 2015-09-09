@@ -57,11 +57,8 @@ namespace CodeStatistics.Handlers.Objects.Java{
             line = StripModifiers(line.RemoveFrom(" extends").RemoveFrom(" implements").ExtractEnd("{")).TrimStart();
 
             string type = typeIdentifiersSpace.FirstOrDefault(identifier => line.StartsWith(identifier));
-            if (type == null)return new KeyValuePair<JavaType,string>(JavaType.Invalid,null);
 
-            line = line.Substring(type.Length).Trim();
-
-            if (IsJavaIdentifier(line)){
+            if (type != null && IsJavaIdentifier(line = line.Substring(type.Length).Trim())){
                 JavaType javaType = type.Equals("class ") ? JavaType.Class :
                                     type.Equals("interface ") ? JavaType.Interface :
                                     type.Equals("enum ") ? JavaType.Enum :
