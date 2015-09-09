@@ -15,17 +15,7 @@ namespace CodeStatistics.Handlers.Objects{
         }
 
         public override IHandlerTab[] GenerateTabs(){
-            return new IHandlerTab[]{ new GeneralTab() };
-        }
-
-        class GeneralTab : IHandlerTab{
-            public string GetName(){
-                return "General";
-            }
-
-            public void RenderInfo(ConsoleWrapper c, int y){
-
-            }
+            return JavaTabs.GenerateTabs(stats);
         }
     }
 }
