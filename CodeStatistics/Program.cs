@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CodeStatistics{
     class Program{
-        private static readonly int TargetConsoleWidth = 120, TargetConsoleHeight = 40;
+        private static readonly int TargetConsoleWidth = 140, TargetConsoleHeight = 40;
 
         [STAThread]
         static void Main(string[] args){
