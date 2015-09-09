@@ -25,7 +25,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             stats.Packages.Add(_package);
 
             // Current type
-            string typeLine = linesParsed.FirstOrDefault(line => JavaParseUtils.typeIdentifiers.Any(identifier => line.Contains(identifier)));
+            string typeLine = linesParsed.FirstOrDefault(line => JavaParseUtils.typeIdentifiersSpace.Any(identifier => line.Contains(identifier) && JavaParseUtils.GetType(line).Key != JavaType.Invalid));
             if (typeLine == null)return; // should not happen either, but we know the drill...
 
             KeyValuePair<JavaType,string> typeData = JavaParseUtils.GetType(typeLine);

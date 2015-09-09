@@ -7,7 +7,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static readonly Regex commentOneLine = new Regex(@"//.*",RegexOptions.Compiled);
         public static readonly Regex commentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled);
 
-        public static readonly string[] typeIdentifiers = new string[]{ "class", "@interface", "interface", "enum" };
+        public static readonly string[] typeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
         public static readonly string[] modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };
 
         /// <summary>
@@ -56,14 +56,16 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static KeyValuePair<JavaType,string> GetType(string line){
             line = StripModifiers(line.RemoveFrom(" extends").RemoveFrom(" implements").ExtractEnd("{")).TrimStart();
 
-            string type = typeIdentifiers.FirstOrDefault(identifier => line.StartsWith(identifier));
-            line = line.Substring(type.Length+1).Trim();
+            string type = typeIdentifiersSpace.FirstOrDefault(identifier => line.StartsWith(identifier));
+            if (type == null)return new KeyValuePair<JavaType,string>(JavaType.Invalid,null);
+
+            line = line.Substring(type.Length).Trim();
 
             if (IsJavaIdentifier(line)){
-                JavaType javaType = type.Equals("class") ? JavaType.Class :
-                                    type.Equals("interface") ? JavaType.Interface :
-                                    type.Equals("enum") ? JavaType.Enum :
-                                    type.Equals("@interface") ? JavaType.Annotation : JavaType.Invalid;
+                JavaType javaType = type.Equals("class ") ? JavaType.Class :
+                                    type.Equals("interface ") ? JavaType.Interface :
+                                    type.Equals("enum ") ? JavaType.Enum :
+                                    type.Equals("@interface ") ? JavaType.Annotation : JavaType.Invalid;
                 return new KeyValuePair<JavaType,string>(javaType,line);
             }
             else return new KeyValuePair<JavaType,string>(JavaType.Invalid,null);
