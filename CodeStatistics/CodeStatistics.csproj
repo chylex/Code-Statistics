@@ -60,6 +60,7 @@
     <Compile Include="Handlers\Objects\JavaHandler.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handlers\Objects\Java\JavaStatistics.cs" />
+    <Compile Include="Handlers\ParseUtils.cs" />
     <Compile Include="Handlers\ProjectAnalyzer.cs" />
     <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
