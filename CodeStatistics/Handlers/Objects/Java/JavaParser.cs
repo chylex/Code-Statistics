@@ -12,6 +12,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             string[] linesParsed = fileParsed.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); //  ^
 
             // Final variables
+            JavaStatistics.JavaFileInfo _info;
             string _package = null;
             JavaType _currentType = JavaType.Invalid;
             string _simpleType = null;
@@ -33,11 +34,16 @@ namespace CodeStatistics.Handlers.Objects.Java{
             _simpleType = typeData.Value;
             _fullType = _package+"."+_simpleType;
 
+            ++stats.TypeCounts[_currentType];
+            stats.SimpleTypes.Add(_simpleType);
+            stats.FullTypes.Add(_fullType);
+
+            _info = stats.CreateFileInfo(_fullType);
+
             // Lines
             _totalLines = linesPlain.Count(line => !line.TrimStart().Equals("{"));
 
-
-
+            _info.Lines = _totalLines;
             stats.LinesTotal += _totalLines;
 
             // Characters
@@ -52,9 +58,10 @@ namespace CodeStatistics.Handlers.Objects.Java{
                 return diff > 0 ? noSpaces.PadLeft(noSpaces.Length+diff/spaces,'\t').Length : line.Length; // replaces spaces with tabs if there are any
             }).Sum();
 
-
-
+            _info.Characters = _totalCharacters;
             stats.CharactersTotal += _totalCharacters;
+
+            // Nested types
         }
     }
 }
