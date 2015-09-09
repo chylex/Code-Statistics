@@ -9,7 +9,8 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static JavaTab[] GenerateTabs(JavaStatistics stats){
             return new JavaTab[]{
                 new JavaGeneralTab(stats),
-                new JavaNamesTab(stats)
+                new JavaNamesTab(stats),
+                new JavaFilesTab(stats)
             };
         }
 
