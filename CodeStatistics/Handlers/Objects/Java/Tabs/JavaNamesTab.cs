@@ -67,10 +67,5 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
                 c.Write(ShortestFullNames[index],ConsoleColor.White);
             }
         }
-
-        private KeyValuePair<string,string> GetSimpleName(string fullName){
-            int index = fullName.LastIndexOf('.');
-            return new KeyValuePair<string,string>(index == -1 ? fullName : fullName.Substring(index+1),index == -1 ? "" : fullName.Substring(0,index+1));
-        }
     }
 }
