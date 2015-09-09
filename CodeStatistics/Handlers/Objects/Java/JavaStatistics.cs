@@ -27,10 +27,6 @@ namespace CodeStatistics.Handlers.Objects.Java{
             public int Lines;
             public int Characters;
             public int Imports;
-
-            public JavaFileInfo(){
-                Lines = Characters = Imports = 0;
-            }
         }
     }
 }
