@@ -7,6 +7,10 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public HashSet<string> SimpleTypes = new HashSet<string>();
         public HashSet<string> FullTypes = new HashSet<string>();
 
+        public Dictionary<JavaType,short> TypeFileCounts = new Dictionary<JavaType,short>(){
+            { JavaType.Class, 0 }, { JavaType.Interface, 0 }, { JavaType.Enum, 0 }, { JavaType.Annotation, 0 }
+        };
+
         public Dictionary<JavaType,short> TypeCounts = new Dictionary<JavaType,short>(){
             { JavaType.Class, 0 }, { JavaType.Interface, 0 }, { JavaType.Enum, 0 }, { JavaType.Annotation, 0 }
         };

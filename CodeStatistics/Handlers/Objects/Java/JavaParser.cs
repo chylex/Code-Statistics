@@ -32,6 +32,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             _simpleType = typeData.Value;
             _fullType = _package+"."+_simpleType;
 
+            ++stats.TypeFileCounts[_currentType];
             ++stats.TypeCounts[_currentType];
             stats.SimpleTypes.Add(_simpleType);
             stats.FullTypes.Add(_fullType);
