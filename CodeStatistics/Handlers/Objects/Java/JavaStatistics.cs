@@ -23,7 +23,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             return info;
         }
 
-        public struct JavaFileInfo{
+        public class JavaFileInfo{
             public int Lines;
             public int Characters;
             public int Imports;
