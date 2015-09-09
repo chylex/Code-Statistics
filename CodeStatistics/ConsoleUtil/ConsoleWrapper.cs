@@ -67,8 +67,21 @@ namespace CodeStatistics.ConsoleUtil{
             Console.Write(text);
         }
 
+        public void Write(int x, int y, string text, ConsoleColor foreground){
+            Console.SetCursorPosition(x,y);
+            Console.ForegroundColor = foreground;
+            Console.BackgroundColor = Background;
+            Console.Write(text);
+        }
+
         public void Write(string text){
             Console.ForegroundColor = Foreground;
+            Console.BackgroundColor = Background;
+            Console.Write(text);
+        }
+
+        public void Write(string text, ConsoleColor foreground){
+            Console.ForegroundColor = foreground;
             Console.BackgroundColor = Background;
             Console.Write(text);
         }
