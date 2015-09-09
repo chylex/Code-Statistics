@@ -3,24 +3,24 @@ using System.Text;
 
 namespace CodeStatistics.Input{
     struct File{
-        public string FullName;
+        public string FullPath;
         public string Ext;
 
-        public File(string FullName){
-            this.FullName = Path.GetFileName(FullName);
-            this.Ext = Path.GetExtension(FullName).Replace(".","");
+        public File(string FullPath){
+            this.FullPath = FullPath;
+            this.Ext = Path.GetExtension(FullPath).Replace(".","");
         }
 
         public string Read(){
-            return System.IO.File.ReadAllText(FullName,Encoding.UTF8).Replace("\\r","");
+            return System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace("\\r","");
         }
 
         public override bool Equals(object obj){
-            return obj is File && ((File)obj).FullName.Equals(this.FullName);
+            return obj is File && ((File)obj).FullPath.Equals(this.FullPath);
         }
 
         public override int GetHashCode(){
-            return FullName.GetHashCode();
+            return FullPath.GetHashCode();
         }
     }
 }
