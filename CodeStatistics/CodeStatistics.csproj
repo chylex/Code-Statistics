@@ -59,6 +59,7 @@
     <Compile Include="Handlers\FileHandler.cs" />
     <Compile Include="Handlers\IHandlerTab.cs" />
     <Compile Include="Handlers\Objects\AssetHandler.cs" />
+    <Compile Include="Handlers\Objects\Assets\AssetTab.cs" />
     <Compile Include="Handlers\Objects\JavaHandler.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParseUtils.cs" />
