@@ -13,7 +13,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         private List<string> ShortestFullNames = new List<string>(ListSize);
 
         public JavaNamesTab(JavaStatistics stats) : base("Names",stats){
-            IEnumerable<KeyValuePair<string,string>> convertedNames = stats.FullTypes.Select(name => GetSimpleName(name));
+            IEnumerable<KeyValuePair<string,string>> convertedNames = stats.FullTypes.Select(name => JavaParseUtils.GetSimpleName(name));
 
             LongestSimpleNames.AddRange(convertedNames.OrderByDescending(kvp => kvp.Key.Length).Take(ListSize));
             ShortestSimpleNames.AddRange(convertedNames.OrderBy(kvp => kvp.Key.Length).Take(ListSize));
@@ -25,52 +25,46 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         public override void RenderInfo(ConsoleWrapper c, int y){
             int px, py;
 
+            // Longest Simple Names
             px = c.Width/2-LongestSimpleNames.Select(kvp => kvp.Key.Length+kvp.Value.Length).Max()/2;
             c.MoveTo(px,py = y);
-            c.SetForeground(ConsoleColor.Yellow);
-            c.Write("Longest Simple Names");
+            c.Write("Longest Simple Names",ConsoleColor.Yellow);
 
             for(int index = 0; index < LongestSimpleNames.Count; index++){
                 c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.DarkGray);
-                c.Write(LongestSimpleNames[index].Value);
-                c.SetForeground(ConsoleColor.White);
-                c.Write(LongestSimpleNames[index].Key);
+                c.Write(LongestSimpleNames[index].Value,ConsoleColor.DarkGray);
+                c.Write(LongestSimpleNames[index].Key,ConsoleColor.White);
             }
 
+            // Shortest Simple Names
             px = c.Width/2-ShortestSimpleNames.Select(kvp => kvp.Key.Length+kvp.Value.Length).Max()/2;
             c.MoveTo(px,py += 3);
-            c.SetForeground(ConsoleColor.Yellow);
-            c.Write("Shortest Simple Names");
+            c.Write("Shortest Simple Names",ConsoleColor.Yellow);
 
             for(int index = 0; index < ShortestSimpleNames.Count; index++){
                 c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.DarkGray);
-                c.Write(ShortestSimpleNames[index].Value);
-                c.SetForeground(ConsoleColor.White);
-                c.Write(ShortestSimpleNames[index].Key);
+                c.Write(ShortestSimpleNames[index].Value,ConsoleColor.DarkGray);
+                c.Write(ShortestSimpleNames[index].Key,ConsoleColor.White);
             }
 
+            // Longest Full Names
             px = c.Width/2-LongestFullNames.Select(name => name.Length).Max()/2;
             c.MoveTo(px,py += 3);
-            c.SetForeground(ConsoleColor.Yellow);
-            c.Write("Longest Full Names");
+            c.Write("Longest Full Names",ConsoleColor.Yellow);
 
             for(int index = 0; index < LongestFullNames.Count; index++){
                 c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write(LongestFullNames[index]);
+                c.Write(LongestFullNames[index],ConsoleColor.White);
             }
 
+            // Shortest Full Names
             px = c.Width/2-ShortestFullNames.Select(name => name.Length).Max()/2;
             c.MoveTo(px,py += 3);
-            c.SetForeground(ConsoleColor.Yellow);
-            c.Write("Shortest Full Names");
+            c.Write("Shortest Full Names",ConsoleColor.Yellow);
 
             for(int index = 0; index < ShortestFullNames.Count; index++){
                 c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write(ShortestFullNames[index]);
+                c.Write(ShortestFullNames[index],ConsoleColor.White);
             }
         }
 
