@@ -36,6 +36,14 @@ namespace CodeStatistics.Tests{
             kvp = JavaParseUtils.GetType("public @interface MyAnnotation {");
             Assert.AreEqual(JavaType.Annotation,kvp.Key);
             Assert.AreEqual("MyAnnotation",kvp.Value);
+
+            kvp = JavaParseUtils.GetType("class.invalid");
+            Assert.AreEqual(JavaType.Invalid,kvp.Key);
+            Assert.AreEqual(null,kvp.Value);
+
+            kvp = JavaParseUtils.GetType("fail");
+            Assert.AreEqual(JavaType.Invalid,kvp.Key);
+            Assert.AreEqual(null,kvp.Value);
         }
     }
 }
