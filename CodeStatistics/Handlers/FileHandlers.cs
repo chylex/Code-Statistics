@@ -33,11 +33,14 @@ namespace CodeStatistics.Handlers{
             foreach(string ext in new string[]{
                 "zip", "rar", "tar", "gz", "tgz", "cab", "bz2", "bzip", "lz", "lzma", "arc", "pak"
             })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Archive));
+
+            handlers.Add(string.Empty,new UnknownHandler(999));
         }
 
         public static FileHandler Get(string extNoDot){
             FileHandler handler;
-            return handlers.TryGetValue(extNoDot,out handler) ? handler : null;
+            return handlers.TryGetValue(extNoDot,out handler) ? handler : handlers.TryGetValue(string.Empty,out handler) ? handler : null;
+        }
         }
     }
 }

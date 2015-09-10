@@ -69,6 +69,7 @@
     <Compile Include="Handlers\Objects\Java\Tabs\JavaFilesTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaGeneralTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaNamesTab.cs" />
+    <Compile Include="Handlers\Objects\UnknownHandler.cs" />
     <Compile Include="Handlers\ParseUtils.cs" />
     <Compile Include="Handlers\ProjectAnalyzer.cs" />
     <Compile Include="Input\File.cs" />
