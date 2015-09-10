@@ -41,6 +41,13 @@ namespace CodeStatistics.Handlers{
             FileHandler handler;
             return handlers.TryGetValue(extNoDot,out handler) ? handler : handlers.TryGetValue(string.Empty,out handler) ? handler : null;
         }
+
+        public static T GetByType<T>() where T : FileHandler{
+            foreach(FileHandler handler in handlers.Values){
+                if (handler is T)return (T)handler;
+            }
+
+            return default(T);
         }
     }
 }
