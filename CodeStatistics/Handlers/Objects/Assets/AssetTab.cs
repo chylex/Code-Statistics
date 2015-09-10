@@ -27,8 +27,7 @@ namespace CodeStatistics.Handlers.Objects.Assets{
         public void RenderInfo(ConsoleWrapper c, int y){
             c.SetForeground(ConsoleColor.White);
             c.WriteCenter(y,"Total Assets: ");
-            c.SetForeground(ConsoleColor.Gray);
-            c.Write(totalAssets.ToString());
+            c.Write(totalAssets.ToString(),ConsoleColor.Gray);
             
             const int dist = 28;
 
@@ -52,10 +51,8 @@ namespace CodeStatistics.Handlers.Objects.Assets{
 
                 AssetTypeInfo typeInfo = info[types[ind]];
 
-                c.SetForeground(ConsoleColor.Yellow);
-                c.Write(px,py,AssetHandler.TypeNames[ind]+": ");
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write(typeInfo.Total.ToString());
+                c.Write(px,py,AssetHandler.TypeNames[ind]+": ",ConsoleColor.Yellow);
+                c.Write(typeInfo.Total.ToString(),ConsoleColor.Gray);
 
                 foreach(KeyValuePair<string,int> kvp in typeInfo.ExtCount.OrderByDescending(kvp => kvp.Value)){
                     c.MoveTo(px,++py);

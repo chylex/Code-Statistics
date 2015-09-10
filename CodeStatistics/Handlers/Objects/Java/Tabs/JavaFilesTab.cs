@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
     class JavaFilesTab : JavaTab{
-        const int fileCount = 3;
+        const int fileCount = 10;
 
         private readonly List<KeyValuePair<string,int>> mostLines = new List<KeyValuePair<string,int>>(fileCount);
         private readonly List<KeyValuePair<string,int>> leastLines = new List<KeyValuePair<string,int>>(fileCount);
@@ -50,14 +50,14 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(px,++py,"Average: ",ConsoleColor.White);
             c.Write(averageLines.ToString(),ConsoleColor.Gray);
             
-            c.Write(px,py += 2,"Most Lines",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Most Lines",ConsoleColor.Yellow);
 
-            foreach(KeyValuePair<string,int> kvp in mostLines){
+            foreach(KeyValuePair<string,int> kvp in mostLines){ // TODO pad
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
                 c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
             }
             
-            c.Write(px,py += 2,"Least Lines",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Least Lines",ConsoleColor.Yellow);
 
             foreach(KeyValuePair<string,int> kvp in leastLines){
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
@@ -73,14 +73,14 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(px,++py,"Average: ",ConsoleColor.White);
             c.Write(averageCharacters.ToString(),ConsoleColor.Gray);
             
-            c.Write(px,py += 2,"Most Characters",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Most Characters",ConsoleColor.Yellow);
 
             foreach(KeyValuePair<string,long> kvp in mostCharacters){
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
                 c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
             }
             
-            c.Write(px,py += 2,"Least Characters",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Least Characters",ConsoleColor.Yellow);
 
             foreach(KeyValuePair<string,long> kvp in leastCharacters){
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
@@ -96,14 +96,14 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(px,++py,"Average: ",ConsoleColor.White);
             c.Write(averageImports.ToString(),ConsoleColor.Gray);
             
-            c.Write(px,py += 2,"Most Imports",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Most Imports",ConsoleColor.Yellow);
 
             foreach(KeyValuePair<string,int> kvp in mostImports){
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
                 c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
             }
             
-            c.Write(px,py += 2,"Least Imports",ConsoleColor.Yellow);
+            c.Write(px,py += 3,"Least Imports",ConsoleColor.Yellow);
 
             foreach(KeyValuePair<string,int> kvp in leastImports){
                 c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
