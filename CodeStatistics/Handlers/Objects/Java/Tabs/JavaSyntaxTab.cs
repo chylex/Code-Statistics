@@ -37,7 +37,10 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             }
 
             foreach(JavaModifiers.Finality finality in Enum.GetValues(typeof(JavaModifiers.Finality))){
-                fieldFinality[finality] = new KeyValuePair<int,decimal>(stats.FieldFinality[finality],Math.Round(100*(decimal)stats.FieldFinality[finality]/stats.FieldFinality.Values.Sum()));
+                if (finality != JavaModifiers.Finality.Abstract){
+                    fieldFinality[finality] = new KeyValuePair<int,decimal>(stats.FieldFinality[finality],Math.Round(100*(decimal)stats.FieldFinality[finality]/stats.FieldFinality.Values.Sum()));
+                }
+
                 methodFinality[finality] = new KeyValuePair<int,decimal>(stats.MethodFinality[finality],Math.Round(100*(decimal)stats.MethodFinality[finality]/stats.MethodFinality.Values.Sum()));
             }
         }
