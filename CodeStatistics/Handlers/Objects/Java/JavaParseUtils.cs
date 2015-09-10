@@ -5,12 +5,13 @@ using System.Text.RegularExpressions;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParseUtils{
-        public static readonly Regex commentOneLine = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline); // use for the whole string
-        public static readonly Regex commentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
-        public static readonly Regex strings = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal
+        public static readonly Regex CommentOneLine = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline); // use for the whole string
+        public static readonly Regex CommentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
+        public static readonly Regex Strings = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal
+        public static readonly Regex Arrays = new Regex(@"\[.*?\]",RegexOptions.Compiled);
         
-        public static readonly string[] typeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
-        public static readonly string[] modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };
+        public static readonly string[] TypeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
+        public static readonly string[] Modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };
 
         /// <summary>
         /// Checks whether the identifier consists of letters, numbers, $ and _.
@@ -39,8 +40,8 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static string StripModifiers(string line, out string[] found){
             List<string> foundModifiers = new List<string>();
 
-            for(int modifierInd = 0, index; modifierInd < modifiers.Length; modifierInd++){
-                string modifier = modifiers[modifierInd];
+            for(int modifierInd = 0, index; modifierInd < Modifiers.Length; modifierInd++){
+                string modifier = Modifiers[modifierInd];
 
                 if ((index = line.IndexOf(modifier)) != -1){
                     foundModifiers.Add(modifier);
@@ -59,7 +60,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static KeyValuePair<JavaType,string> GetType(string line){
             line = StripModifiers(line.RemoveFrom(" extends").RemoveFrom(" implements").ExtractEnd("{")).TrimStart();
 
-            string type = typeIdentifiersSpace.FirstOrDefault(identifier => line.StartsWith(identifier));
+            string type = TypeIdentifiersSpace.FirstOrDefault(identifier => line.StartsWith(identifier));
 
             if (type != null && IsJavaIdentifier(line = line.Substring(type.Length).Trim())){
                 JavaType javaType = type.Equals("class ") ? JavaType.Class :

@@ -5,7 +5,7 @@ using System.Linq;
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
         public static void Parse(string fileContents, JavaStatistics stats){
-            string fileParsed = JavaParseUtils.strings.Replace(JavaParseUtils.commentMultiLine.Replace(JavaParseUtils.commentOneLine.Replace(fileContents,""),""),"");
+            string fileParsed = JavaParseUtils.Strings.Replace(JavaParseUtils.CommentMultiLine.Replace(JavaParseUtils.CommentOneLine.Replace(fileContents,""),""),"");
             
             string[] linesPlain = fileContents.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); // lines are always \n
             string[] linesParsed = fileParsed.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); //  ^
@@ -23,7 +23,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             stats.Packages.Add(_package);
 
             // Current type
-            string typeLine = linesParsed.FirstOrDefault(line => JavaParseUtils.typeIdentifiersSpace.Any(identifier => line.Contains(identifier) && JavaParseUtils.GetType(line).Key != JavaType.Invalid));
+            string typeLine = linesParsed.FirstOrDefault(line => JavaParseUtils.TypeIdentifiersSpace.Any(identifier => line.Contains(identifier) && JavaParseUtils.GetType(line).Key != JavaType.Invalid));
             if (typeLine == null)return; // should not happen either, but we know the drill...
 
             KeyValuePair<JavaType,string> typeData = JavaParseUtils.GetType(typeLine);
@@ -67,7 +67,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             stats.ImportsTotal += _info.Imports;
 
             // Nested types
-            foreach(KeyValuePair<JavaType,string> kvp in linesParsed.Where(line => JavaParseUtils.typeIdentifiersSpace.Any(identifier => line.Contains(identifier)) && !line.Equals(typeLine)).Select(line => JavaParseUtils.GetType(line)).Where(kvp => kvp.Key != JavaType.Invalid)){
+            foreach(KeyValuePair<JavaType,string> kvp in linesParsed.Where(line => JavaParseUtils.TypeIdentifiersSpace.Any(identifier => line.Contains(identifier)) && !line.Equals(typeLine)).Select(line => JavaParseUtils.GetType(line)).Where(kvp => kvp.Key != JavaType.Invalid)){
                 ++stats.TypeCounts[kvp.Key];
                 // TODO go through nested types and add them to type list
             }

@@ -1,8 +1,5 @@
 ﻿using CodeStatistics.ConsoleUtil;
 using CodeStatistics.Handlers.Objects.Java.Tabs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     abstract class JavaTab : IHandlerTab{
@@ -10,7 +7,8 @@ namespace CodeStatistics.Handlers.Objects.Java{
             return new JavaTab[]{
                 new JavaGeneralTab(stats),
                 new JavaNamesTab(stats),
-                new JavaFilesTab(stats)
+                new JavaFilesTab(stats),
+                new JavaPrimitivesTab(stats)
             };
         }
 

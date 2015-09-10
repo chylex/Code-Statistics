@@ -8,16 +8,16 @@ namespace CodeStatistics.Tests{
     public class JavaParserTests{
         [TestMethod]
         public void TestRegex(){
-            Assert.AreEqual(@"test string  and then ",JavaParseUtils.strings.Replace(@"test string ""remove this"" and then 'this'",""));
-            Assert.AreEqual(@"...",JavaParseUtils.strings.Replace(@"""remove"".""all"".""of"".""these""",""));
-            Assert.AreEqual("a\nb",JavaParseUtils.strings.Replace("a\"remove\"\nb\"multiline\"",""));
-            Assert.AreEqual(@"do not change ""this fake' string",JavaParseUtils.strings.Replace(@"do not change ""this fake' string",""));
+            Assert.AreEqual(@"test string  and then ",JavaParseUtils.Strings.Replace(@"test string ""remove this"" and then 'this'",""));
+            Assert.AreEqual(@"...",JavaParseUtils.Strings.Replace(@"""remove"".""all"".""of"".""these""",""));
+            Assert.AreEqual("a\nb",JavaParseUtils.Strings.Replace("a\"remove\"\nb\"multiline\"",""));
+            Assert.AreEqual(@"do not change ""this fake' string",JavaParseUtils.Strings.Replace(@"do not change ""this fake' string",""));
 
-            Assert.AreEqual("this is not a comment",JavaParseUtils.commentOneLine.Replace("this is not a comment// and this is",""));
-            Assert.AreEqual("line one \nline two ",JavaParseUtils.commentOneLine.Replace("line one // comment\nline two // comment",""));
+            Assert.AreEqual("this is not a comment",JavaParseUtils.CommentOneLine.Replace("this is not a comment// and this is",""));
+            Assert.AreEqual("line one \nline two ",JavaParseUtils.CommentOneLine.Replace("line one // comment\nline two // comment",""));
 
-            Assert.AreEqual("hello ",JavaParseUtils.commentMultiLine.Replace("hello /* world */",""));
-            Assert.AreEqual("hello--world",JavaParseUtils.commentMultiLine.Replace("hello-/*\nline 1\nline 2*/-world",""));
+            Assert.AreEqual("hello ",JavaParseUtils.CommentMultiLine.Replace("hello /* world */",""));
+            Assert.AreEqual("hello--world",JavaParseUtils.CommentMultiLine.Replace("hello-/*\nline 1\nline 2*/-world",""));
         }
 
         [TestMethod]
