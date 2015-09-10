@@ -53,6 +53,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Triple.cs" />
     <Compile Include="ConsoleUtil\ConsoleWrapper.cs" />
     <Compile Include="ConsoleUtil\ConsoleTabs.cs" />
     <Compile Include="Handlers\FileHandlers.cs" />
