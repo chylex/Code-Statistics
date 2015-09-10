@@ -7,6 +7,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             return new JavaTab[]{
                 new JavaGeneralTab(stats),
                 new JavaNamesTab(stats),
+                new JavaSyntaxTab(stats),
                 new JavaFilesTab(stats),
                 new JavaPrimitivesTab(stats)
             };
