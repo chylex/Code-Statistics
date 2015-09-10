@@ -67,6 +67,10 @@ namespace CodeStatistics.Handlers.Objects.Java{
             stats.ImportsTotal += _info.Imports;
 
             // Nested types
+            foreach(KeyValuePair<JavaType,string> kvp in linesParsed.Where(line => JavaParseUtils.typeIdentifiersSpace.Any(identifier => line.Contains(identifier)) && !line.Equals(typeLine)).Select(line => JavaParseUtils.GetType(line)).Where(kvp => kvp.Key != JavaType.Invalid)){
+                ++stats.TypeCounts[kvp.Key];
+                // TODO go through nested types and add them to type list
+            }
         }
     }
 }
