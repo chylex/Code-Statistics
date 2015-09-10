@@ -44,12 +44,9 @@ namespace CodeStatistics.ConsoleUtil{
 
         private void RenderTab(int x, int index){
             console.MoveTo(x,y);
-            console.ResetForeground();
-            console.Write("[");
-            console.SetForeground(selectedIndex == index ? ConsoleColor.Yellow : ConsoleColor.Gray);
-            console.Write(tabs[index].Title);
-            console.ResetForeground();
-            console.Write("]");
+            console.Write("[",selectedIndex == index ? ConsoleColor.White : ConsoleColor.Gray);
+            console.Write(tabs[index].Title,selectedIndex == index ? ConsoleColor.Yellow : ConsoleColor.Gray);
+            console.Write("]",selectedIndex == index ? ConsoleColor.White : ConsoleColor.Gray);
         }
 
         public T HandleInput(){
