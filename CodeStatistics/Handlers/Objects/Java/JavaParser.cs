@@ -6,10 +6,10 @@ using System.Collections.Generic;
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
         public static void Parse(string fileContents, JavaStatistics stats){
-            string fileParsed = JavaParseUtils.commentMultiLine.Replace(JavaParseUtils.commentOneLine.Replace(fileContents,""),"");
+            string fileParsed = JavaParseUtils.strings.Replace(JavaParseUtils.commentMultiLine.Replace(JavaParseUtils.commentOneLine.Replace(fileContents,""),""),"");
             
             string[] linesPlain = fileContents.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); // lines are always \n
-            string[] linesParsed = fileParsed.Split('\n').Select(line => JavaParseUtils.stringsLine.Replace(line.TrimEnd(),"")).Where(line => line.Length > 0).ToArray(); //  ^
+            string[] linesParsed = fileParsed.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); //  ^
 
             // Final variables
             JavaStatistics.JavaFileInfo _info;

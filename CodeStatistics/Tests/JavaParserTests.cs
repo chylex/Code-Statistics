@@ -7,9 +7,10 @@ namespace CodeStatistics.Tests{
     public class JavaParserTests{
         [TestMethod]
         public void TestRegex(){
-            Assert.AreEqual(@"test string  and then ",JavaParseUtils.stringsLine.Replace(@"test string ""remove this"" and then 'this'",""));
-            Assert.AreEqual(@"...",JavaParseUtils.stringsLine.Replace(@"""remove"".""all"".""of"".""these""",""));
-            Assert.AreEqual(@"do not change ""this fake' string",JavaParseUtils.stringsLine.Replace(@"do not change ""this fake' string",""));
+            Assert.AreEqual(@"test string  and then ",JavaParseUtils.strings.Replace(@"test string ""remove this"" and then 'this'",""));
+            Assert.AreEqual(@"...",JavaParseUtils.strings.Replace(@"""remove"".""all"".""of"".""these""",""));
+            Assert.AreEqual("a\nb",JavaParseUtils.strings.Replace("a\"remove\"\nb\"multiline\"",""));
+            Assert.AreEqual(@"do not change ""this fake' string",JavaParseUtils.strings.Replace(@"do not change ""this fake' string",""));
 
             Assert.AreEqual("this is not a comment",JavaParseUtils.commentOneLine.Replace("this is not a comment// and this is",""));
             Assert.AreEqual("line one \nline two ",JavaParseUtils.commentOneLine.Replace("line one // comment\nline two // comment",""));
