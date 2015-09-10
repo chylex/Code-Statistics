@@ -51,17 +51,6 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write("Unknown: ",ConsoleColor.White);
             c.Write(unknownFiles.ToString(),ConsoleColor.Gray);
 
-            // Lines & Characters
-            px = c.Width/2-("Total Characters: ".Length+stats.CharactersTotal.ToString().Length)-5;
-
-            c.MoveTo(px,py += 3);
-            c.Write("Total Lines: ",ConsoleColor.Yellow);
-            c.Write(stats.LinesTotal.ToString(),ConsoleColor.Gray);
-
-            c.MoveTo(px,++py);
-            c.Write("Total Characters: ",ConsoleColor.Yellow);
-            c.Write(stats.CharactersTotal.ToString(),ConsoleColor.Gray);
-
             // Packages & Types
             px = c.Width/2+5;
 
@@ -91,6 +80,17 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write("Annotations: ",ConsoleColor.White);
             c.SetForeground(ConsoleColor.Gray);
             c.Write("{0} in {1} file{2}",totalAnnotations,annotationFiles,annotationFiles == 1 ? "" : "s");
+
+            // Lines & Characters
+            px = c.Width/2-("Total Characters: ".Length+stats.CharactersTotal.ToString().Length)/2;
+
+            c.MoveTo(px,py += 3);
+            c.Write("Total Lines: ",ConsoleColor.Yellow);
+            c.Write(stats.LinesTotal.ToString(),ConsoleColor.Gray);
+
+            c.MoveTo(px,++py);
+            c.Write("Total Characters: ",ConsoleColor.Yellow);
+            c.Write(stats.CharactersTotal.ToString(),ConsoleColor.Gray);
         }
     }
 }

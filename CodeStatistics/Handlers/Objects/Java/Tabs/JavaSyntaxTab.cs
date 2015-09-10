@@ -21,7 +21,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         public JavaSyntaxTab(JavaStatistics stats) : base("Syntax",stats){
             totalCycles = stats.SyntaxFor+stats.SyntaxForEach+stats.SyntaxWhile+stats.SyntaxDoWhile;
             dataCycles.Add(new Triple<string,int,decimal>("for",stats.SyntaxFor,Math.Round(100*(decimal)stats.SyntaxFor/totalCycles)));
-            dataCycles.Add(new Triple<string,int,decimal>("enhanced for",stats.SyntaxForEach,Math.Round(100*(decimal)stats.SyntaxForEach/totalCycles)));
+            dataCycles.Add(new Triple<string,int,decimal>("enh for",stats.SyntaxForEach,Math.Round(100*(decimal)stats.SyntaxForEach/totalCycles)));
             dataCycles.Add(new Triple<string,int,decimal>("while",stats.SyntaxWhile,Math.Round(100*(decimal)stats.SyntaxWhile/totalCycles)));
             dataCycles.Add(new Triple<string,int,decimal>("do while",stats.SyntaxDoWhile,Math.Round(100*(decimal)stats.SyntaxDoWhile/totalCycles)));
             cycleWidth = Math.Max(6+dataCycles.Max(kvp => kvp.First.Length+kvp.Second.ToString().Length+kvp.Third.ToString().Length),"Total Cycles: ".Length+totalCycles.ToString().Length);
@@ -137,13 +137,12 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
 
             // Misc
             int width = Math.Max("Total Switch Blocks: ".Length+stats.SyntaxSwitches.ToString().Length,"Total Try Blocks: ".Length+stats.SyntaxTry.ToString().Length);
-            px = c.Width/2-width/2;
 
-            c.MoveTo(px,py = y+19);
+            c.MoveTo(px,py = py+2);
             c.Write("Total Switch Blocks: ",ConsoleColor.Yellow);
             c.Write(stats.SyntaxSwitches.ToString(),ConsoleColor.Gray);
 
-            c.MoveTo(px,py = y+21);
+            c.MoveTo(px,py = py+2);
             c.Write("Total Try Blocks: ",ConsoleColor.Yellow);
             c.Write(stats.SyntaxTry.ToString(),ConsoleColor.Gray);
         }
