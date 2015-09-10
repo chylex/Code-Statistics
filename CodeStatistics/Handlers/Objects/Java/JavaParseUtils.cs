@@ -12,6 +12,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
         
         public static readonly string[] TypeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
         public static readonly string[] Modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };
+        private static readonly string[] ModifiersSpace = Modifiers.Select(modifier => modifier+" ").ToArray();
 
         /// <summary>
         /// Checks whether the identifier consists of letters, numbers, $ and _.
@@ -41,9 +42,8 @@ namespace CodeStatistics.Handlers.Objects.Java{
             List<string> foundModifiers = new List<string>();
 
             for(int modifierInd = 0, index; modifierInd < Modifiers.Length; modifierInd++){
-                string modifier = Modifiers[modifierInd];
-
-                if ((index = line.IndexOf(modifier)) != -1){
+                if ((index = line.IndexOf(ModifiersSpace[modifierInd])) != -1){
+                    string modifier = Modifiers[modifierInd];
                     foundModifiers.Add(modifier);
                     line = line.Remove(index,modifier.Length+1); // remove space
                 }

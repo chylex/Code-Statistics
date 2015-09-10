@@ -25,7 +25,7 @@ namespace CodeStatistics.Handlers.Objects.Assets{
         }
 
         public void RenderInfo(ConsoleWrapper c, int y){
-            c.SetForeground(ConsoleColor.White);
+            c.SetForeground(ConsoleColor.Yellow);
             c.WriteCenter(y,"Total Assets: ");
             c.Write(totalAssets.ToString(),ConsoleColor.Gray);
             
