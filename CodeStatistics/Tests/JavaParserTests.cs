@@ -6,6 +6,19 @@ namespace CodeStatistics.Tests{
     [TestClass]
     public class JavaParserTests{
         [TestMethod]
+        public void TestRegex(){
+            Assert.AreEqual(@"test string  and then ",JavaParseUtils.stringsLine.Replace(@"test string ""remove this"" and then 'this'",""));
+            Assert.AreEqual(@"...",JavaParseUtils.stringsLine.Replace(@"""remove"".""all"".""of"".""these""",""));
+            Assert.AreEqual(@"do not change ""this fake' string",JavaParseUtils.stringsLine.Replace(@"do not change ""this fake' string",""));
+
+            Assert.AreEqual("this is not a comment",JavaParseUtils.commentOneLine.Replace("this is not a comment// and this is",""));
+            Assert.AreEqual("line one \nline two ",JavaParseUtils.commentOneLine.Replace("line one // comment\nline two // comment",""));
+
+            Assert.AreEqual("hello ",JavaParseUtils.commentMultiLine.Replace("hello /* world */",""));
+            Assert.AreEqual("hello--world",JavaParseUtils.commentMultiLine.Replace("hello-/*\nline 1\nline 2*/-world",""));
+        }
+
+        [TestMethod]
         public void TestJavaIdentifiers(){
             Assert.IsTrue(JavaParseUtils.IsJavaIdentifier("ClassName"),"ClassName is supposed to be valid");
             Assert.IsTrue(JavaParseUtils.IsJavaIdentifier("ClassName123"),"ClassName123 is supposed to be valid");
