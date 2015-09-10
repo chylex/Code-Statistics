@@ -54,6 +54,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
         /// <summary>
         /// Finds the java type and its name in the line. If the found text is not a valid java identifier, a KeyValuePair with JavaType.Invalid is returned.
+        /// Does not handle cases where the declaration is not at the beginning of the line, but it should not really be necessary anyways.
         /// </summary>
         public static KeyValuePair<JavaType,string> GetType(string line){
             line = StripModifiers(line.RemoveFrom(" extends").RemoveFrom(" implements").ExtractEnd("{")).TrimStart();

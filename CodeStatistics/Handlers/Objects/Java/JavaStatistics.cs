@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CodeStatistics.Handlers.Objects.Java{
     class JavaStatistics{
         public HashSet<string> Packages = new HashSet<string>();
-        public HashSet<string> SimpleTypes = new HashSet<string>();
+        public HashSet<string> SimpleTypes = new HashSet<string>(); // TODO maybe useless?
         public HashSet<string> FullTypes = new HashSet<string>();
 
         public Dictionary<JavaType,short> TypeFileCounts = new Dictionary<JavaType,short>(){
