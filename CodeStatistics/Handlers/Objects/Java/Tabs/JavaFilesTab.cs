@@ -39,7 +39,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         }
 
         public override void RenderInfo(ConsoleWrapper c, int y){
-            int px, py;
+            int px, py, maxWidth;
 
             // Lines
             px = 4;
@@ -51,21 +51,21 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(averageLines.ToString(),ConsoleColor.Gray);
             
             c.Write(px,py += 3,"Most Lines",ConsoleColor.Yellow);
+            maxWidth = 2+mostLines.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
-            foreach(KeyValuePair<string,int> kvp in mostLines){ // TODO pad
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+            foreach(KeyValuePair<string,int> kvp in mostLines){
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
             
             c.Write(px,py += 3,"Least Lines",ConsoleColor.Yellow);
+            maxWidth = 2+leastLines.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
             foreach(KeyValuePair<string,int> kvp in leastLines){
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
 
             // Characters
-            px = c.Width/2-(3+Math.Max(mostCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length),leastCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length)))/2;
+            px = c.Width/2-(2+Math.Max(mostCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length),leastCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length)))/2;
             py = y;
             c.Write(px,py,"Characters",ConsoleColor.Yellow);
             c.Write(px,++py,"Total: ",ConsoleColor.White);
@@ -74,21 +74,21 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(averageCharacters.ToString(),ConsoleColor.Gray);
             
             c.Write(px,py += 3,"Most Characters",ConsoleColor.Yellow);
+            maxWidth = 2+mostCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
             foreach(KeyValuePair<string,long> kvp in mostCharacters){
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
             
             c.Write(px,py += 3,"Least Characters",ConsoleColor.Yellow);
+            maxWidth = 2+leastCharacters.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
             foreach(KeyValuePair<string,long> kvp in leastCharacters){
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
 
             // Imports
-            px = c.Width-4-(3+Math.Max(mostImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length),leastImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length)));
+            px = c.Width-4-(2+Math.Max(mostImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length),leastImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length)));
             py = y;
             c.Write(px,py,"Imports",ConsoleColor.Yellow);
             c.Write(px,++py,"Total: ",ConsoleColor.White);
@@ -97,18 +97,30 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(averageImports.ToString(),ConsoleColor.Gray);
             
             c.Write(px,py += 3,"Most Imports",ConsoleColor.Yellow);
+            maxWidth = 2+mostImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
             foreach(KeyValuePair<string,int> kvp in mostImports){
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
             
             c.Write(px,py += 3,"Least Imports",ConsoleColor.Yellow);
+            maxWidth = 2+leastImports.Max(kvp => kvp.Key.Length+kvp.Value.ToString().Length);
 
             foreach(KeyValuePair<string,int> kvp in leastImports){
-                c.Write(px,++py,kvp.Key+" - ",ConsoleColor.White);
-                c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+                RenderKVP(c,px,++py,maxWidth,kvp);
             }
+        }
+
+        private void RenderKVP(ConsoleWrapper c, int x, int y, int maxWidth, KeyValuePair<string,int> kvp){
+            c.Write(x,y,kvp.Key,ConsoleColor.White);
+            c.Write(new string('.',maxWidth-kvp.Key.Length-kvp.Value.ToString().Length),ConsoleColor.DarkYellow);
+            c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
+        }
+
+        private void RenderKVP(ConsoleWrapper c, int x, int y, int maxWidth, KeyValuePair<string,long> kvp){
+            c.Write(x,y,kvp.Key,ConsoleColor.White);
+            c.Write(new string('.',maxWidth-kvp.Key.Length-kvp.Value.ToString().Length),ConsoleColor.DarkYellow);
+            c.Write(kvp.Value.ToString(),ConsoleColor.Gray);
         }
     }
 }
