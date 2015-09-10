@@ -12,7 +12,7 @@ namespace CodeStatistics.Handlers.Objects.Assets{
         private readonly Dictionary<AssetHandler.Type,AssetTypeInfo> info = new Dictionary<AssetHandler.Type,AssetTypeInfo>();
 
         public AssetTab(AssetHandler handler){
-            totalAssets = handler.GetAssetCount();
+            totalAssets = handler.GetAssetFileCount();
 
             foreach(AssetHandler.Type type in types){
                 List<string> exts = handler.GetAssetExtensions(type);

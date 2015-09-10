@@ -33,7 +33,7 @@ namespace CodeStatistics.Handlers.Objects{
             return types[type];
         }
 
-        public int GetAssetCount(){
+        public int GetAssetFileCount(){
             return count.Values.Sum();
         }
 
