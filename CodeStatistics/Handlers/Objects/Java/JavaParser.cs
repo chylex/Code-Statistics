@@ -10,7 +10,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             string[] linesPlain = fileContents.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); // lines are always \n
             string[] linesParsed = fileParsed.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); //  ^
 
-            // Final variables
+            // Final Variables
             JavaStatistics.JavaFileInfo _info;
             string _package = null;
             JavaType _currentType = JavaType.Invalid;
@@ -22,7 +22,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
             stats.Packages.Add(_package);
 
-            // Current type
+            // Current Type
             string typeLine = linesParsed.FirstOrDefault(line => JavaParseUtils.TypeIdentifiersSpace.Any(identifier => line.Contains(identifier) && JavaParseUtils.GetType(line).Key != JavaType.Invalid));
             if (typeLine == null)return; // should not happen either, but we know the drill...
 
@@ -66,7 +66,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
             stats.ImportsTotal += _info.Imports;
 
-            // Nested types
+            // Nested Types
             foreach(KeyValuePair<JavaType,string> kvp in linesParsed.Where(line => JavaParseUtils.TypeIdentifiersSpace.Any(identifier => line.Contains(identifier)) && !line.Equals(typeLine)).Select(line => JavaParseUtils.GetType(line)).Where(kvp => kvp.Key != JavaType.Invalid)){
                 ++stats.TypeCounts[kvp.Key];
                 // TODO go through nested types and add them to type list
