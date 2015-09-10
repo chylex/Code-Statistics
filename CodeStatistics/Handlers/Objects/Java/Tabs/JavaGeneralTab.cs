@@ -4,9 +4,7 @@ using System;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
     class JavaGeneralTab : JavaTab{
-        private int totalFiles, javaFiles, assetFiles, unknownFiles, totalLines, totalPackages;
-        private long totalCharacters;
-
+        private int totalFiles, javaFiles, assetFiles, unknownFiles, totalPackages;
         private int totalClasses, classFiles, totalInterfaces, interfaceFiles, totalEnums, enumFiles, totalAnnotations, annotationFiles;
 
         public JavaGeneralTab(JavaStatistics stats) : base("General",stats){
@@ -19,9 +17,6 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             if (unknown != null)unknownFiles = unknown.GetUnknownFileCount();
 
             totalFiles = javaFiles+assetFiles+unknownFiles;
-
-            totalLines = stats.LinesTotal;
-            totalCharacters = stats.CharactersTotal;
 
             totalPackages = stats.Packages.Count;
             totalClasses = stats.TypeCounts[JavaType.Class];
@@ -57,15 +52,15 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.Write(unknownFiles.ToString(),ConsoleColor.Gray);
 
             // Lines & Characters
-            px = c.Width/2-("Total Characters: ".Length+totalCharacters.ToString().Length)-5;
+            px = c.Width/2-("Total Characters: ".Length+stats.CharactersTotal.ToString().Length)-5;
 
             c.MoveTo(px,py += 3);
             c.Write("Total Lines: ",ConsoleColor.Yellow);
-            c.Write(totalFiles.ToString(),ConsoleColor.Gray);
+            c.Write(stats.LinesTotal.ToString(),ConsoleColor.Gray);
 
             c.MoveTo(px,++py);
             c.Write("Total Characters: ",ConsoleColor.Yellow);
-            c.Write(totalCharacters.ToString(),ConsoleColor.Gray);
+            c.Write(stats.CharactersTotal.ToString(),ConsoleColor.Gray);
 
             // Packages & Types
             px = c.Width/2+5;
