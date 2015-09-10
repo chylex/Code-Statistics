@@ -9,6 +9,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static readonly Regex CommentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
         public static readonly Regex Strings = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal
         public static readonly Regex Arrays = new Regex(@"\[.*?\]",RegexOptions.Compiled);
+        public static readonly Regex Syntax = new Regex(@"\b(switch|try|for|while|do)\b",RegexOptions.Compiled);
         
         public static readonly string[] TypeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
         public static readonly string[] Modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };

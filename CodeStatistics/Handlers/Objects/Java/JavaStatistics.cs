@@ -21,6 +21,13 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
         public Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
 
+        public int SyntaxFor = 0;
+        public int SyntaxForEach = 0;
+        public int SyntaxWhile = 0;
+        public int SyntaxDoWhile = 0;
+        public int SyntaxSwitches = 0;
+        public int SyntaxTry = 0;
+
         public Dictionary<string,JavaFileInfo> FileInfo = new Dictionary<string,JavaFileInfo>();
 
         public JavaStatistics(){

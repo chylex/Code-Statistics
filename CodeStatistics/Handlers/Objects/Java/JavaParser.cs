@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Handlers.Objects.Java.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
@@ -76,6 +77,30 @@ namespace CodeStatistics.Handlers.Objects.Java{
             foreach(IEnumerable<JavaPrimitives> types in linesParsed.Select(line => JavaParseUtils.CountPrimitives(line.TrimStart()))){
                 foreach(JavaPrimitives type in types)++stats.PrimitiveCounts[type];
             }
+
+            // Cycles, Switches & Try Blocks
+            int foundDo = 0, foundWhile = 0;
+
+            foreach(string line in linesParsed){
+                foreach(Match match in JavaParseUtils.Syntax.Matches(line)){
+                    string element = match.Groups[1].Value;
+
+                    switch(element){
+                        case "switch": ++stats.SyntaxSwitches; break;
+                        case "try": ++stats.SyntaxTry; break;
+                        case "while": ++foundWhile; break;
+                        case "do": ++foundDo; break;
+                        case "for":
+                            if (line.IndexOf(':',match.Groups[1].Index+4) != -1)++stats.SyntaxForEach;
+                            else ++stats.SyntaxFor;
+
+                            break;
+                    }
+                }
+            }
+
+            stats.SyntaxDoWhile = foundDo;
+            stats.SyntaxWhile = foundWhile-foundDo;
         }
     }
 }
