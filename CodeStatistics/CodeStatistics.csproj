@@ -78,6 +78,7 @@
     <Compile Include="Input\FileSearch.cs" />
     <Compile Include="Input\Methods\MultiFolderDialog.cs" />
     <Compile Include="Input\IProjectInputMethod.cs" />
+    <Compile Include="Input\Methods\OpenWebsite.cs" />
     <Compile Include="Input\Methods\QuitProgram.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

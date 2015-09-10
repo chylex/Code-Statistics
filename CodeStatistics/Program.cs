@@ -27,8 +27,7 @@ namespace CodeStatistics{
 
             ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(centerY,true);
             inputTabs.AddTab("Folder",new MultiFolderDialog());
-            inputTabs.AddTab("GitHub",new MultiFolderDialog());
-            inputTabs.AddTab("Magic",new MultiFolderDialog());
+            inputTabs.AddTab("View Source",new OpenWebsite("https://github.com/chylex/Code-Statistics"));
             inputTabs.AddTab("Quit",new QuitProgram());
 
             inputTabs.Select += inputMethod => true; // breaks out
