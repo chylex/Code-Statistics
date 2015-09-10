@@ -19,6 +19,16 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public long CharactersTotal = 0;
         public int ImportsTotal = 0;
 
+        public int FieldsTotal = 0;
+        public Dictionary<JavaModifiers.Visibility,int> FieldVisibility = new Dictionary<JavaModifiers.Visibility,int>();
+        public Dictionary<JavaModifiers.Scope,int> FieldScope = new Dictionary<JavaModifiers.Scope,int>();
+        public Dictionary<JavaModifiers.Finality,int> FieldFinality = new Dictionary<JavaModifiers.Finality,int>();
+
+        public int MethodsTotal = 0;
+        public Dictionary<JavaModifiers.Visibility,int> MethodVisibility = new Dictionary<JavaModifiers.Visibility,int>();
+        public Dictionary<JavaModifiers.Scope,int> MethodScope = new Dictionary<JavaModifiers.Scope,int>();
+        public Dictionary<JavaModifiers.Finality,int> MethodFinality = new Dictionary<JavaModifiers.Finality,int>();
+
         public Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
 
         public int SyntaxFor = 0;
