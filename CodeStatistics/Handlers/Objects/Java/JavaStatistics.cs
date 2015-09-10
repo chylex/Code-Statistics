@@ -36,8 +36,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
         public JavaFileInfo CreateFileInfo(string fullFileType){
             JavaFileInfo info = new JavaFileInfo();
-            FileInfo.Add(fullFileType,info);
-            return info;
+            return FileInfo[fullFileType] = info;
         }
 
         public class JavaFileInfo{

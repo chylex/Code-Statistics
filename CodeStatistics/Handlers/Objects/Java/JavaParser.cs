@@ -95,6 +95,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
                             else ++stats.SyntaxFor;
 
                             break;
+                        default: throw new System.NotSupportedException("Invalid match group in Java syntax element detection: "+element);
                     }
                 }
             }
