@@ -21,9 +21,11 @@ namespace CodeStatistics{
 
             // Project input method
             console.SetForeground(ConsoleColor.White);
-            console.WriteCenter(centerY-1,"Choose your project selection method:");
+            console.WriteCenter(centerY-2,"Choose your action or project selection method:");
+            console.SetForeground(ConsoleColor.Gray);
+            console.WriteCenter(centerY+2,"j");
 
-            ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(centerY+1,true);
+            ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(centerY,true);
             inputTabs.AddTab("Folder",new MultiFolderDialog());
             inputTabs.AddTab("GitHub",new MultiFolderDialog());
             inputTabs.AddTab("Magic",new MultiFolderDialog());
@@ -31,13 +33,22 @@ namespace CodeStatistics{
 
             inputTabs.Select += inputMethod => true; // breaks out
             inputTabs.Render();
-            IProjectInputMethod selectedInputMethod = inputTabs.HandleInput();
+
+            IProjectInputMethod selectedInputMethod;
+            string[] rootFiles;
+            
+            while(true){
+                selectedInputMethod = inputTabs.HandleInput();
+                rootFiles = selectedInputMethod.Run(new string[0]);
+
+                if (rootFiles == null)continue;
+                else break;
+            }
 
             // File search
-            string[] files = selectedInputMethod.Run(new string[0]);
-            if (files.Length == 0)return;
+            if (rootFiles.Length == 0)return;
 
-            FileSearch search = new FileSearch(files);
+            FileSearch search = new FileSearch(rootFiles);
 
             console.Clear();
             console.SetForeground(ConsoleColor.White);
