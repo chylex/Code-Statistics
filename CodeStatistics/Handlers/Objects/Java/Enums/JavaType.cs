@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeStatistics.Handlers.Objects.Java{
+namespace CodeStatistics.Handlers.Objects.Java.Enums{
     enum JavaType{
         Invalid,
         Class,

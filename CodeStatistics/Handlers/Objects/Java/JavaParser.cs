@@ -1,7 +1,6 @@
-﻿using CodeStatistics.Input;
-using System.Text.RegularExpressions;
-using System.Linq;
+﻿using CodeStatistics.Handlers.Objects.Java.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{

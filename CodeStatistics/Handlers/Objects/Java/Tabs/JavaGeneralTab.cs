@@ -1,4 +1,6 @@
 ﻿using CodeStatistics.ConsoleUtil;
+using CodeStatistics.Handlers.Objects.Java.Enums;
+using System;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
     class JavaGeneralTab : JavaTab{

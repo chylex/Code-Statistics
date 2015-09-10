@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CodeStatistics.Handlers.Objects.Java.Enums;
 using System.Collections.Generic;
 
 namespace CodeStatistics.Handlers.Objects.Java{

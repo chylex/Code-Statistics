@@ -1,4 +1,5 @@
 ﻿using CodeStatistics.Handlers.Objects.Java;
+using CodeStatistics.Handlers.Objects.Java.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
