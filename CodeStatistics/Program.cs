@@ -67,6 +67,8 @@ namespace CodeStatistics{
             console.Clear();
             console.SetForeground(ConsoleColor.White);
             console.WriteCenter(centerY-2,"Processing files...");
+            console.SetForeground(ConsoleColor.DarkYellow);
+            console.WriteCenter(centerY,new string('▒',50));
 
             analyzer.Update += (percentage, handledFiles, totalFiles) => {
                 if (handledFiles == totalFiles){
@@ -75,10 +77,9 @@ namespace CodeStatistics{
                     console.WriteCenter(centerY-2,"Generating tabs...");
                 }
                 else{
-                    console.ClearLine(centerY);
-                    console.SetForeground(ConsoleColor.Yellow);
                     console.MoveToCenter(50,centerY);
-                    console.Write(new string('▒',(int)Math.Floor(percentage*50F)));
+                    console.Write(new string('▒',(int)Math.Floor(percentage*50F)),ConsoleColor.Yellow);
+
                     console.SetForeground(ConsoleColor.Gray);
                     console.WriteCenter(centerY+2,handledFiles+" / "+totalFiles);
                 }
