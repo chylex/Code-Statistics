@@ -31,5 +31,32 @@ namespace CodeStatistics.Handlers.Objects.Java.Enums{
                 this.Finality = modifiers.Contains("abstract") ? Finality.Abstract : modifiers.Contains("final") ? Finality.Final : Finality.Mutable;
             }
         }
+
+        public static string GetName(this Visibility visibility){
+            switch(visibility){
+                case Visibility.Public: return "public";
+                case Visibility.Default: return "default";
+                case Visibility.Protected: return "protected";
+                case Visibility.Private: return "private";
+                default: return "";
+            }
+        }
+
+        public static string GetName(this Scope scope){
+            switch(scope){
+                case Scope.Static: return "static";
+                case Scope.Instance: return "instance";
+                default: return "";
+            }
+        }
+
+        public static string GetName(this Finality finality){
+            switch(finality){
+                case Finality.Mutable: return "non-final";
+                case Finality.Final: return "final";
+                case Finality.Abstract: return "abstract";
+                default: return "";
+            }
+        }
     }
 }
