@@ -95,13 +95,14 @@ namespace CodeStatistics.Handlers.Objects.Java{
                             else ++stats.SyntaxFor;
 
                             break;
+
                         default: throw new System.NotSupportedException("Invalid match group in Java syntax element detection: "+element);
                     }
                 }
             }
 
-            stats.SyntaxDoWhile = foundDo;
-            stats.SyntaxWhile = foundWhile-foundDo;
+            stats.SyntaxDoWhile += foundDo;
+            stats.SyntaxWhile += foundWhile-foundDo;
 
             // Fields & Methods
             int tabs = -1;
