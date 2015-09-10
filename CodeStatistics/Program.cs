@@ -22,8 +22,8 @@ namespace CodeStatistics{
             // Project input method
             console.SetForeground(ConsoleColor.White);
             console.WriteCenter(centerY-2,"Choose your action or project selection method:");
-            console.SetForeground(ConsoleColor.Gray);
-            console.WriteCenter(centerY+2,"j");
+            console.SetForeground(ConsoleColor.DarkGray);
+            console.WriteCenter(centerY+4,"More ways to import projects (such as GitHub) will be added later.");
 
             ConsoleTabs<IProjectInputMethod> inputTabs = new ConsoleTabs<IProjectInputMethod>(centerY,true);
             inputTabs.AddTab("Folder",new MultiFolderDialog());
