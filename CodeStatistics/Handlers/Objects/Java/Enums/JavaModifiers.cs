@@ -1,4 +1,6 @@
-﻿namespace CodeStatistics.Handlers.Objects.Java.Enums{
+﻿using System.Linq;
+
+namespace CodeStatistics.Handlers.Objects.Java.Enums{
     static class JavaModifiers{
         public enum Visibility{
             Public, Default, Protected, Private
@@ -21,6 +23,12 @@
                 this.Visibility = visibility;
                 this.Scope = scope;
                 this.Finality = finality;
+            }
+
+            public Info(string[] modifiers){
+                this.Visibility = modifiers.Contains("public") ? Visibility.Public : modifiers.Contains("protected") ? Visibility.Protected : modifiers.Contains("private") ? Visibility.Private : Visibility.Default;
+                this.Scope = modifiers.Contains("static") ? Scope.Static : Scope.Instance;
+                this.Finality = modifiers.Contains("abstract") ? Finality.Abstract : modifiers.Contains("final") ? Finality.Final : Finality.Mutable;
             }
         }
     }

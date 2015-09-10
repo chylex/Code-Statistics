@@ -20,14 +20,26 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public int ImportsTotal = 0;
 
         public int FieldsTotal = 0;
-        public Dictionary<JavaModifiers.Visibility,int> FieldVisibility = new Dictionary<JavaModifiers.Visibility,int>();
-        public Dictionary<JavaModifiers.Scope,int> FieldScope = new Dictionary<JavaModifiers.Scope,int>();
-        public Dictionary<JavaModifiers.Finality,int> FieldFinality = new Dictionary<JavaModifiers.Finality,int>();
+        public Dictionary<JavaModifiers.Visibility,int> FieldVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
+            { JavaModifiers.Visibility.Public, 0 }, { JavaModifiers.Visibility.Default, 0 }, { JavaModifiers.Visibility.Protected, 0 }, { JavaModifiers.Visibility.Private, 0 }
+        };
+        public Dictionary<JavaModifiers.Scope,int> FieldScope = new Dictionary<JavaModifiers.Scope,int>(){
+            { JavaModifiers.Scope.Static, 0 }, { JavaModifiers.Scope.Instance, 0 }
+        };
+        public Dictionary<JavaModifiers.Finality,int> FieldFinality = new Dictionary<JavaModifiers.Finality,int>(){
+            { JavaModifiers.Finality.Mutable, 0 }, { JavaModifiers.Finality.Final, 0 }, { JavaModifiers.Finality.Abstract, 0 }
+        };
 
         public int MethodsTotal = 0;
-        public Dictionary<JavaModifiers.Visibility,int> MethodVisibility = new Dictionary<JavaModifiers.Visibility,int>();
-        public Dictionary<JavaModifiers.Scope,int> MethodScope = new Dictionary<JavaModifiers.Scope,int>();
-        public Dictionary<JavaModifiers.Finality,int> MethodFinality = new Dictionary<JavaModifiers.Finality,int>();
+        public Dictionary<JavaModifiers.Visibility,int> MethodVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
+            { JavaModifiers.Visibility.Public, 0 }, { JavaModifiers.Visibility.Default, 0 }, { JavaModifiers.Visibility.Protected, 0 }, { JavaModifiers.Visibility.Private, 0 }
+        };
+        public Dictionary<JavaModifiers.Scope,int> MethodScope = new Dictionary<JavaModifiers.Scope,int>(){
+            { JavaModifiers.Scope.Static, 0 }, { JavaModifiers.Scope.Instance, 0 }
+        };
+        public Dictionary<JavaModifiers.Finality,int> MethodFinality = new Dictionary<JavaModifiers.Finality,int>(){
+            { JavaModifiers.Finality.Mutable, 0 }, { JavaModifiers.Finality.Final, 0 }, { JavaModifiers.Finality.Abstract, 0 }
+        };
 
         public Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
 

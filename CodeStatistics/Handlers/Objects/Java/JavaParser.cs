@@ -102,6 +102,34 @@ namespace CodeStatistics.Handlers.Objects.Java{
 
             stats.SyntaxDoWhile = foundDo;
             stats.SyntaxWhile = foundWhile-foundDo;
+
+            // Fields & Methods
+            int tabs = -1;
+
+            foreach(string line in linesParsed){
+                bool isType = JavaParseUtils.TypeIdentifiersSpace.Any(identifier => line.Contains(identifier)) && JavaParseUtils.GetType(line).Key != JavaType.Invalid;
+
+                if (isType)tabs = 1+line.Length-line.TrimStart().Length;
+                else if (line.Length-line.TrimStart().Length == tabs){ // assume fields and methods will have the same indentation
+                    string[] modifiers;
+                    string stripped = JavaParseUtils.StripModifiers(line.TrimStart(),out modifiers);
+
+                    if (JavaParseUtils.MethodLine.IsMatch(stripped)){
+                        JavaModifiers.Info mf = new JavaModifiers.Info(modifiers);
+                        ++stats.MethodsTotal;
+                        ++stats.MethodVisibility[mf.Visibility];
+                        ++stats.MethodScope[mf.Scope];
+                        ++stats.MethodFinality[mf.Finality];
+                    }
+                    else if (JavaParseUtils.FieldLine.IsMatch(stripped)){
+                        JavaModifiers.Info mf = new JavaModifiers.Info(modifiers);
+                        ++stats.FieldsTotal;
+                        ++stats.FieldVisibility[mf.Visibility];
+                        ++stats.FieldScope[mf.Scope];
+                        ++stats.FieldFinality[mf.Finality];
+                    }
+                }
+            }
         }
     }
 }
