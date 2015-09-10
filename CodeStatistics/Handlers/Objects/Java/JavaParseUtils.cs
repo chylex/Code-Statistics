@@ -4,9 +4,10 @@ using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParseUtils{
-        public static readonly Regex commentOneLine = new Regex(@"//.*",RegexOptions.Compiled);
-        public static readonly Regex commentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled);
-
+        public static readonly Regex commentOneLine = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline); // use for the whole string
+        public static readonly Regex commentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
+        public static readonly Regex stringsLine = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal; use for every line
+        
         public static readonly string[] typeIdentifiersSpace = new string[]{ "class ", "@interface ", "interface ", "enum " };
         public static readonly string[] modifiers = new string[]{ "public", "protected", "private", "static", "final", "abstract", "synchronized", "volatile", "native", "transient", "strictfp" };
 
