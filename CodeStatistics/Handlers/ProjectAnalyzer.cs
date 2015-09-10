@@ -22,7 +22,9 @@ namespace CodeStatistics.Handlers{
 
             if (Update != null)Update(0F,0,totalFiles);
 
-            foreach(File file in files){
+            int handledWeight = 0, totalWeight = files.Select(file => FileHandlers.Get(file.Ext)).Sum(handler => handler.GetWeight());
+
+            foreach(File file in files){ // TODO weighted files for better speed estimation
                 FileHandler handler = FileHandlers.Get(file.Ext);
 
                 if (handler != null && handler.IsFileValid(file)){
@@ -31,10 +33,11 @@ namespace CodeStatistics.Handlers{
                 }
 
                 ++handledFiles;
+                if (handler != null)handledWeight += handler.GetWeight();
 
                 if (--nextUpdate <= 0){
                     nextUpdate = updateInterval;
-                    if (Update != null)Update((float)handledFiles/totalFiles,handledFiles,totalFiles);
+                    if (Update != null)Update((float)handledWeight/totalWeight,handledFiles,totalFiles);
                 }
             }
 

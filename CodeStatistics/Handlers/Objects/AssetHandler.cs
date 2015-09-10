@@ -45,5 +45,9 @@ namespace CodeStatistics.Handlers.Objects{
         public override IHandlerTab[] GenerateTabs(){
             return new IHandlerTab[]{ new AssetTab(this) };
         }
+
+        public override int GetWeight(){
+            return 1;
+        }
     }
 }

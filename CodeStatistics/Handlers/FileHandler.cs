@@ -33,6 +33,11 @@ namespace CodeStatistics.Handlers{
             return true;
         }
 
+        /// <summary>
+        /// Returns the weight for calculating % progress of file handling.
+        /// </summary>
+        public abstract int GetWeight();
+
         private FileHandler(){}
     }
 }

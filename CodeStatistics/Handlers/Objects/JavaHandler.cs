@@ -17,5 +17,9 @@ namespace CodeStatistics.Handlers.Objects{
         public override IHandlerTab[] GenerateTabs(){
             return JavaTab.GenerateTabs(stats);
         }
+
+        public override int GetWeight(){
+            return 10;
+        }
     }
 }
