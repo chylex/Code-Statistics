@@ -19,7 +19,7 @@ namespace CodeStatistics.Handlers.Objects{
         }
 
         public override int GetWeight(){
-            return 10;
+            return 20;
         }
     }
 }
