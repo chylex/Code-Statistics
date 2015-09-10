@@ -61,6 +61,7 @@
     <Compile Include="Handlers\Objects\AssetHandler.cs" />
     <Compile Include="Handlers\Objects\Assets\AssetTab.cs" />
     <Compile Include="Handlers\Objects\JavaHandler.cs" />
+    <Compile Include="Handlers\Objects\Java\Enums\JavaPrimitives.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParseUtils.cs" />
     <Compile Include="Handlers\Objects\Java\JavaStatistics.cs" />

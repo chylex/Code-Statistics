@@ -19,7 +19,13 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public long CharactersTotal = 0;
         public int ImportsTotal = 0;
 
+        public Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
+
         public Dictionary<string,JavaFileInfo> FileInfo = new Dictionary<string,JavaFileInfo>();
+
+        public JavaStatistics(){
+            foreach(JavaPrimitives primitive in JavaPrimitivesFunc.Values)PrimitiveCounts[primitive] = 0;
+        }
 
         public JavaFileInfo CreateFileInfo(string fullFileType){
             JavaFileInfo info = new JavaFileInfo();

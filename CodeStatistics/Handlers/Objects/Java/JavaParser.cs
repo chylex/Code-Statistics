@@ -71,6 +71,11 @@ namespace CodeStatistics.Handlers.Objects.Java{
                 ++stats.TypeCounts[kvp.Key];
                 // TODO go through nested types and add them to type list
             }
+
+            // Primitives
+            foreach(IEnumerable<JavaPrimitives> types in linesParsed.Select(line => JavaParseUtils.CountPrimitives(line))){
+                foreach(JavaPrimitives type in types)++stats.PrimitiveCounts[type];
+            }
         }
     }
 }
