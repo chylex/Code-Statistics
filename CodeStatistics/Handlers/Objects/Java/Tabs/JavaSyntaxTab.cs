@@ -123,8 +123,8 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
                 c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
             }
 
-            // Cycles
-            px = c.Width-cycleWidth-8;
+            // Cycles & Misc
+            px = c.Width-Math.Max(cycleWidth,"Total Switch Blocks: ".Length+stats.SyntaxSwitches.ToString().Length)-8;
             c.MoveTo(px,py = y);
             c.Write("Total Cycles: ",ConsoleColor.Yellow);
             c.Write(totalCycles.ToString(),ConsoleColor.Gray);
@@ -134,9 +134,6 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
                 c.Write(data.First+": ",ConsoleColor.White);
                 c.Write("{0} ({1}%)",data.Second,data.Third);
             }
-
-            // Misc
-            int width = Math.Max("Total Switch Blocks: ".Length+stats.SyntaxSwitches.ToString().Length,"Total Try Blocks: ".Length+stats.SyntaxTry.ToString().Length);
 
             c.MoveTo(px,py = py+2);
             c.Write("Total Switch Blocks: ",ConsoleColor.Yellow);
