@@ -73,7 +73,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             }
 
             // Primitives
-            foreach(IEnumerable<JavaPrimitives> types in linesParsed.Select(line => JavaParseUtils.CountPrimitives(line))){
+            foreach(IEnumerable<JavaPrimitives> types in linesParsed.Select(line => JavaParseUtils.CountPrimitives(line.TrimStart()))){
                 foreach(JavaPrimitives type in types)++stats.PrimitiveCounts[type];
             }
         }

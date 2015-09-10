@@ -73,6 +73,24 @@ namespace CodeStatistics.Handlers.Objects.Java{
         }
 
         /// <summary>
+        /// Finds declared primitive variables or fields in a line and yields type for all found variables (including multiple declarations on a single line).
+        /// Complex multiline declarations are currently ignored.
+        /// </summary>
+        public static IEnumerable<JavaPrimitives> CountPrimitives(string line){
+            string[] expressions = StripModifiers(line).Split(';');
+
+            foreach(string expr in expressions){
+                string type = JavaPrimitivesFunc.Strings.FirstOrDefault(primitive => expr.StartsWith(primitive+" ") || expr.StartsWith(primitive+"["));
+                if (type == null)continue;
+
+                int count = Arrays.Replace(expr.Substring(type.Length),"").Split(',').Length;
+                JavaPrimitives primitiveType = JavaPrimitivesFunc.FromString(type);
+
+                while(count-- > 0)yield return primitiveType;
+            }
+        }
+
+        /// <summary>
         /// Returns the simple name (all text after the last dot).
         /// </summary>
         public static KeyValuePair<string,string> GetSimpleName(string fullName){
