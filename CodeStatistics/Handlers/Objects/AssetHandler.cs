@@ -12,8 +12,8 @@ namespace CodeStatistics.Handlers.Objects{
 
         public static readonly string[] TypeNames = new string[]{ "Images", "Text", "Video", "Configuration", "Audio", "Archives" };
 
-        private Dictionary<Type,List<string>> types = new Dictionary<Type,List<string>>();
-        private Dictionary<string,int> count = new Dictionary<string,int>();
+        private readonly Dictionary<Type,List<string>> types = new Dictionary<Type,List<string>>();
+        private readonly Dictionary<string,int> count = new Dictionary<string,int>();
 
         public AssetHandler(int priority) : base(priority){
             foreach(Type type in Enum.GetValues(typeof(Type)))types[type] = new List<string>();

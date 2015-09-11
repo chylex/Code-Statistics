@@ -15,9 +15,9 @@ namespace CodeStatistics.Handlers.Objects.Java.Enums{
         }
 
         public struct Info{
-            public Visibility Visibility;
-            public Scope Scope;
-            public Finality Finality;
+            public readonly Visibility Visibility;
+            public readonly Scope Scope;
+            public readonly Finality Finality;
 
             public Info(Visibility visibility, Scope scope, Finality finality){
                 this.Visibility = visibility;

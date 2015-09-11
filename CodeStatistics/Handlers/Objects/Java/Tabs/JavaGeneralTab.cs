@@ -4,8 +4,8 @@ using System;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
     class JavaGeneralTab : JavaTab{
-        private int totalFiles, javaFiles, assetFiles, unknownFiles, totalPackages;
-        private int totalClasses, classFiles, totalInterfaces, interfaceFiles, totalEnums, enumFiles, totalAnnotations, annotationFiles;
+        private readonly int totalFiles, javaFiles, assetFiles, unknownFiles, totalPackages;
+        private readonly int totalClasses, classFiles, totalInterfaces, interfaceFiles, totalEnums, enumFiles, totalAnnotations, annotationFiles;
 
         public JavaGeneralTab(JavaStatistics stats) : base("General",stats){
             javaFiles = stats.FileInfo.Values.Count;

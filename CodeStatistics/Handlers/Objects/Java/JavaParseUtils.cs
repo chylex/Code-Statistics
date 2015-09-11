@@ -1,4 +1,5 @@
-﻿using CodeStatistics.Handlers.Objects.Java.Enums;
+﻿using System;
+using CodeStatistics.Handlers.Objects.Java.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -46,7 +47,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             List<string> foundModifiers = new List<string>();
 
             for(int modifierInd = 0, index; modifierInd < Modifiers.Length; modifierInd++){
-                if ((index = line.IndexOf(ModifiersSpace[modifierInd])) != -1){
+                if ((index = line.IndexOf(ModifiersSpace[modifierInd],StringComparison.Ordinal)) != -1){
                     string modifier = Modifiers[modifierInd];
                     foundModifiers.Add(modifier);
                     line = line.Remove(index,modifier.Length+1); // remove space

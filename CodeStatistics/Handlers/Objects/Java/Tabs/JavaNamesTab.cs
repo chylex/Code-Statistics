@@ -7,10 +7,10 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
     class JavaNamesTab : JavaTab{
         private const int ListSize = 5;
 
-        private List<KeyValuePair<string,string>> LongestSimpleNames = new List<KeyValuePair<string,string>>(ListSize);
-        private List<KeyValuePair<string,string>> ShortestSimpleNames = new List<KeyValuePair<string,string>>(ListSize);
-        private List<string> LongestFullNames = new List<string>(ListSize);
-        private List<string> ShortestFullNames = new List<string>(ListSize);
+        private readonly List<KeyValuePair<string,string>> LongestSimpleNames = new List<KeyValuePair<string,string>>(ListSize);
+        private readonly List<KeyValuePair<string,string>> ShortestSimpleNames = new List<KeyValuePair<string,string>>(ListSize);
+        private readonly List<string> LongestFullNames = new List<string>(ListSize);
+        private readonly List<string> ShortestFullNames = new List<string>(ListSize);
 
         public JavaNamesTab(JavaStatistics stats) : base("Names",stats){
             IEnumerable<KeyValuePair<string,string>> convertedNames = stats.FullTypes.Select(name => JavaParseUtils.GetSimpleName(name));

@@ -8,7 +8,7 @@ namespace CodeStatistics.Input{
 
         public event RefreshEventHandler Refresh;
 
-        private string[] rootFiles;
+        private readonly string[] rootFiles;
 
         public FileSearch(string[] files){
             this.rootFiles = files;

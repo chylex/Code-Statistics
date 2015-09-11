@@ -52,7 +52,7 @@ namespace CodeStatistics.Handlers{
 
             // Tab list
             List<IHandlerTab> tabs = new List<IHandlerTab>();
-            if (majorHandlerCount > 0)tabs.AddRange(handlers.Where(handler => handler is FileHandler.Major).First().GenerateTabs());
+            if (majorHandlerCount > 0)tabs.AddRange(handlers.First(handler => handler is FileHandler.Major).GenerateTabs());
 
             List<FileHandler.Minor> minorHandlers = handlers.Where(handler => handler is FileHandler.Minor).Cast<FileHandler.Minor>().ToList();
             minorHandlers.Sort();

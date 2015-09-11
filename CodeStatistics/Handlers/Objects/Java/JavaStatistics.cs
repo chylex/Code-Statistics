@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     class JavaStatistics{
-        public HashSet<string> Packages = new HashSet<string>();
-        public HashSet<string> SimpleTypes = new HashSet<string>(); // TODO maybe useless?
-        public HashSet<string> FullTypes = new HashSet<string>();
+        public readonly HashSet<string> Packages = new HashSet<string>();
+        public readonly HashSet<string> SimpleTypes = new HashSet<string>(); // TODO maybe useless?
+        public readonly HashSet<string> FullTypes = new HashSet<string>();
 
-        public Dictionary<JavaType,short> TypeFileCounts = new Dictionary<JavaType,short>(){
+        public readonly Dictionary<JavaType,short> TypeFileCounts = new Dictionary<JavaType,short>(){
             { JavaType.Class, 0 }, { JavaType.Interface, 0 }, { JavaType.Enum, 0 }, { JavaType.Annotation, 0 }
         };
 
-        public Dictionary<JavaType,short> TypeCounts = new Dictionary<JavaType,short>(){
+        public readonly Dictionary<JavaType,short> TypeCounts = new Dictionary<JavaType,short>(){
             { JavaType.Class, 0 }, { JavaType.Interface, 0 }, { JavaType.Enum, 0 }, { JavaType.Annotation, 0 }
         };
 
@@ -20,28 +20,28 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public int ImportsTotal = 0;
 
         public int FieldsTotal = 0;
-        public Dictionary<JavaModifiers.Visibility,int> FieldVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
+        public readonly Dictionary<JavaModifiers.Visibility,int> FieldVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
             { JavaModifiers.Visibility.Public, 0 }, { JavaModifiers.Visibility.Default, 0 }, { JavaModifiers.Visibility.Protected, 0 }, { JavaModifiers.Visibility.Private, 0 }
         };
-        public Dictionary<JavaModifiers.Scope,int> FieldScope = new Dictionary<JavaModifiers.Scope,int>(){
+        public readonly Dictionary<JavaModifiers.Scope,int> FieldScope = new Dictionary<JavaModifiers.Scope,int>(){
             { JavaModifiers.Scope.Static, 0 }, { JavaModifiers.Scope.Instance, 0 }
         };
-        public Dictionary<JavaModifiers.Finality,int> FieldFinality = new Dictionary<JavaModifiers.Finality,int>(){
+        public readonly Dictionary<JavaModifiers.Finality,int> FieldFinality = new Dictionary<JavaModifiers.Finality,int>(){
             { JavaModifiers.Finality.Mutable, 0 }, { JavaModifiers.Finality.Final, 0 }, { JavaModifiers.Finality.Abstract, 0 }
         };
 
         public int MethodsTotal = 0;
-        public Dictionary<JavaModifiers.Visibility,int> MethodVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
+        public readonly Dictionary<JavaModifiers.Visibility,int> MethodVisibility = new Dictionary<JavaModifiers.Visibility,int>(){
             { JavaModifiers.Visibility.Public, 0 }, { JavaModifiers.Visibility.Default, 0 }, { JavaModifiers.Visibility.Protected, 0 }, { JavaModifiers.Visibility.Private, 0 }
         };
-        public Dictionary<JavaModifiers.Scope,int> MethodScope = new Dictionary<JavaModifiers.Scope,int>(){
+        public readonly Dictionary<JavaModifiers.Scope,int> MethodScope = new Dictionary<JavaModifiers.Scope,int>(){
             { JavaModifiers.Scope.Static, 0 }, { JavaModifiers.Scope.Instance, 0 }
         };
-        public Dictionary<JavaModifiers.Finality,int> MethodFinality = new Dictionary<JavaModifiers.Finality,int>(){
+        public readonly Dictionary<JavaModifiers.Finality,int> MethodFinality = new Dictionary<JavaModifiers.Finality,int>(){
             { JavaModifiers.Finality.Mutable, 0 }, { JavaModifiers.Finality.Final, 0 }, { JavaModifiers.Finality.Abstract, 0 }
         };
 
-        public Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
+        public readonly Dictionary<JavaPrimitives,int> PrimitiveCounts = new Dictionary<JavaPrimitives,int>();
 
         public int SyntaxFor = 0;
         public int SyntaxForEach = 0;
@@ -50,7 +50,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public int SyntaxSwitches = 0;
         public int SyntaxTry = 0;
 
-        public Dictionary<string,JavaFileInfo> FileInfo = new Dictionary<string,JavaFileInfo>();
+        public readonly Dictionary<string,JavaFileInfo> FileInfo = new Dictionary<string,JavaFileInfo>();
 
         public JavaStatistics(){
             foreach(JavaPrimitives primitive in JavaPrimitivesFunc.Values)PrimitiveCounts[primitive] = 0;

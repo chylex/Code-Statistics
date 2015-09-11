@@ -71,7 +71,7 @@ namespace CodeStatistics.Handlers{
         /// Removes all text before the first occurrence of searched string, including the searched string
         /// </summary>
         public static string RemoveTo(this string me, string search){
-            int index = me.IndexOf(search);
+            int index = me.IndexOf(search,StringComparison.Ordinal);
             return index == -1 ? me : me.Substring(index+search.Length,me.Length-index-search.Length);
         }
 
@@ -79,7 +79,7 @@ namespace CodeStatistics.Handlers{
         /// Removes all text after the first occurrence of searched string, including the searched string
         /// </summary>
         public static string RemoveFrom(this string me, string search){
-            int index = me.IndexOf(search);
+            int index = me.IndexOf(search,StringComparison.Ordinal);
             return index == -1 ? me : me.Substring(0,index);
         }
     }

@@ -11,7 +11,7 @@ namespace CodeStatistics.ConsoleUtil{
 
         private readonly int y;
         private readonly bool enterToSelect;
-        private List<Tab> tabs = new List<Tab>();
+        private readonly List<Tab> tabs = new List<Tab>();
         private int selectedIndex;
 
         public ConsoleTabs(int y, bool enterToSelect){
@@ -75,8 +75,8 @@ namespace CodeStatistics.ConsoleUtil{
         }
 
         private struct Tab{
-            public string Title;
-            public T Object;
+            public readonly string Title;
+            public readonly T Object;
 
             public Tab(string title, T obj){
                 this.Title = title;

@@ -34,11 +34,10 @@ namespace CodeStatistics{
             inputTabs.Select += inputMethod => true; // breaks out
             inputTabs.Render();
 
-            IProjectInputMethod selectedInputMethod;
             string[] rootFiles;
             
             while(true){
-                selectedInputMethod = inputTabs.HandleInput();
+                IProjectInputMethod selectedInputMethod = inputTabs.HandleInput();
                 rootFiles = selectedInputMethod.Run(new string[0]);
                 if (rootFiles != null)break;
             }
