@@ -2,7 +2,7 @@
 
 namespace CodeStatistics.Handlers{
     static class ParseUtils{
-        public static readonly StringComparison cmp = StringComparison.Ordinal;
+        private static readonly StringComparison cmp = StringComparison.Ordinal;
 
         /// <summary>
         /// If the string starts with searched string, it is removed and the rest is returned. If not, the original string is returned.

@@ -50,7 +50,7 @@ namespace CodeStatistics.Input.Methods{
             FolderBrowserDialog oldDialog = new FolderBrowserDialog();
             oldDialog.ShowNewFolderButton = false;
             oldDialog.ShowDialog();
-            return new string[]{ oldDialog.SelectedPath };
+            return new[]{ oldDialog.SelectedPath };
         }
 
         private static Assembly LoadAssembly(string name){

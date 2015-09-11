@@ -1,5 +1,4 @@
-﻿using CodeStatistics.ConsoleUtil;
-using CodeStatistics.Handlers.Objects.Java;
+﻿using CodeStatistics.Handlers.Objects.Java;
 using CodeStatistics.Input;
 
 namespace CodeStatistics.Handlers.Objects{

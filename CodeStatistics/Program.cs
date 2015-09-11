@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 
 namespace CodeStatistics{
-    class Program{
-        private static readonly int TargetConsoleWidth = 140, TargetConsoleHeight = 40;
+    static class Program{
+        private const int TargetConsoleWidth = 140;
+        private const int TargetConsoleHeight = 40;
 
         [STAThread]
         static void Main(string[] args){
@@ -39,9 +40,7 @@ namespace CodeStatistics{
             while(true){
                 selectedInputMethod = inputTabs.HandleInput();
                 rootFiles = selectedInputMethod.Run(new string[0]);
-
-                if (rootFiles == null)continue;
-                else break;
+                if (rootFiles != null)break;
             }
 
             // File search

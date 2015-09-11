@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CodeStatistics.Handlers.Objects.Java.Enums{
+﻿namespace CodeStatistics.Handlers.Objects.Java.Enums{
     enum JavaType{
         Invalid,
         Class,

@@ -3,12 +3,12 @@ using System.Text;
 
 namespace CodeStatistics.Input{
     struct File{
-        public string FullPath;
-        public string Ext;
+        public readonly string FullPath;
+        public readonly string Ext;
 
-        public File(string FullPath){
-            this.FullPath = FullPath;
-            this.Ext = Path.GetExtension(FullPath).Replace(".","");
+        public File(string fullPath){
+            this.FullPath = fullPath;
+            this.Ext = Path.GetExtension(fullPath).Replace(".","");
         }
 
         public string Read(){

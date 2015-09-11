@@ -1,5 +1,4 @@
-﻿using CodeStatistics.ConsoleUtil;
-using CodeStatistics.Input;
+﻿using CodeStatistics.Input;
 using System;
 
 namespace CodeStatistics.Handlers{
@@ -17,8 +16,6 @@ namespace CodeStatistics.Handlers{
         }
 
         public abstract class Major : FileHandler{
-            public Major(){}
-
             public abstract string GetName();
         }
 

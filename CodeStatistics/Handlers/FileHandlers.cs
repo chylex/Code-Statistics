@@ -10,29 +10,23 @@ namespace CodeStatistics.Handlers{
 
             AssetHandler assetHandler = new AssetHandler(10);
 
-            foreach(string ext in new string[]{
-                "jpg", "jpeg", "gif", "png", "bmp", "ico", "icns", "tif", "tiff", "tga", "svg"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Image));
+            foreach(string ext in new[]{ "jpg", "jpeg", "gif", "png", "bmp", "ico", "icns", "tif", "tiff", "tga", "svg" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Image));
 
-            foreach(string ext in new string[]{
-                "wav", "mp3", "ogg", "flac", "aiff", "wma", "m4a", "aac", "mid", "mod"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Audio));
+            foreach(string ext in new[]{ "wav", "mp3", "ogg", "flac", "aiff", "wma", "m4a", "aac", "mid", "mod" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Audio));
 
-            foreach(string ext in new string[]{
-                "mp4", "mkv", "mpg", "mpeg", "avi", "m4v", "mov", "wmv"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Video));
+            foreach(string ext in new[]{ "mp4", "mkv", "mpg", "mpeg", "avi", "m4v", "mov", "wmv" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Video));
 
-            foreach(string ext in new string[]{
-                "txt", "md", "rtf", "pdf", "doc", "docx", "odt"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Text));
+            foreach(string ext in new[]{ "txt", "md", "rtf", "pdf", "doc", "docx", "odt" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Text));
 
-            foreach(string ext in new string[]{
-                "json", "xml", "conf", "cfg", "ini", "yaml"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Configuration));
+            foreach(string ext in new[]{ "json", "xml", "conf", "cfg", "ini", "yaml" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Configuration));
 
-            foreach(string ext in new string[]{
-                "zip", "rar", "tar", "gz", "tgz", "cab", "bz2", "bzip", "lz", "lzma", "arc", "pak"
-            })handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Archive));
+            foreach(string ext in new[]{ "zip", "rar", "tar", "gz", "tgz", "cab", "bz2", "bzip", "lz", "lzma", "arc", "pak" })
+                handlers.Add(ext,assetHandler.SetType(ext,AssetHandler.Type.Archive));
 
             handlers.Add(string.Empty,new UnknownHandler(999));
         }
@@ -44,7 +38,8 @@ namespace CodeStatistics.Handlers{
 
         public static T GetByType<T>() where T : FileHandler{
             foreach(FileHandler handler in handlers.Values){
-                if (handler is T)return (T)handler;
+                T type = handler as T;
+                if (type != null)return type;
             }
 
             return default(T);

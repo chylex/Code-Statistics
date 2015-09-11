@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CodeStatistics.ConsoleUtil{
     class ConsoleTabs<T>{
-        private static readonly ConsoleWrapper console = ConsoleWrapper.console;
+        private readonly ConsoleWrapper console = ConsoleWrapper.console;
 
         public delegate bool SelectEventHandler(T sender);
 
@@ -12,7 +12,7 @@ namespace CodeStatistics.ConsoleUtil{
         private readonly int y;
         private readonly bool enterToSelect;
         private List<Tab> tabs = new List<Tab>();
-        private int selectedIndex = 0;
+        private int selectedIndex;
 
         public ConsoleTabs(int y, bool enterToSelect){
             this.y = y;
@@ -26,11 +26,11 @@ namespace CodeStatistics.ConsoleUtil{
         public void Render(){
             console.ClearLine(y);
             
-            int width = 0, x = 0;
+            int width = 0;
             for(int tab = 0; tab < tabs.Count; tab++)width += GetTabSize(tab);
 
             console.MoveToCenter(width,y);
-            x = console.CursorX;
+            int x = console.CursorX;
 
             for(int tab = 0; tab < tabs.Count; tab++){
                 RenderTab(x,tab);
@@ -49,11 +49,7 @@ namespace CodeStatistics.ConsoleUtil{
             console.Write("]",selectedIndex == index ? ConsoleColor.White : ConsoleColor.Gray);
         }
 
-        public T HandleInput(){
-            return HandleInput(false);
-        }
-
-        public T HandleInput(bool selectFirstTab){
+        public T HandleInput(bool selectFirstTab = false){
             if (tabs.Count == 0)return default(T);
 
             Console.CursorVisible = false;

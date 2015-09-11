@@ -30,10 +30,10 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.MoveTo(px,py = y);
             c.Write("Longest Simple Names",ConsoleColor.Yellow);
 
-            for(int index = 0; index < LongestSimpleNames.Count; index++){
+            foreach(KeyValuePair<string,string> kvp in LongestSimpleNames){
                 c.MoveTo(px,++py);
-                c.Write(LongestSimpleNames[index].Value,ConsoleColor.DarkGray);
-                c.Write(LongestSimpleNames[index].Key,ConsoleColor.White);
+                c.Write(kvp.Value,ConsoleColor.DarkGray);
+                c.Write(kvp.Key,ConsoleColor.White);
             }
 
             // Shortest Simple Names
@@ -41,10 +41,10 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.MoveTo(px,py += 3);
             c.Write("Shortest Simple Names",ConsoleColor.Yellow);
 
-            for(int index = 0; index < ShortestSimpleNames.Count; index++){
+            foreach(KeyValuePair<string,string> kvp in ShortestSimpleNames){
                 c.MoveTo(px,++py);
-                c.Write(ShortestSimpleNames[index].Value,ConsoleColor.DarkGray);
-                c.Write(ShortestSimpleNames[index].Key,ConsoleColor.White);
+                c.Write(kvp.Value,ConsoleColor.DarkGray);
+                c.Write(kvp.Key,ConsoleColor.White);
             }
 
             // Longest Full Names
@@ -52,9 +52,9 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.MoveTo(px,py += 3);
             c.Write("Longest Full Names",ConsoleColor.Yellow);
 
-            for(int index = 0; index < LongestFullNames.Count; index++){
+            foreach(string kvp in LongestFullNames){
                 c.MoveTo(px,++py);
-                c.Write(LongestFullNames[index],ConsoleColor.White);
+                c.Write(kvp,ConsoleColor.White);
             }
 
             // Shortest Full Names
@@ -62,9 +62,9 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
             c.MoveTo(px,py += 3);
             c.Write("Shortest Full Names",ConsoleColor.Yellow);
 
-            for(int index = 0; index < ShortestFullNames.Count; index++){
+            foreach(string kvp in ShortestFullNames){
                 c.MoveTo(px,++py);
-                c.Write(ShortestFullNames[index],ConsoleColor.White);
+                c.Write(kvp,ConsoleColor.White);
             }
         }
     }

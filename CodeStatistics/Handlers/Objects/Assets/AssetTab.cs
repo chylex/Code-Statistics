@@ -1,7 +1,6 @@
 ﻿using CodeStatistics.ConsoleUtil;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Assets{
@@ -34,7 +33,7 @@ namespace CodeStatistics.Handlers.Objects.Assets{
             int py = y+3;
             int[] columnWidths = new int[]{ 0, 0, 0 };
 
-            for(int ind = 0, col = 0, width = 0; ind < types.Length; ind++, col = ind/2){
+            for(int ind = 0, col = 0, width; ind < types.Length; ind++, col = ind/2){
                 AssetTypeInfo typeInfo = info[types[ind]];
 
                 width = AssetHandler.TypeNames[ind].Length+2+typeInfo.Total.ToString().Length;

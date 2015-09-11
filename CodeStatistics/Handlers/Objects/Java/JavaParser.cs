@@ -14,7 +14,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
             // Final Variables
             JavaStatistics.JavaFileInfo _info;
             string _package = null;
-            JavaType _currentType = JavaType.Invalid;
+            JavaType _currentType;
             string _simpleType = null;
             string _fullType;
 
