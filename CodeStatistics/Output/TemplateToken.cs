@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using CodeStatistics.Handling;
 using System.Diagnostics;
+using System.Text;
 
 namespace CodeStatistics.Output{
     abstract class TemplateToken{
@@ -58,7 +59,7 @@ namespace CodeStatistics.Output{
         protected abstract string GetTokenContents(TemplateList list, Variables variables);
 
         public class Template : TemplateToken{
-            private readonly string templateName;
+            protected readonly string templateName;
 
             public Template(int index, int length, string templateName) : base(index, length){
                 this.templateName = templateName;
@@ -77,7 +78,7 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return ""; // TODO
+                return variables.GetVariable(variableName);
             }
         }
 
@@ -89,7 +90,7 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return ""; // TODO
+                return variables.CheckFlag(conditionFlag) ? list.ProcessTemplate(templateName,variables) : "";
             }
         }
 
@@ -101,7 +102,13 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return ""; // TODO
+                StringBuilder build = new StringBuilder();
+
+                foreach(Variables entry in variables.GetArray(cycleVariable)){
+                    build.Append(list.ProcessTemplate(templateName,entry));
+                }
+
+                return build.ToString();
             }
         }
     }
