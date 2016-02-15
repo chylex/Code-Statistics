@@ -84,6 +84,7 @@
     <Compile Include="Input\IProjectInputMethod.cs" />
     <Compile Include="Input\Methods\OpenWebsite.cs" />
     <Compile Include="Input\Methods\QuitProgram.cs" />
+    <Compile Include="Output\GenerateHtml.cs" />
     <Compile Include="Output\Template.cs" />
     <Compile Include="Output\TemplateDeclaration.cs" />
     <Compile Include="Output\TemplateList.cs" />
