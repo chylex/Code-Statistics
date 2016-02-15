@@ -72,7 +72,7 @@ namespace CodeStatistics.Output{
         public class Variable : TemplateToken{
             private readonly string variableName;
 
-            public Variable(int index, int length, string templateName) : base(index, length){
+            public Variable(int index, int length, string variableName) : base(index, length){
                 this.variableName = variableName;
             }
 
