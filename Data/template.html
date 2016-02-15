@@ -476,7 +476,10 @@
     <li><a href="#assets">Assets</a></li>
   </ul>
 </li>
-{if:java}
+{if:java:navigationListJava}
+
+<!-- TEMPLATE navigationListJava -->
+
 <li><a href="#">Java</a>
   <ul>
     <li><a href="#java-files">Files</a></li>
@@ -489,16 +492,13 @@
     <li><a href="#java-primitives">Primitives</a></li>
   </ul>
 </li>
-{end:if}
 
 <!-- TEMPLATE contentList -->
 
 {contentOverview}
 {contentAssets}
 
-{if:java}
-  {contentJava}
-{end:if}
+{if:java:contentJava}
 
 <!-- TEMPLATE contentOverview -->
 
@@ -526,17 +526,13 @@
       </div>
     </div>
     <div>
-      {if:java}
-        {contentJavaOverview}
-      {end:if}
+      {if:java:contentJavaOverview}
     </div>
     <div>
       <div class="card">
         <h3>Assets</h3>
         <table id="data-pie-assets" class="summary">
-          {for:assetTypes}
-            {contentAssetRow}
-          {end:for}
+          {for:assetTypes:contentAssetRow}
         </table>
         <canvas id="pie-assets" height="200"></canvas>
       </div>
@@ -611,25 +607,17 @@
       <div class="card">
         <h3>Lines</h3>
         <table class="list">
-          {for:javaLinesTop}
-            {contentJavaFilesRow}
-          {end:for}
+          {for:javaLinesTop:contentJavaFilesRow}
           <tr><td class="subtle">...</td><td></td></tr>
-          {for:javaLinesBottom}
-            {contentJavaFilesRow}
-          {end:for}
+          {for:javaLinesBottom:contentJavaFilesRow}
         </table>
       </div>
       <div class="card">
         <h3>Characters</h3>
         <table class="list">
-          {for:javaCharsTop}
-            {contentJavaFilesRow}
-          {end:for}
+          {for:javaCharsTop:contentJavaFilesRow}
           <tr><td class="subtle">...</td><td></td></tr>
-          {for:javaCharsBottom}
-            {contentJavaFilesRow}
-          {end:for}
+          {for:javaCharsBottom:contentJavaFilesRow}
         </table>
       </div>
     </div>
