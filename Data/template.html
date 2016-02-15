@@ -1,0 +1,642 @@
+<!-- TEMPLATE html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="CodeStatistics {var:csVersion}">
+  
+  <title>{var:projectName} - Code Statistics {var:csVersion}</title>
+  
+  {css}
+  {js}
+</head>
+<body>
+  <div id="wrap">
+    <div id="navigation">
+      <ul>
+        {navigationList}
+      </ul>
+    </div>
+    <div id="content">
+      {contentList}
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- LITERALTEMPLATE css -->
+
+<style type="text/css">
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  #wrap {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  #navigation {
+    width: 240px;
+    padding: 4px 0 0;
+    font-size: 20px;
+    background-color: #90CAF9;
+  }
+
+  #navigation ul {
+    list-style-type: none;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  #navigation > ul > li {
+    margin-top: 14px;
+  }
+
+  #navigation > ul > li > a {
+    padding: 4px 4px 4px 14px;
+    position: relative;
+    color: #FFF;
+    background-color: #1976D2;
+    font-weight: bold;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+    z-index: 1;
+  }
+
+  #navigation li {
+    display: inline-block;
+    width: 100%;
+  }
+
+  #navigation a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #000;
+    padding: 4px 4px 4px 22px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+
+  #navigation > ul > li > ul > li > a:hover, #navigation > ul > li > ul > li > a.active {
+    background-color: #BBDEFB;
+  }
+
+  #content {
+    flex-grow: 1;
+    font-size: 20px;
+    padding: 18px 20px 12px 24px;
+    background-color: #EEE;
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
+  }
+
+  #content > div {
+    display: none;
+  }
+
+  h2 {
+    margin: 0 0 24px;
+    padding: 2px 0;
+    font-size: 36px;
+    text-align: center;
+    color: #FFF;
+    background-color: #1976D2;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
+  }
+
+  h2 + p {
+    margin-top: 0;
+  }
+
+  h3 {
+    margin: 0 auto 8px;
+    padding: 4px 0;
+    font-size: 24px;
+    color: #FFF;
+    background-color: #2196F3;
+    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+  }
+
+  p {
+    padding-left: 8px;
+  }
+
+  .grid {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .grid > div {
+    width: 33.3333%;
+    margin: 0 28px 24px 0;
+    text-align: center;
+  }
+
+  .grid > div:last-child {
+    margin-right: 0;
+  }
+
+  .grid .card {
+    background-color: #FFF;
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+    border-radius: 2px;
+    margin-bottom: 28px;
+    padding-bottom: 8px;
+    overflow-x: hidden;
+  }
+
+  .grid > div.grid-2x {
+    width: 66.6666%;
+  }
+
+  .grid table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: separate;
+  }
+
+  .grid td {
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+
+  .summary td {
+    min-width: 50%;
+  }
+
+  .summary td:first-child {
+    text-align: right;
+    border-right: 1px solid #DDDDDD;
+  }
+
+  .summary td:last-child {
+    text-align: left;
+    border-left: 1px solid #DDDDDD;
+  }
+
+  .list td{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .list td:first-child {
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
+  .list td:last-child {
+    text-align: right;
+  }
+
+  tr.separator {
+    height: 10px;
+  }
+
+  .subtle {
+    color: rgba(0,0,0,0.5);
+  }
+
+  canvas {
+    margin: 15px 0 30px;
+  }
+
+  canvas:last-child {
+    margin-bottom: 7px;
+  }
+</style>
+
+<noscript>
+  <style type="text/css">
+    #content > div {
+      display: block !important;
+    }
+  </style>
+</noscript>
+
+<!-- LITERALTEMPLATE js -->
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded",function(){
+    // Utility Functions
+    function extend(def, obj){
+      var data = def;
+      var keys = Object.keys(obj || {});
+
+      for(var a = 0; a < keys.length; a++){
+        data[keys[a]] = obj[keys[a]];
+      }
+
+      return data;
+    }
+
+    function forEach(collection, func){
+      for(var index = 0; index < collection.length; index++){
+        func(index,collection[index]);
+      }
+    }
+
+    // Page List
+    var activePage, activePageMenu;
+
+    function setActivePage(ele){
+      if (!ele)return;
+
+      if (activePageMenu)activePageMenu.classList.remove("active");
+      if (activePage)activePage.style.display = "none";
+
+      activePageMenu = ele;
+      activePage = document.getElementById("page-"+ele.getAttribute("href").substr(1));
+      if (!activePage)return;
+
+      activePageMenu.classList.add("active");
+      activePage.style.display = "block";
+
+      generateCharts(activePage);
+    }
+
+    setActivePage(document.getElementById("nav-default"));
+
+    // Category Events
+    var navCategories = document.getElementById("navigation").children;
+
+    var tabEvent = function(e){
+      e.preventDefault();
+      setActivePage(this);
+    };
+
+    forEach(document.getElementById("navigation").children,function(indCategory, eleCategory){
+      forEach(eleCategory.getElementsByTagName("a"),function(indTab, eleTab){
+        eleTab.addEventListener("click",tabEvent);
+      });
+    });
+
+    // Pie Chart (modified version of Lightning Tracker chart renderer)
+    function createPieChart(ele, info){
+      // Setup
+      var ctx = ele.getContext("2d");
+
+      var width = ctx.canvas.clientWidth, height = ctx.canvas.clientHeight, centerX = (width/2)|0, centerY = (height/2)|0;
+      var top = ele.getBoundingClientRect().top-window.pageYOffset+document.documentElement.clientTop;
+      var left = ele.getBoundingClientRect().left-window.pageXOffset+document.documentElement.clientLeft;
+
+      var pie = extend({
+        data: [],
+        radius: 95,
+        donutPercentage: 50,
+        startAngle: 270,
+
+        showLabels: true,
+        labelColor: "#fff",
+        labelFont: "11px sans-serif",
+        labelDistance: 0.5,
+        labelBackColor: "#000",
+        labelBackOpacity: 0.3,
+
+        showShadow: true,
+        shadowColor: "rgba(0,0,0,0.75)",
+        shadowBlur: 5,
+
+        showValueSum: true,
+        valueSumColor: "#000",
+        valueSumFont: "36px sans-serif"
+      },info);
+
+      if (pie.radius == 0)pie.radius = (Math.min(width,height)/2-pie.strokeWidth)|0;
+
+      // Calculations
+      var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; },0);
+      var radPerValue = 2*Math.PI/valueSum;
+      var startAngle = pie.startAngle == 0 ? 0 : pie.startAngle*Math.PI/180;
+      var donutRadius = pie.radius*pie.donutPercentage/100;
+
+      // Shadow
+      ctx.restore();
+
+      if (pie.showShadow){
+        ctx.shadowColor = pie.shadowColor;
+        ctx.shadowBlur = pie.shadowBlur;
+        ctx.shadowOffsetY = 1;
+
+        ctx.beginPath();
+        ctx.moveTo(centerX,centerY);
+        ctx.arc(centerX,centerY,pie.radius-1,0,2*Math.PI,false);
+        ctx.fill();
+
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+      }
+
+      // Wedge rendering
+      for(var part = 0, angle = startAngle; part < pie.data.length; part++){
+        ctx.fillStyle = pie.data[part].color;
+
+        ctx.beginPath();
+        ctx.moveTo(centerX,centerY);
+        ctx.arc(centerX,centerY,pie.radius,angle-0.005,(angle += pie.data[part].value*radPerValue)+0.005,false);
+        ctx.fill();
+      }
+
+      // Donut
+      if (pie.donutPercentage > 0){
+        ctx.restore();
+        ctx.globalCompositeOperation = "destination-out";
+
+        ctx.beginPath();
+        ctx.arc(centerX,centerY,donutRadius,0,2*Math.PI,false);
+        ctx.fill();
+      }
+
+      // Labels
+      if (pie.showLabels){
+        ctx.restore();
+        ctx.globalCompositeOperation = "source-over";
+
+        ctx.font = pie.labelFont;
+        ctx.fillStyle = pie.labelColor;
+        ctx.textAlign = "center";
+
+        var labelList = [];
+
+        for(var part = 0, angle = startAngle, labelDist = donutRadius+(pie.radius-donutRadius)*pie.labelDistance; part < pie.data.length; part++){
+          angle += pie.data[part].value*radPerValue/2;
+
+          var textMeasure1 = ctx.measureText(pie.data[part].label), textMeasure2 = ctx.measureText((100*pie.data[part].value/valueSum).toFixed(1)+"%");
+
+          labelList.push({
+            val: pie.data[part].value,
+            text: pie.data[part].label,
+            x: (centerX+Math.cos(angle)*labelDist)|0,
+            y: (centerY+2+Math.sin(angle)*labelDist)|0,
+            hw: 2+(Math.max(textMeasure1.width,textMeasure2.width)/2),
+            hh: 13
+          });
+
+          angle += pie.data[part].value*radPerValue/2;
+        }
+
+        labelList.sort(function(obj1, obj2){
+          return obj2.val-obj1.val;
+        });
+
+        for(var label = 0; label < labelList.length; label++){
+          var labelData = labelList[label];
+
+          var intersects = false;
+          var x1 = labelData.x-labelData.hw, y1 = labelData.y-labelData.hh;
+          var x2 = labelData.x+labelData.hw, y2 = labelData.y+labelData.hh;
+
+          for(var prevLabel = 0; prevLabel < label; prevLabel++){
+            var prevLabelData = labelList[prevLabel];
+
+            var px1 = prevLabelData.x-prevLabelData.hw, py1 = prevLabelData.y-prevLabelData.hh;
+            var px2 = prevLabelData.x+prevLabelData.hw, py2 = prevLabelData.y+prevLabelData.hh;
+
+            if (!(x2 < px1 || y2 < py1 || x1 > px2 || y1 > py2)){
+              intersects = true;
+              break;
+            }
+          }
+
+          if (intersects)continue;
+
+          if (pie.labelBackOpacity > 0){
+            ctx.fillStyle = pie.labelBackColor;
+            ctx.globalAlpha = pie.labelBackOpacity;
+            ctx.fillRect(Math.floor(labelData.x-labelData.hw),labelData.y-14,1+Math.ceil(labelData.hw*2),26);
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = pie.labelColor;
+          }
+
+          ctx.textBaseline = "bottom";
+          ctx.fillText(labelData.text,labelData.x,labelData.y);
+          ctx.textBaseline = "top";
+          ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%",labelData.x,labelData.y);
+        }
+      }
+
+      // Value sum
+      if (pie.showValueSum){
+        ctx.restore();
+        ctx.globalCompositeOperation = "source-over";
+
+        ctx.font = pie.valueSumFont;
+        ctx.fillStyle = pie.valueSumColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.fillText(valueSum,centerX-1,2+centerY);
+      }
+    }
+
+    // Pie Chart Generation
+    function generateCharts(parent){
+      var chartColors = [
+        "#e25668", "#e28956", "#e2cf56", "#aee256", "#56e289",
+        "#56e2cf", "#56aee2", "#5668e2", "#8a56e2", "#cf56e2"
+      ];
+
+      var chartColorIndex = -1;
+
+      var charts = parent.getElementsByTagName("canvas");
+
+      for(var chartInd = 0; chartInd < charts.length; chartInd++){
+        var canvas = charts[chartInd];
+        if (canvas.getAttribute("data-pie-gen"))continue;
+
+        var table = document.getElementById("data-"+canvas.id);
+        var data = [];
+
+        forEach(table.getElementsByTagName("tr"),function(indRow, eleRow){
+          var value = parseInt(eleRow.children[0].innerHTML,10);
+
+          if (value == 0)++chartColorIndex;
+          else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
+        });
+
+        createPieChart(canvas,{ data: data });
+
+        canvas.setAttribute("data-pie-gen","1");
+      }
+    }
+  });
+</script>
+
+<!-- TEMPLATE navigationList -->
+
+<li><a href="#">General</a>
+  <ul>
+    <li><a href="#overview" id="nav-default">Overview</a></li>
+    <li><a href="#assets">Assets</a></li>
+  </ul>
+</li>
+{if:java}
+<li><a href="#">Java</a>
+  <ul>
+    <li><a href="#java-files">Files</a></li>
+    <li><a href="#java-names">Names</a></li>
+    <li><a href="#java-control-flow">Control Flow</a></li>
+    <li><a href="#java-classes">Classes</a></li>
+    <li><a href="#java-interfaces">Interfaces</a></li>
+    <li><a href="#java-enums">Enums</a></li>
+    <li><a href="#java-annotations">Annotations</a></li>
+    <li><a href="#java-primitives">Primitives</a></li>
+  </ul>
+</li>
+{end:if}
+
+<!-- TEMPLATE contentList -->
+
+{contentOverview}
+{contentAssets}
+
+{if:java}
+  {contentJava}
+{end:if}
+
+<!-- TEMPLATE contentOverview -->
+
+<div id="page-overview">
+  <h2>Overview</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Files</h3>
+        <table id="data-pie-file-types" class="summary">
+          <tr><td>{var:fileTypeCode}</td><td>Code</td></tr>
+          <tr><td>{var:fileTypeAssets}</td><td>Assets</td></tr>
+          <tr><td>{var:fileTypeUnknown}</td><td>Unknown</td></tr>
+        </table>
+        <canvas id="pie-file-types" height="200"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Directory Structure</h3>
+        <table id="data-pie-files-folders" class="summary">
+          <tr><td>{var:dirStructureFiles}</td><td>Files</td></tr>
+          <tr><td>{var:dirStructureFolders}</td><td>Folders</td></tr>
+        </table>
+        <canvas id="pie-files-folders" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      {if:java}
+        {contentJavaOverview}
+      {end:if}
+    </div>
+    <div>
+      <div class="card">
+        <h3>Assets</h3>
+        <table id="data-pie-assets" class="summary">
+          {for:assetTypes}
+            {contentAssetRow}
+          {end:for}
+        </table>
+        <canvas id="pie-assets" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentAssetRow -->
+
+<tr><td>{var:value}</td><td>{var:title}</td></tr>
+
+<!-- TEMPLATE contentAssets -->
+
+<div id="page-assets">
+  <h2>Assets</h2>
+  <p>Abcd</p>
+</div>
+
+<!-- TEMPLATE contentJava -->
+
+{contentJavaFiles}
+
+<!-- TEMPLATE contentJavaOverview -->
+
+<div class="card">
+  <h3>Java</h3>
+  <table class="summary">
+    <tr><td>{var:javaPackages}</td><td>Packages</td></tr>
+    <tr class="separator"></tr>
+  </table>
+  <table id="data-pie-java-types" class="summary">
+    <tr><td>{var:javaClasses}</td><td>Classes</td></tr>
+    <tr><td>{var:javaInterfaces}</td><td>Interfaces</td></tr>
+    <tr><td>{var:javaEnums}</td><td>Enums</td></tr>
+    <tr><td>{var:javaAnnotations}</td><td>Annotations</td></tr>
+  </table>
+  <table class="summary">
+    <tr class="separator"></tr>
+    <tr><td>{var:javaLinesTotal}</td><td>Lines</td></tr>
+    <tr><td>{var:javaCharsTotal}</td><td>Characters</td></tr>
+  </table>
+  <canvas id="pie-java-types" height="200"></canvas>
+</div>
+
+<!-- TEMPLATE contentJavaFiles -->
+
+<div id="page-java-files">
+  <h2>Files</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Overview</h3>
+        <table class="summary">
+          <tr><td>{var:javaLinesTotal}</td><td>Lines Total</td></tr>
+          <tr><td>{var:javaLinesMax}</td><td>Max Lines Per File</td></tr>
+          <tr><td>{var:javaLinesAvg}</td><td>Average Lines Per File</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaCharsTotal}</td><td>Characters Total</td></tr>
+          <tr><td>{var:javaCharsMax}</td><td>Max Characters Per File</td></tr>
+          <tr><td>{var:javaCharsAvg}</td><td>Average Characters Per File</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaCharsPerLineMax}</td><td>Max Characters Per Line</td></tr>
+          <tr><td>{var:javaCharsPerLineAvg}</td><td>Average Characters Per Line</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaImportsTotal}</td><td>Imports Total</td></tr>
+          <tr><td>{var:javaImportsMax}</td><td>Max Imports Per File</td></tr>
+          <tr><td>{var:javaImportsAvg}</td><td>Average Imports Per File</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="grid-2x">
+      <div class="card">
+        <h3>Lines</h3>
+        <table class="list">
+          {for:javaLinesTop}
+            {contentJavaFilesRow}
+          {end:for}
+          <tr><td class="subtle">...</td><td></td></tr>
+          {for:javaLinesBottom}
+            {contentJavaFilesRow}
+          {end:for}
+        </table>
+      </div>
+      <div class="card">
+        <h3>Characters</h3>
+        <table class="list">
+          {for:javaCharsTop}
+            {contentJavaFilesRow}
+          {end:for}
+          <tr><td class="subtle">...</td><td></td></tr>
+          {for:javaCharsBottom}
+            {contentJavaFilesRow}
+          {end:for}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentJavaFilesRow -->
+
+<tr><td><span class="subtle">{var:package}</span>{var:file}</td><td>{var:amount}</td></tr>
+
