@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics {
+﻿namespace CodeStatistics.Forms {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.

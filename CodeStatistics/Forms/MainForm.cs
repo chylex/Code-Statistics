@@ -1,9 +1,9 @@
-﻿using CodeStatistics.Input;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using CodeStatistics.Input;
 
-namespace CodeStatistics{
+namespace CodeStatistics.Forms{
     public partial class MainForm : Form{
         public string[] SelectedFiles { get; private set; }
 
