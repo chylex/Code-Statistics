@@ -1,5 +1,4 @@
 ﻿using CodeStatistics.Collections;
-using CodeStatistics.ConsoleUtil;
 using CodeStatistics.Handlers.Objects.Java.Enums;
 using System;
 using System.Collections.Generic;
@@ -43,108 +42,6 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
 
                 methodFinality[finality] = new KeyValuePair<int,decimal>(stats.MethodFinality[finality],Math.Round(100*(decimal)stats.MethodFinality[finality]/stats.MethodFinality.Values.Sum()));
             }
-        }
-
-        public override void RenderInfo(ConsoleWrapper c, int y){
-            int px, py;
-
-            // Fields
-            px = 8;
-            c.MoveTo(px,py = y);
-            c.Write("Total Fields: ",ConsoleColor.Yellow);
-            c.Write(stats.FieldsTotal.ToString(),ConsoleColor.Gray);
-
-            c.MoveTo(px,py += 2);
-            c.Write("Visibility",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Visibility,KeyValuePair<int,decimal>> kvp in fieldVisibility.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            c.MoveTo(px,py += 2);
-            c.Write("Scope",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Scope,KeyValuePair<int,decimal>> kvp in fieldScope.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            c.MoveTo(px,py += 2);
-            c.Write("Finality",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Finality,KeyValuePair<int,decimal>> kvp in fieldFinality.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            // Methods
-            px = c.Width/2-("Total Methods: ".Length+stats.MethodsTotal.ToString().Length+1)/2; // +1 adjustment
-            c.MoveTo(px,py = y);
-            c.Write("Total Methods: ",ConsoleColor.Yellow);
-            c.Write(stats.MethodsTotal.ToString(),ConsoleColor.Gray);
-
-            c.MoveTo(px,py += 2);
-            c.Write("Visibility",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Visibility,KeyValuePair<int,decimal>> kvp in methodVisibility.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            c.MoveTo(px,py += 2);
-            c.Write("Scope",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Scope,KeyValuePair<int,decimal>> kvp in methodScope.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            c.MoveTo(px,py += 2);
-            c.Write("Finality",ConsoleColor.Yellow);
-
-            foreach(KeyValuePair<JavaModifiers.Finality,KeyValuePair<int,decimal>> kvp in methodFinality.OrderByDescending(kvp => kvp.Value.Key)){
-                c.MoveTo(px,++py);
-                c.SetForeground(ConsoleColor.White);
-                c.Write("{0}: ",kvp.Key.GetName());
-                c.SetForeground(ConsoleColor.Gray);
-                c.Write("{0} ({1}%)",kvp.Value.Key,kvp.Value.Value);
-            }
-
-            // Cycles & Misc
-            px = c.Width-Math.Max(cycleWidth,"Total Switch Blocks: ".Length+stats.SyntaxSwitches.ToString().Length)-8;
-            c.MoveTo(px,py = y);
-            c.Write("Total Cycles: ",ConsoleColor.Yellow);
-            c.Write(totalCycles.ToString(),ConsoleColor.Gray);
-
-            foreach(Triple<string,int,decimal> data in dataCycles){
-                c.MoveTo(px,++py);
-                c.Write(data.First+": ",ConsoleColor.White);
-                c.Write("{0} ({1}%)",data.Second,data.Third);
-            }
-
-            c.MoveTo(px,py = py+2);
-            c.Write("Total Switch Blocks: ",ConsoleColor.Yellow);
-            c.Write(stats.SyntaxSwitches.ToString(),ConsoleColor.Gray);
-
-            c.MoveTo(px,py = py+2);
-            c.Write("Total Try Blocks: ",ConsoleColor.Yellow);
-            c.Write(stats.SyntaxTry.ToString(),ConsoleColor.Gray);
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using CodeStatistics.ConsoleUtil;
-using CodeStatistics.Handlers;
-using CodeStatistics.Input;
-using CodeStatistics.Input.Methods;
+﻿using CodeStatistics.Handling;
+using CodeStatistics.Output;
 using System;
-using System.Collections.Generic;
 
 namespace CodeStatistics{
     static class Program{
@@ -13,6 +10,7 @@ namespace CodeStatistics{
         [STAThread]
         static void Main(string[] args){
             int width = Math.Min(TargetConsoleWidth,Console.LargestWindowWidth);
+            /*int width = Math.Min(TargetConsoleWidth,Console.LargestWindowWidth);
             int height = Math.Min(TargetConsoleHeight,Console.LargestWindowHeight);
             int centerY = height/2-1;
             Console.SetWindowSize(width,height);
@@ -105,7 +103,7 @@ namespace CodeStatistics{
             tabs.HandleInput(true);
 
             // Pause
-            Console.ReadKey();
+            Console.ReadKey();*/
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using CodeStatistics.ConsoleUtil;
-using CodeStatistics.Handlers.Objects.Java.Tabs;
+﻿using CodeStatistics.Handlers.Objects.Java.Tabs;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     abstract class JavaTab : IHandlerTab{
@@ -24,7 +23,5 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public string GetName(){
             return name;
         }
-
-        public abstract void RenderInfo(ConsoleWrapper c, int y);
     }
 }
