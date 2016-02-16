@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace CodeStatistics.Output{
     struct TemplateDeclaration{
@@ -7,7 +8,7 @@ namespace CodeStatistics.Output{
         private static readonly char[] DeclarationSplit = { ' ' };
 
         public static bool IsDeclaration(string line){
-            return line.StartsWith(DeclarationStart) && line.EndsWith(DeclarationEnd);
+            return line.StartsWith(DeclarationStart,StringComparison.Ordinal) && line.EndsWith(DeclarationEnd,StringComparison.Ordinal);
         }
 
         public static bool TryReadLine(string line, out TemplateDeclaration declaration){
@@ -28,7 +29,7 @@ namespace CodeStatistics.Output{
         }
 
         private static TemplateDeclarationType GetDeclarationType(string str){
-            switch(str.ToUpper()){
+            switch(str.ToUpperInvariant()){
                 case "TEMPLATE": return TemplateDeclarationType.Dynamic;
                 case "LITERALTEMPLATE": return TemplateDeclarationType.Literal;
                 default: return TemplateDeclarationType.Invalid;

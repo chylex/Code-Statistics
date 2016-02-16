@@ -22,18 +22,18 @@ namespace CodeStatistics.Output{
         private static TemplateToken FromContent(int indexStart, int indexEnd, string declaration){
             if (declaration.IndexOf(':') != -1){
                 string[] dynamic = declaration.Split(DynamicValueSplit,3);
-                string dynamicValueType = dynamic[0].ToLower(CultureInfo.InvariantCulture);
+                string dynamicValueType = dynamic[0].ToUpperInvariant();
 
                 if (dynamic.Length == 3){
                     switch(dynamicValueType){
-                        case "if": return new Condition(indexStart,indexEnd,dynamic[1],dynamic[2]);
-                        case "for": return new Cycle(indexStart,indexEnd,dynamic[1],dynamic[2]);
+                        case "IF": return new Condition(indexStart,indexEnd,dynamic[1],dynamic[2]);
+                        case "FOR": return new Cycle(indexStart,indexEnd,dynamic[1],dynamic[2]);
                         default: return null;
                     }
                 }
                 else if (dynamic.Length == 2){
                     switch(dynamicValueType){
-                        case "var": return new Variable(indexStart,indexEnd,dynamic[1]);
+                        case "VAR": return new Variable(indexStart,indexEnd,dynamic[1]);
                         default: return null;
                     }
                 }
