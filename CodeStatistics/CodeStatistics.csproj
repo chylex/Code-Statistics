@@ -89,6 +89,7 @@
     <Compile Include="Output\TemplateList.cs" />
     <Compile Include="Output\TemplateToken.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramArguments.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\JavaParserTests.cs" />
     <Compile Include="Tests\ParseUtilsTests.cs" />
