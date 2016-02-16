@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CodeStatistics.Handlers.Objects.Java{
-    static class JavaParseUtils{
+    public static class JavaParseUtils{
         public static readonly Regex CommentOneLine = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline); // use for the whole string
         public static readonly Regex CommentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
         public static readonly Regex Strings = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace CodeStatistics.Handlers.Objects.Java.Enums{
-    enum JavaPrimitives{
+    public enum JavaPrimitives{
         Invalid,
         Boolean,
         Byte,

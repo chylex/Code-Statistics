@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeStatistics", "CodeStatistics\CodeStatistics.csproj", "{B1BC156C-AAA8-40EB-B90B-AEE950870D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeStatisticsTests", "CodeStatisticsTests\CodeStatisticsTests.csproj", "{BD148062-5858-49E7-B11B-20FC6E7114DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B1BC156C-AAA8-40EB-B90B-AEE950870D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1BC156C-AAA8-40EB-B90B-AEE950870D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1BC156C-AAA8-40EB-B90B-AEE950870D62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD148062-5858-49E7-B11B-20FC6E7114DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD148062-5858-49E7-B11B-20FC6E7114DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD148062-5858-49E7-B11B-20FC6E7114DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD148062-5858-49E7-B11B-20FC6E7114DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

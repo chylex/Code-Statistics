@@ -1,7 +1,7 @@
 ﻿using CodeStatistics.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeStatistics.Tests{
+namespace CodeStatisticsTests{
     [TestClass]
     public class ParseUtilsTests{
         [TestMethod]

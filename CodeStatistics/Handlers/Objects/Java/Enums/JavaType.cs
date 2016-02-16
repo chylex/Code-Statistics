@@ -1,5 +1,5 @@
 ﻿namespace CodeStatistics.Handlers.Objects.Java.Enums{
-    enum JavaType{
+    public enum JavaType{
         Invalid,
         Class,
         Interface,

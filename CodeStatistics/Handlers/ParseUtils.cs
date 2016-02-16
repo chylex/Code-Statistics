@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace CodeStatistics.Handlers{
-    static class ParseUtils{
+    public static class ParseUtils{
         private static readonly StringComparison cmp = StringComparison.Ordinal;
 
         /// <summary>
