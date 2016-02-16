@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
-    class JavaFilesTab : JavaTab{
+    class JavaFilesTab{
         const int fileCount = 10;
 
         private readonly List<KeyValuePair<string,int>> mostLines = new List<KeyValuePair<string,int>>(fileCount);
@@ -17,7 +17,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         private readonly List<KeyValuePair<string,int>> leastImports = new List<KeyValuePair<string,int>>(fileCount);
         private readonly int totalImports, averageImports;
 
-        public JavaFilesTab(JavaStatistics stats) : base("Files",stats){
+        public JavaFilesTab(JavaStatistics stats){
             Dictionary<string,JavaStatistics.JavaFileInfo> dict = stats.FileInfo;
 
             totalLines = stats.LinesTotal;

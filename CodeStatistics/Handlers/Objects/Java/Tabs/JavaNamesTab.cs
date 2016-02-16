@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
-    class JavaNamesTab : JavaTab{
+    class JavaNamesTab{
         private const int ListSize = 5;
 
         private readonly List<KeyValuePair<string,string>> LongestSimpleNames = new List<KeyValuePair<string,string>>(ListSize);
@@ -10,7 +10,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         private readonly List<string> LongestFullNames = new List<string>(ListSize);
         private readonly List<string> ShortestFullNames = new List<string>(ListSize);
 
-        public JavaNamesTab(JavaStatistics stats) : base("Names",stats){
+        public JavaNamesTab(JavaStatistics stats){
             IEnumerable<KeyValuePair<string,string>> convertedNames = stats.FullTypes.Select(name => JavaParseUtils.GetSimpleName(name));
 
             LongestSimpleNames.AddRange(convertedNames.OrderByDescending(kvp => kvp.Key.Length).Take(ListSize));

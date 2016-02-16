@@ -2,8 +2,8 @@
 using CodeStatistics.Input;
 
 namespace CodeStatistics.Handlers.Objects{
-    class JavaHandler : FileHandler.Major{
-        private JavaStatistics stats = new JavaStatistics();
+    class JavaHandler{
+        /*private JavaStatistics stats = new JavaStatistics();
 
         public override string GetName(){
             return "Java";
@@ -19,6 +19,6 @@ namespace CodeStatistics.Handlers.Objects{
 
         public override int GetWeight(){
             return 20;
-        }
+        }*/
     }
 }

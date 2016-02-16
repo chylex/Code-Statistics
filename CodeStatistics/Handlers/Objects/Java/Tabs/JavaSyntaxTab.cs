@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
-    class JavaSyntaxTab : JavaTab{
+    class JavaSyntaxTab{
         private readonly int totalCycles, cycleWidth;
         private readonly List<Triple<string,int,decimal>> dataCycles = new List<Triple<string,int,decimal>>();
 
@@ -17,7 +17,7 @@ namespace CodeStatistics.Handlers.Objects.Java.Tabs{
         private readonly Dictionary<JavaModifiers.Scope,KeyValuePair<int,decimal>> methodScope = new Dictionary<JavaModifiers.Scope,KeyValuePair<int,decimal>>();
         private readonly Dictionary<JavaModifiers.Finality,KeyValuePair<int,decimal>> methodFinality = new Dictionary<JavaModifiers.Finality,KeyValuePair<int,decimal>>();
 
-        public JavaSyntaxTab(JavaStatistics stats) : base("Syntax",stats){
+        public JavaSyntaxTab(JavaStatistics stats){
             totalCycles = stats.SyntaxFor+stats.SyntaxForEach+stats.SyntaxWhile+stats.SyntaxDoWhile;
             dataCycles.Add(new Triple<string,int,decimal>("for",stats.SyntaxFor,Math.Round(100*(decimal)stats.SyntaxFor/totalCycles)));
             dataCycles.Add(new Triple<string,int,decimal>("enh for",stats.SyntaxForEach,Math.Round(100*(decimal)stats.SyntaxForEach/totalCycles)));

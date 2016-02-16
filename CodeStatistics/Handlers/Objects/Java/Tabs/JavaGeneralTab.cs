@@ -1,20 +1,20 @@
 ﻿using CodeStatistics.Handlers.Objects.Java.Enums;
 
 namespace CodeStatistics.Handlers.Objects.Java.Tabs{
-    class JavaGeneralTab : JavaTab{
+    class JavaGeneralTab{
         private readonly int totalFiles, javaFiles, assetFiles, unknownFiles, totalPackages;
         private readonly int totalClasses, classFiles, totalInterfaces, interfaceFiles, totalEnums, enumFiles, totalAnnotations, annotationFiles;
 
-        public JavaGeneralTab(JavaStatistics stats) : base("General",stats){
+        public JavaGeneralTab(JavaStatistics stats){
             javaFiles = stats.FileInfo.Values.Count;
 
-            AssetHandler assets = FileHandlers.GetByType<AssetHandler>();
+            /*AssetHandler assets = FileHandlers.GetByType<AssetHandler>();
             if (assets != null)assetFiles = assets.GetAssetFileCount();
 
             UnknownHandler unknown = FileHandlers.GetByType<UnknownHandler>();
             if (unknown != null)unknownFiles = unknown.GetUnknownFileCount();
 
-            totalFiles = javaFiles+assetFiles+unknownFiles;
+            totalFiles = javaFiles+assetFiles+unknownFiles;*/
 
             totalPackages = stats.Packages.Count;
             totalClasses = stats.TypeCounts[JavaType.Class];

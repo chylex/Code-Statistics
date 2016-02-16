@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -63,24 +63,18 @@
     <Compile Include="Collections\AnonymousDictionary.cs" />
     <Compile Include="Collections\Triple.cs" />
     <Compile Include="Handlers\FileHandlers.cs" />
-    <Compile Include="Handlers\FileHandler.cs" />
-    <Compile Include="Handlers\IHandlerTab.cs" />
-    <Compile Include="Handlers\Objects\AssetHandler.cs" />
-    <Compile Include="Handlers\Objects\Assets\AssetTab.cs" />
     <Compile Include="Handlers\Objects\JavaHandler.cs" />
     <Compile Include="Handlers\Objects\Java\Enums\JavaModifiers.cs" />
     <Compile Include="Handlers\Objects\Java\Enums\JavaPrimitives.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParseUtils.cs" />
     <Compile Include="Handlers\Objects\Java\JavaStatistics.cs" />
-    <Compile Include="Handlers\Objects\Java\JavaTab.cs" />
     <Compile Include="Handlers\Objects\Java\Enums\JavaType.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaFilesTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaGeneralTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaNamesTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaPrimitivesTab.cs" />
     <Compile Include="Handlers\Objects\Java\Tabs\JavaSyntaxTab.cs" />
-    <Compile Include="Handlers\Objects\UnknownHandler.cs" />
     <Compile Include="Handlers\ParseUtils.cs" />
     <Compile Include="Handlers\ProjectAnalyzer.cs" />
     <Compile Include="Handling\Variables.cs" />
