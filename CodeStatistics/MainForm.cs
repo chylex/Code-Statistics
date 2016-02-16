@@ -5,6 +5,8 @@ using System.Windows.Forms;
 
 namespace CodeStatistics{
     public partial class MainForm : Form{
+        public string[] SelectedFiles { get; private set; }
+
         public MainForm(){
             InitializeComponent();
         }
@@ -26,8 +28,10 @@ namespace CodeStatistics{
                 }
 
                 if (files == null || files.Length == 0)return;
-
-                // TODO
+                
+                SelectedFiles = files;
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 
@@ -37,7 +41,9 @@ namespace CodeStatistics{
             string[] folders = MultiFolderDialog.Show(this);
             
             if (folders.Length != 0){
-                // TODO
+                SelectedFiles = folders;
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 
