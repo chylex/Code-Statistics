@@ -1,7 +1,6 @@
 ﻿using CodeStatistics.Handling;
 using CodeStatistics.Output;
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using CodeStatistics.Forms;
 
@@ -13,10 +12,18 @@ namespace CodeStatistics{
 
             ProgramArguments arguments = new ProgramArguments(args);
 
-            MainForm form = new MainForm();
+            while(true){
+                MainForm form = new MainForm();
             
-            if (form.ShowDialog() == DialogResult.OK){
-                Debug.WriteLine(form.SelectedFiles);
+                if (form.ShowDialog() == DialogResult.OK){
+                    ProjectLoadForm loadForm = new ProjectLoadForm(form.SelectedFiles);
+
+                    DialogResult result = loadForm.ShowDialog();
+                    if (result == DialogResult.Cancel)continue;
+                    
+                    // TODO
+                }
+                else break;
             }
 
             if (true)return;
