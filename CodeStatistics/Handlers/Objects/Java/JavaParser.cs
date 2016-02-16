@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using CodeStatistics.Handling;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
