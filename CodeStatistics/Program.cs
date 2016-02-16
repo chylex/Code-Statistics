@@ -3,11 +3,14 @@ using CodeStatistics.Output;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using CodeStatistics.Forms;
 
 namespace CodeStatistics{
     static class Program{
         [STAThread]
         static void Main(string[] args){
+            Application.EnableVisualStyles();
+
             ProgramArguments arguments = new ProgramArguments(args);
 
             MainForm form = new MainForm();
