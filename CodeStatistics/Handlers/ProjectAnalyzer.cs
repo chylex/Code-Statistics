@@ -15,7 +15,7 @@ namespace CodeStatistics.Handlers{
             this.files = files;
         }
 
-        public List<IHandlerTab> Run(){
+        /*public List<IHandlerTab> Run(){
             int updateInterval = (int)Math.Ceiling(files.Count/200D), nextUpdate = updateInterval;
             int handledFiles = 0, totalFiles = files.Count;
             HashSet<FileHandler> handlers = new HashSet<FileHandler>();
@@ -59,6 +59,6 @@ namespace CodeStatistics.Handlers{
             minorHandlers.ForEach(handler => tabs.AddRange(handler.GenerateTabs()));
 
             return tabs;
-        }
+        }*/
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace CodeStatistics.Handlers{
-    static class FileHandlers{
+    static class FileHandlers{/*
         private static readonly Dictionary<string,FileHandler> handlers = new Dictionary<string,FileHandler>();
 
         static FileHandlers(){
@@ -43,6 +43,6 @@ namespace CodeStatistics.Handlers{
             }
 
             return default(T);
-        }
+        }*/
     }
 }
