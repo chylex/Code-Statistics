@@ -86,6 +86,8 @@
     <Compile Include="Handling\Variables.cs" />
     <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
+    <Compile Include="Input\FileSearchData.cs" />
+    <Compile Include="Input\IOEntry.cs" />
     <Compile Include="Input\MultiFolderDialog.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>

@@ -1,54 +1,110 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using FileIO = System.IO.File;
+using DirectoryIO = System.IO.Directory;
 
 namespace CodeStatistics.Input{
     class FileSearch{
-        public delegate void RefreshEventHandler(int filesFound);
+        public delegate void RefreshEventHandler(int entriesFound);
+        public delegate void FinishEventHandler(FileSearchData searchData);
 
         public event RefreshEventHandler Refresh;
+        public event FinishEventHandler Finish;
 
         private readonly string[] rootFiles;
+        private readonly CancellationTokenSource cancelToken;
 
         public FileSearch(string[] files){
             this.rootFiles = files;
+            cancelToken = new CancellationTokenSource();
         }
 
-        public HashSet<File> Search(){
-            Task<HashSet<File>> searchTask = Task<HashSet<File>>.Factory.StartNew(() => {
-                HashSet<File> foundFiles = new HashSet<File>();
-                Random rand = new Random();
-                int fileCount = 0, nextNotice = 0;
+        public void StartAsync(){
+            Task task = new Task(() => {
+                var searchData = new FileSearchData();
+                var rand = new Random();
+
+                int entryCount = 0, nextNotice = 0;
 
                 Action updateNotice = () => {
                     if (--nextNotice < 0){
-                        if (Refresh != null)Refresh(fileCount);
-                        nextNotice = 50+rand.Next(40);
+                        if (Refresh != null)Refresh(entryCount);
+                        nextNotice = 100+rand.Next(50);
                     }
                 };
 
                 updateNotice();
 
-                foreach(string rootFile in rootFiles){ // TODO if there are too many files, allow user to stop the search
-                    if (System.IO.File.GetAttributes(rootFile).HasFlag(System.IO.FileAttributes.Directory)){
-                        foreach(string file in System.IO.Directory.EnumerateFiles(rootFile,"*.*",System.IO.SearchOption.AllDirectories)){
-                            foundFiles.Add(new File(file));
-                            ++fileCount;
+                foreach(string rootFile in rootFiles){
+                    if (cancelToken.IsCancellationRequested)return;
+
+                    bool isDirectory;
+
+                    try{
+                        isDirectory = FileIO.GetAttributes(rootFile).HasFlag(FileAttributes.Directory);
+                    }catch(Exception){
+                        continue;
+                    }
+
+                    if (isDirectory){
+                        foreach(IOEntry entry in EnumerateEntriesSafe(rootFile)){
+                            if (cancelToken.IsCancellationRequested)return;
+
+                            searchData.Add(entry);
+                            ++entryCount;
                             updateNotice();
                         }
                     }
                     else{
-                        foundFiles.Add(new File(rootFile));
-                        ++fileCount;
+                        searchData.Add(new IOEntry(IOEntry.Type.File,rootFile));
+                        ++entryCount;
                         updateNotice();
                     }
                 }
 
-                if (Refresh != null)Refresh(foundFiles.Count);
-                return foundFiles;
-            });
+                if (Refresh != null)Refresh(entryCount);
+                if (Finish != null)Finish(searchData);
+            },cancelToken.Token);
 
-            return searchTask.Result;
+            task.Start();
+        }
+
+        public void Cancel(){
+            cancelToken.Cancel(false);
+        }
+
+        private static IEnumerable<IOEntry> EnumerateEntriesSafe(string path){
+            var foldersLeft = new Queue<string>(64);
+            foldersLeft.Enqueue(path);
+
+            while(foldersLeft.Count > 0){
+                string currentFolder = foldersLeft.Dequeue();
+                string[] files, folders;
+
+                try{
+                    files = DirectoryIO.GetFiles(currentFolder,"*.*",SearchOption.TopDirectoryOnly);
+                }catch(Exception){
+                    files = new string[0];
+                }
+
+                try{
+                    folders = DirectoryIO.GetDirectories(currentFolder,"*.*",SearchOption.TopDirectoryOnly);
+                }catch(Exception){
+                    folders = new string[0];
+                }
+
+                foreach(string file in files){
+                    yield return new IOEntry(IOEntry.Type.File,file);
+                }
+
+                foreach(string folder in folders){
+                    foldersLeft.Enqueue(folder);
+                    yield return new IOEntry(IOEntry.Type.Folder,folder);
+                }
+            }
         }
     }
 }
