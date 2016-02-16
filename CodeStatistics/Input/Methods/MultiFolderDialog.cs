@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Input.Methods{
-    class MultiFolderDialog : IProjectInputMethod{
+    class MultiFolderDialog{
         public string[] Run(string[] args){
             if (Environment.OSVersion.Version.Major >= 6){ // vista and newer
                 try{
