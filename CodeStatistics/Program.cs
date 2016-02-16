@@ -10,6 +10,7 @@ namespace CodeStatistics{
         [STAThread]
         static void Main(string[] args){
             int width = Math.Min(TargetConsoleWidth,Console.LargestWindowWidth);
+            new MainForm().ShowDialog();
             /*int width = Math.Min(TargetConsoleWidth,Console.LargestWindowWidth);
             int height = Math.Min(TargetConsoleHeight,Console.LargestWindowHeight);
             int centerY = height/2-1;
