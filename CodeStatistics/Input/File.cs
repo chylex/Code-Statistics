@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace CodeStatistics.Input{
@@ -7,8 +8,10 @@ namespace CodeStatistics.Input{
         public readonly string Ext;
 
         public File(string fullPath){
+            if (fullPath == null)throw new ArgumentNullException("fullPath");
+
             this.FullPath = fullPath;
-            this.Ext = Path.GetExtension(fullPath).Replace(".","");
+            this.Ext = Path.GetExtension(fullPath).Replace(".","").ToLowerInvariant();
         }
 
         public string Read(){
