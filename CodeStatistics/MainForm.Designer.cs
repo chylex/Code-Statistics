@@ -75,6 +75,7 @@
             this.btnViewSourceCode.TabIndex = 2;
             this.btnViewSourceCode.Text = "Source Code";
             this.btnViewSourceCode.UseVisualStyleBackColor = false;
+            this.btnViewSourceCode.Click += new System.EventHandler(this.btnViewSourceCode_Click);
             // 
             // btnViewAbout
             // 
