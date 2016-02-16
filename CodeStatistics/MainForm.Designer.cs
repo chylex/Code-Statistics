@@ -46,6 +46,7 @@
             this.btnProjectFolder.TabIndex = 0;
             this.btnProjectFolder.Text = "Project From Folder";
             this.btnProjectFolder.UseVisualStyleBackColor = false;
+            this.btnProjectFolder.Click += new System.EventHandler(this.btnProjectFolder_Click);
             // 
             // btnProjectGitHub
             // 

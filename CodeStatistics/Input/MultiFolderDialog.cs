@@ -3,25 +3,27 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace CodeStatistics.Input.Methods{
-    class MultiFolderDialog{
-        public string[] Run(string[] args){
+namespace CodeStatistics.Input{
+    static class MultiFolderDialog{
+        public static string[] Show(Form parent){
             if (Environment.OSVersion.Version.Major >= 6){ // vista and newer
                 try{
-                    OpenFileDialog dialog = new OpenFileDialog();
-                    dialog.Filter = "Folders|\n";
-                    dialog.CheckFileExists = false;
-                    dialog.CheckPathExists = true;
-                    dialog.DereferenceLinks = true;
-                    dialog.AddExtension = false;
-                    dialog.Multiselect = true;
-                    dialog.AutoUpgradeEnabled = true;
+                    OpenFileDialog dialog = new OpenFileDialog{
+                        Filter = "Folders|\n",
+                        CheckFileExists = false,
+                        CheckPathExists = true,
+                        DereferenceLinks = true,
+                        AddExtension = false,
+                        Multiselect = true,
+                        AutoUpgradeEnabled = true
+                    };
 
                     Assembly assembly = LoadAssembly("System.Windows.Forms");
                     Type ifdType = assembly.GetType("System.Windows.Forms.FileDialogNative").GetNestedType("IFileDialog",BindingFlags.NonPublic);
                     Type fdType = typeof(FileDialog);
                     Type dialogType = dialog.GetType();
-                    BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+                    const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
                     var vistaDialog = dialogType.GetMethod("CreateVistaDialog",flags).Invoke(dialog,new object[0]);
                     dialogType.GetMethod("OnBeforeVistaDialog",flags).Invoke(dialog,new object[]{ vistaDialog });
@@ -30,12 +32,12 @@ namespace CodeStatistics.Input.Methods{
                     ifdType.GetMethod("SetOptions",flags).Invoke(vistaDialog,new object[]{ opts | 32u }); // 32u = FOS_PICKFOLDERS
 
                     object events = fdType.GetNestedType("VistaDialogEvents",flags).GetConstructors()[0].Invoke(new object[]{ dialog });
-                    object[] parameters = new object[]{ events, (uint)0 };
+                    object[] parameters = { events, (uint)0 };
                     ifdType.GetMethod("Advise").Invoke(vistaDialog,parameters);
                     uint id = (uint)parameters[1];
 
                     try{
-                        ifdType.GetMethod("Show").Invoke(vistaDialog,new object[]{ IntPtr.Zero });
+                        ifdType.GetMethod("Show").Invoke(vistaDialog,new object[]{ parent.Handle });
                     }finally{
                         ifdType.GetMethod("Unadvise").Invoke(vistaDialog,new object[]{ id });
                         GC.KeepAlive(events);
@@ -47,10 +49,8 @@ namespace CodeStatistics.Input.Methods{
                 }
             }
 
-            FolderBrowserDialog oldDialog = new FolderBrowserDialog();
-            oldDialog.ShowNewFolderButton = false;
-            oldDialog.ShowDialog();
-            return new[]{ oldDialog.SelectedPath };
+            var oldDialog = new FolderBrowserDialog{ ShowNewFolderButton = false };
+            return oldDialog.ShowDialog(parent) == DialogResult.OK ? new string[]{ oldDialog.SelectedPath } : new string[0];
         }
 
         private static Assembly LoadAssembly(string name){

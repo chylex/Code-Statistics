@@ -86,7 +86,7 @@
     <Compile Include="Handling\Variables.cs" />
     <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
-    <Compile Include="Input\Methods\MultiFolderDialog.cs" />
+    <Compile Include="Input\MultiFolderDialog.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
