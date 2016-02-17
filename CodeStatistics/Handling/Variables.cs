@@ -11,6 +11,7 @@ namespace CodeStatistics.Handling{
         public class Root : Variables{
             private readonly List<string> flags = new List<string>(4);
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
+            private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
             private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>();
             
             public void AddFlag(string name){
@@ -25,8 +26,19 @@ namespace CodeStatistics.Handling{
                 variables[name] = value;
             }
 
-            public void SetVariable(string name, object value){
+            public void SetVariable(string name, int value){
+                variablesInt[name] = value;
                 variables[name] = value.ToString();
+            }
+
+            public void Increment(string name){
+                if (variablesInt.ContainsKey(name)){
+                    variables[name] = (++variablesInt[name]).ToString();
+                }
+                else{
+                    variables[name] = "1";
+                    variablesInt[name] = 1;
+                }
             }
 
             public override string GetVariable(string name){
