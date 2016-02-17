@@ -5,7 +5,7 @@
         }
 
         public void Process(string folder, Variables.Root variables){
-            
+            variables.Increment("dirStructureFolders");
         }
     }
 }
