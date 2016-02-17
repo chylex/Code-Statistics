@@ -13,7 +13,8 @@ namespace CodeStatistics.Handling{
             private readonly List<string> flags = new List<string>(4);
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
             private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
-            private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>();
+            private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>(4);
+            private readonly Dictionary<string,IComparer<Variables>> arraySorters = new Dictionary<string,IComparer<Variables>>(4);
             private readonly Dictionary<object,object> stateObjects = new Dictionary<object,object>(4);
             
             public void AddFlag(string name){
@@ -75,7 +76,21 @@ namespace CodeStatistics.Handling{
 
             public override IEnumerable<Variables> GetArray(string name){
                 List<Variables> arrayList;
-                return arrays.TryGetValue(name,out arrayList) ? arrayList : Enumerable.Empty<Variables>();
+
+                if (arrays.TryGetValue(name,out arrayList)){
+                    IComparer<Variables> comparer;
+
+                    if (arraySorters.TryGetValue(name,out comparer)){
+                        arrayList.Sort(comparer);
+                    }
+
+                    return arrayList;
+                }
+                else return Enumerable.Empty<Variables>();
+            }
+
+            public void SetArraySorter(string name, IComparer<Variables> comparer){
+                arraySorters[name] = comparer;
             }
         }
 
