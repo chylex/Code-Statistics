@@ -23,15 +23,16 @@ namespace CodeStatistics.Input{
         }
 
         public void StartAsync(){
-            Task task = new Task(() => {
+            new Task(() => {
                 var searchData = new FileSearchData();
                 var rand = new Random();
 
-                int entryCount = 0, nextNotice = 0;
+                int[] entryCount = { 0 };
+                int nextNotice = 0;
 
                 Action updateNotice = () => {
                     if (--nextNotice < 0){
-                        if (Refresh != null)Refresh(entryCount);
+                        if (Refresh != null)Refresh(entryCount[0]);
                         nextNotice = 100+rand.Next(50);
                     }
                 };
@@ -54,22 +55,20 @@ namespace CodeStatistics.Input{
                             if (cancelToken.IsCancellationRequested)return;
 
                             searchData.Add(entry);
-                            ++entryCount;
+                            ++entryCount[0];
                             updateNotice();
                         }
                     }
                     else{
                         searchData.Add(new IOEntry(IOEntry.Type.File,rootFile));
-                        ++entryCount;
+                        ++entryCount[0];
                         updateNotice();
                     }
                 }
 
-                if (Refresh != null)Refresh(entryCount);
+                if (Refresh != null)Refresh(entryCount[0]);
                 if (Finish != null)Finish(searchData);
-            },cancelToken.Token);
-
-            task.Start();
+            },cancelToken.Token).Start();
         }
 
         public void Cancel(){
