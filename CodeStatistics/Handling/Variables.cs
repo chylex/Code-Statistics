@@ -1,4 +1,5 @@
 ﻿using CodeStatistics.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,7 @@ namespace CodeStatistics.Handling{
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
             private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
             private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>();
+            private readonly Dictionary<Type,object> stateObjects = new Dictionary<Type,object>(4);
             
             public void AddFlag(string name){
                 flags.Add(name);
@@ -44,6 +46,15 @@ namespace CodeStatistics.Handling{
             public override string GetVariable(string name, string defaultValue){
                 string value;
                 return variables.TryGetValue(name,out value) ? value : defaultValue;
+            }
+
+            public void AddStateObject(object obj){
+                stateObjects.Add(obj.GetType(),obj);
+            }
+
+            public T GetStateObject<T>() where T : class{
+                object obj;
+                return stateObjects.TryGetValue(typeof(T),out obj) ? obj as T : null;
             }
 
             public void AddToArray(string name, object array){
