@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Collections;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace CodeStatistics.Handling{
@@ -31,12 +32,12 @@ namespace CodeStatistics.Handling{
 
             public void SetVariable(string name, int value){
                 variablesInt[name] = value;
-                variables[name] = value.ToString();
+                variables[name] = value.ToString(CultureInfo.InvariantCulture);
             }
 
             public void Increment(string name){
                 if (variablesInt.ContainsKey(name)){
-                    variables[name] = (++variablesInt[name]).ToString();
+                    variables[name] = (++variablesInt[name]).ToString(CultureInfo.InvariantCulture);
                 }
                 else{
                     variables[name] = "1";
