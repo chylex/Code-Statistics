@@ -49,12 +49,18 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
-            if (project != null)project.Cancel();
-            else if (search != null)search.Cancel();
+            if (project != null)project.Cancel(OnCancel);
+            else if (search != null)search.Cancel(OnCancel);
             else return;
 
-            DialogResult = DialogResult.Cancel;
-            Close();
+            btnCancel.Enabled = false;
+        }
+
+        private void OnCancel(){
+            Invoke(new MethodInvoker(() => {
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }));
         }
     }
 }

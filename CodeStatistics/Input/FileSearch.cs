@@ -10,9 +10,11 @@ namespace CodeStatistics.Input{
     class FileSearch{
         public delegate void RefreshEventHandler(int entriesFound);
         public delegate void FinishEventHandler(FileSearchData searchData);
+        public delegate void CancelEventHandler();
 
         public event RefreshEventHandler Refresh;
         public event FinishEventHandler Finish;
+        private event CancelEventHandler CancelFinish;
 
         private readonly string[] rootFiles;
         private readonly CancellationTokenSource cancelToken;
@@ -40,7 +42,10 @@ namespace CodeStatistics.Input{
                 updateNotice();
 
                 foreach(string rootFile in rootFiles){
-                    if (cancelToken.IsCancellationRequested)return;
+                    if (cancelToken.IsCancellationRequested){
+                        if (CancelFinish != null)CancelFinish();
+                        return;
+                    }
 
                     bool isDirectory;
 
@@ -52,7 +57,10 @@ namespace CodeStatistics.Input{
 
                     if (isDirectory){
                         foreach(IOEntry entry in EnumerateEntriesSafe(rootFile)){
-                            if (cancelToken.IsCancellationRequested)return;
+                            if (cancelToken.IsCancellationRequested){
+                                if (CancelFinish != null)CancelFinish();
+                                return;
+                            }
 
                             searchData.Add(entry);
                             ++entryCount[0];
@@ -71,8 +79,9 @@ namespace CodeStatistics.Input{
             },cancelToken.Token).Start();
         }
 
-        public void Cancel(){
+        public void Cancel(CancelEventHandler onCancelFinish){
             cancelToken.Cancel(false);
+            CancelFinish += onCancelFinish;
         }
 
         private static IEnumerable<IOEntry> EnumerateEntriesSafe(string path){

@@ -10,9 +10,11 @@ namespace CodeStatistics.Handling{
     class Project{
         public delegate void ProgressEventHandler(int percentage, int processedEntries, int totalEntries);
         public delegate void FinishEventHandler(Variables variables);
+        public delegate void CancelEventHandler();
 
         public event ProgressEventHandler Progress;
         public event FinishEventHandler Finish;
+        private event CancelEventHandler CancelFinish;
 
         private readonly FileSearchData searchData;
         private readonly CancellationTokenSource cancelToken;
@@ -52,7 +54,10 @@ namespace CodeStatistics.Handling{
                 int folderHandlerWeight = folderHandlers.Sum(handler => handler.Weight);
 
                 foreach(string folder in searchData.Folders){
-                    if (cancelToken.IsCancellationRequested)return;
+                    if (cancelToken.IsCancellationRequested){
+                        if (CancelFinish != null)CancelFinish();
+                        return;
+                    }
 
                     foreach(IFolderHandler folderHandler in folderHandlers){
                         folderHandler.Process(folder,variables);
@@ -66,7 +71,10 @@ namespace CodeStatistics.Handling{
 
                 // Files
                 foreach(File file in searchData.Files){
-                    if (cancelToken.IsCancellationRequested)return;
+                    if (cancelToken.IsCancellationRequested){
+                        if (CancelFinish != null)CancelFinish();
+                        return;
+                    }
 
                     IFileHandler handler = HandlerList.GetFileHandler(file);
                     handler.Process(file,variables);
@@ -83,8 +91,9 @@ namespace CodeStatistics.Handling{
             },cancelToken.Token).Start();
         }
 
-        public void Cancel(){
+        public void Cancel(CancelEventHandler onCancelFinish){
             cancelToken.Cancel(false);
+            CancelFinish += onCancelFinish;
         }
     }
 }
