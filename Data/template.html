@@ -509,9 +509,9 @@
       <div class="card">
         <h3>Files</h3>
         <table id="data-pie-file-types" class="summary">
-          <tr><td>{var:fileTypeCode}</td><td>Code</td></tr>
-          <tr><td>{var:fileTypeAssets}</td><td>Assets</td></tr>
-          <tr><td>{var:fileTypeUnknown}</td><td>Unknown</td></tr>
+          <tr><td>{var:fileTypeCode:0}</td><td>Code</td></tr>
+          <tr><td>{var:fileTypeAssets:0}</td><td>Assets</td></tr>
+          <tr><td>{var:fileTypeUnknown:0}</td><td>Unknown</td></tr>
         </table>
         <canvas id="pie-file-types" height="200"></canvas>
       </div>
@@ -519,8 +519,8 @@
       <div class="card">
         <h3>Directory Structure</h3>
         <table id="data-pie-files-folders" class="summary">
-          <tr><td>{var:dirStructureFiles}</td><td>Files</td></tr>
-          <tr><td>{var:dirStructureFolders}</td><td>Folders</td></tr>
+          <tr><td>{var:dirStructureFiles:0}</td><td>Files</td></tr>
+          <tr><td>{var:dirStructureFolders:0}</td><td>Folders</td></tr>
         </table>
         <canvas id="pie-files-folders" height="200"></canvas>
       </div>
@@ -542,13 +542,12 @@
 
 <!-- TEMPLATE contentAssetRow -->
 
-<tr><td>{var:value}</td><td>{var:title}</td></tr>
+<tr><td>{var:value:0}</td><td>{var:title}</td></tr>
 
 <!-- TEMPLATE contentAssets -->
 
 <div id="page-assets">
   <h2>Assets</h2>
-  <p>Abcd</p>
 </div>
 
 <!-- TEMPLATE contentJava -->
@@ -560,19 +559,19 @@
 <div class="card">
   <h3>Java</h3>
   <table class="summary">
-    <tr><td>{var:javaPackages}</td><td>Packages</td></tr>
+    <tr><td>{var:javaPackages:0}</td><td>Packages</td></tr>
     <tr class="separator"></tr>
   </table>
   <table id="data-pie-java-types" class="summary">
-    <tr><td>{var:javaClasses}</td><td>Classes</td></tr>
-    <tr><td>{var:javaInterfaces}</td><td>Interfaces</td></tr>
-    <tr><td>{var:javaEnums}</td><td>Enums</td></tr>
-    <tr><td>{var:javaAnnotations}</td><td>Annotations</td></tr>
+    <tr><td>{var:javaClasses:0}</td><td>Classes</td></tr>
+    <tr><td>{var:javaInterfaces:0}</td><td>Interfaces</td></tr>
+    <tr><td>{var:javaEnums:0}</td><td>Enums</td></tr>
+    <tr><td>{var:javaAnnotations:0}</td><td>Annotations</td></tr>
   </table>
   <table class="summary">
     <tr class="separator"></tr>
-    <tr><td>{var:javaLinesTotal}</td><td>Lines</td></tr>
-    <tr><td>{var:javaCharsTotal}</td><td>Characters</td></tr>
+    <tr><td>{var:javaLinesTotal:0}</td><td>Lines</td></tr>
+    <tr><td>{var:javaCharsTotal:0}</td><td>Characters</td></tr>
   </table>
   <canvas id="pie-java-types" height="200"></canvas>
 </div>
@@ -586,20 +585,20 @@
       <div class="card">
         <h3>Overview</h3>
         <table class="summary">
-          <tr><td>{var:javaLinesTotal}</td><td>Lines Total</td></tr>
-          <tr><td>{var:javaLinesMax}</td><td>Max Lines Per File</td></tr>
-          <tr><td>{var:javaLinesAvg}</td><td>Average Lines Per File</td></tr>
+          <tr><td>{var:javaLinesTotal:0}</td><td>Lines Total</td></tr>
+          <tr><td>{var:javaLinesMax:0}</td><td>Max Lines Per File</td></tr>
+          <tr><td>{var:javaLinesAvg:0}</td><td>Average Lines Per File</td></tr>
           <tr class="separator"></tr>
-          <tr><td>{var:javaCharsTotal}</td><td>Characters Total</td></tr>
-          <tr><td>{var:javaCharsMax}</td><td>Max Characters Per File</td></tr>
-          <tr><td>{var:javaCharsAvg}</td><td>Average Characters Per File</td></tr>
+          <tr><td>{var:javaCharsTotal:0}</td><td>Characters Total</td></tr>
+          <tr><td>{var:javaCharsMax:0}</td><td>Max Characters Per File</td></tr>
+          <tr><td>{var:javaCharsAvg:0}</td><td>Average Characters Per File</td></tr>
           <tr class="separator"></tr>
-          <tr><td>{var:javaCharsPerLineMax}</td><td>Max Characters Per Line</td></tr>
-          <tr><td>{var:javaCharsPerLineAvg}</td><td>Average Characters Per Line</td></tr>
+          <tr><td>{var:javaCharsPerLineMax:0}</td><td>Max Characters Per Line</td></tr>
+          <tr><td>{var:javaCharsPerLineAvg:0}</td><td>Average Characters Per Line</td></tr>
           <tr class="separator"></tr>
-          <tr><td>{var:javaImportsTotal}</td><td>Imports Total</td></tr>
-          <tr><td>{var:javaImportsMax}</td><td>Max Imports Per File</td></tr>
-          <tr><td>{var:javaImportsAvg}</td><td>Average Imports Per File</td></tr>
+          <tr><td>{var:javaImportsTotal:0}</td><td>Imports Total</td></tr>
+          <tr><td>{var:javaImportsMax:0}</td><td>Max Imports Per File</td></tr>
+          <tr><td>{var:javaImportsAvg:0}</td><td>Average Imports Per File</td></tr>
         </table>
       </div>
     </div>
@@ -626,5 +625,5 @@
 
 <!-- TEMPLATE contentJavaFilesRow -->
 
-<tr><td><span class="subtle">{var:package}</span>{var:file}</td><td>{var:amount}</td></tr>
+<tr><td><span class="subtle">{var:package}</span>{var:file}</td><td>{var:amount:0}</td></tr>
 
