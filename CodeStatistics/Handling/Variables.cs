@@ -85,11 +85,16 @@ namespace CodeStatistics.Handling{
 
             public ArrayAdapter(Variables parent, object array){
                 this.parent = parent;
-                this.variables = AnonymousDictionary.Create<string>(array);
+                this.variables = AnonymousDictionary.Create(array);
             }
 
             public override bool CheckFlag(string name){
                 return parent.CheckFlag(name);
+            }
+
+            public void UpdateVariable(string name, string newValue){
+                if (!variables.ContainsKey(name))throw new ArgumentException("Variable "+name+" not found in the array adapter.");
+                variables[name] = newValue;
             }
 
             public override string GetVariable(string name, string defaultValue){

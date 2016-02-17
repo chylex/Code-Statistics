@@ -12,5 +12,15 @@ namespace CodeStatistics.Collections{
 
             return dict;
         }
+
+        public static Dictionary<string,string> Create(object obj){
+            var dict = new Dictionary<string,string>();
+
+            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(obj)){
+                dict.Add(descriptor.Name,descriptor.GetValue(obj).ToString());
+            }
+
+            return dict;
+        }
     }
 }
