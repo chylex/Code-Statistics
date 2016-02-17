@@ -1,11 +1,12 @@
-﻿using CodeStatistics.Input;
+﻿using CodeStatistics.Handling;
+using CodeStatistics.Input;
 using System;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
         private readonly FileSearch search;
-        private FileSearchData searchData;
+        private Project project;
 
         public ProjectLoadForm(string[] rootFiles){
             InitializeComponent();
@@ -24,14 +25,23 @@ namespace CodeStatistics.Forms{
 
             search.Finish += data => {
                 Invoke(new MethodInvoker(() => {
-                    searchData = data;
-
                     labelLoadInfo.Text = "Processing the Project...";
                     labelLoadData.Text = "";
                     progressBarLoad.Value = 0;
                     progressBarLoad.Style = ProgressBarStyle.Continuous;
 
-                    // TODO process
+                    project = new Project(data);
+
+                    project.Progress += (percentage, processedEntries, totalEntries) => {
+                        Invoke(new MethodInvoker(() => {
+                            progressBarLoad.Value = Math.Min(100,percentage+1);
+                            progressBarLoad.Value = percentage; // instant progress bar update hack
+
+                            labelLoadData.Text = processedEntries+" / "+totalEntries;
+                        }));
+                    };
+
+                    project.ProcessAsync();
                 }));
             };
 
@@ -39,9 +49,9 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
-            if (search == null || searchData != null)return;
-
-            search.Cancel();
+            if (project != null)project.Cancel();
+            else if (search != null)search.Cancel();
+            else return;
 
             DialogResult = DialogResult.Cancel;
             Close();
