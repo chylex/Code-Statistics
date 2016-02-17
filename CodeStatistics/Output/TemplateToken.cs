@@ -27,6 +27,7 @@ namespace CodeStatistics.Output{
                     switch(dynamicValueType){
                         case "IF": return new Condition(indexStart,indexEnd,dynamic[1],dynamic[2]);
                         case "FOR": return new Cycle(indexStart,indexEnd,dynamic[1],dynamic[2]);
+                        case "VAR": return new Variable(indexStart,indexEnd,dynamic[1],dynamic[2]);
                         default: return null;
                     }
                 }
@@ -71,13 +72,15 @@ namespace CodeStatistics.Output{
 
         public class Variable : TemplateToken{
             private readonly string variableName;
+            private readonly string defaultValue;
 
-            public Variable(int index, int length, string variableName) : base(index, length){
+            public Variable(int index, int length, string variableName, string defaultValue = "") : base(index, length){
                 this.variableName = variableName;
+                this.defaultValue = defaultValue;
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return variables.GetVariable(variableName);
+                return variables.GetVariable(variableName,defaultValue);
             }
         }
 

@@ -5,7 +5,7 @@ using System.Linq;
 namespace CodeStatistics.Handling{
     abstract class Variables{
         public abstract bool CheckFlag(string name);
-        public abstract string GetVariable(string name);
+        public abstract string GetVariable(string name, string defaultValue);
         public abstract IEnumerable<Variables> GetArray(string name);
 
         public class Root : Variables{
@@ -41,9 +41,9 @@ namespace CodeStatistics.Handling{
                 }
             }
 
-            public override string GetVariable(string name){
+            public override string GetVariable(string name, string defaultValue){
                 string value;
-                return variables.TryGetValue(name,out value) ? value : "";
+                return variables.TryGetValue(name,out value) ? value : defaultValue;
             }
 
             public void AddToArray(string name, object array){
@@ -79,9 +79,9 @@ namespace CodeStatistics.Handling{
                 return parent.CheckFlag(name);
             }
 
-            public override string GetVariable(string name){
+            public override string GetVariable(string name, string defaultValue){
                 string value;
-                return variables.TryGetValue(name,out value) ? value : "";
+                return variables.TryGetValue(name,out value) ? value : defaultValue;
             }
 
             public override IEnumerable<Variables> GetArray(string name){
