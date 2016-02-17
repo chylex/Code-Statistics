@@ -25,20 +25,6 @@ namespace CodeStatistics{
                 }
                 else break;
             }
-
-            if (true)return;
-
-
-            /*FileSearch search = new FileSearch(rootFiles);
-
-            search.Refresh += fileCount => {
-                console.WriteCenter(centerY+1,fileCount.ToString());
-            };
-
-            HashSet<File> foundFiles = search.Search();
-            
-            ProjectAnalyzer analyzer = new ProjectAnalyzer(foundFiles);
-            analyzer.Update += (percentage, handledFiles, totalFiles) => {};*/
         }
     }
 }
