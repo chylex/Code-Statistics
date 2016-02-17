@@ -14,7 +14,7 @@ namespace CodeStatistics.Handling{
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
             private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
             private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>();
-            private readonly Dictionary<Type,object> stateObjects = new Dictionary<Type,object>(4);
+            private readonly Dictionary<object,object> stateObjects = new Dictionary<object,object>(4);
             
             public void AddFlag(string name){
                 flags.Add(name);
@@ -48,16 +48,16 @@ namespace CodeStatistics.Handling{
                 return variables.TryGetValue(name,out value) ? value : defaultValue;
             }
 
-            public void AddStateObject(object obj){
-                stateObjects.Add(obj.GetType(),obj);
+            public void AddStateObject(object owner, object obj){
+                stateObjects.Add(owner,obj);
             }
 
-            public T GetStateObject<T>() where T : class{
+            public T GetStateObject<T>(object owner) where T : class{
                 object obj;
-                return stateObjects.TryGetValue(typeof(T),out obj) ? obj as T : null;
+                return stateObjects.TryGetValue(owner,out obj) ? obj as T : null;
             }
 
-            public void AddToArray(string name, object array){
+            public ArrayAdapter AddToArray(string name, object array){
                 List<Variables> arrayList;
 
                 if (arrays.ContainsKey(name)){
@@ -68,7 +68,9 @@ namespace CodeStatistics.Handling{
                     arrays[name] = arrayList;
                 }
 
-                arrayList.Add(new AdapterArrayVariables(this,array));
+                ArrayAdapter arrayVar = new ArrayAdapter(this,array);
+                arrayList.Add(arrayVar);
+                return arrayVar;
             }
 
             public override IEnumerable<Variables> GetArray(string name){
@@ -77,11 +79,11 @@ namespace CodeStatistics.Handling{
             }
         }
 
-        private class AdapterArrayVariables : Variables{
+        public class ArrayAdapter : Variables{
             private readonly Variables parent;
             private readonly Dictionary<string,string> variables;
 
-            public AdapterArrayVariables(Variables parent, object array){
+            public ArrayAdapter(Variables parent, object array){
                 this.parent = parent;
                 this.variables = AnonymousDictionary.Create<string>(array);
             }

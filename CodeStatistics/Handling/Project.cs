@@ -70,7 +70,7 @@ namespace CodeStatistics.Handling{
                 }
 
                 // Files
-                HashSet<Type> initializedHandlers = new HashSet<Type>();
+                HashSet<object> initializedHandlers = new HashSet<object>();
 
                 foreach(File file in searchData.Files){
                     if (cancelToken.IsCancellationRequested){
@@ -80,7 +80,7 @@ namespace CodeStatistics.Handling{
 
                     IFileHandler handler = HandlerList.GetFileHandler(file);
 
-                    if (initializedHandlers.Add(handler.GetType())){
+                    if (initializedHandlers.Add(handler)){
                         handler.SetupProject(variables);
                     }
 
