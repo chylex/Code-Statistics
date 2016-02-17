@@ -1,8 +1,8 @@
 ﻿using CodeStatistics.Input;
 
 namespace CodeStatistics.Handling.Languages {
-    class JavaHandler : FileHandler{
-        public override int Weight{
+    class JavaHandler : IFileHandler{
+        public int Weight{
             get { return 50; }
         }
 

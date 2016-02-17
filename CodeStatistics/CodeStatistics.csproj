@@ -76,6 +76,7 @@
     <Compile Include="Handlers\Objects\Java\Tabs\JavaSyntaxTab.cs" />
     <Compile Include="Handling\IFolderHandler.cs" />
     <Compile Include="Handling\General\AssetHandler.cs" />
+    <Compile Include="Handling\General\FolderHandler.cs" />
     <Compile Include="Handling\General\UnknownHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\ParseUtils.cs" />

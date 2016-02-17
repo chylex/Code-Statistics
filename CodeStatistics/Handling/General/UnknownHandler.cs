@@ -1,12 +1,16 @@
 ﻿using CodeStatistics.Input;
 
 namespace CodeStatistics.Handling.General{
-    class UnknownHandler : FileHandler{
-        public override int Weight{
+    class UnknownHandler : IFileHandler{
+        public int Weight{
             get { return 1; }
         }
 
-        public override void Process(File file, Variables.Root variables){
+        public bool IsFileValid(File file){
+            return true;
+        }
+
+        public void Process(File file, Variables.Root variables){
             
         }
     }
