@@ -6,10 +6,6 @@ namespace CodeStatistics.Handling.Languages {
             get { return 50; }
         }
 
-        public bool IsFileValid(File file){
-            return true;
-        }
-
         public void Process(File file, Variables.Root variables){
             
         }
