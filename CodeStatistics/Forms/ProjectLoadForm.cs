@@ -38,8 +38,18 @@ namespace CodeStatistics.Forms{
 
                     project.Progress += (percentage, processedEntries, totalEntries) => {
                         Invoke(new MethodInvoker(() => {
-                            progressBarLoad.Value = Math.Min(100,percentage+1);
-                            progressBarLoad.Value = percentage; // instant progress bar update hack
+                            int percValue = percentage*10;
+
+                            // instant progress bar update hack
+                            if (percValue == progressBarLoad.Maximum){
+                                progressBarLoad.Value = percValue;
+                                progressBarLoad.Value = percValue-1;
+                                progressBarLoad.Value = percValue;
+                            }
+                            else{
+                                progressBarLoad.Value = percValue+1;
+                                progressBarLoad.Value = percValue;
+                            }
 
                             labelLoadData.Text = processedEntries+" / "+totalEntries;
                         }));

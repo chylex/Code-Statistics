@@ -37,11 +37,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarLoad.Location = new System.Drawing.Point(12, 45);
             this.progressBarLoad.MarqueeAnimationSpeed = 10;
+            this.progressBarLoad.Maximum = 1000;
             this.progressBarLoad.Name = "progressBarLoad";
             this.progressBarLoad.Size = new System.Drawing.Size(307, 23);
             this.progressBarLoad.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBarLoad.TabIndex = 0;
-            this.progressBarLoad.Value = 100;
+            this.progressBarLoad.Value = 1000;
             // 
             // labelLoadInfo
             // 
