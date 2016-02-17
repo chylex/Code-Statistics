@@ -2,11 +2,15 @@
 using CodeStatistics.Input;
 using System;
 using System.Windows.Forms;
+using CodeStatistics.Output;
+using System.Diagnostics;
+using System.IO;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
         private readonly FileSearch search;
         private Project project;
+        private Variables variables;
 
         public ProjectLoadForm(string[] rootFiles){
             InitializeComponent();
@@ -41,6 +45,18 @@ namespace CodeStatistics.Forms{
                         }));
                     };
 
+                    project.Finish += vars => {
+                        Invoke(new MethodInvoker(() => {
+                            variables = vars;
+
+                            labelLoadInfo.Text = "Project processing finished.";
+
+                            btnCancel.Visible = false;
+                            btnClose.Visible = true;
+                            btnGenerateOutput.Visible = true;
+                        }));
+                    };
+
                     project.ProcessAsync();
                 }));
             };
@@ -49,7 +65,8 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
-            if (project != null)project.Cancel(OnCancel);
+            if (variables != null);
+            else if (project != null)project.Cancel(OnCancel);
             else if (search != null)search.Cancel(OnCancel);
             else return;
 
@@ -61,6 +78,18 @@ namespace CodeStatistics.Forms{
                 DialogResult = DialogResult.Cancel;
                 Close();
             }));
+        }
+
+        private void btnClose_Click(object sender, EventArgs e){
+            DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnGenerateOutput_Click(object sender, EventArgs e){
+            if (variables == null)return;
+
+            new GenerateHtml(System.IO.File.ReadAllLines("template.html"),variables).ToFile("output.html");
+            Process.Start(Path.Combine(Directory.GetCurrentDirectory(),"output.html"));
         }
     }
 }
