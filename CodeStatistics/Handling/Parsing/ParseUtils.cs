@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeStatistics.Handling{
+namespace CodeStatistics.Handling.Parsing{
     public static class ParseUtils{
         private const StringComparison Cmp = StringComparison.Ordinal;
 

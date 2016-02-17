@@ -80,7 +80,7 @@
     <Compile Include="Handling\General\UnknownHandler.cs" />
     <Compile Include="Handling\Languages\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
-    <Compile Include="Handling\ParseUtils.cs" />
+    <Compile Include="Handling\Parsing\ParseUtils.cs" />
     <Compile Include="Handling\IFileHandler.cs" />
     <Compile Include="Handling\HandlerList.cs" />
     <Compile Include="Handling\Project.cs" />
