@@ -13,6 +13,10 @@ namespace CodeStatistics.Input{
             get { return folders; }
         }
 
+        public int EntryCount{
+            get { return files.Count+folders.Count; }
+        }
+
         public void Add(IOEntry entry){
             if (entry.EntryType == IOEntry.Type.File)files.Add(new File(entry.Path));
             else folders.Add(entry.Path);
