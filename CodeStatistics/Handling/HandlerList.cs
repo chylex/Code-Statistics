@@ -2,6 +2,7 @@
 using CodeStatistics.Handling.Languages;
 using CodeStatistics.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CodeStatistics.Handling{
     static class HandlerList{
@@ -9,10 +10,11 @@ namespace CodeStatistics.Handling{
             int Weight { get; }
         }
 
+        private static readonly Dictionary<string,IFileHandler> FileHandlers = new Dictionary<string,IFileHandler>(8);
         private static readonly IFileHandler UnknownFileHandler;
 
-        private static readonly Dictionary<string,IFileHandler> FileHandlers = new Dictionary<string,IFileHandler>(8);
         private static readonly List<IFolderHandler> FolderHandlers = new List<IFolderHandler>(1);
+        private static int folderHandlerWeight = 0;
 
         static HandlerList(){
             UnknownFileHandler = new UnknownHandler();
@@ -39,6 +41,7 @@ namespace CodeStatistics.Handling{
 
         private static void AddFolderHandler(IFolderHandler handler){
             FolderHandlers.Add(handler);
+            folderHandlerWeight += handler.Weight;
         }
 
         public static IFileHandler GetFileHandler(File file){
@@ -48,6 +51,10 @@ namespace CodeStatistics.Handling{
 
         public static IEnumerable<IFolderHandler> GetFolderHandlers(){
             return FolderHandlers;
+        }
+
+        public static int GetTotalWeight(FileSearchData searchData){
+            return searchData.Files.Sum(file => GetFileHandler(file).Weight)+searchData.Folders.Count()*folderHandlerWeight;
         }
     }
 }
