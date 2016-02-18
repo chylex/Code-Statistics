@@ -7,15 +7,25 @@ namespace CodeStatistics.Input{
         public readonly string FullPath;
         public readonly string Ext;
 
+        private string[] _contents;
+
+        public string[] Contents{
+            get {
+                if (_contents.Length == 0){
+                    _contents = System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace(@"\r","").TrimEnd().Split('\n');
+                }
+
+                return _contents;
+            }
+        }
+
         public File(string fullPath){
             if (fullPath == null)throw new ArgumentNullException("fullPath");
 
             this.FullPath = fullPath;
             this.Ext = Path.GetExtension(fullPath).Replace(".","").ToLowerInvariant();
-        }
 
-        public string Read(){
-            return System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace("\\r","");
+            this._contents = new string[0];
         }
 
         public override bool Equals(object obj){
