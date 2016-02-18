@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CodeStatistics.Handling;
-using CodeStatistics.Handling.Parsing;
+using CodeStatistics.Handling.Utils;
 
 namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
