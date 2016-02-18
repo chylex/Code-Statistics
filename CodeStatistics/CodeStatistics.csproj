@@ -79,6 +79,7 @@
     <Compile Include="Handling\IFileHandler.cs" />
     <Compile Include="Handling\HandlerList.cs" />
     <Compile Include="Handling\Project.cs" />
+    <Compile Include="Handling\Utils\VariableUtils.cs" />
     <Compile Include="Handling\Variables.cs" />
     <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
