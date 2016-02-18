@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CodeStatistics.Output{
     abstract class TemplateToken{
-        private static readonly Regex MatchToken = new Regex(@"{(\w+(?::\w+)*)}",RegexOptions.Compiled);
+        private static readonly Regex MatchToken = new Regex(@"{(\w+(?::[\w\s]+)*)}",RegexOptions.Compiled);
         private static readonly char[] DynamicValueSplit = { ':' };
 
         public static IEnumerable<TemplateToken> FindTokens(string text){
