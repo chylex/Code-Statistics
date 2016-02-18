@@ -35,13 +35,13 @@ namespace CodeStatistics.Handling{
                 variables[name] = value.ToString(CultureInfo.InvariantCulture);
             }
 
-            public void Increment(string name){
+            public void Increment(string name, int amount = 1){
                 if (variablesInt.ContainsKey(name)){
-                    variables[name] = (++variablesInt[name]).ToString(CultureInfo.InvariantCulture);
+                    variables[name] = (variablesInt[name] += amount).ToString(CultureInfo.InvariantCulture);
                 }
                 else{
-                    variables[name] = "1";
-                    variablesInt[name] = 1;
+                    variables[name] = amount.ToString();
+                    variablesInt[name] = amount;
                 }
             }
 
