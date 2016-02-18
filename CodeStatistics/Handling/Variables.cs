@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace CodeStatistics.Handling{
     abstract class Variables{
+        private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo{
+            NumberGroupSeparator = " "
+        };
+
         public abstract bool CheckFlag(string name);
         public abstract string GetVariable(string name, string defaultValue);
         public abstract IEnumerable<Variables> GetArray(string name);
@@ -37,10 +41,10 @@ namespace CodeStatistics.Handling{
 
             public void Increment(string name, int amount = 1){
                 if (variablesInt.ContainsKey(name)){
-                    variables[name] = (variablesInt[name] += amount).ToString(CultureInfo.InvariantCulture);
+                    variables[name] = (variablesInt[name] += amount).ToString("N0",NumberFormat);
                 }
                 else{
-                    variables[name] = amount.ToString();
+                    variables[name] = amount.ToString("N0",NumberFormat);
                     variablesInt[name] = amount;
                 }
             }
