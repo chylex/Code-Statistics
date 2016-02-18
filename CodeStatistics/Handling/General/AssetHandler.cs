@@ -1,4 +1,5 @@
 ﻿using CodeStatistics.Input;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -20,13 +21,7 @@ namespace CodeStatistics.Handling.General{
             }
         }
 
-        private class AssetRowComparer : IComparer<Variables>{
-            public int Compare(Variables x, Variables y){
-                return int.Parse(y.GetVariable("value","0"),CultureInfo.InvariantCulture)-int.Parse(x.GetVariable("value","0"),CultureInfo.InvariantCulture);
-            }
-        }
-
-        private static readonly IComparer<Variables> AssetRowSorter = new AssetRowComparer();
+        private static readonly Comparison<Variables> AssetRowSorter = (x, y) => y.GetVariable("value",0)-x.GetVariable("value",0);
 
         private readonly Type type;
 
@@ -54,7 +49,7 @@ namespace CodeStatistics.Handling.General{
                 state.Array = variables.AddToArray("assetTypes",new { title = GetAssetTypeName(type), value = 1 });
             }
             else{
-                state.Array.UpdateVariable("value",state.Count.ToString(CultureInfo.InvariantCulture));
+                state.Array.UpdateVariable("value",state.Count);
             }
         }
 

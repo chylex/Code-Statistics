@@ -20,7 +20,7 @@ namespace CodeStatistics.Handling{
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
             private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
             private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>(4);
-            private readonly Dictionary<string,IComparer<Variables>> arraySorters = new Dictionary<string,IComparer<Variables>>(4);
+            private readonly Dictionary<string,Comparison<Variables>> arraySorters = new Dictionary<string,Comparison<Variables>>(4);
             private readonly Dictionary<object,object> stateObjects = new Dictionary<object,object>(4);
             
             public void AddFlag(string name){
@@ -89,7 +89,7 @@ namespace CodeStatistics.Handling{
                 List<Variables> arrayList;
 
                 if (arrays.TryGetValue(name,out arrayList)){
-                    IComparer<Variables> comparer;
+                    Comparison<Variables> comparer;
 
                     if (arraySorters.TryGetValue(name,out comparer)){
                         arrayList.Sort(comparer);
@@ -100,7 +100,7 @@ namespace CodeStatistics.Handling{
                 else return Enumerable.Empty<Variables>();
             }
 
-            public void SetArraySorter(string name, IComparer<Variables> comparer){
+            public void SetArraySorter(string name, Comparison<Variables> comparer){
                 arraySorters[name] = comparer;
             }
         }
