@@ -37,7 +37,7 @@ namespace CodeStatistics.Handling{
 
             public void SetVariable(string name, int value){
                 variablesInt[name] = value;
-                variables[name] = value.ToString(CultureInfo.InvariantCulture);
+                variables[name] = value.ToString("N0",NumberFormat);
             }
 
             public void Increment(string name, int amount = 1){
