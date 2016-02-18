@@ -68,11 +68,6 @@
     <Compile Include="Handlers\Objects\Java\JavaParseUtils.cs" />
     <Compile Include="Handlers\Objects\Java\JavaStatistics.cs" />
     <Compile Include="Handlers\Objects\Java\Enums\JavaType.cs" />
-    <Compile Include="Handlers\Objects\Java\Tabs\JavaFilesTab.cs" />
-    <Compile Include="Handlers\Objects\Java\Tabs\JavaGeneralTab.cs" />
-    <Compile Include="Handlers\Objects\Java\Tabs\JavaNamesTab.cs" />
-    <Compile Include="Handlers\Objects\Java\Tabs\JavaPrimitivesTab.cs" />
-    <Compile Include="Handlers\Objects\Java\Tabs\JavaSyntaxTab.cs" />
     <Compile Include="Handling\General\AbstractFileHandler.cs" />
     <Compile Include="Handling\IFolderHandler.cs" />
     <Compile Include="Handling\General\AssetHandler.cs" />
