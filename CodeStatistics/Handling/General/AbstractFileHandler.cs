@@ -9,5 +9,7 @@ namespace CodeStatistics.Handling.General{
         public virtual void Process(File file, Variables.Root variables){
             variables.Increment("dirStructureFiles");
         }
+
+        public virtual void FinalizeProject(Variables.Root variables){}
     }
 }

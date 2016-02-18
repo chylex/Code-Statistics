@@ -70,7 +70,7 @@ namespace CodeStatistics.Handling{
                 }
 
                 // Files
-                HashSet<object> initializedHandlers = new HashSet<object>();
+                HashSet<IFileHandler> initializedHandlers = new HashSet<IFileHandler>();
 
                 foreach(File file in searchData.Files){
                     if (cancelToken.IsCancellationRequested){
@@ -90,6 +90,10 @@ namespace CodeStatistics.Handling{
                     ++updateCounter;
                     processedWeight += handler.Weight;
                     checkProgress();
+                }
+
+                foreach(IFileHandler handler in initializedHandlers){
+                    handler.FinalizeProject(variables);
                 }
 
                 // Finalize
