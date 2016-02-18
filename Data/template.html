@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="CodeStatistics {var:csVersion}">
   
-  <title>{var:projectName} - Code Statistics {var:csVersion}</title>
+  <title>{var:projectName:My Project} - Code Statistics {var:csVersion}</title>
   
   {css}
   {js}
@@ -454,7 +454,7 @@
         var data = [];
 
         forEach(table.getElementsByTagName("tr"),function(indRow, eleRow){
-          var value = parseInt(eleRow.children[0].innerHTML,10);
+          var value = parseInt(eleRow.children[0].innerHTML.replace(/\D/g,""),10);
 
           if (value == 0)++chartColorIndex;
           else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
