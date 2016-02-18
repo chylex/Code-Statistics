@@ -12,6 +12,7 @@ namespace CodeStatistics.Handling{
 
         public abstract bool CheckFlag(string name);
         public abstract string GetVariable(string name, string defaultValue);
+        public abstract int GetVariable(string name, int defaultValue);
         public abstract IEnumerable<Variables> GetArray(string name);
 
         public class Root : Variables{
@@ -52,6 +53,11 @@ namespace CodeStatistics.Handling{
             public override string GetVariable(string name, string defaultValue){
                 string value;
                 return variables.TryGetValue(name,out value) ? value : defaultValue;
+            }
+
+            public override int GetVariable(string name, int defaultValue){
+                int value;
+                return variablesInt.TryGetValue(name,out value) ? value : defaultValue;
             }
 
             public void AddStateObject(object owner, object obj){
@@ -117,9 +123,20 @@ namespace CodeStatistics.Handling{
                 variables[name] = newValue;
             }
 
+            public void UpdateVariable(string name, int newValue){
+                UpdateVariable(name,newValue.ToString(CultureInfo.InvariantCulture));
+            }
+
             public override string GetVariable(string name, string defaultValue){
                 string value;
                 return variables.TryGetValue(name,out value) ? value : defaultValue;
+            }
+
+            public override int GetVariable(string name, int defaultValue){
+                string strValue = GetVariable(name,defaultValue.ToString());
+
+                int intValue;
+                return int.TryParse(strValue,NumberStyles.Integer,CultureInfo.InvariantCulture,out intValue) ? intValue : defaultValue;
             }
 
             public override IEnumerable<Variables> GetArray(string name){
