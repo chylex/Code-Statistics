@@ -106,12 +106,14 @@ namespace CodeStatistics.Handling{
         }
 
         public class ArrayAdapter : Variables{
+            private static readonly AnonymousDictionary.ToStringFunction ToString = o => o is int ? ((int)o).ToString("N0",NumberFormat) : o.ToString();
+
             private readonly Variables parent;
             private readonly Dictionary<string,string> variables;
 
             public ArrayAdapter(Variables parent, object array){
                 this.parent = parent;
-                this.variables = AnonymousDictionary.Create(array);
+                this.variables = AnonymousDictionary.Create(array,ToString);
             }
 
             public override bool CheckFlag(string name){
@@ -124,7 +126,7 @@ namespace CodeStatistics.Handling{
             }
 
             public void UpdateVariable(string name, int newValue){
-                UpdateVariable(name,newValue.ToString(CultureInfo.InvariantCulture));
+                UpdateVariable(name,newValue.ToString("N0",NumberFormat));
             }
 
             public override string GetVariable(string name, string defaultValue){
@@ -136,7 +138,7 @@ namespace CodeStatistics.Handling{
                 string strValue = GetVariable(name,defaultValue.ToString());
 
                 int intValue;
-                return int.TryParse(strValue,NumberStyles.Integer,CultureInfo.InvariantCulture,out intValue) ? intValue : defaultValue;
+                return int.TryParse(strValue,NumberStyles.Integer,NumberFormat,out intValue) ? intValue : defaultValue;
             }
 
             public override IEnumerable<Variables> GetArray(string name){
