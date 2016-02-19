@@ -27,7 +27,7 @@ namespace CodeStatistics.Handling.Languages{
         }
 
         protected virtual void ProcessFileContents(File file, Variables.Root variables){
-            string[] contents = file.Contents;
+            string[] contents = file.Contents.Split('\n');
 
             int lineCount = 0, charCount = 0, maxCharsPerLine = 0;
 

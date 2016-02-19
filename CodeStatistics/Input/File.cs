@@ -7,12 +7,12 @@ namespace CodeStatistics.Input{
         public readonly string FullPath;
         public readonly string Ext;
 
-        private string[] _contents;
+        private string _contents;
 
-        public string[] Contents{
+        public string Contents{
             get {
-                if (_contents.Length == 0){
-                    _contents = System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace(@"\r","").TrimEnd().Split('\n');
+                if (_contents == "\0"){
+                    _contents = System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace(@"\r","").TrimEnd();
                 }
 
                 return _contents;
@@ -25,7 +25,7 @@ namespace CodeStatistics.Input{
             this.FullPath = fullPath;
             this.Ext = Path.GetExtension(fullPath).Replace(".","").ToLowerInvariant();
 
-            this._contents = new string[0];
+            this._contents = "\0";
         }
 
         public override bool Equals(object obj){
