@@ -77,7 +77,7 @@
     <Compile Include="Handling\Languages\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Utils\FileIntValue.cs" />
-    <Compile Include="Handling\Utils\ParseUtils.cs" />
+    <Compile Include="Handling\Utils\StringUtils.cs" />
     <Compile Include="Handling\IFileHandler.cs" />
     <Compile Include="Handling\HandlerList.cs" />
     <Compile Include="Handling\Project.cs" />
