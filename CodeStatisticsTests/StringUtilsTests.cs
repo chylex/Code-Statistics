@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeStatisticsTests{
     [TestClass]
-    public class ParseUtilsTests{
+    public class StringUtilsTests{
         [TestMethod]
         public void TestStringExtract(){
             Assert.AreEqual("do not touch letters","...do not touch letters".ExtractStart("..."));

@@ -54,7 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="JavaParserTests.cs" />
-    <Compile Include="ParseUtilsTests.cs" />
+    <Compile Include="StringUtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
