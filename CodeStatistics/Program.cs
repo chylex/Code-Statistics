@@ -1,6 +1,4 @@
-﻿using CodeStatistics.Handling;
-using CodeStatistics.Output;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using CodeStatistics.Forms;
 
@@ -9,6 +7,11 @@ namespace CodeStatistics{
         [STAThread]
         static void Main(string[] args){
             Application.EnableVisualStyles();
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, ex) => {
+                if (ex.Exception is EntryPointNotFoundException)return;
+                System.Diagnostics.Debug.WriteLine("OOPS - Breakpoint");
+            };
 
             ProgramArguments arguments = new ProgramArguments(args);
 
