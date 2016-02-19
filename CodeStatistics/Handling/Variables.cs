@@ -106,14 +106,14 @@ namespace CodeStatistics.Handling{
         }
 
         public class ArrayAdapter : Variables{
-            private static readonly AnonymousDictionary.ToStringFunction ToString = o => o is int ? ((int)o).ToString("N0",NumberFormat) : o.ToString();
+            private static readonly AnonymousDictionary.ToStringFunction ToStringFormat = o => o is int ? ((int)o).ToString("N0",NumberFormat) : o.ToString();
 
             private readonly Variables parent;
             private readonly Dictionary<string,string> variables;
 
             public ArrayAdapter(Variables parent, object array){
                 this.parent = parent;
-                this.variables = AnonymousDictionary.Create(array,ToString);
+                this.variables = AnonymousDictionary.Create(array,ToStringFormat);
             }
 
             public override bool CheckFlag(string name){
