@@ -64,6 +64,10 @@ namespace CodeStatistics.Forms{
                             btnCancel.Visible = false;
                             btnClose.Visible = true;
                             btnGenerateOutput.Visible = true;
+
+                            #if DEBUG
+                                btnDebugProject.Visible = true;
+                            #endif
                         }));
                     };
 
@@ -96,10 +100,16 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnGenerateOutput_Click(object sender, EventArgs e){
-            if (variables == null)return;
+            if (project == null || variables == null)return;
 
             new GenerateHtml(System.IO.File.ReadAllLines("template.html"),variables).ToFile("output.html");
             Process.Start(Path.Combine(Directory.GetCurrentDirectory(),"output.html"));
+        }
+
+        private void btnDebugProject_Click(object sender, EventArgs e){
+            if (project == null || variables == null)return;
+
+            new ProjectDebugForm(project).ShowDialog();
         }
     }
 }

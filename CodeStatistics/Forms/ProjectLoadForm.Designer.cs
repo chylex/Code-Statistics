@@ -29,6 +29,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnGenerateOutput = new System.Windows.Forms.Button();
+            this.btnDebugProject = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBarLoad
@@ -103,6 +104,18 @@
             this.btnGenerateOutput.Visible = false;
             this.btnGenerateOutput.Click += new System.EventHandler(this.btnGenerateOutput_Click);
             // 
+            // btnDebugProject
+            // 
+            this.btnDebugProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDebugProject.Location = new System.Drawing.Point(12, 76);
+            this.btnDebugProject.Name = "btnDebugProject";
+            this.btnDebugProject.Size = new System.Drawing.Size(91, 23);
+            this.btnDebugProject.TabIndex = 6;
+            this.btnDebugProject.Text = "Debug Project";
+            this.btnDebugProject.UseVisualStyleBackColor = true;
+            this.btnDebugProject.Visible = false;
+            this.btnDebugProject.Click += new System.EventHandler(this.btnDebugProject_Click);
+            // 
             // ProjectLoadForm
             // 
             this.AllowDrop = true;
@@ -110,6 +123,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(331, 111);
+            this.Controls.Add(this.btnDebugProject);
             this.Controls.Add(this.btnGenerateOutput);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnCancel);
@@ -134,5 +148,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnGenerateOutput;
+        private System.Windows.Forms.Button btnDebugProject;
     }
 }
