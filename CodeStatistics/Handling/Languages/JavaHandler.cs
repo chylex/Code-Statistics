@@ -24,12 +24,17 @@ namespace CodeStatistics.Handling.Languages{
             JavaState state = variables.GetStateObject<JavaState>(this);
             JavaFileInfo info = state.Process(file);
 
+            string contents = PrepareFileContents(file);
             // TODO
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
             JavaState state = variables.GetStateObject<JavaState>(this);
             return new { package = state.GetFile(fi.File).Package.Replace('.','/')+'/', file = Path.GetFileName(fi.File.FullPath), amount = fi.Value };
+        }
+
+        public override string PrepareFileContents(File file){
+            return JavaParseUtils.ProcessCodeFile(file.Contents);
         }
     }
 }
