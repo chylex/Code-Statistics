@@ -26,7 +26,7 @@ namespace CodeStatistics.Input{
 
         public void StartAsync(){
             new Task(() => {
-                var searchData = new FileSearchData();
+                var searchData = new FileSearchData(IOUtils.FindRootPath(rootFiles));
                 var rand = new Random();
 
                 int[] entryCount = { 0 };

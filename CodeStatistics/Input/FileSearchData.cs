@@ -5,6 +5,8 @@ namespace CodeStatistics.Input{
         private readonly HashSet<File> files = new HashSet<File>();
         private readonly HashSet<string> folders = new HashSet<string>();
 
+        public readonly string Root;
+
         public IEnumerable<File> Files{
             get { return files; }
         }
@@ -15,6 +17,10 @@ namespace CodeStatistics.Input{
 
         public int EntryCount{
             get { return files.Count+folders.Count; }
+        }
+
+        public FileSearchData(string root){
+            this.Root = root;
         }
 
         public void Add(IOEntry entry){
