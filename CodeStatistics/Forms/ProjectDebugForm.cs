@@ -9,7 +9,7 @@ using PathIO = System.IO.Path;
 namespace CodeStatistics.Forms{
     partial class ProjectDebugForm : Form{
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr handle, int message, int wParam, int[] lParam);
+        private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
 
         public ProjectDebugForm(Project project){
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace CodeStatistics.Forms{
 
             listBoxFiles_SelectedValueChange(listBoxFiles,new EventArgs());
 
-            SendMessage(textBoxCode.Handle,0x00CB,1,new []{ 16 });
+            SendMessage(textBoxCode.Handle,0x00CB,new IntPtr(1),new []{ 16 });
         }
 
         private void listBoxFiles_SelectedValueChange(object sender, EventArgs e){
