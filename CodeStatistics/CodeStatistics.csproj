@@ -63,6 +63,12 @@
     <Compile Include="Collections\AnonymousDictionary.cs" />
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Collections\Triple.cs" />
+    <Compile Include="Forms\ProjectDebugForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProjectDebugForm.Designer.cs">
+      <DependentUpon>ProjectDebugForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Handlers\Objects\Java\Enums\JavaModifiers.cs" />
     <Compile Include="Handlers\Objects\Java\Enums\JavaPrimitives.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
