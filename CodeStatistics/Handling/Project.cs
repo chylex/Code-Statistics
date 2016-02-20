@@ -16,11 +16,12 @@ namespace CodeStatistics.Handling{
         public event FinishEventHandler Finish;
         private event CancelEventHandler CancelFinish;
 
-        private readonly FileSearchData searchData;
+        public readonly FileSearchData SearchData;
+
         private readonly CancellationTokenSource cancelToken;
 
         public Project(FileSearchData searchData){
-            this.searchData = searchData;
+            this.SearchData = searchData;
             this.cancelToken = new CancellationTokenSource();
         }
 
@@ -28,8 +29,8 @@ namespace CodeStatistics.Handling{
             new Task(() => {
                 var variables = new Variables.Root();
                 
-                int processedEntries = 0, totalEntries = searchData.EntryCount;
-                int processedWeight = 0, totalWeight = HandlerList.GetTotalWeight(searchData);
+                int processedEntries = 0, totalEntries = SearchData.EntryCount;
+                int processedWeight = 0, totalWeight = HandlerList.GetTotalWeight(SearchData);
 
                 int updateCounter = 0, updateInterval = totalEntries/400;
 
@@ -53,7 +54,7 @@ namespace CodeStatistics.Handling{
                 List<IFolderHandler> folderHandlers = HandlerList.GetFolderHandlers().ToList();
                 int folderHandlerWeight = folderHandlers.Sum(handler => handler.Weight);
 
-                foreach(string folder in searchData.Folders){
+                foreach(string folder in SearchData.Folders){
                     if (cancelToken.IsCancellationRequested){
                         if (CancelFinish != null)CancelFinish();
                         return;
@@ -72,7 +73,7 @@ namespace CodeStatistics.Handling{
                 // Files
                 HashSet<IFileHandler> initializedHandlers = new HashSet<IFileHandler>();
 
-                foreach(File file in searchData.Files){
+                foreach(File file in SearchData.Files){
                     if (cancelToken.IsCancellationRequested){
                         if (CancelFinish != null)CancelFinish();
                         return;
