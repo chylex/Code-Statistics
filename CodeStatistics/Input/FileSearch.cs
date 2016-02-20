@@ -47,15 +47,10 @@ namespace CodeStatistics.Input{
                         return;
                     }
 
-                    bool isDirectory;
+                    bool? isDirectory = IOUtils.IsDirectory(rootFile);
+                    if (!isDirectory.HasValue)continue;
 
-                    try{
-                        isDirectory = FileIO.GetAttributes(rootFile).HasFlag(FileAttributes.Directory);
-                    }catch(Exception){
-                        continue;
-                    }
-
-                    if (isDirectory){
+                    if (isDirectory.Value){
                         foreach(IOEntry entry in EnumerateEntriesSafe(rootFile)){
                             if (cancelToken.IsCancellationRequested){
                                 if (CancelFinish != null)CancelFinish();
