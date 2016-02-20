@@ -1,17 +1,6 @@
-﻿using System;
-using CodeStatistics.Handlers.Objects.Java.Enums;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using CodeStatistics.Handling;
-using CodeStatistics.Handling.Utils;
-
-namespace CodeStatistics.Handlers.Objects.Java{
+﻿namespace CodeStatistics.Handlers.Objects.Java{
     public static class JavaParseUtils{
-        public static readonly Regex CommentOneLine = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline); // use for the whole string
-        public static readonly Regex CommentMultiLine = new Regex(@"/\*(?:.|\n)*?\*/",RegexOptions.Compiled); // use for the whole string
-        public static readonly Regex Strings = new Regex(@"([""']).*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal
-        public static readonly Regex Arrays = new Regex(@"\[.*?\]",RegexOptions.Compiled);
+        /*public static readonly Regex Arrays = new Regex(@"\[.*?\]",RegexOptions.Compiled);
         public static readonly Regex Syntax = new Regex(@"\b(switch|try|for|while|do)\b",RegexOptions.Compiled);
         
         public static readonly Regex FieldLine = new Regex(@"^[^\s,]+?\s.+?;$",RegexOptions.Compiled);
@@ -103,6 +92,6 @@ namespace CodeStatistics.Handlers.Objects.Java{
         public static KeyValuePair<string,string> GetSimpleName(string fullName){
             int index = fullName.LastIndexOf('.');
             return new KeyValuePair<string,string>(index == -1 ? fullName : fullName.Substring(index+1),index == -1 ? "" : fullName.Substring(0,index+1));
-        }
+        }*/
     }
 }

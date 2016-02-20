@@ -69,12 +69,8 @@
     <Compile Include="Forms\ProjectDebugForm.Designer.cs">
       <DependentUpon>ProjectDebugForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\Objects\Java\Enums\JavaModifiers.cs" />
-    <Compile Include="Handlers\Objects\Java\Enums\JavaPrimitives.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handlers\Objects\Java\JavaParseUtils.cs" />
-    <Compile Include="Handlers\Objects\Java\JavaStatistics.cs" />
-    <Compile Include="Handlers\Objects\Java\Enums\JavaType.cs" />
     <Compile Include="Handling\General\AbstractFileHandler.cs" />
     <Compile Include="Handling\IFolderHandler.cs" />
     <Compile Include="Handling\General\AssetHandler.cs" />

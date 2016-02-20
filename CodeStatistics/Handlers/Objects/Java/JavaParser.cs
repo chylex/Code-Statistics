@@ -1,14 +1,7 @@
-﻿using CodeStatistics.Handlers.Objects.Java.Enums;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using CodeStatistics.Handling;
-using CodeStatistics.Handling.Utils;
-
-namespace CodeStatistics.Handlers.Objects.Java{
+﻿namespace CodeStatistics.Handlers.Objects.Java{
     static class JavaParser{
-        public static void Parse(string fileContents, JavaStatistics stats){
-            string fileParsed = JavaParseUtils.Strings.Replace(JavaParseUtils.CommentMultiLine.Replace(JavaParseUtils.CommentOneLine.Replace(fileContents,""),""),"");
+        public static void Parse(string fileContents){
+            /*string fileParsed = JavaParseUtils.Strings.Replace(JavaParseUtils.CommentMultiLine.Replace(JavaParseUtils.CommentOneLine.Replace(fileContents,""),""),"");
             
             string[] linesPlain = fileContents.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); // lines are always \n
             string[] linesParsed = fileParsed.Split('\n').Select(line => line.TrimEnd()).Where(line => line.Length > 0).ToArray(); //  ^
@@ -132,7 +125,7 @@ namespace CodeStatistics.Handlers.Objects.Java{
                         ++stats.FieldFinality[mf.Finality];
                     }
                 }
-            }
+            }*/
         }
     }
 }
