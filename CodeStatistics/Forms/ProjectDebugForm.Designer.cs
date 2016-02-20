@@ -69,6 +69,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCode.BackColor = System.Drawing.Color.White;
+            this.textBoxCode.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxCode.Location = new System.Drawing.Point(3, 12);
             this.textBoxCode.Multiline = true;
             this.textBoxCode.Name = "textBoxCode";
