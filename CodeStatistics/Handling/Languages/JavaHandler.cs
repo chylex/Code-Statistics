@@ -24,7 +24,7 @@ namespace CodeStatistics.Handling.Languages{
             JavaState state = variables.GetStateObject<JavaState>(this);
             JavaFileInfo info = state.Process(file);
 
-            string contents = PrepareFileContents(file);
+            string contents = PrepareFileContents(file.Contents);
             // TODO
         }
 
@@ -33,8 +33,8 @@ namespace CodeStatistics.Handling.Languages{
             return new { package = state.GetFile(fi.File).Package.Replace('.','/')+'/', file = Path.GetFileName(fi.File.FullPath), amount = fi.Value };
         }
 
-        public override string PrepareFileContents(File file){
-            return JavaParseUtils.ProcessCodeFile(file.Contents);
+        public override string PrepareFileContents(string contents){
+            return JavaParseUtils.ProcessCodeFile(contents);
         }
     }
 }
