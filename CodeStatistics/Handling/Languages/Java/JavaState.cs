@@ -6,7 +6,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
 
         public JavaFileInfo Process(File file){
-            JavaFileInfo info = new JavaFileInfo(false);
+            JavaFileInfo info = new JavaFileInfo();
             fileInfo.Add(file,info);
 
             // TODO

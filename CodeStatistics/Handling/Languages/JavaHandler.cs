@@ -34,7 +34,7 @@ namespace CodeStatistics.Handling.Languages{
         }
 
         public override string PrepareFileContents(string contents){
-            return JavaParseUtils.ProcessCodeFile(contents);
+            return JavaParseUtils.PrepareCodeFile(contents);
         }
     }
 }

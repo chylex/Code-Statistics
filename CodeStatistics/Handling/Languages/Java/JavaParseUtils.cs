@@ -6,7 +6,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         private static readonly Regex RegexCommentSingle = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline);
         private static readonly Regex RegexCommentMulti = new Regex(@"/\*.*?\*/",RegexOptions.Compiled | RegexOptions.Singleline);
         
-        public static string ProcessCodeFile(string code){
+        public static string PrepareCodeFile(string code){
             string processed = code;
             processed = RegexString.Replace(processed,@""""""); // beautiful
             processed = RegexCommentSingle.Replace(processed,"");

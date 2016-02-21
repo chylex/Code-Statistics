@@ -1,9 +1,13 @@
-﻿namespace CodeStatistics.Handling.Languages.Java{
-    struct JavaFileInfo{
-        public string Package;
+﻿using System.Collections.Generic;
 
-        public JavaFileInfo(bool _){
+namespace CodeStatistics.Handling.Languages.Java{
+    class JavaFileInfo{
+        public string Package;
+        public readonly HashSet<string> Imports;
+
+        public JavaFileInfo(){
             Package = "";
+            Imports = new HashSet<string>();
         }
     }
 }
