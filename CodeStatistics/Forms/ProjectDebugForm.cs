@@ -28,8 +28,26 @@ namespace CodeStatistics.Forms{
         private void listBoxFiles_SelectedValueChange(object sender, EventArgs e){
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
+            
+            textBoxCode.Text = GetLanguageHandler(item.File).PrepareFileContents(item.File.Contents);
+        }
 
-            textBoxCode.Text = ((AbstractLanguageFileHandler)HandlerList.GetFileHandler(item.File)).PrepareFileContents(item.File);
+        private void btnLoadOriginal_Click(object sender, EventArgs e){
+            RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
+            if (item == null)return;
+
+            textBoxCode.Text = item.File.Contents;
+        }
+
+        private void btnReprocess_Click(object sender, EventArgs e){
+            RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
+            if (item == null)return;
+
+            textBoxCode.Text = GetLanguageHandler(item.File).PrepareFileContents(textBoxCode.Text);
+        }
+
+        private static AbstractLanguageFileHandler GetLanguageHandler(File file){
+            return (AbstractLanguageFileHandler)HandlerList.GetFileHandler(file);
         }
 
         private class RelativeFile{

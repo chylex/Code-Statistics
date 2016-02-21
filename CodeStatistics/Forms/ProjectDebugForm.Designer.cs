@@ -26,10 +26,14 @@
             this.panelSplitContainer = new System.Windows.Forms.SplitContainer();
             this.listBoxFiles = new System.Windows.Forms.ListBox();
             this.textBoxCode = new System.Windows.Forms.TextBox();
+            this.btnReprocess = new System.Windows.Forms.Button();
+            this.btnLoadOriginal = new System.Windows.Forms.Button();
+            this.tableBottomPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainer)).BeginInit();
             this.panelSplitContainer.Panel1.SuspendLayout();
             this.panelSplitContainer.Panel2.SuspendLayout();
             this.panelSplitContainer.SuspendLayout();
+            this.tableBottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSplitContainer
@@ -40,6 +44,7 @@
             // 
             // panelSplitContainer.Panel1
             // 
+            this.panelSplitContainer.Panel1.Controls.Add(this.tableBottomPanel);
             this.panelSplitContainer.Panel1.Controls.Add(this.listBoxFiles);
             // 
             // panelSplitContainer.Panel2
@@ -59,7 +64,7 @@
             this.listBoxFiles.IntegralHeight = false;
             this.listBoxFiles.Location = new System.Drawing.Point(12, 12);
             this.listBoxFiles.Name = "listBoxFiles";
-            this.listBoxFiles.Size = new System.Drawing.Size(225, 602);
+            this.listBoxFiles.Size = new System.Drawing.Size(225, 576);
             this.listBoxFiles.TabIndex = 0;
             this.listBoxFiles.SelectedValueChanged += new System.EventHandler(this.listBoxFiles_SelectedValueChange);
             // 
@@ -73,11 +78,50 @@
             this.textBoxCode.Location = new System.Drawing.Point(3, 12);
             this.textBoxCode.Multiline = true;
             this.textBoxCode.Name = "textBoxCode";
-            this.textBoxCode.ReadOnly = true;
             this.textBoxCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxCode.Size = new System.Drawing.Size(485, 602);
             this.textBoxCode.TabIndex = 0;
             this.textBoxCode.WordWrap = false;
+            // 
+            // btnReprocess
+            // 
+            this.btnReprocess.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnReprocess.Location = new System.Drawing.Point(115, 3);
+            this.btnReprocess.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.btnReprocess.Name = "btnReprocess";
+            this.btnReprocess.Size = new System.Drawing.Size(109, 23);
+            this.btnReprocess.TabIndex = 1;
+            this.btnReprocess.Text = "Process Again";
+            this.btnReprocess.UseVisualStyleBackColor = true;
+            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
+            // btnLoadOriginal
+            // 
+            this.btnLoadOriginal.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnLoadOriginal.Location = new System.Drawing.Point(0, 3);
+            this.btnLoadOriginal.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btnLoadOriginal.Name = "btnLoadOriginal";
+            this.btnLoadOriginal.Size = new System.Drawing.Size(109, 23);
+            this.btnLoadOriginal.TabIndex = 2;
+            this.btnLoadOriginal.Text = "Load Original";
+            this.btnLoadOriginal.UseVisualStyleBackColor = true;
+            this.btnLoadOriginal.Click += new System.EventHandler(this.btnLoadOriginal_Click);
+            // 
+            // tableBottomPanel
+            // 
+            this.tableBottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableBottomPanel.ColumnCount = 2;
+            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableBottomPanel.Controls.Add(this.btnLoadOriginal, 0, 0);
+            this.tableBottomPanel.Controls.Add(this.btnReprocess, 1, 0);
+            this.tableBottomPanel.Location = new System.Drawing.Point(13, 588);
+            this.tableBottomPanel.Name = "tableBottomPanel";
+            this.tableBottomPanel.RowCount = 1;
+            this.tableBottomPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableBottomPanel.Size = new System.Drawing.Size(224, 26);
+            this.tableBottomPanel.TabIndex = 3;
             // 
             // ProjectDebugForm
             // 
@@ -95,6 +139,7 @@
             this.panelSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainer)).EndInit();
             this.panelSplitContainer.ResumeLayout(false);
+            this.tableBottomPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -104,5 +149,8 @@
         private System.Windows.Forms.SplitContainer panelSplitContainer;
         private System.Windows.Forms.TextBox textBoxCode;
         private System.Windows.Forms.ListBox listBoxFiles;
+        private System.Windows.Forms.Button btnReprocess;
+        private System.Windows.Forms.Button btnLoadOriginal;
+        private System.Windows.Forms.TableLayoutPanel tableBottomPanel;
     }
 }
