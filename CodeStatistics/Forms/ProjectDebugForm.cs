@@ -29,21 +29,25 @@ namespace CodeStatistics.Forms{
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
             
-            textBoxCode.Text = GetLanguageHandler(item.File).PrepareFileContents(item.File.Contents);
+            SetTextBoxContents(GetLanguageHandler(item.File).PrepareFileContents(item.File.Contents));
         }
 
         private void btnLoadOriginal_Click(object sender, EventArgs e){
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
 
-            textBoxCode.Text = item.File.Contents;
+            SetTextBoxContents(item.File.Contents);
         }
 
         private void btnReprocess_Click(object sender, EventArgs e){
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
 
-            textBoxCode.Text = GetLanguageHandler(item.File).PrepareFileContents(textBoxCode.Text);
+            SetTextBoxContents(GetLanguageHandler(item.File).PrepareFileContents(textBoxCode.Text));
+        }
+
+        private void SetTextBoxContents(string text){
+            textBoxCode.Text = text.Replace("\r","").Replace("\n",Environment.NewLine);
         }
 
         private static AbstractLanguageFileHandler GetLanguageHandler(File file){
