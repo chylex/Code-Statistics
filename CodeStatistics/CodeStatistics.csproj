@@ -83,6 +83,7 @@
     <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
     <Compile Include="Handling\Languages\Java\JavaParseUtils.cs" />
     <Compile Include="Handling\Languages\Java\JavaState.cs" />
+    <Compile Include="Handling\Utils\CodeParser.cs" />
     <Compile Include="Handling\Utils\FileIntValue.cs" />
     <Compile Include="Handling\Utils\ParseUtils.cs" />
     <Compile Include="Handling\Utils\StringUtils.cs" />
