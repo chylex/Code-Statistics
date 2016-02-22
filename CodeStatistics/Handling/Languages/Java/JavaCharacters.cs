@@ -112,16 +112,12 @@ namespace CodeStatistics.Handling.Languages.Java{
             return ValidIdentifierParts.Contains(c);
         }
 
-        public static bool IsValidIdentifier(string str){
-            if (InvalidIdentifiers.Contains(str) || str.Length == 0)return false;
+        public static bool IsNotReservedWord(string str){
+            return str.Length > 0 && !InvalidIdentifiers.Contains(str);
+        }
 
-            if (!IsIdentifierStart(str[0]))return false;
-
-            for(int chr = 1; chr < str.Length; chr++){
-                if (!IsIdentifierPart(str[chr]))return false;
-            }
-
-            return true;
+        public static bool IsWhiteSpace(char c){
+            return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == 12; // 12 is Form Feed
         }
     }
 }
