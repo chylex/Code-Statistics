@@ -5,6 +5,30 @@ namespace CodeStatisticsTests{
     [TestClass]
     public class CodeParserTests{
         [TestMethod]
+        public void TestClone(){
+            CodeParser parser1 = new CodeParser("abc__efg"){
+                IsWhiteSpace = chr => chr == '_'
+            };
+
+            parser1.SkipTo('_').SkipSpaces();
+            Assert.AreEqual('e',parser1.Char);
+
+            // cloned with same code
+            CodeParser parser2 = parser1.Clone();
+            Assert.AreEqual('a',parser2.Char);
+
+            parser2.SkipTo('_').SkipSpaces();
+            Assert.AreEqual('e',parser2.Char);
+
+            // cloned with different code
+            CodeParser parser3 = parser1.Clone("x_z");
+            Assert.AreEqual('x',parser3.Char);
+
+            parser3.Skip().SkipSpaces();
+            Assert.AreEqual('z',parser3.Char);
+        }
+
+        [TestMethod]
         public void TestValidSkip(){
             string code = "   \n  x    yz { content { more } abc }";
 

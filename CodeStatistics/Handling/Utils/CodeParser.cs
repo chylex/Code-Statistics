@@ -18,16 +18,19 @@ namespace CodeStatistics.Handling.Utils{
             this.length = code.Length;
         }
 
-        public virtual CodeParser Clone(string newCode = null){
-            return new CodeParser(newCode ?? code){
-                IsWhiteSpace = this.IsWhiteSpace
-            };
-        }
-
         protected string SubstrIndex(int startIndex, int endIndex){
             startIndex = Math.Min(length-1,startIndex);
             endIndex = Math.Min(length,endIndex);
             return code.Substring(startIndex,endIndex-startIndex);
+        }
+
+        /// <summary>
+        /// Clones all of the parser settings, optionally with different code contents, and resets the cursor position to 0.
+        /// </summary>
+        public virtual CodeParser Clone(string newCode = null){
+            return new CodeParser(newCode ?? code){
+                IsWhiteSpace = this.IsWhiteSpace
+            };
         }
 
         /// <summary>
