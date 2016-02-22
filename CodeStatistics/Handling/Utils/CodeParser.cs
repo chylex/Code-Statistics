@@ -2,13 +2,12 @@
 
 namespace CodeStatistics.Handling.Utils{
     public class CodeParser{
-        public delegate bool IsWhiteSpace(char chr);
+        protected readonly string code;
+        protected readonly int length;
+        protected int cursor;
 
-        private readonly string code;
-        private readonly int length;
-        private int cursor;
+        public Predicate<char> IsWhiteSpace = char.IsWhiteSpace;
 
-        public IsWhiteSpace CheckIsWhiteSpace = char.IsWhiteSpace;
 
         public string Contents { get { return code; } }
         public char Char { get { return cursor < length ? code[cursor] : '\0'; } }
@@ -19,9 +18,9 @@ namespace CodeStatistics.Handling.Utils{
             this.length = code.Length;
         }
 
-        private CodeParser Clone(string newCode){
+        protected virtual CodeParser Clone(string newCode){
             return new CodeParser(newCode){
-                CheckIsWhiteSpace = this.CheckIsWhiteSpace
+                IsWhiteSpace = this.IsWhiteSpace
             };
         }
 
@@ -40,12 +39,12 @@ namespace CodeStatistics.Handling.Utils{
         }
 
         /// <summary>
-        /// Skips all whitespace characters defined by <see cref="CodeParser.CheckIsWhiteSpace"/> and places the cursor after the last found whitespace character.
+        /// Skips all whitespace characters defined by <see cref="IsWhiteSpace"/> and places the cursor after the last found whitespace character.
         /// Returns itself.
         /// </summary>
         public CodeParser SkipSpaces(){
             while(cursor < length){
-                if (CheckIsWhiteSpace(Char))++cursor;
+                if (IsWhiteSpace(Char))++cursor;
                 else break;
             }
             
