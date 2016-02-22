@@ -24,10 +24,15 @@ namespace CodeStatisticsTests{
 
             // block 1
             CodeParser block1 = parser.SkipBlockGet('{','}');
+            CodeParser block1Cloned = block1.Clone();
+
             Assert.AreEqual(" content { more } abc ",block1.Contents);
 
             block1.SkipSpaces();
             Assert.AreEqual('c',block1.Char);
+
+            block1Cloned.SkipTo('}').SkipTo('a').Skip();
+            Assert.AreEqual('b',block1Cloned.Char);
 
             // block 2
             CodeParser block2 = block1.SkipBlockGet('{','}');

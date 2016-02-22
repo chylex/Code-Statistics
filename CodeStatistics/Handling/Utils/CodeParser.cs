@@ -18,15 +18,15 @@ namespace CodeStatistics.Handling.Utils{
             this.length = code.Length;
         }
 
-        protected virtual CodeParser Clone(string newCode){
-            return new CodeParser(newCode){
+        public virtual CodeParser Clone(string newCode = null){
+            return new CodeParser(newCode ?? code){
                 IsWhiteSpace = this.IsWhiteSpace
             };
         }
 
         protected string SubstrIndex(int startIndex, int endIndex){
             startIndex = Math.Min(length-1,startIndex);
-            endIndex = Math.Min(length-1,endIndex);
+            endIndex = Math.Min(length,endIndex);
             return code.Substring(startIndex,endIndex-startIndex);
         }
 
@@ -36,6 +36,14 @@ namespace CodeStatistics.Handling.Utils{
         public char Next(){
             ++cursor;
             return Char;
+        }
+
+        /// <summary>
+        /// Skips a single character and returns itself.
+        /// </summary>
+        public CodeParser Skip(){
+            ++cursor;
+            return this;
         }
 
         /// <summary>
