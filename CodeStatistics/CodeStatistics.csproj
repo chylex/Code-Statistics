@@ -80,6 +80,7 @@
     <Compile Include="Handling\Languages\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\JavaCharacters.cs" />
+    <Compile Include="Handling\Languages\Java\JavaCodeParser.cs" />
     <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
     <Compile Include="Handling\Languages\Java\JavaParseUtils.cs" />
     <Compile Include="Handling\Languages\Java\JavaState.cs" />
