@@ -25,6 +25,12 @@ namespace CodeStatistics.Handling.Utils{
             };
         }
 
+        protected string SubstrIndex(int startIndex, int endIndex){
+            startIndex = Math.Min(length-1,startIndex);
+            endIndex = Math.Min(length-1,endIndex);
+            return code.Substring(startIndex,endIndex-startIndex);
+        }
+
         /// <summary>
         /// Skips to the next character and returns it.
         /// </summary>
@@ -102,7 +108,7 @@ namespace CodeStatistics.Handling.Utils{
             int indexStart = cursor;
             SkipBlock(blockStart,blockEnd);
 
-            return Clone(code.Substring(indexStart+1,Math.Min(cursor-indexStart-2,length-1)));
+            return Clone(SubstrIndex(indexStart+1,cursor-1));
         }
     }
 }

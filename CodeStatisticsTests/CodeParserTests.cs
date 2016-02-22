@@ -6,7 +6,7 @@ namespace CodeStatisticsTests{
     public class CodeParserTests{
         [TestMethod]
         public void TestValidSkip(){
-            string code = "   \n  x    yz { content { more } }";
+            string code = "   \n  x    yz { content { more } abc }";
 
             // base
             CodeParser parser = new CodeParser(code);
@@ -22,16 +22,20 @@ namespace CodeStatisticsTests{
             Assert.AreEqual('z',parser.Next());
             Assert.AreEqual('z',parser.Char);
 
-            // block
-            CodeParser block = parser.SkipBlockGet('{','}');
-            Assert.AreEqual(" content { more } ",block.Contents);
+            // block 1
+            CodeParser block1 = parser.SkipBlockGet('{','}');
+            Assert.AreEqual(" content { more } abc ",block1.Contents);
 
-            block.SkipSpaces();
-            Assert.AreEqual('c',block.Char);
+            block1.SkipSpaces();
+            Assert.AreEqual('c',block1.Char);
 
-            block.SkipBlock('{','}');
-            Assert.AreEqual(' ',block.Char);
-            Assert.IsFalse(block.IsEOF);
+            // block 2
+            CodeParser block2 = block1.SkipBlockGet('{','}');
+            Assert.AreEqual(" more ",block2.Contents);
+
+            // block 1
+            Assert.AreEqual(' ',block1.Char);
+            Assert.IsFalse(block1.IsEOF);
 
             // base
             Assert.AreEqual('\0',parser.Char);
