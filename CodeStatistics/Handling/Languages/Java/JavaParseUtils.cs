@@ -13,5 +13,10 @@ namespace CodeStatistics.Handling.Languages.Java{
             processed = RegexCommentMulti.Replace(processed,"");
             return processed;
         }
+
+        public static string FullToSimpleName(string fullName){
+            int lastDot = fullName.LastIndexOf('.');
+            return lastDot == -1 ? fullName : lastDot < fullName.Length-1 ? fullName.Substring(lastDot+1) : string.Empty;
+        }
     }
 }
