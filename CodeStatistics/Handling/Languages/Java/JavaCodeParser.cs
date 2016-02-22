@@ -3,7 +3,7 @@ using CodeStatistics.Handling.Utils;
 using System.Text;
 
 namespace CodeStatistics.Handling.Languages.Java{
-    class JavaCodeParser : CodeParser{
+    public class JavaCodeParser : CodeParser{
         public JavaCodeParser(string code) : base(code){
             IsWhiteSpace = JavaCharacters.IsWhiteSpace;
             IsIdentifierStart = JavaCharacters.IsIdentifierStart;
@@ -34,6 +34,24 @@ namespace CodeStatistics.Handling.Languages.Java{
             }
 
             return build.ToString();
+        }
+
+        /// <summary>
+        /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.7
+        /// </summary>
+        public Annotation? ReadAnnotation(){
+            if (Char != '@')return null;
+
+            Skip().SkipSpaces(); // skip @ and spaces
+
+            string simpleName = JavaParseUtils.FullToSimpleName(ReadFullTypeName()); // read type name
+            if (simpleName.Length == 0)return null;
+
+            if (SkipSpaces().Char == '('){ // skip arguments and ignore
+                SkipBlock('(',')');
+            }
+            
+            return new Annotation(simpleName);
         }
     }
 }
