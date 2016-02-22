@@ -7,7 +7,10 @@ namespace CodeStatistics.Handling.Utils{
         protected int cursor;
 
         public Predicate<char> IsWhiteSpace = char.IsWhiteSpace;
+        public Predicate<char> IsIdentifierStart = chr => char.IsLetterOrDigit(chr) || chr == '_';
+        public Predicate<char> IsIdentifierPart = chr => char.IsLetterOrDigit(chr) || chr == '_';
 
+        public Predicate<string> IsValidIdentifier = str => true;
 
         public string Contents { get { return code; } }
         public char Char { get { return cursor < length ? code[cursor] : '\0'; } }
@@ -29,7 +32,10 @@ namespace CodeStatistics.Handling.Utils{
         /// </summary>
         public virtual CodeParser Clone(string newCode = null){
             return new CodeParser(newCode ?? code){
-                IsWhiteSpace = this.IsWhiteSpace
+                IsWhiteSpace = this.IsWhiteSpace,
+                IsIdentifierStart = this.IsIdentifierStart,
+                IsIdentifierPart = this.IsIdentifierPart,
+                IsValidIdentifier = this.IsValidIdentifier
             };
         }
 
@@ -119,6 +125,29 @@ namespace CodeStatistics.Handling.Utils{
             SkipBlock(blockStart,blockEnd);
 
             return Clone(SubstrIndex(indexStart+1,cursor-1));
+        }
+
+        /// <summary>
+        /// Attempts to read an identifier from the current cursor position. If there is an identifier and it is valid, it is returned and the cursor moves after
+        /// the identifier. If any step fails, the cursor does not move and <see cref="string.Empty"/> is returned.
+        /// </summary>
+        public string NextIdentifier(){
+            if (!IsIdentifierStart(Char))return string.Empty;
+            
+            int prevCursor = cursor;
+
+            while(cursor < length){
+                if (!IsIdentifierPart(Next()))break;
+            }
+
+            string identifier = SubstrIndex(prevCursor,cursor);
+
+            if (!IsValidIdentifier(identifier)){
+                cursor = prevCursor;
+                return string.Empty;
+            }
+
+            return identifier;
         }
     }
 }

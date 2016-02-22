@@ -89,5 +89,40 @@ namespace CodeStatisticsTests{
             Assert.AreEqual('\0',block.Char);
             Assert.IsTrue(block.IsEOF);
         }
+
+        [TestMethod]
+        public void TestIdentifier(){
+            // simple java annotation
+            CodeParser parser1 = new CodeParser("@MyIdentifier");
+
+            Assert.AreEqual(string.Empty,parser1.NextIdentifier());
+            Assert.AreEqual('@',parser1.Char);
+
+            parser1.Next();
+            Assert.AreEqual("MyIdentifier",parser1.NextIdentifier());
+
+            Assert.AreEqual('\0',parser1.Char);
+            Assert.IsTrue(parser1.IsEOF);
+
+            // complex java annotation
+            CodeParser parser2 = new CodeParser("@MyIdentifier(var = true)"){
+                IsValidIdentifier = str => str != "true"
+            };
+
+            Assert.AreEqual(string.Empty,parser2.NextIdentifier());
+            Assert.AreEqual('@',parser2.Char);
+
+            parser2.Next();
+            Assert.AreEqual("MyIdentifier",parser2.NextIdentifier());
+
+            // complex java annotation - variables
+            CodeParser parser2Vars = parser2.SkipBlockGet('(',')');
+
+            Assert.AreEqual("var",parser2Vars.NextIdentifier());
+
+            parser2Vars.SkipTo('=').Skip().SkipSpaces();
+            Assert.AreEqual('t',parser2Vars.Char);
+            Assert.AreEqual(string.Empty,parser2Vars.NextIdentifier());
+        }
     }
 }
