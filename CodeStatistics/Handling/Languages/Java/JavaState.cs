@@ -1,6 +1,6 @@
-﻿using CodeStatistics.Handling.Utils;
-using CodeStatistics.Input;
+﻿using CodeStatistics.Input;
 using System.Collections.Generic;
+using CodeStatistics.Handling.Languages.Java.Elements;
 
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaState{
@@ -16,9 +16,20 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             JavaCodeParser parser = new JavaCodeParser(file.Contents);
 
-            // TODO
+            ReadPackage(parser,info);
 
             return info;
+        }
+
+        private void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
+            Annotation? annotation = parser.ReadAnnotation();
+
+            if (annotation.HasValue){
+                // TODO
+            }
+
+            string package = parser.ReadPackageDeclaration();
+            info.Package = package ?? string.Empty;
         }
     }
 }

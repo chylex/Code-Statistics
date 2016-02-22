@@ -6,7 +6,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         public readonly HashSet<string> Imports;
 
         public JavaFileInfo(){
-            Package = "";
+            Package = string.Empty;
             Imports = new HashSet<string>();
         }
     }

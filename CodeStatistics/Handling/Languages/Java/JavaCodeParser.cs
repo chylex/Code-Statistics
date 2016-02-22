@@ -53,5 +53,14 @@ namespace CodeStatistics.Handling.Languages.Java{
             
             return new Annotation(simpleName);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ReadPackageDeclaration(){
+            SkipSpaces();
+
+            return ""; // TODO
+        }
     }
 }
