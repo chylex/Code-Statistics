@@ -117,7 +117,7 @@ namespace CodeStatistics.Handling.Utils{
         /// next <paramref name="blockStart"/>, first. If it fails, the returned contents will be empty and the cursor will not move, otherwise the cursor will be
         /// placed after the ending character of the block.
         /// </summary>
-        public CodeParser SkipBlockGet(char blockStart, char blockEnd){
+        public CodeParser ReadBlock(char blockStart, char blockEnd){
             SkipTo(blockStart);
             if (Char != blockStart)return Clone("");
 
@@ -131,7 +131,7 @@ namespace CodeStatistics.Handling.Utils{
         /// Attempts to read an identifier from the current cursor position. If there is an identifier and it is valid, it is returned and the cursor moves after
         /// the identifier. If any step fails, the cursor does not move and <see cref="string.Empty"/> is returned.
         /// </summary>
-        public string NextIdentifier(){
+        public string ReadIdentifier(){
             if (!IsIdentifierStart(Char))return string.Empty;
             
             int prevCursor = cursor;

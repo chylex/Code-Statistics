@@ -47,7 +47,7 @@ namespace CodeStatisticsTests{
             Assert.AreEqual('z',parser.Char);
 
             // block 1
-            CodeParser block1 = parser.SkipBlockGet('{','}');
+            CodeParser block1 = parser.ReadBlock('{','}');
             CodeParser block1Cloned = block1.Clone();
 
             Assert.AreEqual(" content { more } abc ",block1.Contents);
@@ -59,7 +59,7 @@ namespace CodeStatisticsTests{
             Assert.AreEqual('b',block1Cloned.Char);
 
             // block 2
-            CodeParser block2 = block1.SkipBlockGet('{','}');
+            CodeParser block2 = block1.ReadBlock('{','}');
             Assert.AreEqual(" more ",block2.Contents);
 
             // block 1
@@ -85,7 +85,7 @@ namespace CodeStatisticsTests{
             Assert.IsFalse(parser.IsEOF);
 
             // block
-            CodeParser block = parser.SkipBlockGet('(',')');
+            CodeParser block = parser.ReadBlock('(',')');
             Assert.AreEqual('\0',block.Char);
             Assert.IsTrue(block.IsEOF);
         }
@@ -95,11 +95,11 @@ namespace CodeStatisticsTests{
             // simple java annotation
             CodeParser parser1 = new CodeParser("@MyIdentifier");
 
-            Assert.AreEqual(string.Empty,parser1.NextIdentifier());
+            Assert.AreEqual(string.Empty,parser1.ReadIdentifier());
             Assert.AreEqual('@',parser1.Char);
 
             parser1.Next();
-            Assert.AreEqual("MyIdentifier",parser1.NextIdentifier());
+            Assert.AreEqual("MyIdentifier",parser1.ReadIdentifier());
 
             Assert.AreEqual('\0',parser1.Char);
             Assert.IsTrue(parser1.IsEOF);
@@ -109,20 +109,20 @@ namespace CodeStatisticsTests{
                 IsValidIdentifier = str => str != "true"
             };
 
-            Assert.AreEqual(string.Empty,parser2.NextIdentifier());
+            Assert.AreEqual(string.Empty,parser2.ReadIdentifier());
             Assert.AreEqual('@',parser2.Char);
 
             parser2.Next();
-            Assert.AreEqual("MyIdentifier",parser2.NextIdentifier());
+            Assert.AreEqual("MyIdentifier",parser2.ReadIdentifier());
 
             // complex java annotation - variables
-            CodeParser parser2Vars = parser2.SkipBlockGet('(',')');
+            CodeParser parser2Vars = parser2.ReadBlock('(',')');
 
-            Assert.AreEqual("var",parser2Vars.NextIdentifier());
+            Assert.AreEqual("var",parser2Vars.ReadIdentifier());
 
             parser2Vars.SkipTo('=').Skip().SkipSpaces();
             Assert.AreEqual('t',parser2Vars.Char);
-            Assert.AreEqual(string.Empty,parser2Vars.NextIdentifier());
+            Assert.AreEqual(string.Empty,parser2Vars.ReadIdentifier());
         }
     }
 }

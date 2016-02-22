@@ -18,7 +18,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         public string ReadFullTypeName(){
             StringBuilder build = new StringBuilder();
 
-            string identifier = NextIdentifier();
+            string identifier = ReadIdentifier();
             if (identifier.Length == 0)return string.Empty;
 
             while(true){
@@ -27,7 +27,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (Char == '.'){
                     build.Append('.');
 
-                    identifier = Skip().NextIdentifier();
+                    identifier = Skip().ReadIdentifier();
                     if (identifier.Length == 0)return string.Empty;
                 }
                 else break;
@@ -59,6 +59,8 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// </summary>
         public string ReadPackageDeclaration(){
             SkipSpaces();
+            
+
 
             return ""; // TODO
         }
