@@ -93,5 +93,16 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             return null;
         }
+
+        /// <summary>
+        /// Reads a declaration type specified in <see cref="Type.DeclarationType"/> and skips it.
+        /// </summary>
+        public Type.DeclarationType? ReadTypeDeclaration(){
+            if (SkipIfMatch("class^s"))return Type.DeclarationType.Class;
+            else if (SkipIfMatch("interface^s"))return Type.DeclarationType.Interface;
+            else if (SkipIfMatch("enum^s"))return Type.DeclarationType.Enum;
+            else if (SkipIfMatch("@interface^s"))return Type.DeclarationType.Annotation;
+            else return null;
+        }
     }
 }
