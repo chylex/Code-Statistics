@@ -19,7 +19,7 @@ namespace CodeStatistics.Handling{
         static HandlerList(){
             UnknownFileHandler = new UnknownHandler();
 
-            AddFileHandler(new JavaHandler(),"java");
+            AddFileHandler(new JavaHandler(),new []{ "java", "jav" });
 
             AddFileHandler(new AssetHandler(AssetHandler.Type.Image),new []{ "jpg", "jpeg", "gif", "png", "bmp", "ico", "icns", "tif", "tiff", "tga", "svg" });
             AddFileHandler(new AssetHandler(AssetHandler.Type.Audio),new []{ "wav", "mp3", "ogg", "flac", "aiff", "wma", "m4a", "aac", "mid", "mod" });
