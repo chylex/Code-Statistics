@@ -5,6 +5,9 @@ using CodeStatistics.Handling.Languages.Java.Elements;
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaState{
         private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
+        private readonly HashSet<string> packages = new HashSet<string>();
+
+        public int PackageCount { get { return packages.Count; } }
 
         public JavaFileInfo GetFile(File file){
             return fileInfo[file];
@@ -14,14 +17,20 @@ namespace CodeStatistics.Handling.Languages.Java{
             JavaFileInfo info = new JavaFileInfo();
             fileInfo.Add(file,info);
 
-            JavaCodeParser parser = new JavaCodeParser(file.Contents);
+            JavaCodeParser parser = new JavaCodeParser(JavaParseUtils.PrepareCodeFile(file.Contents));
 
             ReadPackage(parser,info);
+
+            UpdateLocalData(info);
 
             return info;
         }
 
-        private void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
+        private void UpdateLocalData(JavaFileInfo info){
+            packages.Add(info.Package);
+        }
+
+        private static void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
             parser.SkipSpaces();
 
             Annotation? annotation = parser.ReadAnnotation();

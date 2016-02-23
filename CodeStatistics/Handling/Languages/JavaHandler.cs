@@ -24,8 +24,7 @@ namespace CodeStatistics.Handling.Languages{
             JavaState state = variables.GetStateObject<JavaState>(this);
             JavaFileInfo info = state.Process(file);
 
-            string contents = PrepareFileContents(file.Contents);
-            // TODO
+
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
