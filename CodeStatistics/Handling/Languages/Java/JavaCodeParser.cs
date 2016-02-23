@@ -80,5 +80,18 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             return new Import(type,isStatic);
         }
+
+        /// <summary>
+        /// Reads a modifier specified in <see cref="Modifiers"/> and skips it.
+        /// </summary>
+        public Modifiers? ReadModifier(){
+            foreach(string modifierStr in JavaModifiers.Strings){
+                if (SkipIfMatch(modifierStr+"^s")){
+                    return JavaModifiers.FromString(modifierStr);
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using CodeStatistics.Collections;
+using System.Collections.Generic;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     [Flags]
-    enum Modifiers{
+    public enum Modifiers{
+        None = 0x0,
         Public = 0x1,
         Protected = 0x2,
         Private = 0x4,
@@ -17,7 +19,7 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
         Strictfp = 0x400
     }
 
-    static class JavaModifiers{
+    public static class JavaModifiers{
         private static readonly BiDictionary<Modifiers,string> ModifierDict = new BiDictionary<Modifiers,string>{
             { Modifiers.Public, "public" },
             { Modifiers.Protected, "protected" },
@@ -31,6 +33,9 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             { Modifiers.Native, "native" },
             { Modifiers.Strictfp, "strictfp" }
         };
+
+        public static IEnumerable<Modifiers> Values { get { return ModifierDict.Keys; } }
+        public static IEnumerable<string> Strings { get { return ModifierDict.Values; } }
 
         public static Modifiers FromString(string str){
             return ModifierDict.GetKey(str);
