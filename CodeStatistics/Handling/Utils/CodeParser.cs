@@ -168,6 +168,16 @@ namespace CodeStatistics.Handling.Utils{
         }
 
         /// <summary>
+        /// Skips to the next matching character and returns a new instance of CodeParser with contents that were skipped (excluding the target character).
+        /// If the skip does not succeed, an empty CodeParser will be returned and the cursor will not move. If it succeeds, the parser will also skip the target character.
+        /// </summary>
+        public CodeParser ReadToSkip(char chr){
+            CodeParser read = ReadTo(chr);
+            if (Char == chr)Skip();
+            return read;
+        }
+
+        /// <summary>
         /// Skips a block enclosed by <paramref name="blockStart"/> and <paramref name="blockEnd"/> and returns a new instance of CodeParser with the contents of that
         /// block, excluding the enclosing characters. If the current character does not match <paramref name="blockStart"/>, the parser will try skipping to the
         /// next <paramref name="blockStart"/>, first. If it fails, the returned contents will be empty and the cursor will not move, otherwise the cursor will be

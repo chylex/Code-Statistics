@@ -29,7 +29,7 @@ namespace CodeStatisticsTests{
         }
 
         [TestMethod]
-        public void TestValidSkip(){
+        public void TestValidSkipAndRead(){
             string code = "   \n  x    yz { content { more } abc }";
 
             // base
@@ -70,13 +70,15 @@ namespace CodeStatisticsTests{
             Assert.AreEqual('\0',parser.Char);
             Assert.IsTrue(parser.IsEOF);
 
-            // reset + block 3
-            CodeParser parserNew = new CodeParser(code);
+            // reset + ReadTo
+            CodeParser parserNew1 = new CodeParser(code);
+            Assert.AreEqual("x    y",parserNew1.SkipSpaces().ReadTo('z').Contents);
+            Assert.AreEqual('z',parserNew1.Char);
 
-            CodeParser block3 = parserNew.SkipSpaces().ReadTo('z');
-            Assert.AreEqual("x    y",block3.Contents);
-
-            Assert.AreEqual('z',parserNew.Char);
+            // reset + ReadToSkip
+            CodeParser parserNew2 = new CodeParser(code);
+            Assert.AreEqual("x    y",parserNew2.SkipSpaces().ReadToSkip('z').Contents);
+            Assert.AreEqual(' ',parserNew2.Char);
         }
 
         [TestMethod]
