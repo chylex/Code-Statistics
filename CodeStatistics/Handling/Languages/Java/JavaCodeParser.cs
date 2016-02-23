@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Handling.Languages.Java.Elements;
 using CodeStatistics.Handling.Utils;
 using System.Text;
+using CodeStatistics.Handling.Languages.Java.Utils;
 
 namespace CodeStatistics.Handling.Languages.Java{
     public class JavaCodeParser : CodeParser{

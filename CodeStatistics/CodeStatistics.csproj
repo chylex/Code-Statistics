@@ -77,10 +77,10 @@
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
     <Compile Include="Handling\Languages\Java\Elements\ImportStatement.cs" />
-    <Compile Include="Handling\Languages\Java\JavaCharacters.cs" />
+    <Compile Include="Handling\Languages\Java\Utils\JavaCharacters.cs" />
     <Compile Include="Handling\Languages\Java\JavaCodeParser.cs" />
     <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
-    <Compile Include="Handling\Languages\Java\JavaParseUtils.cs" />
+    <Compile Include="Handling\Languages\Java\Utils\JavaParseUtils.cs" />
     <Compile Include="Handling\Languages\Java\JavaState.cs" />
     <Compile Include="Handling\Utils\CodeParser.cs" />
     <Compile Include="Handling\Utils\FileIntValue.cs" />

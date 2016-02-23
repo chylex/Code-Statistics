@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Input;
 using System.Collections.Generic;
 using CodeStatistics.Handling.Languages.Java.Elements;
+using CodeStatistics.Handling.Languages.Java.Utils;
 
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaState{

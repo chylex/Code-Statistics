@@ -2,6 +2,7 @@
 using CodeStatistics.Handling.Utils;
 using File = CodeStatistics.Input.File;
 using CodeStatistics.Handling.Languages.Java;
+using CodeStatistics.Handling.Languages.Java.Utils;
 
 namespace CodeStatistics.Handling.Languages{
     class JavaHandler : AbstractLanguageFileHandler{

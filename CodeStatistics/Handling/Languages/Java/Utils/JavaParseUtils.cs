@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CodeStatistics.Handling.Languages.Java{
+namespace CodeStatistics.Handling.Languages.Java.Utils{
     public static class JavaParseUtils{
         private static readonly Regex RegexString = new Regex(@"([""'])(?:\\[\\'""btnfru0-7]|[^\\""])*?\1",RegexOptions.Compiled); // verbatim strings with quotes need "" for literal
         private static readonly Regex RegexCommentSingle = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline);
