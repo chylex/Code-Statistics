@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\AnonymousDictionary.cs" />
+    <Compile Include="Collections\BiDictionary.cs" />
     <Compile Include="Collections\CharacterRangeSet.cs" />
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Collections\Triple.cs" />
