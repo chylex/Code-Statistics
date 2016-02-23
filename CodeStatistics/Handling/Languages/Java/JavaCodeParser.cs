@@ -11,6 +11,10 @@ namespace CodeStatistics.Handling.Languages.Java{
             IsValidIdentifier = JavaCharacters.IsNotReservedWord;
         }
 
+        public override CodeParser Clone(string newCode = null){
+            return new JavaCodeParser(newCode ?? string.Empty);
+        }
+
         /// <summary>
         /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character. <para/>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e7695
