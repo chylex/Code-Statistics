@@ -65,5 +65,19 @@ namespace CodeStatistics.Handling.Languages.Java{
         public string ReadPackageDeclaration(){
             return SkipIfMatch("package^s") ? ReadToSkip(';').Contents : string.Empty;
         }
+
+        /// <summary>
+        /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.5
+        /// </summary>
+        public ImportStatement? ReadImportDeclaration(){
+            if (!SkipIfMatch("import^s"))return null;
+
+            bool isStatic = SkipIfMatch("static^s");
+
+            string type = ((JavaCodeParser)ReadToSkip(';')).ReadFullTypeName();
+            if (type.Length == 0)return null;
+
+            return new ImportStatement(type,isStatic);
+        }
     }
 }

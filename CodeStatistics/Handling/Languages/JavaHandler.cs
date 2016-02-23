@@ -24,14 +24,18 @@ namespace CodeStatistics.Handling.Languages{
             JavaState state = variables.GetStateObject<JavaState>(this);
             JavaFileInfo info = state.Process(file);
 
-
+            variables.Increment("javaImportsTotal",info.Imports.Count);
+            variables.Maximum("javaImportsMax",info.Imports.Count);
         }
 
         public override void FinalizeProject(Variables.Root variables){
             base.FinalizeProject(variables);
-            
+
             JavaState state = variables.GetStateObject<JavaState>(this);
+
             variables.SetVariable("javaPackages",state.PackageCount);
+
+            variables.Average("javaImportsAvg","javaImportsTotal","javaCodeFiles");
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){

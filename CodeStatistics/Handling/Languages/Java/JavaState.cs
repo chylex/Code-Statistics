@@ -20,6 +20,7 @@ namespace CodeStatistics.Handling.Languages.Java{
             JavaCodeParser parser = new JavaCodeParser(JavaParseUtils.PrepareCodeFile(file.Contents));
 
             ReadPackage(parser,info);
+            ReadImportList(parser,info);
 
             UpdateLocalData(info);
 
@@ -41,6 +42,17 @@ namespace CodeStatistics.Handling.Languages.Java{
             
             parser.SkipSpaces();
             info.Package = parser.ReadPackageDeclaration();
+        }
+
+        private static void ReadImportList(JavaCodeParser parser, JavaFileInfo info){
+            while(true){
+                parser.SkipSpaces();
+
+                ImportStatement? import = parser.ReadImportDeclaration();
+                if (!import.HasValue)break;
+
+                info.Imports.Add(import.Value);
+            }
         }
     }
 }
