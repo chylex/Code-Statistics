@@ -78,6 +78,7 @@
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
     <Compile Include="Handling\Languages\Java\Elements\ImportStatement.cs" />
+    <Compile Include="Handling\Languages\Java\Elements\Modifiers.cs" />
     <Compile Include="Handling\Languages\Java\Utils\JavaCharacters.cs" />
     <Compile Include="Handling\Languages\Java\JavaCodeParser.cs" />
     <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
