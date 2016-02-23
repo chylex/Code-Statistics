@@ -22,12 +22,15 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         private void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
+            parser.SkipSpaces();
+
             Annotation? annotation = parser.ReadAnnotation();
 
             if (annotation.HasValue){
                 // TODO
             }
-
+            
+            parser.SkipSpaces();
             info.Package = parser.ReadPackageDeclaration();
         }
     }
