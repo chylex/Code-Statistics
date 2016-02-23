@@ -49,7 +49,7 @@ namespace CodeStatistics.Handling.Languages.Java{
             while(true){
                 parser.SkipSpaces();
 
-                ImportStatement? import = parser.ReadImportDeclaration();
+                Import? import = parser.ReadImportDeclaration();
                 if (!import.HasValue)break;
 
                 info.Imports.Add(import.Value);

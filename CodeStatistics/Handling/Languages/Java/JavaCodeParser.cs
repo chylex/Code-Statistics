@@ -70,7 +70,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// <summary>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.5
         /// </summary>
-        public ImportStatement? ReadImportDeclaration(){
+        public Import? ReadImportDeclaration(){
             if (!SkipIfMatch("import^s"))return null;
 
             bool isStatic = SkipIfMatch("static^s");
@@ -78,7 +78,7 @@ namespace CodeStatistics.Handling.Languages.Java{
             string type = ((JavaCodeParser)ReadToSkip(';')).ReadFullTypeName();
             if (type.Length == 0)return null;
 
-            return new ImportStatement(type,isStatic);
+            return new Import(type,isStatic);
         }
     }
 }

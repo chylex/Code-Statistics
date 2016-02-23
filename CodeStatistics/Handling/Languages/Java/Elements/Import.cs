@@ -1,24 +1,24 @@
 ﻿namespace CodeStatistics.Handling.Languages.Java.Elements{
-    public struct ImportStatement{
-        public static bool operator ==(ImportStatement obj1, ImportStatement obj2){
+    public struct Import{
+        public static bool operator ==(Import obj1, Import obj2){
             return obj1.Equals(obj2);
         }
 
-        public static bool operator !=(ImportStatement obj1, ImportStatement obj2){
+        public static bool operator !=(Import obj1, Import obj2){
             return !obj1.Equals(obj2);
         }
 
         public readonly string FullType;
         public readonly bool IsStatic;
 
-        public ImportStatement(string fullType, bool isStatic){
+        public Import(string fullType, bool isStatic){
             this.FullType = fullType;
             this.IsStatic = isStatic;
         }
 
         public override bool Equals(object obj){
-            if (obj is ImportStatement){
-                var statement = (ImportStatement)obj;
+            if (obj is Import){
+                var statement = (Import)obj;
                 return IsStatic == statement.IsStatic && FullType == statement.FullType;
             }
             else return false;
