@@ -7,7 +7,7 @@ namespace CodeStatistics.Handling.Languages.Java.Utils{
         private static readonly Regex RegexCommentSingle = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline);
         private static readonly Regex RegexCommentMulti = new Regex(@"/\*.*?\*/",RegexOptions.Compiled | RegexOptions.Singleline);
 
-        public delegate T? ReadStruct<out T>() where T : struct;
+        public delegate T? ReadStruct<T>() where T : struct;
         
         public static string PrepareCodeFile(string code){
             string processed = code;
