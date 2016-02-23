@@ -63,7 +63,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.4
         /// </summary>
         public string ReadPackageDeclaration(){
-            return SkipIfMatch("package^s") ? ReadTo(';').Contents : string.Empty;
+            return SkipIfMatch("package^s") ? ReadToSkip(';').Contents : string.Empty;
         }
     }
 }

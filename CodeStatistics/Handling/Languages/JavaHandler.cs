@@ -27,6 +27,13 @@ namespace CodeStatistics.Handling.Languages{
 
         }
 
+        public override void FinalizeProject(Variables.Root variables){
+            base.FinalizeProject(variables);
+            
+            JavaState state = variables.GetStateObject<JavaState>(this);
+            variables.SetVariable("javaPackages",state.PackageCount);
+        }
+
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
             JavaState state = variables.GetStateObject<JavaState>(this);
             return new { package = state.GetFile(fi.File).Package.Replace('.','/')+'/', file = Path.GetFileName(fi.File.FullPath), amount = fi.Value };
