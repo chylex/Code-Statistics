@@ -112,6 +112,52 @@ namespace CodeStatistics.Handling.Utils{
         }
 
         /// <summary>
+        /// Skips a text that matches a string with tokens. Returns true if the string matched code at current position and moves the cursor after the match,
+        /// otherwise returns false and the cursor does not move. <para/>
+        /// The <paramref name="matchStr"/> parameter may consist of the following tokens: <para/>
+        /// ^s --- Whitespace Character <para/>
+        /// ^. --- Any Character
+        /// </summary>
+        public bool SkipIfMatch(string matchStr){
+            int index = 0, prevCursor = cursor;
+
+            while(index < matchStr.Length){
+                char matchChr = matchStr[index];
+                bool hasMatched;
+
+                if (matchChr == '^' && index < matchStr.Length-1){
+                    switch(matchStr[++index]){
+                        case 's':
+                            hasMatched = IsWhiteSpace(Char);
+                            break;
+
+                        case '.':
+                            hasMatched = true;
+                            break;
+
+                        default:
+                            hasMatched = false;
+                            break;
+                    }
+                }
+                else{
+                    hasMatched = Char == matchChr;
+                }
+
+                if (!hasMatched){
+                    cursor = prevCursor;
+                    return false;
+                }
+                else{
+                    ++cursor;
+                    ++index;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Skips a block enclosed by <paramref name="blockStart"/> and <paramref name="blockEnd"/> and returns a new instance of CodeParser with the contents of that
         /// block, excluding the enclosing characters. If the current character does not match <paramref name="blockStart"/>, the parser will try skipping to the
         /// next <paramref name="blockStart"/>, first. If it fails, the returned contents will be empty and the cursor will not move, otherwise the cursor will be

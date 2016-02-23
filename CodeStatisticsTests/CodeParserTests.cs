@@ -91,6 +91,25 @@ namespace CodeStatisticsTests{
         }
 
         [TestMethod]
+        public void TestSkipMatch(){
+            string code = "this is a basic skip test";
+
+            CodeParser parser1 = new CodeParser(code);
+            Assert.IsTrue(parser1.SkipIfMatch("this is a "));
+            Assert.AreEqual('b',parser1.Char);
+
+            CodeParser parser2 = new CodeParser(code);
+            Assert.IsTrue(parser2.SkipIfMatch("^.his^s"));
+            Assert.AreEqual('i',parser2.Char);
+
+            CodeParser parser3 = new CodeParser(code);
+            Assert.IsFalse(parser3.SkipIfMatch("abcd"));
+            Assert.IsFalse(parser3.SkipIfMatch("this is a basic skop test"));
+            Assert.IsFalse(parser3.SkipIfMatch("thi^s"));
+            Assert.AreEqual('t',parser3.Char);
+        }
+
+        [TestMethod]
         public void TestIdentifier(){
             // simple java annotation
             CodeParser parser1 = new CodeParser("@MyIdentifier");
