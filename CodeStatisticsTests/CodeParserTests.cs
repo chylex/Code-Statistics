@@ -69,6 +69,14 @@ namespace CodeStatisticsTests{
             // base
             Assert.AreEqual('\0',parser.Char);
             Assert.IsTrue(parser.IsEOF);
+
+            // reset + block 3
+            CodeParser parserNew = new CodeParser(code);
+
+            CodeParser block3 = parserNew.SkipSpaces().ReadTo('z');
+            Assert.AreEqual("x    y",block3.Contents);
+
+            Assert.AreEqual('z',parserNew.Char);
         }
 
         [TestMethod]
