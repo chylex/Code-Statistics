@@ -60,6 +60,22 @@ namespace CodeStatistics.Collections{
             else return false;
         }
 
+        public TValue GetValue(TKey key){
+            return kv[key];
+        }
+
+        public bool TryGetValue(TKey key, out TValue value){
+            return kv.TryGetValue(key,out value);
+        }
+
+        public TKey GetKey(TValue value){
+            return vk[value];
+        }
+
+        public bool TryGetKey(TValue value, out TKey key){
+            return vk.TryGetValue(value,out key);
+        }
+
         public IEnumerator<KeyValuePair<TKey,TValue>> GetEnumerator(){
             return kv.GetEnumerator();
         }
