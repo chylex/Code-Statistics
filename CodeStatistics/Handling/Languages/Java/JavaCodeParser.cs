@@ -55,14 +55,12 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
-        /// 
+        /// Reads the package declaration (excluding package modifier - that has to be read separately).
+        /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.4
         /// </summary>
         public string ReadPackageDeclaration(){
             SkipSpaces();
-            
-
-
-            return ""; // TODO
+            return SkipIfMatch("package^s") ? ReadTo(';').Contents : string.Empty;
         }
     }
 }

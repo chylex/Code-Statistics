@@ -28,8 +28,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 // TODO
             }
 
-            string package = parser.ReadPackageDeclaration();
-            info.Package = package ?? string.Empty;
+            info.Package = parser.ReadPackageDeclaration();
         }
     }
 }
