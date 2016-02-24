@@ -55,5 +55,17 @@ namespace CodeStatistics.Handling.Languages.Java{
                 info.Imports.Add(import.Value);
             }
         }
+
+        private static List<Annotation> ReadAnnotationList(JavaCodeParser parser){
+            return JavaParseUtils.ReadStructList(parser,parser.ReadAnnotation,1);
+        }
+
+        private static List<Modifiers> ReadModifierList(JavaCodeParser parser){
+            return JavaParseUtils.ReadStructList(parser,parser.ReadModifier,2);
+        }
+
+        private static Member ReadMemberInfo(JavaCodeParser parser){
+            return new Member(ReadAnnotationList(parser),ReadModifierList(parser));
+        }
     }
 }
