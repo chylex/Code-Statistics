@@ -39,6 +39,7 @@ namespace CodeStatisticsTests.Languages.Java{
 
         [TestMethod]
         public void TestBalanceSkip(){
+            // skip
             JavaCodeParser parser1 = new JavaCodeParser("simple;D");
             parser1.SkipToIfBalanced(';');
             Assert.AreEqual(';',parser1.Char);
@@ -61,6 +62,15 @@ namespace CodeStatisticsTests.Languages.Java{
             JavaCodeParser parser5 = new JavaCodeParser("( invalid [ balance ) ] ;");
             parser5.SkipToIfBalanced(';');
             Assert.AreEqual('(',parser5.Char);
+
+            // read
+            JavaCodeParser parser6 = new JavaCodeParser("these (are) contents; abc");
+            JavaCodeParser readBlock6 = parser6.ReadToIfBalanced(';');
+            Assert.AreEqual("these (are) contents",readBlock6.Contents);
+            Assert.AreEqual(';',parser6.Char);
+
+            JavaCodeParser parser7 = new JavaCodeParser("cannot find");
+            Assert.AreEqual(string.Empty,parser7.ReadToIfBalanced(';').Contents);
         }
     }
 }

@@ -51,6 +51,16 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips to the next matching character where the brackets ([{ }]) are balanced, and returns a new instance of JavaCodeParser with the contents
+        /// of all skipped characters. If the skip fails, the returned contents will be empty and the cursor will not move.
+        /// </summary>
+        public JavaCodeParser ReadToIfBalanced(char chr){
+            int indexStart = cursor;
+            SkipToIfBalanced(chr);
+            return (JavaCodeParser)Clone(SubstrIndex(indexStart,cursor));
+        }
+
+        /// <summary>
         /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character. <para/>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e7695
         /// </summary>
