@@ -69,7 +69,6 @@
     <Compile Include="Forms\ProjectDebugForm.Designer.cs">
       <DependentUpon>ProjectDebugForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\Objects\Java\JavaParser.cs" />
     <Compile Include="Handling\General\AbstractFileHandler.cs" />
     <Compile Include="Handling\IFolderHandler.cs" />
     <Compile Include="Handling\General\AssetHandler.cs" />
