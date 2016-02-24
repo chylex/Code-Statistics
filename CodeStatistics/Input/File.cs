@@ -35,5 +35,9 @@ namespace CodeStatistics.Input{
         public override int GetHashCode(){
             return FullPath.GetHashCode();
         }
+
+        public override string ToString(){
+            return Path.GetFileName(FullPath);
+        }
     }
 }
