@@ -16,7 +16,7 @@ namespace CodeStatistics.Handling{
         public abstract IEnumerable<Variables> GetArray(string name);
 
         public class Root : Variables{
-            private readonly List<string> flags = new List<string>(4);
+            private readonly HashSet<string> flags = new HashSet<string>();
             private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
             private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
             private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>(4);
