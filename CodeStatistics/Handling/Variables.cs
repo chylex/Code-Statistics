@@ -135,7 +135,7 @@ namespace CodeStatistics.Handling{
             }
 
             public override int GetVariable(string name, int defaultValue){
-                string strValue = GetVariable(name,defaultValue.ToString());
+                string strValue = GetVariable(name,defaultValue.ToString(NumberFormat));
 
                 int intValue;
                 return int.TryParse(strValue,NumberStyles.Integer,NumberFormat,out intValue) ? intValue : defaultValue;

@@ -1,4 +1,5 @@
-﻿namespace CodeStatistics.Forms {
+﻿using CodeStatistics.Data;
+namespace CodeStatistics.Forms {
     partial class ProjectDebugForm {
         /// <summary>
         /// Required designer variable.
@@ -91,7 +92,7 @@
             this.btnReprocess.Name = "btnReprocess";
             this.btnReprocess.Size = new System.Drawing.Size(109, 23);
             this.btnReprocess.TabIndex = 1;
-            this.btnReprocess.Text = "Process Again";
+            this.btnReprocess.Text = Lang.Get["DebugProjectReprocess"];
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
             // 
@@ -103,7 +104,7 @@
             this.btnLoadOriginal.Name = "btnLoadOriginal";
             this.btnLoadOriginal.Size = new System.Drawing.Size(109, 23);
             this.btnLoadOriginal.TabIndex = 2;
-            this.btnLoadOriginal.Text = "Load Original";
+            this.btnLoadOriginal.Text = Lang.Get["DebugProjectLoadOriginal"];
             this.btnLoadOriginal.UseVisualStyleBackColor = true;
             this.btnLoadOriginal.Click += new System.EventHandler(this.btnLoadOriginal_Click);
             // 
@@ -133,7 +134,7 @@
             this.Name = "ProjectDebugForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Code Statistics - Project Debug";
+            this.Text = Lang.Get["TitleDebug"];
             this.panelSplitContainer.Panel1.ResumeLayout(false);
             this.panelSplitContainer.Panel2.ResumeLayout(false);
             this.panelSplitContainer.Panel2.PerformLayout();

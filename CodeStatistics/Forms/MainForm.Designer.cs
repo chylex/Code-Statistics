@@ -1,4 +1,5 @@
-﻿namespace CodeStatistics.Forms {
+﻿using CodeStatistics.Data;
+namespace CodeStatistics.Forms {
     partial class MainForm {
         /// <summary>
         /// Required designer variable.
@@ -44,7 +45,7 @@
             this.btnProjectFolder.Name = "btnProjectFolder";
             this.btnProjectFolder.Size = new System.Drawing.Size(312, 38);
             this.btnProjectFolder.TabIndex = 0;
-            this.btnProjectFolder.Text = "Project From Folder";
+            this.btnProjectFolder.Text = Lang.Get["MenuProjectFromFolder"];
             this.btnProjectFolder.UseVisualStyleBackColor = false;
             this.btnProjectFolder.Click += new System.EventHandler(this.btnProjectFolder_Click);
             // 
@@ -60,7 +61,7 @@
             this.btnProjectGitHub.Name = "btnProjectGitHub";
             this.btnProjectGitHub.Size = new System.Drawing.Size(312, 38);
             this.btnProjectGitHub.TabIndex = 1;
-            this.btnProjectGitHub.Text = "Project From GitHub";
+            this.btnProjectGitHub.Text = Lang.Get["MenuProjectFromGitHub"];
             this.btnProjectGitHub.UseVisualStyleBackColor = false;
             // 
             // btnViewSourceCode
@@ -74,7 +75,7 @@
             this.btnViewSourceCode.Name = "btnViewSourceCode";
             this.btnViewSourceCode.Size = new System.Drawing.Size(150, 37);
             this.btnViewSourceCode.TabIndex = 2;
-            this.btnViewSourceCode.Text = "Source Code";
+            this.btnViewSourceCode.Text = Lang.Get["MenuViewSourceCode"];
             this.btnViewSourceCode.UseVisualStyleBackColor = false;
             this.btnViewSourceCode.Click += new System.EventHandler(this.btnViewSourceCode_Click);
             // 
@@ -89,7 +90,7 @@
             this.btnViewAbout.Name = "btnViewAbout";
             this.btnViewAbout.Size = new System.Drawing.Size(150, 37);
             this.btnViewAbout.TabIndex = 3;
-            this.btnViewAbout.Text = "About";
+            this.btnViewAbout.Text = Lang.Get["MenuViewAbout"];
             this.btnViewAbout.UseVisualStyleBackColor = false;
             // 
             // tableBottomPanel
@@ -120,7 +121,7 @@
             this.btnProjectArchive.Name = "btnProjectArchive";
             this.btnProjectArchive.Size = new System.Drawing.Size(312, 38);
             this.btnProjectArchive.TabIndex = 5;
-            this.btnProjectArchive.Text = "Project From Archive";
+            this.btnProjectArchive.Text = Lang.Get["MenuProjectFromArchive"];
             this.btnProjectArchive.UseVisualStyleBackColor = false;
             // 
             // MainForm
@@ -138,7 +139,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Code Statistics";
+            this.Text = Lang.Get["Title"];
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
             this.tableBottomPanel.ResumeLayout(false);

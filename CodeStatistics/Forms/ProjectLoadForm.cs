@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using CodeStatistics.Output;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
+using CodeStatistics.Data;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
@@ -18,18 +20,18 @@ namespace CodeStatistics.Forms{
         }
 
         private void OnLoad(object sender, EventArgs e){
-            labelLoadInfo.Text = "Searching Files and Folders...";
+            labelLoadInfo.Text = Lang.Get["LoadProjectSearchIO"];
             labelLoadData.Text = "";
 
             search.Refresh += count => {
                 Invoke(new MethodInvoker(() => {
-                    labelLoadData.Text = count.ToString();
+                    labelLoadData.Text = count.ToString(CultureInfo.InvariantCulture);
                 }));
             };
 
             search.Finish += data => {
                 Invoke(new MethodInvoker(() => {
-                    labelLoadInfo.Text = "Processing the Project...";
+                    labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
                     labelLoadData.Text = "";
                     progressBarLoad.Value = 0;
                     progressBarLoad.Style = ProgressBarStyle.Continuous;
@@ -59,7 +61,7 @@ namespace CodeStatistics.Forms{
                         Invoke(new MethodInvoker(() => {
                             variables = vars;
 
-                            labelLoadInfo.Text = "Project processing finished.";
+                            labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
 
                             btnCancel.Visible = false;
                             btnClose.Visible = true;
