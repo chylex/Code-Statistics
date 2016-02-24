@@ -36,7 +36,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         private static void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
             parser.SkipSpaces();
 
-            List<Annotation> annotations = ReadAnnotationList(parser);
+            List<Annotation> annotations = parser.ReadAnnotationList();
             // TODO handle annotation list
             
             parser.SkipSpaces();
@@ -59,41 +59,11 @@ namespace CodeStatistics.Handling.Languages.Java{
                 parser.SkipSpaces();
                 if (parser.IsEOF)break;
 
-                Type type = ReadType(parser);
+                Type type = parser.ReadType();
 
                 if (type != null)info.Types.Add(type);
                 else break;
             }
-        }
-
-        private static Type ReadType(JavaCodeParser parser){
-            Member memberInfo = ReadMemberInfo(parser);
-
-            Type.DeclarationType? type = parser.ReadTypeDeclaration();
-            if (!type.HasValue)return null;
-
-            string identifier = parser.SkipSpaces().ReadIdentifier();
-            if (identifier.Length == 0)return null;
-
-            Type readType = new Type(type.Value,identifier,memberInfo);
-            ReadTypeContents((JavaCodeParser)parser.SkipTo('{').ReadBlock('{','}'),readType);
-            return readType;
-        }
-
-        private static void ReadTypeContents(JavaCodeParser contents, Type type){
-            // TODO
-        }
-
-        private static List<Annotation> ReadAnnotationList(JavaCodeParser parser){
-            return JavaParseUtils.ReadStructList(parser,parser.ReadAnnotation,1);
-        }
-
-        private static List<Modifiers> ReadModifierList(JavaCodeParser parser){
-            return JavaParseUtils.ReadStructList(parser,parser.ReadModifier,2);
-        }
-
-        private static Member ReadMemberInfo(JavaCodeParser parser){
-            return new Member(ReadAnnotationList(parser),ReadModifierList(parser));
         }
     }
 }

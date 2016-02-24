@@ -1,4 +1,5 @@
-﻿using CodeStatistics.Handling.Languages.Java.Elements;
+﻿using System.Collections.Generic;
+using CodeStatistics.Handling.Languages.Java.Elements;
 using CodeStatistics.Handling.Utils;
 using System.Text;
 using CodeStatistics.Handling.Languages.Java.Utils;
@@ -60,6 +61,13 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips spaces and finds all following annotations.
+        /// </summary>
+        public List<Annotation> ReadAnnotationList(){
+            return JavaParseUtils.ReadStructList(this,ReadAnnotation,1);
+        }
+
+        /// <summary>
         /// Reads the package declaration (excluding package modifier - that has to be read separately).
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-7.html#jls-7.4
         /// </summary>
@@ -95,6 +103,20 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips spaces and finds all following modifiers.
+        /// </summary>
+        public List<Modifiers> ReadModifierList(){
+            return JavaParseUtils.ReadStructList(this,ReadModifier,2);
+        }
+
+        /// <summary>
+        /// Skisp spaces and reads following member info (list of annotations and modifiers).
+        /// </summary>
+        public Member ReadMemberInfo(){
+            return new Member(ReadAnnotationList(),ReadModifierList());
+        }
+
+        /// <summary>
         /// Reads a declaration type specified in <see cref="Type.DeclarationType"/> and skips it.
         /// </summary>
         public Type.DeclarationType? ReadTypeDeclaration(){
@@ -103,6 +125,28 @@ namespace CodeStatistics.Handling.Languages.Java{
             else if (SkipIfMatch("enum^s"))return Type.DeclarationType.Enum;
             else if (SkipIfMatch("@interface^s"))return Type.DeclarationType.Annotation;
             else return null;
+        }
+
+        /// <summary>
+        /// Reads an entire type declaration and generates data from the contents, and skips the block.
+        /// </summary>
+        public Type ReadType(){
+            Member memberInfo = ReadMemberInfo();
+
+            Type.DeclarationType? type = ReadTypeDeclaration();
+            if (!type.HasValue)return null;
+
+            string identifier = SkipSpaces().ReadIdentifier();
+            if (identifier.Length == 0)return null;
+
+            Type readType = new Type(type.Value,identifier,memberInfo);
+            ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(readType);
+
+            return readType;
+        }
+
+        private void ReadTypeContents(Type type){
+            // TODO
         }
     }
 }
