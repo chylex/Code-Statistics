@@ -3,6 +3,7 @@ using CodeStatistics.Handling.Utils;
 using File = CodeStatistics.Input.File;
 using CodeStatistics.Handling.Languages.Java;
 using CodeStatistics.Handling.Languages.Java.Utils;
+using CodeStatistics.Handling.Languages.Java.Elements;
 
 namespace CodeStatistics.Handling.Languages{
     class JavaHandler : AbstractLanguageFileHandler{
@@ -27,6 +28,23 @@ namespace CodeStatistics.Handling.Languages{
 
             variables.Increment("javaImportsTotal",info.Imports.Count);
             variables.Maximum("javaImportsMax",info.Imports.Count);
+
+            foreach(Type type in info.Types){
+                ProcessType(type,variables);
+            }
+        }
+
+        private void ProcessType(Type type, Variables.Root variables){
+            foreach(Type nestedType in type.NestedTypes){
+                ProcessType(nestedType,variables);
+            }
+
+            switch(type.Declaration){
+                case Type.DeclarationType.Class: variables.Increment("javaClasses"); break;
+                case Type.DeclarationType.Interface: variables.Increment("javaInterfaces"); break;
+                case Type.DeclarationType.Enum: variables.Increment("javaEnums"); break;
+                case Type.DeclarationType.Annotation: variables.Increment("javaAnnotations"); break;
+            }
         }
 
         public override void FinalizeProject(Variables.Root variables){
