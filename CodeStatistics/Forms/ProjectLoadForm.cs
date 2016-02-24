@@ -67,6 +67,7 @@ namespace CodeStatistics.Forms{
 
                             #if DEBUG
                                 btnDebugProject.Visible = true;
+                                btnBreakPoint.Visible = true;
                             #endif
                         }));
                     };
@@ -110,6 +111,12 @@ namespace CodeStatistics.Forms{
             if (project == null || variables == null)return;
 
             new ProjectDebugForm(project).ShowDialog();
+        }
+
+        private void btnBreakPoint_Click(object sender, EventArgs e){
+            if (project == null || variables == null)return;
+
+            Debugger.Break();
         }
     }
 }

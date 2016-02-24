@@ -30,6 +30,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnGenerateOutput = new System.Windows.Forms.Button();
             this.btnDebugProject = new System.Windows.Forms.Button();
+            this.btnBreakPoint = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBarLoad
@@ -107,14 +108,26 @@
             // btnDebugProject
             // 
             this.btnDebugProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDebugProject.Location = new System.Drawing.Point(12, 76);
+            this.btnDebugProject.Location = new System.Drawing.Point(70, 76);
             this.btnDebugProject.Name = "btnDebugProject";
-            this.btnDebugProject.Size = new System.Drawing.Size(91, 23);
+            this.btnDebugProject.Size = new System.Drawing.Size(56, 23);
             this.btnDebugProject.TabIndex = 6;
-            this.btnDebugProject.Text = "Debug Project";
+            this.btnDebugProject.Text = "Debug";
             this.btnDebugProject.UseVisualStyleBackColor = true;
             this.btnDebugProject.Visible = false;
             this.btnDebugProject.Click += new System.EventHandler(this.btnDebugProject_Click);
+            // 
+            // btnBreakPoint
+            // 
+            this.btnBreakPoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBreakPoint.Location = new System.Drawing.Point(12, 76);
+            this.btnBreakPoint.Name = "btnBreakPoint";
+            this.btnBreakPoint.Size = new System.Drawing.Size(52, 23);
+            this.btnBreakPoint.TabIndex = 7;
+            this.btnBreakPoint.Text = "Break";
+            this.btnBreakPoint.UseVisualStyleBackColor = true;
+            this.btnBreakPoint.Visible = false;
+            this.btnBreakPoint.Click += new System.EventHandler(this.btnBreakPoint_Click);
             // 
             // ProjectLoadForm
             // 
@@ -123,6 +136,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(331, 111);
+            this.Controls.Add(this.btnBreakPoint);
             this.Controls.Add(this.btnDebugProject);
             this.Controls.Add(this.btnGenerateOutput);
             this.Controls.Add(this.btnClose);
@@ -149,5 +163,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnGenerateOutput;
         private System.Windows.Forms.Button btnDebugProject;
+        private System.Windows.Forms.Button btnBreakPoint;
     }
 }
