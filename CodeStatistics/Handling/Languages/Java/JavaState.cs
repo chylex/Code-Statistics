@@ -22,6 +22,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             ReadPackage(parser,info);
             ReadImportList(parser,info);
+            ReadTopLevelTypes(parser,info);
 
             UpdateLocalData(info);
 
@@ -35,11 +36,8 @@ namespace CodeStatistics.Handling.Languages.Java{
         private static void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
             parser.SkipSpaces();
 
-            Annotation? annotation = parser.ReadAnnotation();
-
-            if (annotation.HasValue){
-                // TODO
-            }
+            List<Annotation> annotations = ReadAnnotationList(parser);
+            // TODO handle annotation list
             
             parser.SkipSpaces();
             info.Package = parser.ReadPackageDeclaration();
@@ -54,6 +52,36 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                 info.Imports.Add(import.Value);
             }
+        }
+
+        private static void ReadTopLevelTypes(JavaCodeParser parser, JavaFileInfo info){
+            while(true){
+                parser.SkipSpaces();
+                if (parser.IsEOF)break;
+
+                Type type = ReadType(parser);
+
+                if (type != null)info.Types.Add(type);
+                else break;
+            }
+        }
+
+        private static Type ReadType(JavaCodeParser parser){
+            Member memberInfo = ReadMemberInfo(parser);
+
+            Type.DeclarationType? type = parser.ReadTypeDeclaration();
+            if (!type.HasValue)return null;
+
+            string identifier = parser.SkipSpaces().ReadIdentifier();
+            if (identifier.Length == 0)return null;
+
+            Type readType = new Type(type.Value,identifier,memberInfo);
+            ReadTypeContents((JavaCodeParser)parser.SkipTo('{').ReadBlock('{','}'),readType);
+            return readType;
+        }
+
+        private static void ReadTypeContents(JavaCodeParser contents, Type type){
+            // TODO
         }
 
         private static List<Annotation> ReadAnnotationList(JavaCodeParser parser){

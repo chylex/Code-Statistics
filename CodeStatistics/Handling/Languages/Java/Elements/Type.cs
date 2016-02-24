@@ -1,23 +1,16 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
-    public class Type{
+    public class Type : Member{
         public enum DeclarationType{
             Class, Interface, Enum, Annotation
         }
 
-        public readonly ReadOnlyCollection<Annotation> Annotations;
-        public readonly Modifiers Modifiers = Modifiers.None;
         public readonly DeclarationType Declaration;
         public readonly string Identifier;
-
         public readonly List<Type> NestedTypes = new List<Type>(1);
 
-        public Type(List<Annotation> annotations, List<Modifiers> modifiers, DeclarationType type, string identifier){
-            this.Annotations = annotations.AsReadOnly();
-            this.Modifiers = modifiers.Aggregate(Modifiers.None, (acc, modifier) => acc | modifier);
+        public Type(DeclarationType type, string identifier, Member info) : base(info){
             this.Declaration = type;
             this.Identifier = identifier;
         }
