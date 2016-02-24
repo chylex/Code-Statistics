@@ -153,6 +153,19 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Reads a primitive value specified in <see cref="Primitives"/> and skips it.
+        /// </summary>
+        public Primitives? ReadPrimitive(){
+            foreach(string primitiveStr in JavaPrimitives.Strings){
+                if (SkipIfMatch(primitiveStr+"^s")){
+                    return JavaPrimitives.FromString(primitiveStr);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Skips spaces and reads following member info (list of annotations and modifiers).
         /// </summary>
         public Member SkipReadMemberInfo(){
