@@ -36,5 +36,31 @@ namespace CodeStatisticsTests.Languages.Java{
             Annotation? annotation8 = new JavaCodeParser("@123").ReadAnnotation();
             Assert.IsFalse(annotation8.HasValue);
         }
+
+        [TestMethod]
+        public void TestBalanceSkip(){
+            JavaCodeParser parser1 = new JavaCodeParser("simple;D");
+            parser1.SkipToIfBalanced(';');
+            Assert.AreEqual(';',parser1.Char);
+            Assert.AreEqual('D',parser1.Next());
+
+            JavaCodeParser parser2 = new JavaCodeParser("find ( ;semicolon {[ ( ; ) ; ]} ; keep looking ) ;-)");
+            parser2.SkipToIfBalanced(';');
+            Assert.AreEqual(';',parser2.Char);
+            Assert.AreEqual('-',parser2.Next());
+            Assert.AreEqual(')',parser2.Next());
+
+            JavaCodeParser parser3 = new JavaCodeParser("nope");
+            parser3.SkipToIfBalanced(';');
+            Assert.AreEqual('n',parser3.Char);
+
+            JavaCodeParser parser4 = new JavaCodeParser("cannot find (;;;)");
+            parser4.SkipToIfBalanced(';');
+            Assert.AreEqual('c',parser4.Char);
+
+            JavaCodeParser parser5 = new JavaCodeParser("( invalid [ balance ) ] ;");
+            parser5.SkipToIfBalanced(';');
+            Assert.AreEqual('(',parser5.Char);
+        }
     }
 }

@@ -18,6 +18,39 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips to the next matching character where the brackets ([{ }]) are balanced, and returns itself.
+        /// If the skip fails, the cursor will not move.
+        /// </summary>
+        public JavaCodeParser SkipToIfBalanced(char chr){
+            int prevCursor = cursor;
+            Stack<char> bracketStack = new Stack<char>(4);
+
+            while(cursor < length){
+                if (bracketStack.Count == 0 && Char == chr)break;
+
+                switch(Char){
+                    case '(': bracketStack.Push(')'); break;
+                    case '[': bracketStack.Push(']'); break;
+                    case '{': bracketStack.Push('}'); break;
+
+                    case ')': case ']': case '}':
+                        if (bracketStack.Count == 0 || bracketStack.Pop() != Char){
+                            cursor = prevCursor;
+                            return this;
+                        }
+
+                        break;
+                }
+
+                ++cursor;
+            }
+
+            if (Char != chr || bracketStack.Count > 0)cursor = prevCursor;
+
+            return this;
+        }
+
+        /// <summary>
         /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character. <para/>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e7695
         /// </summary>
