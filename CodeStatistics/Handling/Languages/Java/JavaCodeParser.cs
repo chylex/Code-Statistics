@@ -63,7 +63,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// <summary>
         /// Skips spaces and finds all following annotations.
         /// </summary>
-        public List<Annotation> ReadAnnotationList(){
+        public List<Annotation> SkipReadAnnotationList(){
             return JavaParseUtils.ReadStructList(this,ReadAnnotation,1);
         }
 
@@ -105,15 +105,15 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// <summary>
         /// Skips spaces and finds all following modifiers.
         /// </summary>
-        public List<Modifiers> ReadModifierList(){
+        public List<Modifiers> SkipReadModifierList(){
             return JavaParseUtils.ReadStructList(this,ReadModifier,2);
         }
 
         /// <summary>
-        /// Skisp spaces and reads following member info (list of annotations and modifiers).
+        /// Skips spaces and reads following member info (list of annotations and modifiers).
         /// </summary>
-        public Member ReadMemberInfo(){
-            return new Member(ReadAnnotationList(),ReadModifierList());
+        public Member SkipReadMemberInfo(){
+            return new Member(SkipReadAnnotationList(),SkipReadModifierList());
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// Reads an entire type declaration and generates data from the contents, and skips the block.
         /// </summary>
         public Type ReadType(){
-            Member memberInfo = ReadMemberInfo();
+            Member memberInfo = SkipReadMemberInfo();
 
             Type.DeclarationType? type = ReadTypeDeclaration();
             if (!type.HasValue)return null;
