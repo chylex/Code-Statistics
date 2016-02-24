@@ -145,8 +145,44 @@ namespace CodeStatistics.Handling.Languages.Java{
             return readType;
         }
 
+        /// <summary>
+        /// Recursively reads all members of a Type, including all nested Types. Called on a cloned JavaCodeParser that only
+        /// contains contents of the Type block.
+        /// </summary>
         private void ReadTypeContents(Type type){
-            // TODO
+            if (type.Declaration == Type.DeclarationType.Enum){
+                return;
+                // TODO
+            }
+
+            int skippedMembers = 0;
+
+            while(!IsEOF && skippedMembers < 50){
+                Member memberInfo = SkipReadMemberInfo();
+
+                // nested types
+                Type.DeclarationType? declaration = ReadTypeDeclaration();
+
+                if (declaration.HasValue){
+                    string identifier = SkipSpaces().ReadIdentifier();
+                    if (identifier.Length == 0)break;
+
+                    Type nestedType = new Type(declaration.Value,identifier,memberInfo);
+                    ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
+
+                    type.NestedTypes.Add(nestedType);
+                    continue;
+                }
+
+                // skip
+                SkipBlock('{','}');
+                SkipSpaces();
+                ++skippedMembers;
+            }
+
+            if (skippedMembers == 50){
+                System.Diagnostics.Debug.WriteLine("Caution: Skipped 50 members."); // TODO
+            }
         }
     }
 }
