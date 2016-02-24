@@ -77,8 +77,10 @@
     <Compile Include="Handling\Languages\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
+    <Compile Include="Handling\Languages\Java\Elements\Field.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Import.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Member.cs" />
+    <Compile Include="Handling\Languages\Java\Elements\Method.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Modifiers.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Primitives.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Type.cs" />
