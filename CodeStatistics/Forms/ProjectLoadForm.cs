@@ -80,10 +80,11 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
-            if (variables != null);
-            else if (project != null)project.Cancel(OnCancel);
-            else if (search != null)search.Cancel(OnCancel);
-            else return;
+            if (variables == null){
+                if (project != null)project.Cancel(OnCancel);
+                else if (search != null)search.Cancel(OnCancel);
+                else return;
+            }
 
             btnCancel.Enabled = false;
         }
