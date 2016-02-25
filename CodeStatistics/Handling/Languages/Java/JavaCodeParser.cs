@@ -173,17 +173,42 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips spaces and all following pairs of angled and square brackets.
+        /// </summary>
+        public JavaCodeParser SkipTypeArrayAndGenerics(){
+            do{
+                SkipSpaces();
+                if (Char == '[')SkipBlock('[',']');
+                if (Char == '<')SkipBlock('<','>');
+            }
+            while(!IsEOF && (Char == '[' || Char == '<'));
+
+            return this;
+        }
+
+        /// <summary>
         /// Reads the type, which can either be a method return type or a field type, and skips it.
         /// </summary>
         public TypeOf? ReadTypeOf(){
             if (SkipIfMatch("void^s"))return TypeOf.Void();
 
+            // primitive
             Primitives? primitive = ReadPrimitive();
-            if (primitive.HasValue)return TypeOf.Primitive(primitive.Value);
 
+            if (primitive.HasValue){
+                SkipTypeArrayAndGenerics();
+                return TypeOf.Primitive(primitive.Value);
+            }
+
+            // object name
             string typeName = ReadFullTypeName();
-            if (typeName.Length > 0)return TypeOf.Object(JavaParseUtils.FullToSimpleName(typeName));
 
+            if (typeName.Length > 0){
+                SkipTypeArrayAndGenerics();
+                return TypeOf.Object(JavaParseUtils.FullToSimpleName(typeName));
+            }
+
+            // nothing
             return null;
         }
 
