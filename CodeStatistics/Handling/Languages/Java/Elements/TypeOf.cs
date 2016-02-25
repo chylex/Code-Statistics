@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CodeStatistics.Handling.Languages.Java.Utils;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
@@ -33,6 +34,11 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
 
         public Primitives? AsPrimitive(){
             if (IsPrimitive)return (Primitives)obj;
+            else return null;
+        }
+
+        public string AsSimpleType(){
+            if (IsTypeObject)return JavaParseUtils.FullToSimpleName((string)obj);
             else return null;
         }
 
