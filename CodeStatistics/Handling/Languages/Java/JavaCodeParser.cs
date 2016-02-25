@@ -247,7 +247,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// </summary>
         private void ReadTypeContents(Type type){
             if (type.Declaration == Type.DeclarationType.Enum){
-                return;
+                SkipToIfBalanced(';');
                 // TODO
             }
 
