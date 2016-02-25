@@ -300,7 +300,9 @@ namespace CodeStatistics.Handling.Languages.Java{
                     if (SkipSpaces().Char == '('){ // method
                         List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
                         Method method = new Method(identifier,returnOrFieldType.Value,parameterList,memberInfo);
-                        SkipBlock('{','}');
+
+                        if (SkipSpaces().Char == ';')Skip();
+                        else SkipBlock('{','}');
 
                         type.GetData().Methods.Add(method);
                     }
