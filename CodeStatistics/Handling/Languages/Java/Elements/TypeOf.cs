@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public struct TypeOf{
-        private static readonly ReadOnlyCollection<TypeOf> EmptyCollection = new ReadOnlyCollection<TypeOf>();
+        private static readonly ReadOnlyCollection<TypeOf> EmptyCollection = new List<TypeOf>().AsReadOnly();
 
         public static TypeOf Primitive(Primitives primitive){
             return new TypeOf(primitive);
