@@ -254,19 +254,61 @@ namespace CodeStatistics.Handling.Languages.Java{
             int skippedMembers = 0;
 
             while(!IsEOF && skippedMembers < 50){
-                Member memberInfo = SkipReadMemberInfo();
+                Member memberInfo = SkipReadMemberInfo(); // skips spaces at the beginning and end
 
                 // nested types
                 Type.DeclarationType? declaration = ReadTypeDeclaration();
 
                 if (declaration.HasValue){
                     string identifier = SkipSpaces().ReadIdentifier();
-                    if (identifier.Length == 0)break;
+                    if (identifier.Length == 0)break; // TODO handle error
 
                     Type nestedType = new Type(declaration.Value,identifier,memberInfo);
                     ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
 
                     type.NestedTypes.Add(nestedType);
+                    continue;
+                }
+
+                // static / instance initializer
+                if (Char == '{'){
+                    Method method = new Method(memberInfo.Modifiers.HasFlag(Modifiers.Static) ? "<clinit>" : "<init>",TypeOf.Void(),memberInfo);
+                    SkipBlock('{','}');
+
+                    type.GetData().Methods.Add(method);
+                    continue;
+                }
+
+                // fields and methods
+                if (Char == '<'){
+                    SkipBlock('<','>');
+                    SkipSpaces();
+                }
+
+                TypeOf? returnOrFieldType = ReadTypeOf();
+
+                if (returnOrFieldType.HasValue){
+                    string identifier = SkipSpaces().ReadIdentifier();
+                    
+                    if (string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
+                        identifier = "<init>";
+                        returnOrFieldType = TypeOf.Void();
+                    }
+
+                    if (identifier.Length == 0)break; // TODO handle error
+
+                    if (SkipSpaces().Char == '('){ // method
+                        List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
+                        Method method = new Method(identifier,returnOrFieldType.Value,parameterList,memberInfo);
+                        SkipBlock('{','}');
+
+                        type.GetData().Methods.Add(method);
+                    }
+                    else{ // field
+                        // TODO
+                        SkipToIfBalanced(';').Skip();
+                    }
+
                     continue;
                 }
 
@@ -279,6 +321,26 @@ namespace CodeStatistics.Handling.Languages.Java{
             if (skippedMembers == 50){
                 System.Diagnostics.Debug.WriteLine("Caution: Skipped 50 members."); // TODO
             }
+        }
+
+        /// <summary>
+        /// Reads all parameters of a method. Called on a cloned JavaCodeParser that only contains contents between parentheses.
+        /// </summary>
+        private List<TypeOf> ReadMethodParameterList(){
+            var list = new List<TypeOf>();
+            if (SkipSpaces().IsEOF)return list;
+
+            do{
+                SkipSpaces();
+
+                TypeOf? type = ReadTypeOf();
+                if (!type.HasValue)break;
+
+                list.Add(type.Value);
+                SkipTo(',');
+            }while(Char == ',');
+
+            return list;
         }
     }
 }
