@@ -173,6 +173,21 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Reads the type, which can either be a method return type or a field type, and skips it.
+        /// </summary>
+        public TypeOf? ReadTypeOf(){
+            if (SkipIfMatch("void^s"))return TypeOf.Void();
+
+            Primitives? primitive = ReadPrimitive();
+            if (primitive.HasValue)return TypeOf.Primitive(primitive.Value);
+
+            string typeName = ReadFullTypeName();
+            if (typeName.Length > 0)return TypeOf.Object(JavaParseUtils.FullToSimpleName(typeName));
+
+            return null;
+        }
+
+        /// <summary>
         /// Reads a declaration type specified in <see cref="Type.DeclarationType"/> and skips it.
         /// </summary>
         public Type.DeclarationType? ReadTypeDeclaration(){
