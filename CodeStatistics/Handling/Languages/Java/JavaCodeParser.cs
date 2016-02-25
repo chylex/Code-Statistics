@@ -359,14 +359,15 @@ namespace CodeStatistics.Handling.Languages.Java{
             var list = new List<TypeOf>();
             if (SkipSpaces().IsEOF)return list;
 
-            do{
+            while(true){
                 TypeOf? type = ReadTypeOf();
                 if (!type.HasValue)break;
 
                 list.Add(type.Value);
 
-                SkipTo(',').SkipSpaces();
-            }while(Char == ',');
+                if (SkipTo(',').Char == ';')Skip().SkipSpaces();
+                else break;
+            }
 
             return list;
         }
