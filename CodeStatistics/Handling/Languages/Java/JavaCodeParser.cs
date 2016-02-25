@@ -288,6 +288,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 TypeOf? returnOrFieldType = ReadTypeOf();
 
                 if (returnOrFieldType.HasValue){
+                    int prevCursor = cursor;
                     string identifier = SkipSpaces().ReadIdentifier();
                     
                     if (string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
@@ -307,8 +308,14 @@ namespace CodeStatistics.Handling.Languages.Java{
                         type.GetData().Methods.Add(method);
                     }
                     else{ // field
-                        // TODO
-                        SkipToIfBalanced(';').Skip();
+                        Type.TypeData data = type.GetData();
+                        cursor = prevCursor;
+
+                        foreach(string fieldIdentifier in ReadToIfBalanced(';').ReadFieldIdentifierList()){
+                            data.Fields.Add(new Field(fieldIdentifier,returnOrFieldType.Value,memberInfo));
+                        }
+                        
+                        Skip();
                     }
 
                     continue;
@@ -326,6 +333,26 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Reads all identifier names in a field declaration.
+        /// </summary>
+        private List<string> ReadFieldIdentifierList(){
+            var list = new List<string>();
+            if (SkipSpaces().IsEOF)return list;
+
+            while(true){
+                string identifier = ReadIdentifier();
+                if (identifier.Length == 0)break;
+
+                list.Add(identifier);
+
+                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
+                else break;
+            }
+
+            return list;
+        }
+
+        /// <summary>
         /// Reads all parameters of a method. Called on a cloned JavaCodeParser that only contains contents between parentheses.
         /// </summary>
         private List<TypeOf> ReadMethodParameterList(){
@@ -333,13 +360,12 @@ namespace CodeStatistics.Handling.Languages.Java{
             if (SkipSpaces().IsEOF)return list;
 
             do{
-                SkipSpaces();
-
                 TypeOf? type = ReadTypeOf();
                 if (!type.HasValue)break;
 
                 list.Add(type.Value);
-                SkipTo(',');
+
+                SkipTo(',').SkipSpaces();
             }while(Char == ',');
 
             return list;
