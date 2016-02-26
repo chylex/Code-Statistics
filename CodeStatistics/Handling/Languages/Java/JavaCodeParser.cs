@@ -256,6 +256,8 @@ namespace CodeStatistics.Handling.Languages.Java{
                 foreach(string enumValue in enumParser.ReadEnumValueList()){
                     enumData.EnumValues.Add(enumValue);
                 }
+
+                if (Char == ';')Skip();
             }
 
             // members
@@ -310,7 +312,16 @@ namespace CodeStatistics.Handling.Languages.Java{
                         List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
                         Method method = new Method(identifier,returnOrFieldType.Value,parameterList,memberInfo);
 
-                        if (SkipSpaces().Char == ';')Skip();
+                        if (SkipSpaces().SkipIfMatch("throws^s")){
+                            while(true){
+                                ReadFullTypeName();
+
+                                if (SkipSpaces().Char == ',')Skip().SkipSpaces();
+                                else break;
+                            }
+                        }
+                        
+                        if (Char == ';')Skip();
                         else SkipBlock('{','}');
 
                         type.GetData().Methods.Add(method);
