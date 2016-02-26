@@ -116,6 +116,7 @@ namespace CodeStatistics.Handling.Utils{
         /// otherwise returns false and the cursor does not move. <para/>
         /// The <paramref name="matchStr"/> parameter may consist of the following tokens: <para/>
         /// ^s --- Whitespace Character <para/>
+        /// ^n --- Not An Identifier Part Character <para/>
         /// ^. --- Any Character
         /// </summary>
         public bool SkipIfMatch(string matchStr){
@@ -129,6 +130,10 @@ namespace CodeStatistics.Handling.Utils{
                     switch(matchStr[++index]){
                         case 's':
                             hasMatched = IsWhiteSpace(Char);
+                            break;
+
+                        case 'n':
+                            hasMatched = !IsIdentifierPart(Char);
                             break;
 
                         case '.':
