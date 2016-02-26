@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using CodeStatistics.Data;
 using CodeStatistics.Input;
 
 namespace CodeStatistics.Forms{
@@ -9,6 +10,13 @@ namespace CodeStatistics.Forms{
 
         public MainForm(){
             InitializeComponent();
+            
+            this.Text = Lang.Get["Title"];
+            btnProjectFolder.Text = Lang.Get["MenuProjectFromFolder"];
+            btnProjectGitHub.Text = Lang.Get["MenuProjectFromGitHub"];
+            btnViewSourceCode.Text = Lang.Get["MenuViewSourceCode"];
+            btnViewAbout.Text = Lang.Get["MenuViewAbout"];
+            btnProjectArchive.Text = Lang.Get["MenuProjectFromArchive"];
         }
 
         // Drag Events

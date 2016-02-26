@@ -17,6 +17,13 @@ namespace CodeStatistics.Forms{
         public ProjectLoadForm(string[] rootFiles){
             InitializeComponent();
             search = new FileSearch(rootFiles);
+            
+            this.Text = Lang.Get["TitleProject"];
+            btnCancel.Text = Lang.Get["LoadProjectCancel"];
+            btnClose.Text = Lang.Get["LoadProjectClose"];
+            btnGenerateOutput.Text = Lang.Get["LoadProjectGenerate"];
+            btnDebugProject.Text = Lang.Get["LoadProjectDebug"];
+            btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
         }
 
         private void OnLoad(object sender, EventArgs e){

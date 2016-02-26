@@ -1,5 +1,4 @@
-﻿using CodeStatistics.Data;
-namespace CodeStatistics.Forms {
+﻿namespace CodeStatistics.Forms {
     partial class ProjectLoadForm {
         /// <summary>
         /// Required designer variable.
@@ -76,7 +75,6 @@ namespace CodeStatistics.Forms {
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = Lang.Get["LoadProjectCancel"];
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -87,7 +85,6 @@ namespace CodeStatistics.Forms {
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(64, 23);
             this.btnClose.TabIndex = 4;
-            this.btnClose.Text = Lang.Get["LoadProjectClose"];
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Visible = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -99,7 +96,6 @@ namespace CodeStatistics.Forms {
             this.btnGenerateOutput.Name = "btnGenerateOutput";
             this.btnGenerateOutput.Size = new System.Drawing.Size(105, 23);
             this.btnGenerateOutput.TabIndex = 5;
-            this.btnGenerateOutput.Text = Lang.Get["LoadProjectGenerate"];
             this.btnGenerateOutput.UseVisualStyleBackColor = true;
             this.btnGenerateOutput.Visible = false;
             this.btnGenerateOutput.Click += new System.EventHandler(this.btnGenerateOutput_Click);
@@ -111,7 +107,6 @@ namespace CodeStatistics.Forms {
             this.btnDebugProject.Name = "btnDebugProject";
             this.btnDebugProject.Size = new System.Drawing.Size(56, 23);
             this.btnDebugProject.TabIndex = 6;
-            this.btnDebugProject.Text = Lang.Get["LoadProjectDebug"];
             this.btnDebugProject.UseVisualStyleBackColor = true;
             this.btnDebugProject.Visible = false;
             this.btnDebugProject.Click += new System.EventHandler(this.btnDebugProject_Click);
@@ -123,7 +118,6 @@ namespace CodeStatistics.Forms {
             this.btnBreakPoint.Name = "btnBreakPoint";
             this.btnBreakPoint.Size = new System.Drawing.Size(52, 23);
             this.btnBreakPoint.TabIndex = 7;
-            this.btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
             this.btnBreakPoint.UseVisualStyleBackColor = true;
             this.btnBreakPoint.Visible = false;
             this.btnBreakPoint.Click += new System.EventHandler(this.btnBreakPoint_Click);
@@ -147,7 +141,6 @@ namespace CodeStatistics.Forms {
             this.MaximizeBox = false;
             this.Name = "ProjectLoadForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = Lang.Get["TitleProject"];
             this.Load += new System.EventHandler(this.OnLoad);
             this.ResumeLayout(false);
 
