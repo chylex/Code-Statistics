@@ -22,7 +22,7 @@ namespace CodeStatistics.Handling.Utils{
         }
 
         protected string SubstrIndex(int startIndex, int endIndex){
-            startIndex = Math.Min(length-1,startIndex);
+            startIndex = Math.Max(0,Math.Min(length-1,startIndex));
             endIndex = Math.Min(length,endIndex);
             return code.Substring(startIndex,endIndex-startIndex);
         }
