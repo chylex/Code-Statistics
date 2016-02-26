@@ -5,6 +5,8 @@ using System;
 using System.Runtime.InteropServices;
 using CodeStatistics.Handling.Languages;
 using PathIO = System.IO.Path;
+using CodeStatistics.Data;
+using System.Diagnostics;
 
 namespace CodeStatistics.Forms{
     partial class ProjectDebugForm : Form{
@@ -13,6 +15,11 @@ namespace CodeStatistics.Forms{
 
         public ProjectDebugForm(Project project){
             InitializeComponent();
+
+            this.Text = Lang.Get["TitleDebug"];
+            btnReprocess.Text = Lang.Get["DebugProjectReprocess"];
+            btnLoadOriginal.Text = Lang.Get["DebugProjectLoadOriginal"];
+            btnDebug.Text = Lang.Get["DebugProjectDebug"];
 
             foreach(File file in project.SearchData.Files){
                 if (HandlerList.GetFileHandler(file) is AbstractLanguageFileHandler){
@@ -44,6 +51,20 @@ namespace CodeStatistics.Forms{
             if (item == null)return;
 
             SetTextBoxContents(GetLanguageHandler(item.File).PrepareFileContents(textBoxCode.Text));
+        }
+
+        private void btnDebug_Click(object sender, EventArgs e){
+            RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
+            if (item == null)return;
+
+            AbstractLanguageFileHandler handler = GetLanguageHandler(item.File);
+            Variables.Root variables = new Variables.Root();
+
+            handler.SetupProject(variables);
+            handler.Process(item.File,variables);
+            handler.FinalizeProject(variables);
+
+            Debugger.Break();
         }
 
         private void SetTextBoxContents(string text){

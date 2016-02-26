@@ -25,11 +25,12 @@ namespace CodeStatistics.Forms {
         /// </summary>
         private void InitializeComponent() {
             this.panelSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.listBoxFiles = new System.Windows.Forms.ListBox();
-            this.textBoxCode = new System.Windows.Forms.TextBox();
+            this.tableBottomPanel = new System.Windows.Forms.TableLayoutPanel();
             this.btnReprocess = new System.Windows.Forms.Button();
             this.btnLoadOriginal = new System.Windows.Forms.Button();
-            this.tableBottomPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDebug = new System.Windows.Forms.Button();
+            this.listBoxFiles = new System.Windows.Forms.ListBox();
+            this.textBoxCode = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainer)).BeginInit();
             this.panelSplitContainer.Panel1.SuspendLayout();
             this.panelSplitContainer.Panel2.SuspendLayout();
@@ -54,6 +55,57 @@ namespace CodeStatistics.Forms {
             this.panelSplitContainer.Size = new System.Drawing.Size(744, 625);
             this.panelSplitContainer.SplitterDistance = 240;
             this.panelSplitContainer.TabIndex = 0;
+            // 
+            // tableBottomPanel
+            // 
+            this.tableBottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableBottomPanel.ColumnCount = 3;
+            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33111F));
+            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33778F));
+            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33112F));
+            this.tableBottomPanel.Controls.Add(this.btnReprocess, 0, 0);
+            this.tableBottomPanel.Controls.Add(this.btnLoadOriginal, 0, 0);
+            this.tableBottomPanel.Controls.Add(this.btnDebug, 1, 0);
+            this.tableBottomPanel.Location = new System.Drawing.Point(13, 588);
+            this.tableBottomPanel.Name = "tableBottomPanel";
+            this.tableBottomPanel.RowCount = 1;
+            this.tableBottomPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableBottomPanel.Size = new System.Drawing.Size(224, 26);
+            this.tableBottomPanel.TabIndex = 3;
+            // 
+            // btnReprocess
+            // 
+            this.btnReprocess.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnReprocess.Location = new System.Drawing.Point(77, 3);
+            this.btnReprocess.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.btnReprocess.Name = "btnReprocess";
+            this.btnReprocess.Size = new System.Drawing.Size(71, 23);
+            this.btnReprocess.TabIndex = 3;
+            this.btnReprocess.UseVisualStyleBackColor = true;
+            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
+            // btnLoadOriginal
+            // 
+            this.btnLoadOriginal.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnLoadOriginal.Location = new System.Drawing.Point(0, 3);
+            this.btnLoadOriginal.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btnLoadOriginal.Name = "btnLoadOriginal";
+            this.btnLoadOriginal.Size = new System.Drawing.Size(71, 23);
+            this.btnLoadOriginal.TabIndex = 2;
+            this.btnLoadOriginal.UseVisualStyleBackColor = true;
+            this.btnLoadOriginal.Click += new System.EventHandler(this.btnLoadOriginal_Click);
+            // 
+            // btnDebug
+            // 
+            this.btnDebug.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnDebug.Location = new System.Drawing.Point(151, 3);
+            this.btnDebug.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(73, 23);
+            this.btnDebug.TabIndex = 1;
+            this.btnDebug.UseVisualStyleBackColor = true;
+            this.btnDebug.Click += new System.EventHandler(this.btnDebug_Click);
             // 
             // listBoxFiles
             // 
@@ -84,46 +136,6 @@ namespace CodeStatistics.Forms {
             this.textBoxCode.TabIndex = 0;
             this.textBoxCode.WordWrap = false;
             // 
-            // btnReprocess
-            // 
-            this.btnReprocess.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnReprocess.Location = new System.Drawing.Point(115, 3);
-            this.btnReprocess.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.btnReprocess.Name = "btnReprocess";
-            this.btnReprocess.Size = new System.Drawing.Size(109, 23);
-            this.btnReprocess.TabIndex = 1;
-            this.btnReprocess.Text = Lang.Get["DebugProjectReprocess"];
-            this.btnReprocess.UseVisualStyleBackColor = true;
-            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
-            // 
-            // btnLoadOriginal
-            // 
-            this.btnLoadOriginal.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnLoadOriginal.Location = new System.Drawing.Point(0, 3);
-            this.btnLoadOriginal.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.btnLoadOriginal.Name = "btnLoadOriginal";
-            this.btnLoadOriginal.Size = new System.Drawing.Size(109, 23);
-            this.btnLoadOriginal.TabIndex = 2;
-            this.btnLoadOriginal.Text = Lang.Get["DebugProjectLoadOriginal"];
-            this.btnLoadOriginal.UseVisualStyleBackColor = true;
-            this.btnLoadOriginal.Click += new System.EventHandler(this.btnLoadOriginal_Click);
-            // 
-            // tableBottomPanel
-            // 
-            this.tableBottomPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableBottomPanel.ColumnCount = 2;
-            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableBottomPanel.Controls.Add(this.btnLoadOriginal, 0, 0);
-            this.tableBottomPanel.Controls.Add(this.btnReprocess, 1, 0);
-            this.tableBottomPanel.Location = new System.Drawing.Point(13, 588);
-            this.tableBottomPanel.Name = "tableBottomPanel";
-            this.tableBottomPanel.RowCount = 1;
-            this.tableBottomPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableBottomPanel.Size = new System.Drawing.Size(224, 26);
-            this.tableBottomPanel.TabIndex = 3;
-            // 
             // ProjectDebugForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -134,7 +146,6 @@ namespace CodeStatistics.Forms {
             this.Name = "ProjectDebugForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = Lang.Get["TitleDebug"];
             this.panelSplitContainer.Panel1.ResumeLayout(false);
             this.panelSplitContainer.Panel2.ResumeLayout(false);
             this.panelSplitContainer.Panel2.PerformLayout();
@@ -150,8 +161,9 @@ namespace CodeStatistics.Forms {
         private System.Windows.Forms.SplitContainer panelSplitContainer;
         private System.Windows.Forms.TextBox textBoxCode;
         private System.Windows.Forms.ListBox listBoxFiles;
-        private System.Windows.Forms.Button btnReprocess;
+        private System.Windows.Forms.Button btnDebug;
         private System.Windows.Forms.Button btnLoadOriginal;
         private System.Windows.Forms.TableLayoutPanel tableBottomPanel;
+        private System.Windows.Forms.Button btnReprocess;
     }
 }

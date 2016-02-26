@@ -27,8 +27,9 @@ namespace CodeStatistics.Data{
                 { "LoadProjectDebug", "Debug" },
                 { "LoadProjectBreakpoint", "Break" },
 
-                { "DebugProjectReprocess", "Process Again" },
-                { "DebugProjectLoadOriginal", "Load Original" },
+                { "DebugProjectReprocess", "Reprocess" },
+                { "DebugProjectLoadOriginal", "Original" },
+                { "DebugProjectDebug", "Debug" }
             };
         }
 
