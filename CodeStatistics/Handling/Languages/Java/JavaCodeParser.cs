@@ -365,7 +365,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                 list.Add(type.Value);
 
-                if (SkipTo(',').Char == ';')Skip().SkipSpaces();
+                if (SkipTo(',').Char == ',')Skip().SkipSpaces();
                 else break;
             }
 
