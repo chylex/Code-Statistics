@@ -36,7 +36,7 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
         }
 
         public class DataEnum : TypeData{
-            // TODO values
+            public readonly List<string> EnumValues = new List<string>(4);
         }
     }
 }

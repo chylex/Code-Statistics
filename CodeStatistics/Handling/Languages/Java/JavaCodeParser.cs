@@ -246,11 +246,19 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// contains contents of the Type block.
         /// </summary>
         private void ReadTypeContents(Type type){
+            // enum values
             if (type.Declaration == Type.DeclarationType.Enum){
-                SkipToIfBalanced(';');
-                // TODO
+                Type.DataEnum enumData = type.GetData<Type.DataEnum>();
+
+                JavaCodeParser enumParser = ReadToIfBalanced(';');
+                if (enumParser.Contents.Length == 0)enumParser = this;
+
+                foreach(string enumValue in enumParser.ReadEnumValueList()){
+                    enumData.EnumValues.Add(enumValue);
+                }
             }
 
+            // members
             int skippedMembers = 0;
 
             while(!IsEOF && skippedMembers < 50){
@@ -366,6 +374,26 @@ namespace CodeStatistics.Handling.Languages.Java{
                 list.Add(type.Value);
 
                 if (SkipTo(',').Char == ',')Skip().SkipSpaces();
+                else break;
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Reads all enum values. Called on a cloned JavaCodeParser that only contains contents between the beginning of the Type and the first semicolon.
+        /// </summary>
+        private List<string> ReadEnumValueList(){
+            var list = new List<string>();
+            if (SkipSpaces().IsEOF)return list;
+
+            while(true){
+                string value = ReadIdentifier();
+                if (value.Length == 0)break;
+
+                list.Add(value);
+
+                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
                 else break;
             }
 
