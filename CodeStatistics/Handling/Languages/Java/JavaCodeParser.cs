@@ -157,7 +157,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// </summary>
         public Primitives? ReadPrimitive(){
             foreach(string primitiveStr in JavaPrimitives.Strings){
-                if (SkipIfMatch(primitiveStr+"^s")){
+                if (SkipIfMatch(primitiveStr+"^n")){
                     return JavaPrimitives.FromString(primitiveStr);
                 }
             }
