@@ -1,7 +1,5 @@
 ﻿using CodeStatistics.Input;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace CodeStatistics.Handling.General{
     class AssetHandler : AbstractFileHandler{

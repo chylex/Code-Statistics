@@ -1,5 +1,4 @@
-﻿using CodeStatistics.Handling;
-using CodeStatistics.Handling.Utils;
+﻿using CodeStatistics.Handling.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeStatisticsTests{

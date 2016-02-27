@@ -5,7 +5,7 @@ using System.Linq;
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public class Member{
         public readonly ReadOnlyCollection<Annotation> Annotations;
-        public readonly Modifiers Modifiers = Modifiers.None;
+        public readonly Modifiers Modifiers;
 
         public Member(List<Annotation> annotations, IEnumerable<Modifiers> modifiers){
             this.Annotations = annotations.AsReadOnly();
