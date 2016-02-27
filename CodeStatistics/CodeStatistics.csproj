@@ -61,7 +61,6 @@
     <Compile Include="Collections\BiDictionary.cs" />
     <Compile Include="Collections\CharacterRangeSet.cs" />
     <Compile Include="Collections\TopElementList.cs" />
-    <Compile Include="Collections\Triple.cs" />
     <Compile Include="Data\Lang.cs" />
     <Compile Include="Forms\ProjectDebugForm.cs">
       <SubType>Form</SubType>
