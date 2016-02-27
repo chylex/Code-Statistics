@@ -135,7 +135,7 @@
 
   .grid > div {
     width: 33.3333%;
-    margin: 0 28px 24px 0;
+    margin: 0 28px 12px 0;
     text-align: center;
   }
 
@@ -152,10 +152,26 @@
     overflow-x: hidden;
   }
 
-  .grid > div.grid-2x {
+  .grid:last-child .card:last-child {
+    margin-bottom: 0;
+  }
+  
+  .grid > div.grid-full {
+    width: 100%;
+  }
+
+  .grid > div.grid-large {
     width: 66.6666%;
   }
 
+  .grid > div.grid-half {
+    width: 50%;
+  }
+  
+  .grid > div.grid-quarter {
+    width: 25%;
+  }
+  
   .grid table {
     width: 100%;
     border-spacing: 0;
@@ -185,7 +201,7 @@
     padding-left: 12px;
     padding-right: 12px;
   }
-    
+
   .list td:first-child {
     white-space: normal;
     word-wrap: break-word;
@@ -554,6 +570,7 @@
 <!-- TEMPLATE contentJava -->
 
 {contentJavaFiles}
+{contentJavaNames}
 
 <!-- TEMPLATE contentJavaOverview -->
 
@@ -580,32 +597,44 @@
 <!-- TEMPLATE contentJavaFiles -->
 
 <div id="page-java-files">
-  <h2>Files</h2>
+  <h2>Java Files ({var:javaCodeFiles:0})</h2>
   <div class="grid">
     <div>
       <div class="card">
-        <h3>Overview</h3>
+        <h3>Lines</h3>
         <table class="summary">
-          <tr><td>{var:javaCodeFiles:0}</td><td>Java Files</td></tr>
-          <tr class="separator"></tr>
           <tr><td>{var:javaLinesTotal:0}</td><td>Lines Total</td></tr>
-          <tr><td>{var:javaLinesMax:0}</td><td>Max Lines Per File</td></tr>
-          <tr><td>{var:javaLinesAvg:0}</td><td>Average Lines Per File</td></tr>
-          <tr class="separator"></tr>
-          <tr><td>{var:javaCharsTotal:0}</td><td>Characters Total</td></tr>
-          <tr><td>{var:javaCharsMax:0}</td><td>Max Characters Per File</td></tr>
-          <tr><td>{var:javaCharsAvg:0}</td><td>Average Characters Per File</td></tr>
-          <tr class="separator"></tr>
-          <tr><td>{var:javaCharsPerLineMax:0}</td><td>Max Characters Per Line</td></tr>
-          <tr><td>{var:javaCharsPerLineAvg:0}</td><td>Average Characters Per Line</td></tr>
-          <tr class="separator"></tr>
-          <tr><td>{var:javaImportsTotal:0}</td><td>Imports Total</td></tr>
-          <tr><td>{var:javaImportsMax:0}</td><td>Max Imports Per File</td></tr>
-          <tr><td>{var:javaImportsAvg:0}</td><td>Average Imports Per File</td></tr>
+          <tr><td>{var:javaLinesMax:0}</td><td>Max Per File</td></tr>
+          <tr><td>{var:javaLinesAvg:0}</td><td>Average Per File</td></tr>
         </table>
       </div>
     </div>
-    <div class="grid-2x">
+    <div>
+      <div class="card">
+        <h3>Characters</h3>
+        <table class="summary">
+          <tr><td>{var:javaCharsTotal:0}</td><td>Characters Total</td></tr>
+          <tr><td>{var:javaCharsMax:0}</td><td>Max Per File</td></tr>
+          <tr><td>{var:javaCharsAvg:0}</td><td>Average Per File</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaCharsPerLineMax:0}</td><td>Max Per Line</td></tr>
+          <tr><td>{var:javaCharsPerLineAvg:0}</td><td>Average Per Line</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Imports</h3>
+        <table class="summary">
+          <tr><td>{var:javaImportsTotal:0}</td><td>Imports Total</td></tr>
+          <tr><td>{var:javaImportsMax:0}</td><td>Max Per File</td></tr>
+          <tr><td>{var:javaImportsAvg:0}</td><td>Average Per File</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid-full">
       <div class="card">
         <h3>Lines</h3>
         <table class="list">
@@ -614,6 +643,10 @@
           {for:javaLinesBottom:contentJavaFilesRow}
         </table>
       </div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid-full">
       <div class="card">
         <h3>Characters</h3>
         <table class="list">
@@ -630,3 +663,55 @@
 
 <tr><td><span class="subtle">{var:package}</span>{var:file}</td><td>{var:amount:0}</td></tr>
 
+<!-- TEMPLATE contentJavaNames -->
+<div id="page-java-names">
+  <h2>Names</h2>
+  <div class="grid">
+    <div class="grid-half">
+      <div class="card">
+        <h3>Simple Type Names</h3>
+        TODO
+      </div>
+    </div>
+    <div class="grid-half">
+      <div class="card">
+        <h3>Full Type Names</h3>
+        TODO
+      </div>
+    </div>
+  </div>
+
+  <h2>Characters</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Simple Type Names</h3>
+        <table class="summary">
+          <tr><td>{var:javaNamesSimpleMin:0}</td><td>Min</td></tr>
+          <tr><td>{var:javaNamesSimpleMax:0}</td><td>Max</td></tr>
+          <tr><td>{var:javaNamesSimpleAvg:0}</td><td>Average</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Full Type Names</h3>
+        <table class="summary">
+          <tr><td>{var:javaNamesFullMin:0}</td><td>Min</td></tr>
+          <tr><td>{var:javaNamesFullMax:0}</td><td>Max</td></tr>
+          <tr><td>{var:javaNamesFullAvg:0}</td><td>Average</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Separate Package Names</h3>
+        <table class="summary">
+          <tr><td>{var:javaNamesPackageMin:0}</td><td>Min</td></tr>
+          <tr><td>{var:javaNamesPackageMax:0}</td><td>Max</td></tr>
+          <tr><td>{var:javaNamesPackageAvg:0}</td><td>Average</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
