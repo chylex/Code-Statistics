@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using CodeStatistics.Forms;
 
+[assembly:CLSCompliant(true)]
 namespace CodeStatistics{
     static class Program{
         [STAThread]
