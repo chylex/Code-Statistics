@@ -138,6 +138,8 @@ namespace CodeStatistics.Handling.Languages.Java{
         public Modifiers? ReadModifier(){
             foreach(string modifierStr in JavaModifiers.Strings){
                 if (SkipIfMatch(modifierStr+"^n")){
+                    if (cursor > 0 && !IsWhiteSpace(code[cursor-1]))--cursor; // fix static{} and such skipping the bracket
+
                     return JavaModifiers.FromString(modifierStr);
                 }
             }
@@ -173,6 +175,20 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips generics declaration if available, and skips spaces.
+        /// </summary>
+        public JavaCodeParser SkipGenerics(){
+            SkipSpaces();
+
+            if (Char == '<'){
+                SkipBlock('<','>');
+                SkipSpaces();
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Skips spaces and all following pairs of angled and square brackets.
         /// </summary>
         public JavaCodeParser SkipTypeArrayAndGenerics(){
@@ -190,8 +206,11 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// Reads the type, which can either be a method return type or a field type, and skips it.
         /// </summary>
         public TypeOf? ReadTypeOf(){
-            while(ReadAnnotation().HasValue){}
+            while(ReadAnnotation().HasValue){} // skip type annotations
 
+            SkipGenerics();
+
+            // void
             if (SkipIfMatch("void^s"))return TypeOf.Void();
 
             // primitive
@@ -294,11 +313,6 @@ namespace CodeStatistics.Handling.Languages.Java{
                 }
 
                 // fields and methods
-                if (Char == '<'){
-                    SkipBlock('<','>');
-                    SkipSpaces();
-                }
-
                 TypeOf? returnOrFieldType = ReadTypeOf();
 
                 if (returnOrFieldType.HasValue){
@@ -356,13 +370,11 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (IsEOF)break;
 
                 // skip
+                System.Diagnostics.Debugger.Break(); // TODO
+                
                 SkipBlock('{','}');
                 SkipSpaces();
                 ++skippedMembers;
-            }
-
-            if (skippedMembers == 50){
-                System.Diagnostics.Debug.WriteLine("Caution: Skipped 50 members."); // TODO
             }
         }
 
