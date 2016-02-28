@@ -104,7 +104,7 @@
     <Compile Include="Input\FileSearchData.cs" />
     <Compile Include="Input\IOEntry.cs" />
     <Compile Include="Input\IOUtils.cs" />
-    <Compile Include="Input\MultiFolderDialog.cs" />
+    <Compile Include="Input\Methods\MultiFolderDialog.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

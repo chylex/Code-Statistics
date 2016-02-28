@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using CodeStatistics.Data;
-using CodeStatistics.Input;
+using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics.Forms{
     public partial class MainForm : Form{
