@@ -41,5 +41,19 @@ namespace CodeStatistics.Input{
                 return null;
             }
         }
+
+        /// <summary>
+        /// Creates a randomly named directory in %TEMP% and returns the full path, or null if the creation fails.
+        /// </summary>
+        public static string CreateTemporaryDirectory(){
+            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP_"+Path.GetRandomFileName());
+            
+            try{
+                Directory.CreateDirectory(path);
+                return path;
+            }catch(IOException){
+                return null;
+            }
+        }
     }
 }
