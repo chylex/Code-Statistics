@@ -64,6 +64,12 @@
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Data\Lang.cs" />
     <Compile Include="Forms\FormUtils.cs" />
+    <Compile Include="Forms\GitHubForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GitHubForm.Designer.cs">
+      <DependentUpon>GitHubForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ProjectDebugForm.cs">
       <SubType>Form</SubType>
     </Compile>
