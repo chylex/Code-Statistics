@@ -16,7 +16,8 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
         Transient = 0x80,
         Volatile = 0x100,
         Native = 0x200,
-        Strictfp = 0x400
+        Strictfp = 0x400,
+        Default = 0x800
     }
 
     public static class JavaModifiers{
@@ -31,7 +32,8 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             { Modifiers.Transient, "transient" },
             { Modifiers.Volatile, "volatile" },
             { Modifiers.Native, "native" },
-            { Modifiers.Strictfp, "strictfp" }
+            { Modifiers.Strictfp, "strictfp" },
+            { Modifiers.Default, "default" }
         };
 
         public static IEnumerable<Modifiers> Values { get { return ModifierDict.Keys; } }

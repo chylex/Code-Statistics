@@ -137,7 +137,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// </summary>
         public Modifiers? ReadModifier(){
             foreach(string modifierStr in JavaModifiers.Strings){
-                if (SkipIfMatch(modifierStr+"^s")){
+                if (SkipIfMatch(modifierStr+"^n")){
                     return JavaModifiers.FromString(modifierStr);
                 }
             }
@@ -190,6 +190,8 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// Reads the type, which can either be a method return type or a field type, and skips it.
         /// </summary>
         public TypeOf? ReadTypeOf(){
+            while(ReadAnnotation().HasValue){}
+
             if (SkipIfMatch("void^s"))return TypeOf.Void();
 
             // primitive
@@ -276,6 +278,8 @@ namespace CodeStatistics.Handling.Languages.Java{
                     Type nestedType = new Type(declaration.Value,identifier,memberInfo);
                     ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
 
+                    if (SkipSpaces().Char == ';')Skip(); // skip semicolons after nested type declarations
+
                     type.NestedTypes.Add(nestedType);
                     continue;
                 }
@@ -322,7 +326,10 @@ namespace CodeStatistics.Handling.Languages.Java{
                         }
                         
                         if (Char == ';')Skip();
-                        else SkipBlock('{','}');
+                        else{
+                            SkipBlock('{','}');
+                            if (SkipSpaces().Char == ';')Skip();
+                        }
 
                         type.GetData().Methods.Add(method);
                     }
@@ -339,6 +346,14 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                     continue;
                 }
+
+                // extra checks before the skip
+                if (Char == ';'){
+                    Skip();
+                    continue;
+                }
+
+                if (IsEOF)break;
 
                 // skip
                 SkipBlock('{','}');
