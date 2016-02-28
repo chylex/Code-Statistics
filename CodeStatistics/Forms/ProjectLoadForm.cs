@@ -44,11 +44,11 @@ namespace CodeStatistics.Forms{
             labelLoadInfo.Text = Lang.Get["LoadProjectSearchIO"];
             labelLoadData.Text = "";
 
-            search.Refresh += count => InvokeOnUIThread(() => {
+            search.Refresh += count => this.InvokeOnUIThread(() => {
                 labelLoadData.Text = count.ToString(CultureInfo.InvariantCulture);
             });
 
-            search.Finish += data => InvokeOnUIThread(() => {
+            search.Finish += data => this.InvokeOnUIThread(() => {
                 labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
                 labelLoadData.Text = "";
                 progressBarLoad.Value = 0;
@@ -56,7 +56,7 @@ namespace CodeStatistics.Forms{
 
                 project = new Project(data);
 
-                project.Progress += (percentage, processedEntries, totalEntries) => InvokeOnUIThread(() => {
+                project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
                     int percValue = percentage*10;
 
                     // instant progress bar update hack
@@ -73,7 +73,7 @@ namespace CodeStatistics.Forms{
                     labelLoadData.Text = processedEntries+" / "+totalEntries;
                 });
 
-                project.Finish += vars => InvokeOnUIThread(() => {
+                project.Finish += vars => this.InvokeOnUIThread(() => {
                     variables = vars;
 
                     labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
@@ -96,8 +96,8 @@ namespace CodeStatistics.Forms{
 
         private void btnCancel_Click(object sender, EventArgs e){
             if (variables == null){
-                if (project != null)project.Cancel(() => InvokeOnUIThread(OnCancel));
-                else if (search != null)search.Cancel(() => InvokeOnUIThread(OnCancel));
+                if (project != null)project.Cancel(() => this.InvokeOnUIThread(OnCancel));
+                else if (search != null)search.Cancel(() => this.InvokeOnUIThread(OnCancel));
                 else return;
             }
 
@@ -131,11 +131,6 @@ namespace CodeStatistics.Forms{
             if (project == null || variables == null)return;
 
             Debugger.Break();
-        }
-
-        private void InvokeOnUIThread(Action func){
-            if (InvokeRequired)Invoke(func);
-            else func();
         }
     }
 }
