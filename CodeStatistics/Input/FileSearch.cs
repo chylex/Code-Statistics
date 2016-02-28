@@ -13,11 +13,10 @@ namespace CodeStatistics.Input{
 
         public delegate void RefreshEventHandler(int entriesFound);
         public delegate void FinishEventHandler(FileSearchData searchData);
-        public delegate void CancelEventHandler();
 
         public event RefreshEventHandler Refresh;
         public event FinishEventHandler Finish;
-        private event CancelEventHandler CancelFinish;
+        private event Action CancelFinish;
 
         private readonly string[] rootFiles;
         private readonly CancellationTokenSource cancelToken;
@@ -77,7 +76,7 @@ namespace CodeStatistics.Input{
             },cancelToken.Token).Start();
         }
 
-        public void Cancel(CancelEventHandler onCancelFinish){
+        public void Cancel(Action onCancelFinish){
             cancelToken.Cancel(false);
             CancelFinish += onCancelFinish;
         }

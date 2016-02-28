@@ -10,11 +10,10 @@ namespace CodeStatistics.Handling{
     class Project{
         public delegate void ProgressEventHandler(int percentage, int processedEntries, int totalEntries);
         public delegate void FinishEventHandler(Variables variables);
-        public delegate void CancelEventHandler();
 
         public event ProgressEventHandler Progress;
         public event FinishEventHandler Finish;
-        private event CancelEventHandler CancelFinish;
+        private event Action CancelFinish;
 
         public readonly FileSearchData SearchData;
 
@@ -103,7 +102,7 @@ namespace CodeStatistics.Handling{
             },cancelToken.Token).Start();
         }
 
-        public void Cancel(CancelEventHandler onCancelFinish){
+        public void Cancel(Action onCancelFinish){
             cancelToken.Cancel(false);
             CancelFinish += onCancelFinish;
         }

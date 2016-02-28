@@ -44,68 +44,60 @@ namespace CodeStatistics.Forms{
             labelLoadInfo.Text = Lang.Get["LoadProjectSearchIO"];
             labelLoadData.Text = "";
 
-            search.Refresh += count => {
-                Invoke(new MethodInvoker(() => {
-                    labelLoadData.Text = count.ToString(CultureInfo.InvariantCulture);
-                }));
-            };
+            search.Refresh += count => InvokeOnUIThread(() => {
+                labelLoadData.Text = count.ToString(CultureInfo.InvariantCulture);
+            });
 
-            search.Finish += data => {
-                Invoke(new MethodInvoker(() => {
-                    labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
-                    labelLoadData.Text = "";
-                    progressBarLoad.Value = 0;
-                    progressBarLoad.Style = ProgressBarStyle.Continuous;
+            search.Finish += data => InvokeOnUIThread(() => {
+                labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
+                labelLoadData.Text = "";
+                progressBarLoad.Value = 0;
+                progressBarLoad.Style = ProgressBarStyle.Continuous;
 
-                    project = new Project(data);
+                project = new Project(data);
 
-                    project.Progress += (percentage, processedEntries, totalEntries) => {
-                        Invoke(new MethodInvoker(() => {
-                            int percValue = percentage*10;
+                project.Progress += (percentage, processedEntries, totalEntries) => InvokeOnUIThread(() => {
+                    int percValue = percentage*10;
 
-                            // instant progress bar update hack
-                            if (percValue == progressBarLoad.Maximum){
-                                progressBarLoad.Value = percValue;
-                                progressBarLoad.Value = percValue-1;
-                                progressBarLoad.Value = percValue;
-                            }
-                            else{
-                                progressBarLoad.Value = percValue+1;
-                                progressBarLoad.Value = percValue;
-                            }
+                    // instant progress bar update hack
+                    if (percValue == progressBarLoad.Maximum){
+                        progressBarLoad.Value = percValue;
+                        progressBarLoad.Value = percValue-1;
+                        progressBarLoad.Value = percValue;
+                    }
+                    else{
+                        progressBarLoad.Value = percValue+1;
+                        progressBarLoad.Value = percValue;
+                    }
 
-                            labelLoadData.Text = processedEntries+" / "+totalEntries;
-                        }));
-                    };
+                    labelLoadData.Text = processedEntries+" / "+totalEntries;
+                });
 
-                    project.Finish += vars => {
-                        Invoke(new MethodInvoker(() => {
-                            variables = vars;
+                project.Finish += vars => InvokeOnUIThread(() => {
+                    variables = vars;
 
-                            labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
+                    labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
 
-                            btnCancel.Visible = false;
-                            btnClose.Visible = true;
-                            btnGenerateOutput.Visible = true;
+                    btnCancel.Visible = false;
+                    btnClose.Visible = true;
+                    btnGenerateOutput.Visible = true;
 
-                            #if DEBUG
-                                btnDebugProject.Visible = true;
-                                btnBreakPoint.Visible = true;
-                            #endif
-                        }));
-                    };
+                    #if DEBUG
+                        btnDebugProject.Visible = true;
+                        btnBreakPoint.Visible = true;
+                    #endif
+                });
 
-                    project.ProcessAsync();
-                }));
-            };
+                project.ProcessAsync();
+            });
 
             search.StartAsync();
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
             if (variables == null){
-                if (project != null)project.Cancel(OnCancel);
-                else if (search != null)search.Cancel(OnCancel);
+                if (project != null)project.Cancel(() => InvokeOnUIThread(OnCancel));
+                else if (search != null)search.Cancel(() => InvokeOnUIThread(OnCancel));
                 else return;
             }
 
@@ -113,10 +105,8 @@ namespace CodeStatistics.Forms{
         }
 
         private void OnCancel(){
-            Invoke(new MethodInvoker(() => {
-                DialogResult = DialogResult.Cancel;
-                Close();
-            }));
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void btnClose_Click(object sender, EventArgs e){
@@ -141,6 +131,11 @@ namespace CodeStatistics.Forms{
             if (project == null || variables == null)return;
 
             Debugger.Break();
+        }
+
+        private void InvokeOnUIThread(Action func){
+            if (InvokeRequired)Invoke(func);
+            else func();
         }
     }
 }
