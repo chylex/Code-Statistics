@@ -56,6 +56,16 @@ namespace CodeStatistics.Forms{
             }
         }
 
+        private void btnProjectGitHub_Click(object sender, EventArgs e){
+            GitHubForm form = new GitHubForm();
+            
+            if (form.ShowDialog() == DialogResult.OK){
+                InputMethod = form.GitHub;
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
         private void btnViewSourceCode_Click(object sender, EventArgs e){
             Process.Start("https://github.com/chylex/Code-Statistics");
         }

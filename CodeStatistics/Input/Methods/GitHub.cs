@@ -1,18 +1,28 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Web.Script.Serialization;
+using CodeStatistics.Forms;
 
 namespace CodeStatistics.Input.Methods{
-    public class GitHub : IDisposable{
+    public class GitHub : IInputMethod, IDisposable{
         public enum DownloadStatus{
             NoInternet, NoConnection, Started
         }
 
+        public delegate void BranchListRetrieved(IEnumerable<string> branches);
+
         private readonly string target;
-        private WebClient downloader;
+        private WebClient dlBranches, dlRepo;
+
+        public string Branch = "master";
 
         public string RepositoryName { get { return target; } }
-        public string ZipUrl { get { return "https://github.com/"+target+"/zipball/master"; } }
+        public string BranchesUrl { get { return "https://api.github.com/repos/"+target+"/branches"; } }
+        public string ZipUrl { get { return "https://github.com/"+target+"/zipball/"+Branch; } }
 
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
         public event AsyncCompletedEventHandler DownloadFinished;
@@ -21,18 +31,53 @@ namespace CodeStatistics.Input.Methods{
             this.target = username+"/"+repository;
         }
 
-        public DownloadStatus DownloadRepositoryZip(string targetFile){
-            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable()){
+        public DownloadStatus RetrieveBranchList(BranchListRetrieved onRetrieved){
+            if (dlBranches != null)Reset();
+
+            if (!NetworkInterface.GetIsNetworkAvailable()){
                 return DownloadStatus.NoInternet;
             }
 
-            downloader = new WebClient();
+            dlBranches = CreateWebClient();
 
-            if (DownloadProgressChanged != null)downloader.DownloadProgressChanged += DownloadProgressChanged;
-            if (DownloadFinished != null)downloader.DownloadFileCompleted += DownloadFinished;
+            dlBranches.DownloadStringCompleted += (sender, args) => {
+                if (args.Cancelled || args.Error != null){
+                    onRetrieved(null);
+                    return;
+                }
+                
+                List<string> branches = new List<string>(2);
+
+                foreach(object entry in (object[])new JavaScriptSerializer().DeserializeObject(args.Result)){
+                    branches.Add((string)((Dictionary<string,object>)entry)["name"]);
+                }
+
+                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master",1).Concat(branches));
+                else onRetrieved(branches);
+            };
 
             try{
-                downloader.DownloadFileAsync(new Uri(ZipUrl),targetFile);
+                dlBranches.DownloadStringAsync(new Uri(BranchesUrl));
+                return DownloadStatus.Started;
+            }catch(WebException){
+                return DownloadStatus.NoConnection;
+            }
+        }
+
+        public DownloadStatus DownloadRepositoryZip(string targetFile){
+            if (dlRepo != null)Reset();
+
+            if (!NetworkInterface.GetIsNetworkAvailable()){
+                return DownloadStatus.NoInternet;
+            }
+
+            dlRepo = CreateWebClient();
+
+            if (DownloadProgressChanged != null)dlRepo.DownloadProgressChanged += DownloadProgressChanged;
+            if (DownloadFinished != null)dlRepo.DownloadFileCompleted += DownloadFinished;
+
+            try{
+                dlRepo.DownloadFileAsync(new Uri(ZipUrl),targetFile);
                 return DownloadStatus.Started;
             }catch(WebException){
                 return DownloadStatus.NoConnection;
@@ -40,11 +85,55 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public void Cancel(){
-            if (downloader != null)downloader.CancelAsync();
+            if (dlBranches != null)dlBranches.CancelAsync();
+            if (dlRepo != null)dlRepo.CancelAsync();
         }
 
         public void Dispose(){
-            if (downloader != null)downloader.Dispose();
+            if (dlBranches != null)dlBranches.Dispose();
+            if (dlRepo != null)dlRepo.Dispose();
+        }
+
+        private void Reset(){
+            Cancel();
+            Dispose();
+        }
+
+        public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){ // TODO
+            DownloadProgressChanged += (sender, args) => {
+                callbacks.UpdateProgress(args.ProgressPercentage);
+                callbacks.UpdateDataLabel(args.TotalBytesToReceive/1024 == 0 ? (args.BytesReceived/1024)+" kB" : (args.BytesReceived/1024)+" / "+(args.TotalBytesToReceive/1024)+" kB");
+            };
+
+            DownloadFinished += (sender, args) => {
+                callbacks.UpdateInfoLabel("Extracting repository...");
+                // TODO extraction
+            };
+
+            switch(DownloadRepositoryZip("tmp.zip")){
+                case DownloadStatus.Started:
+                    callbacks.UpdateInfoLabel("Downloading repository...");
+                    break;
+
+                case DownloadStatus.NoInternet:
+                    callbacks.UpdateInfoLabel("No internet connection.");
+                    break;
+
+                case DownloadStatus.NoConnection:
+                    callbacks.UpdateInfoLabel("Could not establish connection with GitHub.");
+                    break;
+            }
+        }
+
+        public void CancelProcess(Action onCancelFinish){
+            Reset();
+            onCancelFinish();
+        }
+
+        private static WebClient CreateWebClient(){
+            WebClient client = new WebClient();
+            client.Headers.Add("User-Agent","CodeStatistics");
+            return client;
         }
     }
 }

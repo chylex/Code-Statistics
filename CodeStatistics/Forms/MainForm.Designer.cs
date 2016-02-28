@@ -60,6 +60,7 @@
             this.btnProjectGitHub.Size = new System.Drawing.Size(312, 38);
             this.btnProjectGitHub.TabIndex = 1;
             this.btnProjectGitHub.UseVisualStyleBackColor = false;
+            this.btnProjectGitHub.Click += new System.EventHandler(this.btnProjectGitHub_Click);
             // 
             // btnViewSourceCode
             // 
