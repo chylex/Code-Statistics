@@ -7,16 +7,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Globalization;
 using CodeStatistics.Data;
+using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics.Forms{
-    public partial class ProjectLoadForm : Form{
-        private readonly FileSearch search;
+    partial class ProjectLoadForm : Form{
+        private readonly IInputMethod inputMethod;
+        private FileSearch search;
         private Project project;
         private Variables variables;
 
-        public ProjectLoadForm(string[] rootFiles){
+        private ProjectLoadForm(){
             InitializeComponent();
-            search = new FileSearch(rootFiles);
             
             this.Text = Lang.Get["TitleProject"];
             btnCancel.Text = Lang.Get["LoadProjectCancel"];
@@ -26,7 +27,20 @@ namespace CodeStatistics.Forms{
             btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
         }
 
+        public ProjectLoadForm(IInputMethod inputMethod) : this(){
+            this.inputMethod = inputMethod;
+        }
+
         private void OnLoad(object sender, EventArgs e){
+            inputMethod.BeginProcess(OnReady);
+        }
+
+        private void OnReady(FileSearch fileSearch){
+            this.search = fileSearch;
+            BeginProjectLoad();
+        }
+
+        private void BeginProjectLoad(){
             labelLoadInfo.Text = Lang.Get["LoadProjectSearchIO"];
             labelLoadData.Text = "";
 

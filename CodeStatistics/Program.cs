@@ -20,7 +20,7 @@ namespace CodeStatistics{
                 MainForm form = new MainForm();
             
                 if (form.ShowDialog() == DialogResult.OK){
-                    ProjectLoadForm loadForm = new ProjectLoadForm(form.SelectedFiles);
+                    ProjectLoadForm loadForm = new ProjectLoadForm(form.InputMethod);
 
                     DialogResult result = loadForm.ShowDialog();
                     if (result == DialogResult.Cancel)continue;

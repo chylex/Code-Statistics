@@ -5,9 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using FileIO = System.IO.File;
 using DirectoryIO = System.IO.Directory;
+using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics.Input{
-    class FileSearch{
+    class FileSearch : IInputMethod{
+        public delegate void OnInputReady(FileSearch search);
+
         public delegate void RefreshEventHandler(int entriesFound);
         public delegate void FinishEventHandler(FileSearchData searchData);
         public delegate void CancelEventHandler();
@@ -108,6 +111,10 @@ namespace CodeStatistics.Input{
                     yield return new IOEntry(IOEntry.Type.Folder,folder);
                 }
             }
+        }
+
+        public void BeginProcess(OnInputReady onReady){
+            onReady(this);
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
+using CodeStatistics.Input;
 
 namespace CodeStatistics.Forms{
-    public partial class MainForm : Form{
-        public string[] SelectedFiles { get; private set; }
+    partial class MainForm : Form{
+        public IInputMethod InputMethod{ get; private set; }
 
         public MainForm(){
             InitializeComponent();
@@ -37,7 +38,7 @@ namespace CodeStatistics.Forms{
 
                 if (files == null || files.Length == 0)return;
                 
-                SelectedFiles = files;
+                InputMethod = new FileSearch(files);
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -49,7 +50,7 @@ namespace CodeStatistics.Forms{
             string[] folders = MultiFolderDialog.Show(this);
             
             if (folders.Length != 0){
-                SelectedFiles = folders;
+                InputMethod = new FileSearch(folders);
                 DialogResult = DialogResult.OK;
                 Close();
             }
