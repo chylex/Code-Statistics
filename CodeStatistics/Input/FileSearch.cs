@@ -75,11 +75,6 @@ namespace CodeStatistics.Input{
             },cancelToken.Token).Start();
         }
 
-        public void Cancel(Action onCancelFinish){
-            cancelToken.Cancel(false);
-            CancelFinish += onCancelFinish;
-        }
-
         private static IEnumerable<IOEntry> EnumerateEntriesSafe(string path){
             var foldersLeft = new Queue<string>(64);
             foldersLeft.Enqueue(path);
@@ -113,6 +108,11 @@ namespace CodeStatistics.Input{
 
         public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){
             callbacks.OnReady(this);
+        }
+
+        public void CancelProcess(Action onCancelFinish){
+            cancelToken.Cancel(false);
+            CancelFinish += onCancelFinish;
         }
     }
 }

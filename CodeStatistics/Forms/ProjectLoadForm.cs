@@ -97,7 +97,8 @@ namespace CodeStatistics.Forms{
         private void btnCancel_Click(object sender, EventArgs e){
             if (variables == null){
                 if (project != null)project.Cancel(() => this.InvokeOnUIThread(OnCancel));
-                else if (search != null)search.Cancel(() => this.InvokeOnUIThread(OnCancel));
+                else if (search != null)search.CancelProcess(() => this.InvokeOnUIThread(OnCancel));
+                else if (inputMethod != null)inputMethod.CancelProcess(() => this.InvokeOnUIThread(OnCancel));
                 else return;
             }
 
