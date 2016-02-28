@@ -32,7 +32,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void OnLoad(object sender, EventArgs e){
-            inputMethod.BeginProcess(OnReady);
+            inputMethod.BeginProcess(new UpdateCallbacks(this));
         }
 
         private void OnReady(FileSearch fileSearch){
@@ -131,6 +131,30 @@ namespace CodeStatistics.Forms{
             if (project == null || variables == null)return;
 
             Debugger.Break();
+        }
+
+        public class UpdateCallbacks{
+            private readonly ProjectLoadForm form;
+
+            public UpdateCallbacks(ProjectLoadForm form){
+                this.form = form;
+            }
+
+            public void UpdateInfoLabel(string text){
+                form.InvokeOnUIThread(() => form.labelLoadInfo.Text = text);
+            }
+
+            public void UpdateDataLabel(string text){
+                form.InvokeOnUIThread(() => form.labelLoadInfo.Text = text);
+            }
+
+            public void UpdateProgress(int progress){
+                form.InvokeOnUIThread(() => form.progressBarLoad.Value = progress*10);
+            }
+
+            public void OnReady(FileSearch fileSearch){
+                form.InvokeOnUIThread(() => form.OnReady(fileSearch));
+            }
         }
     }
 }

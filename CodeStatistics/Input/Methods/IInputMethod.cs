@@ -1,5 +1,7 @@
-﻿namespace CodeStatistics.Input.Methods{
+﻿using CodeStatistics.Forms;
+
+namespace CodeStatistics.Input.Methods{
     public interface IInputMethod{
-        void BeginProcess(FileSearch.OnInputReady onReady);
+        void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks);
     }
 }
