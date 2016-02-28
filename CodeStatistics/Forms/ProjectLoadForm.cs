@@ -145,11 +145,20 @@ namespace CodeStatistics.Forms{
             }
 
             public void UpdateDataLabel(string text){
-                form.InvokeOnUIThread(() => form.labelLoadInfo.Text = text);
+                form.InvokeOnUIThread(() => form.labelLoadData.Text = text);
             }
 
             public void UpdateProgress(int progress){
-                form.InvokeOnUIThread(() => form.progressBarLoad.Value = progress*10);
+                form.InvokeOnUIThread(() => {
+                    if (progress == -1){
+                        form.progressBarLoad.Style = ProgressBarStyle.Marquee;
+                        form.progressBarLoad.Value = 1000;
+                    }
+                    else{
+                        form.progressBarLoad.Style = ProgressBarStyle.Continuous;
+                        form.progressBarLoad.Value = progress*10;
+                    }
+                });
             }
 
             public void OnReady(FileSearch fileSearch){
