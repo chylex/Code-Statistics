@@ -10,7 +10,7 @@ using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics.Forms{
-    partial class ProjectLoadForm : Form{
+    public partial class ProjectLoadForm : Form{
         private readonly IInputMethod inputMethod;
         private FileSearch search;
         private Project project;

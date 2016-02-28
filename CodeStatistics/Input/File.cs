@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 
 namespace CodeStatistics.Input{
-    struct File{
+    public struct File{
         public readonly string FullPath;
         public readonly string Ext;
 

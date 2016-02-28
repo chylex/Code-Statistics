@@ -6,7 +6,7 @@ using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 
 namespace CodeStatistics.Forms{
-    partial class MainForm : Form{
+    public partial class MainForm : Form{
         public IInputMethod InputMethod{ get; private set; }
 
         public MainForm(){

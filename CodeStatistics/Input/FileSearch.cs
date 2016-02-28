@@ -8,7 +8,7 @@ using DirectoryIO = System.IO.Directory;
 using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics.Input{
-    class FileSearch : IInputMethod{
+    public class FileSearch : IInputMethod{
         public delegate void OnInputReady(FileSearch search);
 
         public delegate void RefreshEventHandler(int entriesFound);

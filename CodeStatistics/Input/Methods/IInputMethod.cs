@@ -1,5 +1,5 @@
 ﻿namespace CodeStatistics.Input.Methods{
-    interface IInputMethod{
+    public interface IInputMethod{
         void BeginProcess(FileSearch.OnInputReady onReady);
     }
 }

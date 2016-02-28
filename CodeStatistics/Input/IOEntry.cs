@@ -1,5 +1,5 @@
 namespace CodeStatistics.Input{
-    struct IOEntry{
+    public struct IOEntry{
         public enum Type{
             File, Folder
         }
