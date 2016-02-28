@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using CodeStatistics.Handling.Languages.Java.Elements;
 using CodeStatistics.Handling.Languages.Java.Utils;
+using CodeStatistics.Collections;
 
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaState{
         private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
         private readonly HashSet<string> packages = new HashSet<string>();
+
+        public readonly TopElementList<TypeIdentifier> IdentifiersSimpleTop = new TopElementList<TypeIdentifier>(10,(x,y) => y.Name.Length-x.Name.Length);
+        public readonly TopElementList<TypeIdentifier> IdentifiersSimpleBottom = new TopElementList<TypeIdentifier>(10,(x,y) => x.Name.Length-y.Name.Length);
+        public readonly TopElementList<TypeIdentifier> IdentifiersFullTop = new TopElementList<TypeIdentifier>(10,(x,y) => y.FullName.Length-x.FullName.Length);
+        public readonly TopElementList<TypeIdentifier> IdentifiersFullBottom = new TopElementList<TypeIdentifier>(10,(x,y) => x.FullName.Length-y.FullName.Length);
 
         public int PackageCount { get { return packages.Count; } }
 
