@@ -48,16 +48,11 @@ namespace CodeStatistics.Input.Methods{
 
             new Task(() => {
                 foreach(ArchiveEntry entry in GetEntries()){
-                    if (cancelToken.IsCancellationRequested){
-                        Dispose();
-                        return;
-                    }
-
+                    if (cancelToken.IsCancellationRequested)return;
                     ExtractFile(entry);
                 }
                     
                 onFinished(extractPath);
-                Dispose();
             }).Start();
 
             return cancelToken;
