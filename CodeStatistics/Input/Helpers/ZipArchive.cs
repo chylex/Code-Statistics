@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CodeStatistics.Input.Methods{
+namespace CodeStatistics.Input.Helpers{
     class ZipArchive : IDisposable{
         private readonly string file;
         private readonly string extractPath;

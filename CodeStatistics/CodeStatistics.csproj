@@ -114,14 +114,14 @@
     <Compile Include="Input\IOUtils.cs" />
     <Compile Include="Input\Methods\GitHub.cs" />
     <Compile Include="Input\Methods\IInputMethod.cs" />
-    <Compile Include="Input\Methods\MultiFolderDialog.cs" />
+    <Compile Include="Input\Helpers\MultiFolderDialog.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Input\Methods\ZipArchive.cs" />
+    <Compile Include="Input\Helpers\ZipArchive.cs" />
     <Compile Include="Output\GenerateHtml.cs" />
     <Compile Include="Output\Template.cs" />
     <Compile Include="Output\TemplateDeclaration.cs" />

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace CodeStatistics.Input.Methods{
+namespace CodeStatistics.Input.Helpers{
     static class MultiFolderDialog{
         public static string[] Show(Form parent){
             if (Environment.OSVersion.Version.Major >= 6){ // vista and newer

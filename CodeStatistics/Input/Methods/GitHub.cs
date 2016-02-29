@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using CodeStatistics.Forms;
 using System.Threading;
 using System.IO;
+using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{
     public class GitHub : IInputMethod, IDisposable{

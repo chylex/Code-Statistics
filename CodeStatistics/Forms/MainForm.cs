@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
+using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Forms{
     public partial class MainForm : Form{
