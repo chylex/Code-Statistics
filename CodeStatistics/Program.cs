@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using CodeStatistics.Forms;
+using CodeStatistics.Input;
 
 [assembly:CLSCompliant(true)]
 namespace CodeStatistics{
@@ -29,6 +30,8 @@ namespace CodeStatistics{
                 }
                 else break;
             }
+
+            IOUtils.CleanupTemporaryDirectory();
         }
     }
 }

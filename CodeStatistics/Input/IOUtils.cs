@@ -43,16 +43,28 @@ namespace CodeStatistics.Input{
         }
 
         /// <summary>
-        /// Creates a randomly named directory in %TEMP% and returns the full path, or null if the creation fails.
+        /// Creates a randomly named directory in %TEMP%/CSTMP and returns the full path, or null if the creation fails.
         /// </summary>
         public static string CreateTemporaryDirectory(){
-            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP_"+Path.GetRandomFileName());
+            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP",Path.GetRandomFileName());
             
             try{
                 Directory.CreateDirectory(path);
                 return path;
             }catch(IOException){
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Cleans up leftover files in the temporary directory, and deletes it. Returns true on success.
+        /// </summary>
+        public static bool CleanupTemporaryDirectory(){
+            try{
+                Directory.Delete(Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP"),true);
+                return true;
+            }catch(Exception){
+                return false;
             }
         }
     }
