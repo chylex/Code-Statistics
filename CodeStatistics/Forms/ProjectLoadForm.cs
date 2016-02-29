@@ -123,7 +123,7 @@ namespace CodeStatistics.Forms{
         private void btnGenerateOutput_Click(object sender, EventArgs e){
             if (project == null || variables == null)return;
 
-            string template = Resources.ResourceManager.GetString("template",CultureInfo.InvariantCulture);
+            string template = Program.Config.GetTemplateContents();
             if (template == null)return; // TODO
 
             string output = Program.Config.GetOutputFilePath();
