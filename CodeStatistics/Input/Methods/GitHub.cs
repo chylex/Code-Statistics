@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Web.Script.Serialization;
 using CodeStatistics.Forms;
+using System.Threading;
+using System.IO;
 
 namespace CodeStatistics.Input.Methods{
     public class GitHub : IInputMethod, IDisposable{
@@ -17,6 +19,7 @@ namespace CodeStatistics.Input.Methods{
 
         private readonly string target;
         private WebClient dlBranches, dlRepo;
+        private CancellationTokenSource dlRepoCancel;
 
         public string Branch = "master";
 
@@ -87,6 +90,7 @@ namespace CodeStatistics.Input.Methods{
         public void Cancel(){
             if (dlBranches != null)dlBranches.CancelAsync();
             if (dlRepo != null)dlRepo.CancelAsync();
+            if (dlRepoCancel != null)dlRepoCancel.Cancel();
         }
 
         public void Dispose(){
@@ -99,18 +103,27 @@ namespace CodeStatistics.Input.Methods{
             Dispose();
         }
 
-        public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){ // TODO
+        public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){
+            string tmpDir = IOUtils.CreateTemporaryDirectory();
+            string tmpFile = tmpDir == null ? "github.zip" : Path.Combine(tmpDir,"github.zip");
+
             DownloadProgressChanged += (sender, args) => {
                 callbacks.UpdateProgress(args.ProgressPercentage);
-                callbacks.UpdateDataLabel(args.TotalBytesToReceive/1024 == 0 ? (args.BytesReceived/1024)+" kB" : (args.BytesReceived/1024)+" / "+(args.TotalBytesToReceive/1024)+" kB");
+                callbacks.UpdateDataLabel(args.TotalBytesToReceive == -1 ? (args.BytesReceived/1024)+" kB" : (args.BytesReceived/1024)+" / "+(args.TotalBytesToReceive/1024)+" kB");
             };
 
             DownloadFinished += (sender, args) => {
                 callbacks.UpdateInfoLabel("Extracting repository...");
-                // TODO extraction
+
+                ZipArchive archive = new ZipArchive(tmpFile);
+                
+                dlRepoCancel = archive.ExtractAsync(path => {
+                    callbacks.OnReady(new FileSearch(new string[]{ path }));
+                    archive.Dispose();
+                });
             };
 
-            switch(DownloadRepositoryZip("tmp.zip")){
+            switch(DownloadRepositoryZip(tmpFile)){
                 case DownloadStatus.Started:
                     callbacks.UpdateInfoLabel("Downloading repository...");
                     break;

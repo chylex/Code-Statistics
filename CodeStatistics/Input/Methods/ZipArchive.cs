@@ -81,6 +81,7 @@ namespace CodeStatistics.Input.Methods{
 
         public void Dispose(){
             ((IDisposable)inner).Dispose();
+            if (cancelToken != null)cancelToken.Dispose();
         }
 
         public class ArchiveEntry{
