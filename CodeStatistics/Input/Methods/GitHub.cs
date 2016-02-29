@@ -109,7 +109,7 @@ namespace CodeStatistics.Input.Methods{
             string tmpFile = tmpDir == null ? "github.zip" : Path.Combine(tmpDir,"github.zip");
 
             DownloadProgressChanged += (sender, args) => {
-                callbacks.UpdateProgress(args.ProgressPercentage);
+                callbacks.UpdateProgress(args.TotalBytesToReceive == -1 ? -1 : args.ProgressPercentage);
                 callbacks.UpdateDataLabel(args.TotalBytesToReceive == -1 ? (args.BytesReceived/1024)+" kB" : (args.BytesReceived/1024)+" / "+(args.TotalBytesToReceive/1024)+" kB");
             };
 

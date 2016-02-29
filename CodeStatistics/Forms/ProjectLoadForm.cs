@@ -9,7 +9,6 @@ using System.Globalization;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Properties;
-using System.Resources;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
@@ -53,25 +52,12 @@ namespace CodeStatistics.Forms{
             search.Finish += data => this.InvokeOnUIThread(() => {
                 labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
                 labelLoadData.Text = "";
-                progressBarLoad.Value = 0;
-                progressBarLoad.Style = ProgressBarStyle.Continuous;
+                UpdateProgress(ProgressBarStyle.Continuous,0);
 
                 project = new Project(data);
 
                 project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
-                    int percValue = percentage*10;
-
-                    // instant progress bar update hack
-                    if (percValue == progressBarLoad.Maximum){
-                        progressBarLoad.Value = percValue;
-                        progressBarLoad.Value = percValue-1;
-                        progressBarLoad.Value = percValue;
-                    }
-                    else{
-                        progressBarLoad.Value = percValue+1;
-                        progressBarLoad.Value = percValue;
-                    }
-
+                    UpdateProgress(ProgressBarStyle.Continuous,percentage);
                     labelLoadData.Text = processedEntries+" / "+totalEntries;
                 });
 
@@ -94,6 +80,23 @@ namespace CodeStatistics.Forms{
             });
 
             search.StartAsync();
+        }
+
+        private void UpdateProgress(ProgressBarStyle style, int percentage){
+            progressBarLoad.Style = style;
+
+            int percValue = percentage*10;
+
+            // instant progress bar update hack
+            if (percValue == progressBarLoad.Maximum){
+                progressBarLoad.Value = percValue;
+                progressBarLoad.Value = percValue-1;
+                progressBarLoad.Value = percValue;
+            }
+            else{
+                progressBarLoad.Value = percValue+1;
+                progressBarLoad.Value = percValue;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
@@ -156,14 +159,8 @@ namespace CodeStatistics.Forms{
 
             public void UpdateProgress(int progress){
                 form.InvokeOnUIThread(() => {
-                    if (progress == -1){
-                        form.progressBarLoad.Style = ProgressBarStyle.Marquee;
-                        form.progressBarLoad.Value = 1000;
-                    }
-                    else{
-                        form.progressBarLoad.Style = ProgressBarStyle.Continuous;
-                        form.progressBarLoad.Value = progress*10;
-                    }
+                    if (progress == -1)form.UpdateProgress(ProgressBarStyle.Marquee,100);
+                    else form.UpdateProgress(ProgressBarStyle.Continuous,progress);
                 });
             }
 
