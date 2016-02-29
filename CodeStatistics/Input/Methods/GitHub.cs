@@ -119,7 +119,7 @@ namespace CodeStatistics.Input.Methods{
                 
                 dlRepoCancel = archive.ExtractAsync(path => {
                     callbacks.OnReady(new FileSearch(new string[]{ path }));
-                    archive.Dispose();
+                    archive.DeleteAndDispose();
                 });
             };
 

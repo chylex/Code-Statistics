@@ -71,12 +71,17 @@ namespace CodeStatistics.Input.Methods{
 
             Directory.CreateDirectory(Path.Combine(extractPath,dirName));
 
-            using(Stream stream = entry.CreateStream()){
-                using(var fileStream = System.IO.File.Create(Path.Combine(extractPath,entry.Path))){
-                    stream.Seek(0,SeekOrigin.Begin);
-                    stream.CopyTo(fileStream);
+            using(var sourceStream = entry.CreateStream()){
+                using(var fileStream = new FileStream(Path.Combine(extractPath,entry.Path),FileMode.OpenOrCreate,FileAccess.Write,FileShare.None)){
+                    sourceStream.Seek(0,SeekOrigin.Begin);
+                    sourceStream.CopyTo(fileStream);
                 }
             }
+        }
+
+        public void DeleteAndDispose(){
+            Dispose();
+            System.IO.File.Delete(file);
         }
 
         public void Dispose(){
