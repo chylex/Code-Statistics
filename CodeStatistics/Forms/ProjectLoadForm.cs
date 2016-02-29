@@ -126,8 +126,10 @@ namespace CodeStatistics.Forms{
             string template = Resources.ResourceManager.GetString("template",CultureInfo.InvariantCulture);
             if (template == null)return; // TODO
 
-            new GenerateHtml(template.Split('\n','\r'),variables).ToFile("output.html");
-            Process.Start(Path.Combine(Directory.GetCurrentDirectory(),"output.html"));
+            string output = Program.Config.GetOutputFilePath();
+
+            new GenerateHtml(template.Split('\n','\r'),variables).ToFile(output);
+            Process.Start(output);
         }
 
         private void btnDebugProject_Click(object sender, EventArgs e){

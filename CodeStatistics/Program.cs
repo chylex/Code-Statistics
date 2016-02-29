@@ -6,6 +6,8 @@ using CodeStatistics.Input;
 [assembly:CLSCompliant(true)]
 namespace CodeStatistics{
     static class Program{
+        public static ProgramConfiguration Config { get; private set; }
+
         [STAThread]
         static void Main(string[] args){
             Application.EnableVisualStyles();
@@ -15,7 +17,7 @@ namespace CodeStatistics{
                 System.Diagnostics.Debug.WriteLine("OOPS - Breakpoint");
             };
 
-            ProgramArguments arguments = new ProgramArguments(args);
+            Config = new ProgramConfiguration(new ProgramArguments(args));
 
             while(true){
                 MainForm form = new MainForm();
