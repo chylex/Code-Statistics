@@ -146,6 +146,7 @@ namespace CodeStatistics.Input.Methods{
 
         private static WebClient CreateWebClient(){
             WebClient client = new WebClient();
+            client.Proxy = null;
             client.Headers.Add("User-Agent","CodeStatistics");
             return client;
         }
