@@ -8,6 +8,10 @@ namespace CodeStatistics.Forms{
 
         public GitHubForm(){
             InitializeComponent();
+
+            Disposed += (sender, args) => {
+                if (GitHub != null)GitHub.Dispose();
+            };
         }
 
         private void OnLoad(object sender, EventArgs e){
@@ -30,6 +34,7 @@ namespace CodeStatistics.Forms{
 
             github.RetrieveBranchList(branches => this.InvokeOnUIThread(() => {
                 listBranches.Items.Clear();
+                if (branches == null)return;
 
                 foreach(string branch in branches){
                     listBranches.Items.Add(branch);
