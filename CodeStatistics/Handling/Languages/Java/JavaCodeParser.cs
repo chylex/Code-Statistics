@@ -370,7 +370,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (IsEOF)break;
 
                 // skip
-                System.Diagnostics.Debugger.Break(); // TODO
+                if (skippedMembers == 0)System.Diagnostics.Debugger.Break(); // TODO
                 
                 SkipBlock('{','}');
                 SkipSpaces();
