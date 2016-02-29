@@ -8,6 +8,8 @@ using System.IO;
 using System.Globalization;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
+using CodeStatistics.Properties;
+using System.Resources;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
@@ -118,7 +120,10 @@ namespace CodeStatistics.Forms{
         private void btnGenerateOutput_Click(object sender, EventArgs e){
             if (project == null || variables == null)return;
 
-            new GenerateHtml(System.IO.File.ReadAllLines("template.html"),variables).ToFile("output.html");
+            string template = Resources.ResourceManager.GetString("template",CultureInfo.InvariantCulture);
+            if (template == null)return; // TODO
+
+            new GenerateHtml(template.Split('\n','\r'),variables).ToFile("output.html");
             Process.Start(Path.Combine(Directory.GetCurrentDirectory(),"output.html"));
         }
 
