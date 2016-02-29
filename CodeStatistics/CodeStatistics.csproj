@@ -112,6 +112,7 @@
     <Compile Include="Input\FileSearchData.cs" />
     <Compile Include="Input\IOEntry.cs" />
     <Compile Include="Input\IOUtils.cs" />
+    <Compile Include="Input\Methods\ArchiveExtraction.cs" />
     <Compile Include="Input\Methods\GitHub.cs" />
     <Compile Include="Input\Methods\IInputMethod.cs" />
     <Compile Include="Input\Helpers\MultiFolderDialog.cs" />

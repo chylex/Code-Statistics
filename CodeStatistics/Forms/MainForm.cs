@@ -57,6 +57,21 @@ namespace CodeStatistics.Forms{
             }
         }
 
+        private void btnProjectArchive_Click(object sender, EventArgs e){
+            OpenFileDialog dialog = new OpenFileDialog{
+                Filter = "Archives (.zip)|*.zip",
+                CheckFileExists = true,
+                DereferenceLinks = true,
+                AutoUpgradeEnabled = true
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK){
+                InputMethod = new ArchiveExtraction(dialog.FileName,IOUtils.CreateTemporaryDirectory());
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+        }
+
         private void btnProjectGitHub_Click(object sender, EventArgs e){
             GitHubForm form = new GitHubForm();
             

@@ -118,6 +118,7 @@
             this.btnProjectArchive.Size = new System.Drawing.Size(312, 38);
             this.btnProjectArchive.TabIndex = 5;
             this.btnProjectArchive.UseVisualStyleBackColor = false;
+            this.btnProjectArchive.Click += new System.EventHandler(this.btnProjectArchive_Click);
             // 
             // MainForm
             // 

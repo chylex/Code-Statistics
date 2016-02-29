@@ -14,14 +14,16 @@ namespace CodeStatistics.Input.Helpers{
 
         private CancellationTokenSource cancelToken;
 
-        public ZipArchive(string file){
+        public ZipArchive(string file, string extractPath){
             var type = typeof(System.IO.Packaging.Package).Assembly.GetType("MS.Internal.IO.Zip.ZipArchive");
             var openFile = type.GetMethod("OpenOnFile",BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
             this.file = file;
-            this.extractPath = Path.GetFullPath(file+".out/");
+            this.extractPath = extractPath;
             this.inner = openFile.Invoke(null,new object[]{ file, FileMode.Open, FileAccess.Read, FileShare.Read, false });
         }
+
+        public ZipArchive(string file) : this(file, Path.GetFullPath(file+".out/")){}
 
         public IEnumerable<ArchiveEntry> GetEntries(){
             var getFiles = inner.GetType().GetMethod("GetFiles",BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
