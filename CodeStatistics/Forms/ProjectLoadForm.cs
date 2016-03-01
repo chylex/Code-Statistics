@@ -58,7 +58,7 @@ namespace CodeStatistics.Forms{
 
                 project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
                     UpdateProgress(ProgressBarStyle.Continuous,percentage);
-                    labelLoadData.Text = processedEntries+" / "+totalEntries;
+                    labelLoadData.Text = Lang.Get["LoadProjectProcessingFiles",processedEntries,totalEntries];
                 });
 
                 project.Finish += vars => this.InvokeOnUIThread(() => {
@@ -74,6 +74,15 @@ namespace CodeStatistics.Forms{
                         btnDebugProject.Visible = true;
                         btnBreakPoint.Visible = true;
                     #endif
+
+                    if (Program.Config.AutoOpenBrowser){
+                        btnGenerateOutput_Click(null,new EventArgs());
+                    }
+
+                    if (Program.Config.CloseOnFinish){
+                        DialogResult = DialogResult.Abort;
+                        Close();
+                    }
                 });
 
                 project.ProcessAsync();

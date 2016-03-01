@@ -13,11 +13,6 @@ namespace CodeStatistics{
         static void Main(string[] args){
             Application.EnableVisualStyles();
 
-            AppDomain.CurrentDomain.FirstChanceException += (sender, ex) => {
-                if (ex.Exception is EntryPointNotFoundException)return;
-                System.Diagnostics.Debug.WriteLine("OOPS - Breakpoint");
-            };
-
             ProgramArguments programArgs = new ProgramArguments(args,ProgramConfiguration.Validate);
 
             if (programArgs.HasError){
@@ -31,12 +26,8 @@ namespace CodeStatistics{
                 MainForm form = new MainForm();
             
                 if (form.ShowDialog() == DialogResult.OK){
-                    ProjectLoadForm loadForm = new ProjectLoadForm(form.InputMethod);
-
-                    DialogResult result = loadForm.ShowDialog();
-                    if (result == DialogResult.Cancel)continue;
-                    
-                    // TODO
+                    DialogResult result = new ProjectLoadForm(form.InputMethod).ShowDialog();
+                    if (result == DialogResult.Abort)break;
                 }
                 else break;
             }

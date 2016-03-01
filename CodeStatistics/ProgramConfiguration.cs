@@ -12,6 +12,7 @@ namespace CodeStatistics{
             switch(argument.Name){
                 case "nogui":
                 case "openbrowser":
+                case "autoclose":
                 case "in:dummy":
                     return true;
 
@@ -39,9 +40,15 @@ namespace CodeStatistics{
 
         private readonly string outputFile, templateFile;
 
+        public readonly bool AutoOpenBrowser;
+        public readonly bool CloseOnFinish;
+
         public ProgramConfiguration(ProgramArguments args){
             outputFile = args.HasVariable("out") ? args.GetVariable("out") : null;
             templateFile = args.HasVariable("template") ? args.GetVariable("template") : null;
+
+            AutoOpenBrowser = args.CheckFlag("openbrowser");
+            CloseOnFinish = args.CheckFlag("autoclose");
         }
 
         public string GetOutputFilePath(){

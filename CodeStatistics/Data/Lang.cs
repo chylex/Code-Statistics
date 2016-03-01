@@ -25,6 +25,7 @@ namespace CodeStatistics.Data{
                 { "LoadProjectSearchIO", "Searching Files and Folders..." },
                 { "LoadProjectProcess", "Processing the Project..." },
                 { "LoadProjectProcessingDone", "Project processing finished." },
+                { "LoadProjectProcessingFiles", "$1 / $2" },
                 { "LoadProjectCancel", "Cancel" },
                 { "LoadProjectClose", "Close" },
                 { "LoadProjectGenerate", "Generate HTML" },
