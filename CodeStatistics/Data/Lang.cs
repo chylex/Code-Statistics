@@ -39,6 +39,18 @@ namespace CodeStatistics.Data{
             get { string value; return strings.TryGetValue(key,out value) ? value : "<UNKNOWN>"; }
         }
 
+        public string this[string key, params object[] data]{
+            get {
+                string value = this[key];
+
+                for(int index = data.Length-1; index >= 0; index--){
+                    value = value.Replace("$"+index,data[index].ToString());
+                }
+
+                return value;
+            }
+        }
+
         private Lang(){}
 
         private void Add(string key, string value){
