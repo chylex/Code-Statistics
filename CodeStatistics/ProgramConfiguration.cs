@@ -66,13 +66,15 @@ namespace CodeStatistics{
 
         public readonly bool AutoOpenBrowser;
         public readonly bool CloseOnFinish;
+        public readonly bool IsDebuggingTemplate;
 
         public ProgramConfiguration(ProgramArguments args){
             outputFile = args.HasVariable("out") ? args.GetVariable("out") : null;
-            templateFile = args.HasVariable("template") ? args.GetVariable("template") : null;
+            templateFile = args.HasVariable("template") ? args.GetVariable("template") : args.HasVariable("template:debug") ? args.GetVariable("template:debug") : null;
 
             AutoOpenBrowser = args.CheckFlag("openbrowser");
             CloseOnFinish = args.CheckFlag("autoclose");
+            IsDebuggingTemplate = args.HasVariable("template:debug");
 
             if (args.CheckFlag("in:dummy")){
                 inputType = InputType.Dummy;
@@ -108,6 +110,10 @@ namespace CodeStatistics{
             else{
                 return Path.IsPathRooted(outputFile) ? outputFile : Path.Combine(Environment.CurrentDirectory,outputFile);
             }
+        }
+
+        public string GetCustomTemplateFilePath(){
+            return Path.IsPathRooted(templateFile) ? templateFile : Path.Combine(Environment.CurrentDirectory,templateFile);
         }
 
         public string GetTemplateContents(){

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
+using System.IO;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
@@ -84,7 +85,7 @@ namespace CodeStatistics.Forms{
                         btnBreakPoint.Visible = true;
                     #endif
 
-                    outputFile = GenerateOutputFile(vars);
+                    outputFile = GenerateOutputFile(variables);
 
                     if (Program.Config.AutoOpenBrowser){
                         btnOpenOutput_Click(null,new EventArgs());
@@ -93,6 +94,23 @@ namespace CodeStatistics.Forms{
                     if (Program.Config.CloseOnFinish){
                         DialogResult = DialogResult.Abort;
                         Close();
+                    }
+
+                    if (Program.Config.IsDebuggingTemplate){
+                        string templatePath = Program.Config.GetCustomTemplateFilePath();
+                        if (templatePath == null)return; // WTF
+
+                        FileSystemWatcher watcher = new FileSystemWatcher{
+                            Path = templatePath,
+                            NotifyFilter = NotifyFilters.LastWrite,
+                            Filter = Path.GetFileName(templatePath)
+                        };
+
+                        watcher.Changed += (sender, args) => {
+                            GenerateOutputFile(variables);
+                        };
+
+                        watcher.EnableRaisingEvents = true;
                     }
                 });
 
