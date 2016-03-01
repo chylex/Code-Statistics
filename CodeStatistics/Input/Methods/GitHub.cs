@@ -32,8 +32,8 @@ namespace CodeStatistics.Input.Methods{
         public string Branch = "master";
 
         public string RepositoryName { get { return target; } }
-        public string BranchesUrl { get { return "https://api.github.com/repos/"+target+"/branches"; } }
-        public string ZipUrl { get { return "https://github.com/"+target+"/zipball/"+Branch; } }
+        public Uri BranchesUrl { get { return new Uri("https://api.github.com/repos/"+target+"/branches"); } }
+        public Uri ZipUrl { get { return new Uri("https://github.com/"+target+"/zipball/"+Branch); } }
 
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
         public event AsyncCompletedEventHandler DownloadFinished;
@@ -71,7 +71,7 @@ namespace CodeStatistics.Input.Methods{
             };
 
             try{
-                dlBranches.DownloadStringAsync(new Uri(BranchesUrl));
+                dlBranches.DownloadStringAsync(BranchesUrl);
                 return DownloadStatus.Started;
             }catch(WebException){
                 return DownloadStatus.NoConnection;
@@ -91,7 +91,7 @@ namespace CodeStatistics.Input.Methods{
             if (DownloadFinished != null)dlRepo.DownloadFileCompleted += DownloadFinished;
 
             try{
-                dlRepo.DownloadFileAsync(new Uri(ZipUrl),targetFile);
+                dlRepo.DownloadFileAsync(ZipUrl,targetFile);
                 return DownloadStatus.Started;
             }catch(WebException){
                 return DownloadStatus.NoConnection;

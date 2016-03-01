@@ -5,6 +5,7 @@ using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
+using System.IO;
 
 namespace CodeStatistics.Forms{
     public partial class MainForm : Form{
@@ -38,8 +39,14 @@ namespace CodeStatistics.Forms{
                 }
 
                 if (files == null || files.Length == 0)return;
-                
-                InputMethod = new FileSearch(files);
+
+                if (files.Length == 1 && ZipArchive.CanHandleFile(files[0])){
+                    InputMethod = new ArchiveExtraction(files[0],IOUtils.CreateTemporaryDirectory());
+                }
+                else{
+                    InputMethod = new FileSearch(files);
+                }
+
                 DialogResult = DialogResult.OK;
                 Close();
             }

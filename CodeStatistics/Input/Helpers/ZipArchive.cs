@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace CodeStatistics.Input.Helpers{
     class ZipArchive : IDisposable{
+        public static bool CanHandleFile(string file){
+            return IOUtils.CheckExtension(file,"ZIP");
+        }
+
         private readonly string file;
         private readonly string extractPath;
         private readonly object inner;
