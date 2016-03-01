@@ -4,9 +4,39 @@ using System.Globalization;
 using System.IO;
 using CodeStatistics.Properties;
 using System.Text;
+using CodeStatistics.Data;
 
 namespace CodeStatistics{
     class ProgramConfiguration{
+        public static bool Validate(ProgramArguments.Argument argument, Action<string> setError){
+            switch(argument.Name){
+                case "nogui":
+                case "openbrowser":
+                case "in:dummy":
+                    return true;
+
+                case "template":
+                case "template:debug":
+                case "in:folder":
+                case "in:archive":
+                case "in:github":
+                case "out":
+                    if (argument.IsFlag){
+                        setError(Lang.Get["ErrorInvalidArgsShouldBeVariable",argument.Name]);
+                        return false;
+                    }
+
+                    if (argument.Name == "in:github"){
+                        // TODO
+                    }
+
+                    return true;
+            }
+
+            setError(Lang.Get["ErrorInvalidArgsUnknown",argument.Name]);
+            return false;
+        }
+
         private readonly string outputFile, templateFile;
 
         public ProgramConfiguration(ProgramArguments args){

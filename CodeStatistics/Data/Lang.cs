@@ -11,6 +11,11 @@ namespace CodeStatistics.Data{
                 { "TitleProject", "Code Statistics - Project" },
                 { "TitleDebug", "Code Statistics - Project Debug" },
 
+                { "ErrorInvalidArgsTitle", "Invalid Program Arguments" },
+                { "ErrorInvalidArgsDuplicateIdentifier", "Duplicate identifier: $1" },
+                { "ErrorInvalidArgsUnknown", "Unknown parameter: $1" },
+                { "ErrorInvalidArgsShouldBeVariable", "Parameter has no specified value: $1" },
+
                 { "MenuProjectFromFolder", "Project From Folder" },
                 { "MenuProjectFromGitHub", "Project From GitHub" },
                 { "MenuProjectFromArchive", "Project From Archive" },

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using CodeStatistics.Forms;
 using CodeStatistics.Input;
+using CodeStatistics.Data;
 
 [assembly:CLSCompliant(true)]
 namespace CodeStatistics{
@@ -17,7 +18,14 @@ namespace CodeStatistics{
                 System.Diagnostics.Debug.WriteLine("OOPS - Breakpoint");
             };
 
-            Config = new ProgramConfiguration(new ProgramArguments(args));
+            ProgramArguments programArgs = new ProgramArguments(args,ProgramConfiguration.Validate);
+
+            if (programArgs.HasError){
+                MessageBox.Show(programArgs.Error,Lang.Get["ErrorInvalidArgsTitle"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
+            Config = new ProgramConfiguration(programArgs);
 
             while(true){
                 MainForm form = new MainForm();
