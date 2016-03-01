@@ -145,5 +145,23 @@ namespace CodeStatistics.Handling{
                 return parent.GetArray(name);
             }
         }
+
+        public class Dummy : Variables{
+            public override bool CheckFlag(string name){
+                return true;
+            }
+
+            public override string GetVariable(string name, string defaultValue){
+                return defaultValue;
+            }
+
+            public override int GetVariable(string name, int defaultValue){
+                return defaultValue;
+            }
+
+            public override IEnumerable<Variables> GetArray(string name){
+                yield return new Dummy();
+            }
+        }
     }
 }
