@@ -7,7 +7,6 @@ using System.Text;
 using CodeStatistics.Data;
 using DirectoryIO = System.IO.Directory;
 using FileIO = System.IO.File;
-using System.Text.RegularExpressions;
 using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics{
@@ -57,7 +56,13 @@ namespace CodeStatistics{
             return false;
         }
 
+        private enum InputType{
+            Dummy, Folder, Archive, GitHub
+        }
+
         private readonly string outputFile, templateFile;
+        private readonly InputType inputType;
+        private readonly string inputValue;
 
         public readonly bool AutoOpenBrowser;
         public readonly bool CloseOnFinish;
@@ -68,6 +73,30 @@ namespace CodeStatistics{
 
             AutoOpenBrowser = args.CheckFlag("openbrowser");
             CloseOnFinish = args.CheckFlag("autoclose");
+
+            if (args.CheckFlag("in:dummy"))inputType = InputType.Dummy;
+            else if (args.HasVariable("in:folder")){
+                inputType = InputType.Folder;
+                inputValue = args.GetVariable("in:folder");
+            }
+            else if (args.HasVariable("in:archive")){
+                inputType = InputType.Archive;
+                inputValue = args.GetVariable("in:archive");
+            }
+            else if (args.HasVariable("in:github")){
+                inputType = InputType.GitHub;
+                inputValue = args.GetVariable("in:github");
+            }
+        }
+
+        public IInputMethod GetImmediateInputMethod(){
+            switch(inputType){
+                case InputType.Dummy: return new DummyInputMethod();
+                case InputType.Folder: return new FileSearch(new string[]{ inputValue });
+                case InputType.Archive: return new ArchiveExtraction(inputValue,IOUtils.CreateTemporaryDirectory());
+                case InputType.GitHub: return new GitHub(inputValue);
+                default: return null;
+            }
         }
 
         public string GetOutputFilePath(){
