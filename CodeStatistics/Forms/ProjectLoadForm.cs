@@ -72,7 +72,7 @@ namespace CodeStatistics.Forms{
                 });
 
                 project.Finish += vars => this.InvokeOnUIThread(() => {
-                    variables = vars;
+                    variables = Program.Config.IsDebuggingTemplate ? new Variables.Dummy() : vars;
 
                     labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
 
@@ -97,20 +97,19 @@ namespace CodeStatistics.Forms{
                     }
 
                     if (Program.Config.IsDebuggingTemplate){
-                        string templatePath = Program.Config.GetCustomTemplateFilePath();
-                        if (templatePath == null)return; // WTF
+                        string templateFile = Program.Config.GetCustomTemplateFilePath();
+                        if (templateFile == null)return; // WTF
 
                         FileSystemWatcher watcher = new FileSystemWatcher{
-                            Path = templatePath,
-                            NotifyFilter = NotifyFilters.LastWrite,
-                            Filter = Path.GetFileName(templatePath)
+                            Path = Path.GetDirectoryName(templateFile),
+                            Filter = Path.GetFileName(templateFile),
+                            NotifyFilter = NotifyFilters.LastWrite
                         };
 
-                        watcher.Changed += (sender, args) => {
-                            GenerateOutputFile(variables);
-                        };
-
+                        watcher.Changed += (sender, args) => GenerateOutputFile(variables);
                         watcher.EnableRaisingEvents = true;
+
+                        labelLoadData.Text = Lang.Get["LoadProjectDummyDebugTemplate"];
                     }
                 });
 

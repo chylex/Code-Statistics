@@ -28,6 +28,7 @@ namespace CodeStatistics.Data{
                 { "LoadProjectSearchIO", "Searching Files and Folders..." },
                 { "LoadProjectProcess", "Processing the Project..." },
                 { "LoadProjectProcessingDone", "Project processing finished." },
+                { "LoadProjectDummyDebugTemplate", "Debugging template..." },
                 { "LoadProjectProcessingFiles", "$1 / $2" },
                 { "LoadProjectCancel", "Cancel" },
                 { "LoadProjectClose", "Close" },
