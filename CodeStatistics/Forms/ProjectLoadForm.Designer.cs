@@ -92,9 +92,9 @@
             // btnOpenOutput
             // 
             this.btnOpenOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenOutput.Location = new System.Drawing.Point(144, 76);
+            this.btnOpenOutput.Location = new System.Drawing.Point(165, 76);
             this.btnOpenOutput.Name = "btnOpenOutput";
-            this.btnOpenOutput.Size = new System.Drawing.Size(105, 23);
+            this.btnOpenOutput.Size = new System.Drawing.Size(84, 23);
             this.btnOpenOutput.TabIndex = 5;
             this.btnOpenOutput.UseVisualStyleBackColor = true;
             this.btnOpenOutput.Visible = false;

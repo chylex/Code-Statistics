@@ -61,7 +61,7 @@ namespace CodeStatistics{
         }
 
         private readonly string outputFile, templateFile;
-        private readonly InputType inputType;
+        private readonly InputType? inputType;
         private readonly string inputValue;
 
         public readonly bool AutoOpenBrowser;
@@ -74,7 +74,9 @@ namespace CodeStatistics{
             AutoOpenBrowser = args.CheckFlag("openbrowser");
             CloseOnFinish = args.CheckFlag("autoclose");
 
-            if (args.CheckFlag("in:dummy"))inputType = InputType.Dummy;
+            if (args.CheckFlag("in:dummy")){
+                inputType = InputType.Dummy;
+            }
             else if (args.HasVariable("in:folder")){
                 inputType = InputType.Folder;
                 inputValue = args.GetVariable("in:folder");
