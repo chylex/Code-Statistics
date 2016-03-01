@@ -31,7 +31,7 @@ namespace CodeStatistics.Data{
                 { "LoadProjectProcessingFiles", "$1 / $2" },
                 { "LoadProjectCancel", "Cancel" },
                 { "LoadProjectClose", "Close" },
-                { "LoadProjectGenerate", "Generate HTML" },
+                { "LoadProjectOpenOutput", "Open HTML" },
 
                 { "LoadProjectDebug", "Debug" },
                 { "LoadProjectBreakpoint", "Break" },

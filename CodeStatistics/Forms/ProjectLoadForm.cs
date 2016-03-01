@@ -4,18 +4,27 @@ using System;
 using System.Windows.Forms;
 using CodeStatistics.Output;
 using System.Diagnostics;
-using System.IO;
 using System.Globalization;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
-using CodeStatistics.Properties;
 
 namespace CodeStatistics.Forms{
     public partial class ProjectLoadForm : Form{
+        private static string GenerateOutputFile(Variables variables){
+            string template = Program.Config.GetTemplateContents();
+            if (template == null)return null; // TODO
+
+            string output = Program.Config.GetOutputFilePath();
+            new GenerateHtml(template.Split('\n','\r'),variables).ToFile(output);
+
+            return output;
+        }
+
         private readonly IInputMethod inputMethod;
         private FileSearch search;
         private Project project;
         private Variables variables;
+        private string outputFile;
 
         private ProjectLoadForm(){
             InitializeComponent();
@@ -23,7 +32,7 @@ namespace CodeStatistics.Forms{
             this.Text = Lang.Get["TitleProject"];
             btnCancel.Text = Lang.Get["LoadProjectCancel"];
             btnClose.Text = Lang.Get["LoadProjectClose"];
-            btnGenerateOutput.Text = Lang.Get["LoadProjectGenerate"];
+            btnOpenOutput.Text = Lang.Get["LoadProjectOpenOutput"];
             btnDebugProject.Text = Lang.Get["LoadProjectDebug"];
             btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
         }
@@ -68,15 +77,17 @@ namespace CodeStatistics.Forms{
 
                     btnCancel.Visible = false;
                     btnClose.Visible = true;
-                    btnGenerateOutput.Visible = true;
+                    btnOpenOutput.Visible = true;
 
                     #if DEBUG
                         btnDebugProject.Visible = true;
                         btnBreakPoint.Visible = true;
                     #endif
 
+                    outputFile = GenerateOutputFile(vars);
+
                     if (Program.Config.AutoOpenBrowser){
-                        btnGenerateOutput_Click(null,new EventArgs());
+                        btnOpenOutput_Click(null,new EventArgs());
                     }
 
                     if (Program.Config.CloseOnFinish){
@@ -129,16 +140,10 @@ namespace CodeStatistics.Forms{
             Close();
         }
 
-        private void btnGenerateOutput_Click(object sender, EventArgs e){
-            if (project == null || variables == null)return;
+        private void btnOpenOutput_Click(object sender, EventArgs e){
+            if (outputFile == null)return;
 
-            string template = Program.Config.GetTemplateContents();
-            if (template == null)return; // TODO
-
-            string output = Program.Config.GetOutputFilePath();
-
-            new GenerateHtml(template.Split('\n','\r'),variables).ToFile(output);
-            Process.Start(output);
+            Process.Start(outputFile);
         }
 
         private void btnDebugProject_Click(object sender, EventArgs e){

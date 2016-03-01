@@ -28,7 +28,7 @@
             this.labelLoadData = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnGenerateOutput = new System.Windows.Forms.Button();
+            this.btnOpenOutput = new System.Windows.Forms.Button();
             this.btnDebugProject = new System.Windows.Forms.Button();
             this.btnBreakPoint = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -89,16 +89,16 @@
             this.btnClose.Visible = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnGenerateOutput
+            // btnOpenOutput
             // 
-            this.btnGenerateOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateOutput.Location = new System.Drawing.Point(144, 76);
-            this.btnGenerateOutput.Name = "btnGenerateOutput";
-            this.btnGenerateOutput.Size = new System.Drawing.Size(105, 23);
-            this.btnGenerateOutput.TabIndex = 5;
-            this.btnGenerateOutput.UseVisualStyleBackColor = true;
-            this.btnGenerateOutput.Visible = false;
-            this.btnGenerateOutput.Click += new System.EventHandler(this.btnGenerateOutput_Click);
+            this.btnOpenOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenOutput.Location = new System.Drawing.Point(144, 76);
+            this.btnOpenOutput.Name = "btnOpenOutput";
+            this.btnOpenOutput.Size = new System.Drawing.Size(105, 23);
+            this.btnOpenOutput.TabIndex = 5;
+            this.btnOpenOutput.UseVisualStyleBackColor = true;
+            this.btnOpenOutput.Visible = false;
+            this.btnOpenOutput.Click += new System.EventHandler(this.btnOpenOutput_Click);
             // 
             // btnDebugProject
             // 
@@ -130,7 +130,7 @@
             this.ClientSize = new System.Drawing.Size(331, 111);
             this.Controls.Add(this.btnBreakPoint);
             this.Controls.Add(this.btnDebugProject);
-            this.Controls.Add(this.btnGenerateOutput);
+            this.Controls.Add(this.btnOpenOutput);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.labelLoadData);
@@ -152,7 +152,7 @@
         private System.Windows.Forms.Label labelLoadData;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnGenerateOutput;
+        private System.Windows.Forms.Button btnOpenOutput;
         private System.Windows.Forms.Button btnDebugProject;
         private System.Windows.Forms.Button btnBreakPoint;
     }
