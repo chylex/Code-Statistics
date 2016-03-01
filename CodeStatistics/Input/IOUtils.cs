@@ -43,6 +43,14 @@ namespace CodeStatistics.Input{
         }
 
         /// <summary>
+        /// Checks whether file extension matches. The <paramref name="extension"/> parameter is provided without the dot and ignores case.
+        /// </summary>
+        public static bool CheckExtension(string path, string extension){
+            string fileExt = Path.GetExtension(path);
+            return fileExt == null || fileExt == "." ? extension.Length == 0 : string.Equals(fileExt,extension,StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        /// <summary>
         /// Creates a randomly named directory in %TEMP%/CSTMP and returns the full path, or null if the creation fails.
         /// </summary>
         public static string CreateTemporaryDirectory(){
