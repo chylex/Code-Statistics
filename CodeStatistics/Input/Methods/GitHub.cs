@@ -8,10 +8,17 @@ using System.Web.Script.Serialization;
 using CodeStatistics.Forms;
 using System.Threading;
 using System.IO;
+using System.Text.RegularExpressions;
 using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{
     public class GitHub : IInputMethod, IDisposable{
+        public static readonly Regex RepositoryRegex = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\.]+)(?:/([^\\[?^:~ ]+))?$",RegexOptions.CultureInvariant);
+
+        public static bool IsRepositoryValid(string repo){
+            return RepositoryRegex.Match(repo).Groups.Count >= 2;
+        }
+
         public enum DownloadStatus{
             NoInternet, NoConnection, Started
         }
@@ -31,8 +38,11 @@ namespace CodeStatistics.Input.Methods{
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
         public event AsyncCompletedEventHandler DownloadFinished;
 
-        public GitHub(string username, string repository){
-            this.target = username+"/"+repository;
+        public GitHub(string repository){ // TODO validate
+            Match match = RepositoryRegex.Match(repository);
+
+            target = match.Groups[0].Value+'/'+match.Groups[1].Value;
+            if (match.Groups.Count == 3)Branch = match.Groups[2].Value;
         }
 
         public DownloadStatus RetrieveBranchList(BranchListRetrieved onRetrieved){

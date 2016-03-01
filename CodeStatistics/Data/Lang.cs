@@ -15,6 +15,9 @@ namespace CodeStatistics.Data{
                 { "ErrorInvalidArgsDuplicateIdentifier", "Duplicate identifier: $1" },
                 { "ErrorInvalidArgsUnknown", "Unknown parameter: $1" },
                 { "ErrorInvalidArgsShouldBeVariable", "Parameter has no specified value: $1" },
+                { "ErrorInvalidArgsFileNotFound", "File not found: $1" },
+                { "ErrorInvalidArgsFolderNotFound", "Folder not found: $1" },
+                { "ErrorInvalidArgsGitHub", "Invalid GitHub repository, correct format is <username/repo[/branch]>: $1" },
 
                 { "MenuProjectFromFolder", "Project From Folder" },
                 { "MenuProjectFromGitHub", "Project From GitHub" },

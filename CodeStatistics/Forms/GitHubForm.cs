@@ -20,8 +20,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnDownload_Click(object sender, EventArgs e){
-            string[] data = textBoxRepository.Text.Split('/');
-            GitHub = new GitHub(data[0],data[1]);
+            GitHub = new GitHub(textBoxRepository.Text);
             GitHub.Branch = (string)listBranches.SelectedItem;
 
             DialogResult = DialogResult.OK;
@@ -29,8 +28,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnListBranches_Click(object sender, EventArgs e){
-            string[] data = textBoxRepository.Text.Split('/');
-            GitHub github = new GitHub(data[0],data[1]);
+            GitHub github = new GitHub(textBoxRepository.Text);
 
             github.RetrieveBranchList(branches => this.InvokeOnUIThread(() => {
                 listBranches.Items.Clear();

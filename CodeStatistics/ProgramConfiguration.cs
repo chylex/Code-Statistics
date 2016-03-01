@@ -5,6 +5,10 @@ using System.IO;
 using CodeStatistics.Properties;
 using System.Text;
 using CodeStatistics.Data;
+using DirectoryIO = System.IO.Directory;
+using FileIO = System.IO.File;
+using System.Text.RegularExpressions;
+using CodeStatistics.Input.Methods;
 
 namespace CodeStatistics{
     class ProgramConfiguration{
@@ -27,8 +31,23 @@ namespace CodeStatistics{
                         return false;
                     }
 
-                    if (argument.Name == "in:github"){
-                        // TODO
+                    if (argument.Name == "in:folder"){
+                        if (!DirectoryIO.Exists(argument.Value)){
+                            setError(Lang.Get["ErrorInvalidArgsFileNotFound",argument.Value]);
+                            return false;
+                        }
+                    }
+                    else if (argument.Name == "in:archive"){
+                        if (!FileIO.Exists(argument.Value)){
+                            setError(Lang.Get["ErrorInvalidArgsFileNotFound",argument.Value]);
+                            return false;
+                        }
+                    }
+                    else if (argument.Name == "in:github"){
+                        if (!GitHub.IsRepositoryValid(argument.Value)){
+                            setError(Lang.Get["ErrorInvalidArgsGitHub",argument.Value]);
+                            return false;
+                        }
                     }
 
                     return true;
@@ -66,7 +85,7 @@ namespace CodeStatistics{
             }
             else{
                 try{
-                    return System.IO.File.ReadAllText(templateFile,Encoding.UTF8);
+                    return FileIO.ReadAllText(templateFile,Encoding.UTF8);
                 }catch(Exception){
                     return null;
                 }
