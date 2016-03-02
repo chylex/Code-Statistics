@@ -9,6 +9,8 @@ namespace CodeStatistics.Forms{
         public GitHubForm(){
             InitializeComponent();
 
+            if (Program.Config.NoGui)Opacity = 0;
+
             Disposed += (sender, args) => {
                 if (GitHub != null)GitHub.Dispose();
             };

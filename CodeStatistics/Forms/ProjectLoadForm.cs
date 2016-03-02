@@ -36,6 +36,8 @@ namespace CodeStatistics.Forms{
             btnOpenOutput.Text = Lang.Get["LoadProjectOpenOutput"];
             btnDebugProject.Text = Lang.Get["LoadProjectDebug"];
             btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
+
+            if (Program.Config.NoGui)Opacity = 0;
         }
 
         public ProjectLoadForm(IInputMethod inputMethod) : this(){

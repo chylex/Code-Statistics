@@ -64,6 +64,7 @@ namespace CodeStatistics{
         private readonly InputType? inputType;
         private readonly string inputValue;
 
+        public readonly bool NoGui;
         public readonly bool AutoOpenBrowser;
         public readonly bool CloseOnFinish;
         public readonly bool IsDebuggingTemplate;
@@ -72,6 +73,7 @@ namespace CodeStatistics{
             outputFile = args.HasVariable("out") ? args.GetVariable("out") : null;
             templateFile = args.HasVariable("template") ? args.GetVariable("template") : args.HasVariable("template:debug") ? args.GetVariable("template:debug") : null;
 
+            NoGui = args.CheckFlag("nogui");
             AutoOpenBrowser = args.CheckFlag("openbrowser");
             CloseOnFinish = args.CheckFlag("autoclose");
             IsDebuggingTemplate = args.HasVariable("template:debug");
