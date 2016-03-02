@@ -10,9 +10,11 @@ namespace CodeStatistics.Handling{
     class Project{
         public delegate void ProgressEventHandler(int percentage, int processedEntries, int totalEntries);
         public delegate void FinishEventHandler(Variables variables);
+        public delegate void FailureEventHandler(Exception ex);
 
         public event ProgressEventHandler Progress;
         public event FinishEventHandler Finish;
+        public event FailureEventHandler Failure;
         private event Action CancelFinish;
 
         public readonly FileSearchData SearchData;
@@ -99,7 +101,9 @@ namespace CodeStatistics.Handling{
                 // Finalize
                 if (Progress != null)Progress(100,processedEntries,totalEntries);
                 if (Finish != null)Finish(variables);
-            },cancelToken.Token).Start();
+            },cancelToken.Token).ContinueWith(task => {
+                if (Failure != null)Failure(task.Exception);
+            },TaskContinuationOptions.OnlyOnFaulted).Start();
         }
 
         public void Cancel(Action onCancelFinish){

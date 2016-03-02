@@ -113,7 +113,17 @@ namespace CodeStatistics.Forms{
                     }
                 });
 
+                project.Failure += ex => this.InvokeOnUIThread(() => {
+                    // TODO
+                    MessageBox.Show("Unhandled exception in Project: "+ex.ToString());
+                });
+
                 project.ProcessAsync();
+            });
+
+            search.Failure += ex => this.InvokeOnUIThread(() => {
+                // TODO
+                MessageBox.Show("Unhandled exception in FileSearch: "+ex.ToString());
             });
 
             search.StartAsync();

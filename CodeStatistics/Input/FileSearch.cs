@@ -12,9 +12,11 @@ namespace CodeStatistics.Input{
     public class FileSearch : IInputMethod{
         public delegate void RefreshEventHandler(int entriesFound);
         public delegate void FinishEventHandler(FileSearchData searchData);
+        public delegate void FailureEventHandler(Exception ex);
 
         public event RefreshEventHandler Refresh;
         public event FinishEventHandler Finish;
+        public event FailureEventHandler Failure;
         private event Action CancelFinish;
 
         private readonly string[] rootFiles;
@@ -72,7 +74,9 @@ namespace CodeStatistics.Input{
 
                 if (Refresh != null)Refresh(entryCount[0]);
                 if (Finish != null)Finish(searchData);
-            },cancelToken.Token).Start();
+            },cancelToken.Token).ContinueWith(task => {
+                if (Failure != null)Failure(task.Exception);
+            },TaskContinuationOptions.OnlyOnFaulted).Start();
         }
 
         private static IEnumerable<IOEntry> EnumerateEntriesSafe(string path){
