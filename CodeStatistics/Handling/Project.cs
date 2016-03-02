@@ -27,7 +27,7 @@ namespace CodeStatistics.Handling{
         }
 
         public void ProcessAsync(){
-            new Task(() => {
+            var task = new Task(() => {
                 var variables = new Variables.Root();
                 
                 int processedEntries = 0, totalEntries = SearchData.EntryCount;
@@ -101,9 +101,13 @@ namespace CodeStatistics.Handling{
                 // Finalize
                 if (Progress != null)Progress(100,processedEntries,totalEntries);
                 if (Finish != null)Finish(variables);
-            },cancelToken.Token).ContinueWith(task => {
-                if (Failure != null)Failure(task.Exception);
-            },TaskContinuationOptions.OnlyOnFaulted).Start();
+            },cancelToken.Token);
+            
+            task.ContinueWith(originalTask => {
+                if (Failure != null)Failure(originalTask.Exception);
+            },TaskContinuationOptions.OnlyOnFaulted);
+            
+            task.Start();
         }
 
         public void Cancel(Action onCancelFinish){

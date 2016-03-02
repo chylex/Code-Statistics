@@ -28,7 +28,7 @@ namespace CodeStatistics.Input{
         }
 
         public void StartAsync(){
-            new Task(() => {
+            var task = new Task(() => {
                 var searchData = new FileSearchData(rootFiles.Length == 0 ? string.Empty : IOUtils.FindRootPath(rootFiles));
                 var rand = new Random();
 
@@ -74,9 +74,13 @@ namespace CodeStatistics.Input{
 
                 if (Refresh != null)Refresh(entryCount[0]);
                 if (Finish != null)Finish(searchData);
-            },cancelToken.Token).ContinueWith(task => {
-                if (Failure != null)Failure(task.Exception);
-            },TaskContinuationOptions.OnlyOnFaulted).Start();
+            },cancelToken.Token);
+            
+            task.ContinueWith(originalTask => {
+                if (Failure != null)Failure(originalTask.Exception);
+            },TaskContinuationOptions.OnlyOnFaulted);
+            
+            task.Start();
         }
 
         private static IEnumerable<IOEntry> EnumerateEntriesSafe(string path){
