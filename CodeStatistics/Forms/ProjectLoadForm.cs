@@ -132,7 +132,9 @@ namespace CodeStatistics.Forms{
         }
 
         private void UpdateProgress(ProgressBarStyle style, int percentage){
-            progressBarLoad.Style = style;
+            if (progressBarLoad.Style == ProgressBarStyle.Marquee && style == ProgressBarStyle.Marquee){
+                return; // fix progress bar freaking out when re-setting marquee
+            }
 
             int percValue = percentage*10;
 
