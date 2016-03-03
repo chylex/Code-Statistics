@@ -17,7 +17,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void OnLoad(object sender, EventArgs e){
-            listBranches.Items.Add("master");
+            listBranches.Items.Add(GitHub.DefaultBranch);
             listBranches.SelectedIndex = 0;
         }
 

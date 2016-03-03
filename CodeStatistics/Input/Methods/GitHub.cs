@@ -13,10 +13,16 @@ using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{
     public class GitHub : IInputMethod, IDisposable{
-        public static readonly Regex RepositoryRegex = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\.]+)(?:/([^\\[?^:~ ]+))?$",RegexOptions.CultureInvariant);
+        public const string DefaultBranch = "master";
 
+        private static readonly Regex RepositoryRegexCustom = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\. ]+)(?:/([^\\[?^:~ ]+))?$",RegexOptions.CultureInvariant);
+
+        /// <summary>
+        /// Checks whether a repository in the format &lt;username&gt;/&lt;repository&gt;[/&lt;branch&gt;] is valid. Allows spaces in &lt;repository&gt; that are
+        /// automatically converted into dashes in <see cref="GitHub"/> constructor for convenience. Repository names are case-insensitive.
+        /// </summary>
         public static bool IsRepositoryValid(string repo){
-            return RepositoryRegex.Match(repo).Groups.Count >= 2;
+            return RepositoryRegexCustom.Match(repo).Groups.Count >= 2;
         }
 
         public enum DownloadStatus{
@@ -29,7 +35,7 @@ namespace CodeStatistics.Input.Methods{
         private WebClient dlBranches, dlRepo;
         private CancellationTokenSource dlRepoCancel;
 
-        public string Branch = "master";
+        public string Branch = DefaultBranch;
 
         public string RepositoryName { get { return target; } }
         public Uri BranchesUrl { get { return new Uri("https://api.github.com/repos/"+target+"/branches"); } }
@@ -39,10 +45,10 @@ namespace CodeStatistics.Input.Methods{
         public event AsyncCompletedEventHandler DownloadFinished;
 
         public GitHub(string repository){ // TODO validate
-            Match match = RepositoryRegex.Match(repository);
+            Match match = RepositoryRegexCustom.Match(repository.Replace(' ','-'));
 
-            target = match.Groups[0].Value+'/'+match.Groups[1].Value;
-            if (match.Groups.Count == 3)Branch = match.Groups[2].Value;
+            target = match.Groups[1].Value+'/'+match.Groups[2].Value;
+            if (match.Groups.Count == 4)Branch = match.Groups[3].Value;
         }
 
         public DownloadStatus RetrieveBranchList(BranchListRetrieved onRetrieved){
