@@ -44,6 +44,7 @@ namespace CodeStatistics.Input.Methods{
 
         public event DownloadProgressChangedEventHandler DownloadProgressChanged;
         public event AsyncCompletedEventHandler DownloadFinished;
+        private event Action CancelFinish;
 
         public GitHub(string repository){ // TODO validate
             Match match = RepositoryRegexCustom.Match(repository.Replace(' ','-'));
@@ -53,7 +54,7 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public DownloadStatus RetrieveBranchList(BranchListRetrieved onRetrieved){
-            if (dlBranches != null)Reset();
+            if (dlBranches != null || dlRepo != null)Reset();
 
             if (!NetworkInterface.GetIsNetworkAvailable()){
                 return DownloadStatus.NoInternet;
@@ -86,7 +87,7 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public DownloadStatus DownloadRepositoryZip(string targetFile){
-            if (dlRepo != null)Reset();
+            if (dlBranches != null || dlRepo != null)Reset();
 
             if (!NetworkInterface.GetIsNetworkAvailable()){
                 return DownloadStatus.NoInternet;
@@ -107,13 +108,17 @@ namespace CodeStatistics.Input.Methods{
 
         public void Cancel(){
             if (dlBranches != null)dlBranches.CancelAsync();
-            if (dlRepo != null)dlRepo.CancelAsync();
-            if (dlRepoCancel != null)dlRepoCancel.Cancel();
+            else if (dlRepo != null)dlRepo.CancelAsync();
+            else if (dlRepoCancel != null){
+                dlRepoCancel.Cancel();
+                if (CancelFinish != null)CancelFinish(); // archive extraction has no checks for cancel
+            }
         }
 
         public void Dispose(){
             if (dlBranches != null)dlBranches.Dispose();
             if (dlRepo != null)dlRepo.Dispose();
+            if (dlRepoCancel != null)dlRepoCancel.Dispose();
         }
 
         private void Reset(){
@@ -125,12 +130,17 @@ namespace CodeStatistics.Input.Methods{
             string tmpDir = IOUtils.CreateTemporaryDirectory();
             string tmpFile = tmpDir == null ? "github.zip" : Path.Combine(tmpDir,"github.zip");
 
-            DownloadProgressChanged += (sender, args) => {
+            DownloadProgressChanged = (sender, args) => {
                 callbacks.UpdateProgress(args.TotalBytesToReceive == -1 ? -1 : args.ProgressPercentage);
                 callbacks.UpdateDataLabel(args.TotalBytesToReceive == -1 ? (args.BytesReceived/1024)+" kB" : (args.BytesReceived/1024)+" / "+(args.TotalBytesToReceive/1024)+" kB");
             };
 
-            DownloadFinished += (sender, args) => {
+            DownloadFinished = (sender, args) => {
+                if (args.Cancelled){ // apparently randomly throws IOException and ObjectDisposedException... WHAT THE FUCK .NET
+                    if (CancelFinish != null)CancelFinish();
+                    return;
+                }
+
                 if (args.Error != null){
                     callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubDownloadError"]);
                     return;
@@ -162,8 +172,9 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public void CancelProcess(Action onCancelFinish){
-            Reset();
-            onCancelFinish();
+            CancelFinish += onCancelFinish;
+            CancelFinish += Dispose;
+            Cancel();
         }
 
         private static WebClient CreateWebClient(){
