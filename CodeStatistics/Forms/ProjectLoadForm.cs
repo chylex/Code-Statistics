@@ -136,6 +136,8 @@ namespace CodeStatistics.Forms{
                 return; // fix progress bar freaking out when re-setting marquee
             }
 
+            progressBarLoad.Style = style;
+
             int percValue = percentage*10;
 
             // instant progress bar update hack
