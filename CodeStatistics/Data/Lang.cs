@@ -43,6 +43,12 @@ namespace CodeStatistics.Data{
                 { "LoadGitHubDownload", "Download" },
                 { "LoadGitHubCancel", "Cancel" },
 
+                { "LoadGitHubDownloadingRepo", "Downloading repository..." },
+                { "LoadGitHubExtractingRepo", "Extracting repository..." },
+                { "LoadGitHubNoConnection", "No internet connection." },
+                { "LoadGitHubNoInternet", "Could not establish connection with GitHub." },
+                { "LoadGitHubDownloadError", "Could not download the repository." },
+
                 { "DebugProjectReprocess", "Reprocess" },
                 { "DebugProjectLoadOriginal", "Original" },
                 { "DebugProjectDebug", "Debug" }

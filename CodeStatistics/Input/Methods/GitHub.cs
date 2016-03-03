@@ -9,6 +9,7 @@ using CodeStatistics.Forms;
 using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
+using CodeStatistics.Data;
 using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{
@@ -130,7 +131,12 @@ namespace CodeStatistics.Input.Methods{
             };
 
             DownloadFinished += (sender, args) => {
-                callbacks.UpdateInfoLabel("Extracting repository...");
+                if (args.Error != null){
+                    callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubDownloadError"]);
+                    return;
+                }
+
+                callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubExtractingRepo"]);
 
                 ZipArchive archive = new ZipArchive(tmpFile);
                 
@@ -142,15 +148,15 @@ namespace CodeStatistics.Input.Methods{
 
             switch(DownloadRepositoryZip(tmpFile)){
                 case DownloadStatus.Started:
-                    callbacks.UpdateInfoLabel("Downloading repository...");
+                    callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubDownloadingRepo"]);
                     break;
 
                 case DownloadStatus.NoInternet:
-                    callbacks.UpdateInfoLabel("No internet connection.");
+                    callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubNoInternet"]);
                     break;
 
                 case DownloadStatus.NoConnection:
-                    callbacks.UpdateInfoLabel("Could not establish connection with GitHub.");
+                    callbacks.UpdateInfoLabel(Lang.Get["LoadGitHubNoEstablishedConnection"]);
                     break;
             }
         }

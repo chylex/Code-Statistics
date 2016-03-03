@@ -35,9 +35,7 @@ namespace CodeStatistics.Forms{
 
         private void OnLoad(object sender, EventArgs e){
             ActiveControl = textBoxRepository;
-
-            listBranches.Items.Add(GitHub.DefaultBranch);
-            listBranches.SelectedIndex = 0; // calls the change event to initialize previousSelectedBranch
+            listBranches.Text = GitHub.DefaultBranch;
         }
 
         private void btnDownload_Click(object sender, EventArgs e){
@@ -72,12 +70,12 @@ namespace CodeStatistics.Forms{
                 github.RetrieveBranchList(branches => this.InvokeOnUIThread(() => {
                     github.Dispose();
 
+                    listBranches.Items.Clear();
+
                     if (branches == null){
-                        listBranches.Items.Remove(branchLoading);
+                        btnDownload.Enabled = false;
                         return;
                     }
-
-                    listBranches.Items.Clear();
 
                     foreach(string branch in branches){
                         listBranches.Items.Add(branch);
@@ -86,6 +84,8 @@ namespace CodeStatistics.Forms{
                             listBranches.SelectedIndex = listBranches.Items.Count-1;
                         }
                     }
+
+                    btnDownload.Enabled = true;
                 }));
             }
         }
