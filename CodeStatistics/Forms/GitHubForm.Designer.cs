@@ -54,9 +54,8 @@
             this.labelRepository.Location = new System.Drawing.Point(-3, 0);
             this.labelRepository.Margin = new System.Windows.Forms.Padding(0);
             this.labelRepository.Name = "labelRepository";
-            this.labelRepository.Size = new System.Drawing.Size(91, 13);
+            this.labelRepository.Size = new System.Drawing.Size(0, 13);
             this.labelRepository.TabIndex = 1;
-            this.labelRepository.Text = "Repository Name:";
             // 
             // btnCancel
             // 
@@ -65,7 +64,6 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -76,9 +74,8 @@
             this.labelBranch.Location = new System.Drawing.Point(-3, 0);
             this.labelBranch.Margin = new System.Windows.Forms.Padding(0);
             this.labelBranch.Name = "labelBranch";
-            this.labelBranch.Size = new System.Drawing.Size(44, 13);
+            this.labelBranch.Size = new System.Drawing.Size(0, 13);
             this.labelBranch.TabIndex = 4;
-            this.labelBranch.Text = "Branch:";
             // 
             // listBranches
             // 
@@ -92,6 +89,7 @@
             this.listBranches.Name = "listBranches";
             this.listBranches.Size = new System.Drawing.Size(175, 130);
             this.listBranches.TabIndex = 0;
+            this.listBranches.SelectedValueChanged += new System.EventHandler(this.listBranches_SelectedValueChanged);
             // 
             // btnDownload
             // 
@@ -100,7 +98,6 @@
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(75, 23);
             this.btnDownload.TabIndex = 0;
-            this.btnDownload.Text = "Download";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 

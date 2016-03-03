@@ -1,4 +1,5 @@
-﻿using CodeStatistics.Input.Methods;
+﻿using CodeStatistics.Data;
+using CodeStatistics.Input.Methods;
 using System;
 using System.Windows.Forms;
 
@@ -11,8 +12,16 @@ namespace CodeStatistics.Forms{
             Enabled = false,
         };
 
+        private readonly ItemBranchLoading branchLoading = new ItemBranchLoading();
+        private object previousSelectedBranch;
+
         public GitHubForm(){
             InitializeComponent();
+
+            labelRepository.Text = Lang.Get["LoadGitHubRepositoryName"];
+            labelBranch.Text = Lang.Get["LoadGitHubBranch"];
+            btnDownload.Text = Lang.Get["LoadGitHubDownload"];
+            btnCancel.Text = Lang.Get["LoadGitHubCancel"];
 
             if (Program.Config.NoGui)Opacity = 0;
 
@@ -28,7 +37,7 @@ namespace CodeStatistics.Forms{
             ActiveControl = textBoxRepository;
 
             listBranches.Items.Add(GitHub.DefaultBranch);
-            listBranches.SelectedIndex = 0;
+            listBranches.SelectedIndex = 0; // calls the change event to initialize previousSelectedBranch
         }
 
         private void btnDownload_Click(object sender, EventArgs e){
@@ -44,15 +53,29 @@ namespace CodeStatistics.Forms{
             timer.Start();
         }
 
+        private void listBranches_SelectedValueChanged(object sender, EventArgs e){
+            if (listBranches.SelectedItem == branchLoading){
+                listBranches.SelectedItem = previousSelectedBranch;
+            }
+
+            previousSelectedBranch = listBranches.SelectedItem;
+        }
+
         private void timer_Tick(object sender, EventArgs e){
             timer.Stop();
 
             if (GitHub.IsRepositoryValid(textBoxRepository.Text)){
+                listBranches.Items.Add(branchLoading);
+
                 GitHub github = new GitHub(textBoxRepository.Text);
 
                 github.RetrieveBranchList(branches => this.InvokeOnUIThread(() => {
                     github.Dispose();
-                    if (branches == null)return;
+
+                    if (branches == null){
+                        listBranches.Items.Remove(branchLoading);
+                        return;
+                    }
 
                     listBranches.Items.Clear();
 
@@ -70,6 +93,12 @@ namespace CodeStatistics.Forms{
         private void btnCancel_Click(object sender, EventArgs e){
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private class ItemBranchLoading{
+            public override string ToString(){
+                return Lang.Get["LoadGitHubBranchLoading"];
+            }
         }
     }
 }

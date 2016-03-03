@@ -37,6 +37,12 @@ namespace CodeStatistics.Data{
                 { "LoadProjectDebug", "Debug" },
                 { "LoadProjectBreakpoint", "Break" },
 
+                { "LoadGitHubRepositoryName", "Repository Name:" },
+                { "LoadGitHubBranch", "Branch:" },
+                { "LoadGitHubBranchLoading", "(Loading...)" },
+                { "LoadGitHubDownload", "Download" },
+                { "LoadGitHubCancel", "Cancel" },
+
                 { "DebugProjectReprocess", "Reprocess" },
                 { "DebugProjectLoadOriginal", "Original" },
                 { "DebugProjectDebug", "Debug" }
