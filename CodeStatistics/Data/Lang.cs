@@ -8,6 +8,7 @@ namespace CodeStatistics.Data{
         static Lang(){ // figure out languages later
             Get = new Lang{
                 { "Title", "Code Statistics" },
+                { "TitleAbout", "About" },
                 { "TitleProject", "Code Statistics - Project" },
                 { "TitleDebug", "Code Statistics - Project Debug" },
 

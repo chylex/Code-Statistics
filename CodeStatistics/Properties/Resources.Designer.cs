@@ -60,6 +60,16 @@ namespace CodeStatistics.Properties {
             }
         }
         
+        /// <summary>
+        /// </summary>
+        internal static string about {
+            get {
+                return ResourceManager.GetString("about", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// </summary>
         internal static string template {
             get {
                 return ResourceManager.GetString("template", resourceCulture);

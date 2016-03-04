@@ -88,6 +88,7 @@
             this.btnViewAbout.Size = new System.Drawing.Size(150, 37);
             this.btnViewAbout.TabIndex = 3;
             this.btnViewAbout.UseVisualStyleBackColor = false;
+            this.btnViewAbout.Click += new System.EventHandler(this.btnViewAbout_Click);
             // 
             // tableBottomPanel
             // 

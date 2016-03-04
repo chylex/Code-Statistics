@@ -63,6 +63,12 @@
     <Compile Include="Collections\CharacterRangeSet.cs" />
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Data\Lang.cs" />
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormUtils.cs" />
     <Compile Include="Forms\GitHubForm.cs">
       <SubType>Form</SubType>
@@ -181,6 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\template.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about.rtf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
