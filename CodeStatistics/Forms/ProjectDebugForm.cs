@@ -7,11 +7,14 @@ using CodeStatistics.Handling.Languages;
 using PathIO = System.IO.Path;
 using CodeStatistics.Data;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace CodeStatistics.Forms{
     partial class ProjectDebugForm : Form{
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
+
+        private readonly List<RelativeFile> entries = new List<RelativeFile>(64);
 
         public ProjectDebugForm(Project project){
             InitializeComponent();
@@ -23,13 +26,34 @@ namespace CodeStatistics.Forms{
 
             foreach(File file in project.SearchData.Files){
                 if (HandlerList.GetFileHandler(file) is AbstractLanguageFileHandler){
-                    listBoxFiles.Items.Add(new RelativeFile(project.SearchData.Root,file));
+                    entries.Add(new RelativeFile(project.SearchData.Root,file));
                 }
             }
 
+            textBoxFilterFiles_TextChanged(textBoxFilterFiles,new EventArgs());
             listBoxFiles_SelectedValueChange(listBoxFiles,new EventArgs());
 
             SendMessage(textBoxCode.Handle,0x00CB,new IntPtr(1),new []{ 16 });
+        }
+
+        private void textBoxFilterFiles_TextChanged(object sender, EventArgs e){
+            listBoxFiles.Items.Clear();
+            listBoxFiles.BeginUpdate();
+
+            if (textBoxFilterFiles.Text.Length == 0){
+                foreach(RelativeFile file in entries){
+                    listBoxFiles.Items.Add(file);
+                }
+            }
+            else{
+                foreach(RelativeFile file in entries){
+                    if (file.RelativePath.Contains(textBoxFilterFiles.Text)){
+                        listBoxFiles.Items.Add(file);
+                    }
+                }
+            }
+
+            listBoxFiles.EndUpdate();
         }
 
         private void listBoxFiles_SelectedValueChange(object sender, EventArgs e){
@@ -88,16 +112,16 @@ namespace CodeStatistics.Forms{
         }
 
         private class RelativeFile{
-            private readonly string root;
             public readonly File File;
+            public readonly string RelativePath;
 
             public RelativeFile(string root, File file){
-                this.root = root;
                 this.File = file;
+                this.RelativePath = File.FullPath.Substring(root.Length+1);
             }
 
             public override string ToString(){
-                return File.FullPath.Substring(root.Length+1);
+                return RelativePath;
             }
         }
     }
