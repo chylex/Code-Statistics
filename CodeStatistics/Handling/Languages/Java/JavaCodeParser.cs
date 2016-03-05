@@ -6,6 +6,10 @@ using CodeStatistics.Handling.Languages.Java.Utils;
 
 namespace CodeStatistics.Handling.Languages.Java{
     public class JavaCodeParser : CodeParser{
+        public delegate void OnAnnotationRead(Annotation annotation);
+
+        public event OnAnnotationRead AnnotationCallback;
+
         public JavaCodeParser(string code) : base(code){
             IsWhiteSpace = JavaCharacters.IsWhiteSpace;
             IsIdentifierStart = JavaCharacters.IsIdentifierStart;
@@ -14,7 +18,9 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         public override CodeParser Clone(string newCode = null){
-            return new JavaCodeParser(newCode ?? string.Empty);
+            return new JavaCodeParser(newCode ?? string.Empty){
+                AnnotationCallback = this.AnnotationCallback
+            };
         }
 
         /// <summary>
@@ -107,7 +113,10 @@ namespace CodeStatistics.Handling.Languages.Java{
                 SkipBlock('(',')');
             }
             
-            return new Annotation(simpleName);
+            Annotation annotation = new Annotation(simpleName);
+            if (AnnotationCallback != null)AnnotationCallback(annotation);
+
+            return annotation;
         }
 
         /// <summary>
