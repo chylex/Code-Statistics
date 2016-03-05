@@ -31,6 +31,10 @@
             this.btnOpenOutput = new System.Windows.Forms.Button();
             this.btnDebugProject = new System.Windows.Forms.Button();
             this.btnBreakPoint = new System.Windows.Forms.Button();
+            this.flowLayoutButtonsDebug = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutButtonsReady = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutButtonsDebug.SuspendLayout();
+            this.flowLayoutButtonsReady.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBarLoad
@@ -71,9 +75,11 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(244, 76);
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.Location = new System.Drawing.Point(269, 76);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnCancel.Size = new System.Drawing.Size(50, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -81,46 +87,80 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(255, 76);
+            this.btnClose.AutoSize = true;
+            this.btnClose.Location = new System.Drawing.Point(56, 0);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(64, 23);
+            this.btnClose.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnClose.Size = new System.Drawing.Size(50, 23);
             this.btnClose.TabIndex = 4;
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Visible = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnOpenOutput
             // 
             this.btnOpenOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenOutput.Location = new System.Drawing.Point(165, 76);
+            this.btnOpenOutput.AutoSize = true;
+            this.btnOpenOutput.Location = new System.Drawing.Point(0, 0);
+            this.btnOpenOutput.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.btnOpenOutput.Name = "btnOpenOutput";
-            this.btnOpenOutput.Size = new System.Drawing.Size(84, 23);
+            this.btnOpenOutput.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnOpenOutput.Size = new System.Drawing.Size(50, 23);
             this.btnOpenOutput.TabIndex = 5;
             this.btnOpenOutput.UseVisualStyleBackColor = true;
-            this.btnOpenOutput.Visible = false;
             this.btnOpenOutput.Click += new System.EventHandler(this.btnOpenOutput_Click);
             // 
             // btnDebugProject
             // 
             this.btnDebugProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDebugProject.Location = new System.Drawing.Point(70, 76);
+            this.btnDebugProject.AutoSize = true;
+            this.btnDebugProject.Location = new System.Drawing.Point(56, 0);
+            this.btnDebugProject.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnDebugProject.Name = "btnDebugProject";
-            this.btnDebugProject.Size = new System.Drawing.Size(56, 23);
+            this.btnDebugProject.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnDebugProject.Size = new System.Drawing.Size(50, 23);
             this.btnDebugProject.TabIndex = 6;
             this.btnDebugProject.UseVisualStyleBackColor = true;
-            this.btnDebugProject.Visible = false;
             this.btnDebugProject.Click += new System.EventHandler(this.btnDebugProject_Click);
             // 
             // btnBreakPoint
             // 
             this.btnBreakPoint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBreakPoint.Location = new System.Drawing.Point(12, 76);
+            this.btnBreakPoint.AutoSize = true;
+            this.btnBreakPoint.Location = new System.Drawing.Point(0, 0);
+            this.btnBreakPoint.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.btnBreakPoint.Name = "btnBreakPoint";
-            this.btnBreakPoint.Size = new System.Drawing.Size(52, 23);
+            this.btnBreakPoint.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnBreakPoint.Size = new System.Drawing.Size(50, 23);
             this.btnBreakPoint.TabIndex = 7;
             this.btnBreakPoint.UseVisualStyleBackColor = true;
-            this.btnBreakPoint.Visible = false;
             this.btnBreakPoint.Click += new System.EventHandler(this.btnBreakPoint_Click);
+            // 
+            // flowLayoutButtonsDebug
+            // 
+            this.flowLayoutButtonsDebug.AutoSize = true;
+            this.flowLayoutButtonsDebug.Controls.Add(this.btnBreakPoint);
+            this.flowLayoutButtonsDebug.Controls.Add(this.btnDebugProject);
+            this.flowLayoutButtonsDebug.Location = new System.Drawing.Point(12, 76);
+            this.flowLayoutButtonsDebug.Name = "flowLayoutButtonsDebug";
+            this.flowLayoutButtonsDebug.Size = new System.Drawing.Size(106, 23);
+            this.flowLayoutButtonsDebug.TabIndex = 8;
+            this.flowLayoutButtonsDebug.Visible = false;
+            this.flowLayoutButtonsDebug.WrapContents = false;
+            // 
+            // flowLayoutButtonsReady
+            // 
+            this.flowLayoutButtonsReady.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutButtonsReady.AutoSize = true;
+            this.flowLayoutButtonsReady.Controls.Add(this.btnClose);
+            this.flowLayoutButtonsReady.Controls.Add(this.btnOpenOutput);
+            this.flowLayoutButtonsReady.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutButtonsReady.Location = new System.Drawing.Point(213, 76);
+            this.flowLayoutButtonsReady.Name = "flowLayoutButtonsReady";
+            this.flowLayoutButtonsReady.Size = new System.Drawing.Size(106, 23);
+            this.flowLayoutButtonsReady.TabIndex = 9;
+            this.flowLayoutButtonsReady.Visible = false;
+            this.flowLayoutButtonsReady.WrapContents = false;
             // 
             // ProjectLoadForm
             // 
@@ -128,10 +168,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(331, 111);
-            this.Controls.Add(this.btnBreakPoint);
-            this.Controls.Add(this.btnDebugProject);
-            this.Controls.Add(this.btnOpenOutput);
-            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.flowLayoutButtonsReady);
+            this.Controls.Add(this.flowLayoutButtonsDebug);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.labelLoadData);
             this.Controls.Add(this.labelLoadInfo);
@@ -141,7 +179,12 @@
             this.Name = "ProjectLoadForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.OnLoad);
+            this.flowLayoutButtonsDebug.ResumeLayout(false);
+            this.flowLayoutButtonsDebug.PerformLayout();
+            this.flowLayoutButtonsReady.ResumeLayout(false);
+            this.flowLayoutButtonsReady.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -155,5 +198,7 @@
         private System.Windows.Forms.Button btnOpenOutput;
         private System.Windows.Forms.Button btnDebugProject;
         private System.Windows.Forms.Button btnBreakPoint;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutButtonsDebug;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutButtonsReady;
     }
 }

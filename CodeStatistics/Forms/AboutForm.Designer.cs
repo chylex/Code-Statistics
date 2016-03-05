@@ -54,9 +54,9 @@
             this.btnReadme.FlatAppearance.BorderSize = 0;
             this.btnReadme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReadme.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnReadme.Location = new System.Drawing.Point(310, 274);
+            this.btnReadme.Location = new System.Drawing.Point(292, 274);
             this.btnReadme.Name = "btnReadme";
-            this.btnReadme.Size = new System.Drawing.Size(32, 23);
+            this.btnReadme.Size = new System.Drawing.Size(50, 23);
             this.btnReadme.TabIndex = 1;
             this.btnReadme.UseVisualStyleBackColor = false;
             this.btnReadme.Click += new System.EventHandler(this.btnReadme_Click);

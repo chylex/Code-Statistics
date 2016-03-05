@@ -32,9 +32,11 @@
             this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.panelLeft = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
+            this.flowLayoutButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.tablePanel.SuspendLayout();
             this.panelLeft.SuspendLayout();
             this.panelRight.SuspendLayout();
+            this.flowLayoutButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxRepository
@@ -60,9 +62,12 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(299, 164);
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.Location = new System.Drawing.Point(309, 0);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnCancel.Size = new System.Drawing.Size(50, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -94,10 +99,13 @@
             // btnDownload
             // 
             this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDownload.AutoSize = true;
             this.btnDownload.Enabled = false;
-            this.btnDownload.Location = new System.Drawing.Point(218, 164);
+            this.btnDownload.Location = new System.Drawing.Point(253, 0);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(75, 23);
+            this.btnDownload.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.btnDownload.Size = new System.Drawing.Size(50, 23);
             this.btnDownload.TabIndex = 0;
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
@@ -141,15 +149,26 @@
             this.panelRight.Size = new System.Drawing.Size(175, 146);
             this.panelRight.TabIndex = 1;
             // 
+            // flowLayoutButtons
+            // 
+            this.flowLayoutButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutButtons.Controls.Add(this.btnCancel);
+            this.flowLayoutButtons.Controls.Add(this.btnDownload);
+            this.flowLayoutButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutButtons.Location = new System.Drawing.Point(12, 165);
+            this.flowLayoutButtons.Name = "flowLayoutButtons";
+            this.flowLayoutButtons.Size = new System.Drawing.Size(362, 22);
+            this.flowLayoutButtons.TabIndex = 9;
+            this.flowLayoutButtons.WrapContents = false;
+            // 
             // GitHubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(386, 199);
+            this.Controls.Add(this.flowLayoutButtons);
             this.Controls.Add(this.tablePanel);
-            this.Controls.Add(this.btnDownload);
-            this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "GitHubForm";
@@ -160,6 +179,8 @@
             this.panelLeft.PerformLayout();
             this.panelRight.ResumeLayout(false);
             this.panelRight.PerformLayout();
+            this.flowLayoutButtons.ResumeLayout(false);
+            this.flowLayoutButtons.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -175,5 +196,6 @@
         private System.Windows.Forms.TableLayoutPanel tablePanel;
         private System.Windows.Forms.Panel panelLeft;
         private System.Windows.Forms.Panel panelRight;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutButtons;
     }
 }

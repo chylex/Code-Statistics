@@ -79,12 +79,10 @@ namespace CodeStatistics.Forms{
                     labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
 
                     btnCancel.Visible = false;
-                    btnClose.Visible = true;
-                    btnOpenOutput.Visible = true;
+                    flowLayoutButtonsReady.Visible = true;
 
                     #if DEBUG
-                        btnDebugProject.Visible = true;
-                        btnBreakPoint.Visible = true;
+                        flowLayoutButtonsDebug.Visible = true;
                     #endif
 
                     outputFile = GenerateOutputFile(variables);
