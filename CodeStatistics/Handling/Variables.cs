@@ -7,7 +7,9 @@ using System.Linq;
 namespace CodeStatistics.Handling{
     abstract class Variables{
         private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo{
-            NumberGroupSeparator = " "
+            NumberGroupSeparator = " ",
+            NumberDecimalSeparator = ".",
+            NumberDecimalDigits = 1
         };
 
         public abstract bool CheckFlag(string name);
@@ -38,6 +40,11 @@ namespace CodeStatistics.Handling{
             public void SetVariable(string name, int value){
                 variablesInt[name] = value;
                 variables[name] = value.ToString("N0",NumberFormat);
+            }
+
+            public void SetVariable(string name, float value){
+                variablesInt[name] = (int)Math.Round(value);
+                variables[name] = value.ToString("#,#.#",NumberFormat);
             }
 
             public void Increment(string name, int amount = 1){
