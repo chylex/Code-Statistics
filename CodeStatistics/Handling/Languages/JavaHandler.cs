@@ -8,6 +8,7 @@ using CodeStatistics.Handling.Languages.Java.Utils;
 using Type = CodeStatistics.Handling.Languages.Java.Elements.Type;
 using CodeStatistics.Handling.Languages.Java.Elements;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace CodeStatistics.Handling.Languages{
     class JavaHandler : AbstractLanguageFileHandler{
@@ -97,7 +98,10 @@ namespace CodeStatistics.Handling.Languages{
 
             int methodsDefault = classMethods.Count;
             
-            variables.Increment(declPrefix+"ConstructorsTotal",constructorMethods.Count);
+            if (type.GetData().CanHaveConstructors){
+                variables.Increment(declPrefix+"ConstructorsTotal",Math.Max(1,constructorMethods.Count)); // if 0, count an implicit constructor
+            }
+
             variables.Increment(declPrefix+"MethodsTotal",classMethods.Count);
             variables.Minimum(declPrefix+"MethodsMin",classMethods.Count);
             variables.Maximum(declPrefix+"MethodsMax",classMethods.Count);
@@ -146,6 +150,9 @@ namespace CodeStatistics.Handling.Languages{
             variables.Average("javaClassesFieldsAvg","javaClassesFieldsTotal","javaClasses");
             variables.Average("javaClassesConstructorsAvg","javaClassesConstructorsTotal","javaClasses");
             variables.Average("javaClassesMethodsAvg","javaClassesMethodsTotal","javaClasses");
+            
+            variables.Average("javaInterfacesFieldsAvg","javaInterfacesFieldsTotal","javaInterfaces");
+            variables.Average("javaInterfacesMethodsAvg","javaInterfacesMethodsTotal","javaInterfaces");
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
@@ -155,6 +162,10 @@ namespace CodeStatistics.Handling.Languages{
 
         public override string PrepareFileContents(string contents){
             return JavaParseUtils.PrepareCodeFile(contents);
+        }
+
+        public override IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables){
+            return Enumerable.Empty<TreeNode>();
         }
     }
 }

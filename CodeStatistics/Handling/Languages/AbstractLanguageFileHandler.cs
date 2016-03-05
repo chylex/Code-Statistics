@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using CodeStatistics.Collections;
 using CodeStatistics.Handling.General;
 using CodeStatistics.Handling.Utils;
@@ -89,6 +91,7 @@ namespace CodeStatistics.Handling.Languages{
 
         protected abstract object GetFileObject(FileIntValue fi, Variables.Root variables);
         public abstract string PrepareFileContents(string contents);
+        public abstract IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables);
 
         private class State{
             public readonly TopElementList<FileIntValue> MaxLines = new TopElementList<FileIntValue>(8,FileIntValue.SortMax);

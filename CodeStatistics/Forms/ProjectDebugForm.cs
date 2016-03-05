@@ -36,7 +36,12 @@ namespace CodeStatistics.Forms{
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
             
-            SetTextBoxContents(GetLanguageHandler(item.File).PrepareFileContents(item.File.Contents));
+            AbstractLanguageFileHandler handler = GetLanguageHandler(item.File);
+
+            SetTextBoxContents(handler.PrepareFileContents(item.File.Contents));
+
+            treeViewData.Nodes.Clear();
+            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File)))treeViewData.Nodes.Add(node);
         }
 
         private void btnLoadOriginal_Click(object sender, EventArgs e){
@@ -57,12 +62,8 @@ namespace CodeStatistics.Forms{
             RelativeFile item = listBoxFiles.SelectedItem as RelativeFile;
             if (item == null)return;
 
-            AbstractLanguageFileHandler handler = GetLanguageHandler(item.File);
-            Variables.Root variables = new Variables.Root();
-
-            handler.SetupProject(variables);
-            handler.Process(item.File,variables);
-            handler.FinalizeProject(variables);
+            Variables.Root variables = GenerateVariables(item.File);
+            variables.CheckFlag(""); // keep the object alive for debugging
 
             Debugger.Break();
         }
@@ -73,6 +74,17 @@ namespace CodeStatistics.Forms{
 
         private static AbstractLanguageFileHandler GetLanguageHandler(File file){
             return (AbstractLanguageFileHandler)HandlerList.GetFileHandler(file);
+        }
+
+        private static Variables.Root GenerateVariables(File file){
+            AbstractLanguageFileHandler handler = GetLanguageHandler(file);
+            Variables.Root variables = new Variables.Root();
+
+            handler.SetupProject(variables);
+            handler.Process(file,variables);
+            handler.FinalizeProject(variables);
+
+            return variables;
         }
 
         private class RelativeFile{

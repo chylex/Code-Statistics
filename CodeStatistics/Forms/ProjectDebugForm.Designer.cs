@@ -31,11 +31,17 @@ namespace CodeStatistics.Forms {
             this.btnDebug = new System.Windows.Forms.Button();
             this.listBoxFiles = new System.Windows.Forms.ListBox();
             this.textBoxCode = new System.Windows.Forms.TextBox();
+            this.panelSplitContainerInner = new System.Windows.Forms.SplitContainer();
+            this.treeViewData = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainer)).BeginInit();
             this.panelSplitContainer.Panel1.SuspendLayout();
             this.panelSplitContainer.Panel2.SuspendLayout();
             this.panelSplitContainer.SuspendLayout();
             this.tableBottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainerInner)).BeginInit();
+            this.panelSplitContainerInner.Panel1.SuspendLayout();
+            this.panelSplitContainerInner.Panel2.SuspendLayout();
+            this.panelSplitContainerInner.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSplitContainer
@@ -51,7 +57,7 @@ namespace CodeStatistics.Forms {
             // 
             // panelSplitContainer.Panel2
             // 
-            this.panelSplitContainer.Panel2.Controls.Add(this.textBoxCode);
+            this.panelSplitContainer.Panel2.Controls.Add(this.panelSplitContainerInner);
             this.panelSplitContainer.Size = new System.Drawing.Size(744, 625);
             this.panelSplitContainer.SplitterDistance = 240;
             this.panelSplitContainer.TabIndex = 0;
@@ -132,9 +138,36 @@ namespace CodeStatistics.Forms {
             this.textBoxCode.Multiline = true;
             this.textBoxCode.Name = "textBoxCode";
             this.textBoxCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxCode.Size = new System.Drawing.Size(485, 602);
+            this.textBoxCode.Size = new System.Drawing.Size(315, 601);
             this.textBoxCode.TabIndex = 0;
             this.textBoxCode.WordWrap = false;
+            // 
+            // panelSplitContainerInner
+            // 
+            this.panelSplitContainerInner.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelSplitContainerInner.Location = new System.Drawing.Point(0, 0);
+            this.panelSplitContainerInner.Name = "panelSplitContainerInner";
+            // 
+            // panelSplitContainerInner.Panel1
+            // 
+            this.panelSplitContainerInner.Panel1.Controls.Add(this.treeViewData);
+            // 
+            // panelSplitContainerInner.Panel2
+            // 
+            this.panelSplitContainerInner.Panel2.Controls.Add(this.textBoxCode);
+            this.panelSplitContainerInner.Size = new System.Drawing.Size(500, 625);
+            this.panelSplitContainerInner.SplitterDistance = 166;
+            this.panelSplitContainerInner.TabIndex = 1;
+            // 
+            // treeViewData
+            // 
+            this.treeViewData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeViewData.Location = new System.Drawing.Point(3, 12);
+            this.treeViewData.Name = "treeViewData";
+            this.treeViewData.Size = new System.Drawing.Size(160, 601);
+            this.treeViewData.TabIndex = 0;
             // 
             // ProjectDebugForm
             // 
@@ -148,10 +181,14 @@ namespace CodeStatistics.Forms {
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.panelSplitContainer.Panel1.ResumeLayout(false);
             this.panelSplitContainer.Panel2.ResumeLayout(false);
-            this.panelSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainer)).EndInit();
             this.panelSplitContainer.ResumeLayout(false);
             this.tableBottomPanel.ResumeLayout(false);
+            this.panelSplitContainerInner.Panel1.ResumeLayout(false);
+            this.panelSplitContainerInner.Panel2.ResumeLayout(false);
+            this.panelSplitContainerInner.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelSplitContainerInner)).EndInit();
+            this.panelSplitContainerInner.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -165,5 +202,7 @@ namespace CodeStatistics.Forms {
         private System.Windows.Forms.Button btnLoadOriginal;
         private System.Windows.Forms.TableLayoutPanel tableBottomPanel;
         private System.Windows.Forms.Button btnReprocess;
+        private System.Windows.Forms.SplitContainer panelSplitContainerInner;
+        private System.Windows.Forms.TreeView treeViewData;
     }
 }
