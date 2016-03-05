@@ -40,22 +40,25 @@
             this.textContents.ReadOnly = true;
             this.textContents.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textContents.ShortcutsEnabled = false;
-            this.textContents.Size = new System.Drawing.Size(269, 285);
+            this.textContents.Size = new System.Drawing.Size(330, 285);
             this.textContents.TabIndex = 0;
             this.textContents.TabStop = false;
+            this.textContents.Text = "";
             // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(293, 309);
+            this.ClientSize = new System.Drawing.Size(354, 309);
             this.Controls.Add(this.textContents);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.OnHelpButtonClicked);
             this.ResumeLayout(false);
 
         }
