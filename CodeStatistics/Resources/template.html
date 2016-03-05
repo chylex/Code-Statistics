@@ -242,17 +242,6 @@
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded",function(){
     // Utility Functions
-    function extend(def, obj){
-      var data = def;
-      var keys = Object.keys(obj || {});
-
-      for(var a = 0; a < keys.length; a++){
-        data[keys[a]] = obj[keys[a]];
-      }
-
-      return data;
-    }
-
     function forEach(collection, func){
       for(var index = 0; index < collection.length; index++){
         func(index,collection[index]);
@@ -284,48 +273,44 @@
     var navCategories = document.getElementById("navigation").children;
 
     var tabEvent = function(e){
-      e.preventDefault();
       setActivePage(this);
     };
-
+      
     forEach(document.getElementById("navigation").children,function(indCategory, eleCategory){
       forEach(eleCategory.getElementsByTagName("a"),function(indTab, eleTab){
         eleTab.addEventListener("click",tabEvent);
+
+        if (window.location.hash == eleTab.getAttribute("href")){
+          setActivePage(eleTab);
+        }
       });
     });
 
     // Pie Chart (modified version of Lightning Tracker chart renderer)
-    function createPieChart(ele, info){
+    function createPieChart(ele, data){
       // Setup
       var ctx = ele.getContext("2d");
-
       var width = ctx.canvas.clientWidth, height = ctx.canvas.clientHeight, centerX = (width/2)|0, centerY = (height/2)|0;
-      var top = ele.getBoundingClientRect().top-window.pageYOffset+document.documentElement.clientTop;
-      var left = ele.getBoundingClientRect().left-window.pageXOffset+document.documentElement.clientLeft;
-
-      var pie = extend({
-        data: [],
+      
+      var pie = {
+        data: data,
+        
         radius: 95,
         donutPercentage: 50,
         startAngle: 270,
-
-        showLabels: true,
+        
         labelColor: "#fff",
         labelFont: "11px sans-serif",
         labelDistance: 0.5,
         labelBackColor: "#000",
         labelBackOpacity: 0.3,
-
-        showShadow: true,
+        
         shadowColor: "rgba(0,0,0,0.75)",
         shadowBlur: 5,
-
-        showValueSum: true,
+        
         valueSumColor: "#000",
         valueSumFont: "36px sans-serif"
-      },info);
-
-      if (pie.radius == 0)pie.radius = (Math.min(width,height)/2-pie.strokeWidth)|0;
+      };
 
       // Calculations
       var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; },0);
@@ -336,19 +321,17 @@
       // Shadow
       ctx.restore();
 
-      if (pie.showShadow){
-        ctx.shadowColor = pie.shadowColor;
-        ctx.shadowBlur = pie.shadowBlur;
-        ctx.shadowOffsetY = 1;
+      ctx.shadowColor = pie.shadowColor;
+      ctx.shadowBlur = pie.shadowBlur;
+      ctx.shadowOffsetY = 1;
 
-        ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX,centerY,pie.radius-1,0,2*Math.PI,false);
-        ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(centerX,centerY);
+      ctx.arc(centerX,centerY,pie.radius-1,0,2*Math.PI,false);
+      ctx.fill();
 
-        ctx.shadowColor = "transparent";
-        ctx.shadowBlur = 0;
-      }
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0
 
       // Wedge rendering
       for(var part = 0, angle = startAngle; part < pie.data.length; part++){
@@ -371,85 +354,81 @@
       }
 
       // Labels
-      if (pie.showLabels){
-        ctx.restore();
-        ctx.globalCompositeOperation = "source-over";
+      ctx.restore();
+      ctx.globalCompositeOperation = "source-over";
 
-        ctx.font = pie.labelFont;
-        ctx.fillStyle = pie.labelColor;
-        ctx.textAlign = "center";
+      ctx.font = pie.labelFont;
+      ctx.fillStyle = pie.labelColor;
+      ctx.textAlign = "center";
 
-        var labelList = [];
+      var labelList = [];
 
-        for(var part = 0, angle = startAngle, labelDist = donutRadius+(pie.radius-donutRadius)*pie.labelDistance; part < pie.data.length; part++){
-          angle += pie.data[part].value*radPerValue/2;
+      for(var part = 0, angle = startAngle, labelDist = donutRadius+(pie.radius-donutRadius)*pie.labelDistance; part < pie.data.length; part++){
+        angle += pie.data[part].value*radPerValue/2;
 
-          var textMeasure1 = ctx.measureText(pie.data[part].label), textMeasure2 = ctx.measureText((100*pie.data[part].value/valueSum).toFixed(1)+"%");
+        var textMeasure1 = ctx.measureText(pie.data[part].label), textMeasure2 = ctx.measureText((100*pie.data[part].value/valueSum).toFixed(1)+"%");
 
-          labelList.push({
-            val: pie.data[part].value,
-            text: pie.data[part].label,
-            x: (centerX+Math.cos(angle)*labelDist)|0,
-            y: (centerY+2+Math.sin(angle)*labelDist)|0,
-            hw: 2+(Math.max(textMeasure1.width,textMeasure2.width)/2),
-            hh: 13
-          });
-
-          angle += pie.data[part].value*radPerValue/2;
-        }
-
-        labelList.sort(function(obj1, obj2){
-          return obj2.val-obj1.val;
+        labelList.push({
+          val: pie.data[part].value,
+          text: pie.data[part].label,
+          x: (centerX+Math.cos(angle)*labelDist)|0,
+          y: (centerY+2+Math.sin(angle)*labelDist)|0,
+          hw: 2+(Math.max(textMeasure1.width,textMeasure2.width)/2),
+          hh: 13
         });
 
-        for(var label = 0; label < labelList.length; label++){
-          var labelData = labelList[label];
+        angle += pie.data[part].value*radPerValue/2;
+      }
 
-          var intersects = false;
-          var x1 = labelData.x-labelData.hw, y1 = labelData.y-labelData.hh;
-          var x2 = labelData.x+labelData.hw, y2 = labelData.y+labelData.hh;
+      labelList.sort(function(obj1, obj2){
+        return obj2.val-obj1.val;
+      });
 
-          for(var prevLabel = 0; prevLabel < label; prevLabel++){
-            var prevLabelData = labelList[prevLabel];
+      for(var label = 0; label < labelList.length; label++){
+        var labelData = labelList[label];
 
-            var px1 = prevLabelData.x-prevLabelData.hw, py1 = prevLabelData.y-prevLabelData.hh;
-            var px2 = prevLabelData.x+prevLabelData.hw, py2 = prevLabelData.y+prevLabelData.hh;
+        var intersects = false;
+        var x1 = labelData.x-labelData.hw, y1 = labelData.y-labelData.hh;
+        var x2 = labelData.x+labelData.hw, y2 = labelData.y+labelData.hh;
 
-            if (!(x2 < px1 || y2 < py1 || x1 > px2 || y1 > py2)){
-              intersects = true;
-              break;
-            }
+        for(var prevLabel = 0; prevLabel < label; prevLabel++){
+          var prevLabelData = labelList[prevLabel];
+
+          var px1 = prevLabelData.x-prevLabelData.hw, py1 = prevLabelData.y-prevLabelData.hh;
+          var px2 = prevLabelData.x+prevLabelData.hw, py2 = prevLabelData.y+prevLabelData.hh;
+
+          if (!(x2 < px1 || y2 < py1 || x1 > px2 || y1 > py2)){
+            intersects = true;
+            break;
           }
-
-          if (intersects)continue;
-
-          if (pie.labelBackOpacity > 0){
-            ctx.fillStyle = pie.labelBackColor;
-            ctx.globalAlpha = pie.labelBackOpacity;
-            ctx.fillRect(Math.floor(labelData.x-labelData.hw),labelData.y-14,1+Math.ceil(labelData.hw*2),26);
-            ctx.globalAlpha = 1;
-            ctx.fillStyle = pie.labelColor;
-          }
-
-          ctx.textBaseline = "bottom";
-          ctx.fillText(labelData.text,labelData.x,labelData.y);
-          ctx.textBaseline = "top";
-          ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%",labelData.x,labelData.y);
         }
+
+        if (intersects)continue;
+
+        if (pie.labelBackOpacity > 0){
+          ctx.fillStyle = pie.labelBackColor;
+          ctx.globalAlpha = pie.labelBackOpacity;
+          ctx.fillRect(Math.floor(labelData.x-labelData.hw),labelData.y-14,1+Math.ceil(labelData.hw*2),26);
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = pie.labelColor;
+        }
+
+        ctx.textBaseline = "bottom";
+        ctx.fillText(labelData.text,labelData.x,labelData.y);
+        ctx.textBaseline = "top";
+        ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%",labelData.x,labelData.y);
       }
 
       // Value sum
-      if (pie.showValueSum){
-        ctx.restore();
-        ctx.globalCompositeOperation = "source-over";
+      ctx.restore();
+      ctx.globalCompositeOperation = "source-over";
 
-        ctx.font = pie.valueSumFont;
-        ctx.fillStyle = pie.valueSumColor;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+      ctx.font = pie.valueSumFont;
+      ctx.fillStyle = pie.valueSumColor;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
 
-        ctx.fillText(valueSum,centerX-1,2+centerY);
-      }
+      ctx.fillText(valueSum,centerX-1,2+centerY);
     }
 
     // Pie Chart Generation
@@ -477,7 +456,7 @@
           else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
         });
 
-        createPieChart(canvas,{ data: data });
+        createPieChart(canvas,data);
 
         canvas.setAttribute("data-pie-gen","1");
       }
@@ -490,10 +469,14 @@
 <li><a href="#">General</a>
   <ul>
     <li><a href="#overview" id="nav-default">Overview</a></li>
-    <li><a href="#assets">Assets</a></li>
+    {if:assets:navigationListGeneralAssets}
   </ul>
 </li>
 {if:java:navigationListJava}
+
+<!-- TEMPLATE navigationListGeneralAssets -->
+
+<li><a href="#assets">Assets</a></li>
 
 <!-- TEMPLATE navigationListJava -->
 
@@ -513,7 +496,7 @@
 <!-- TEMPLATE contentList -->
 
 {contentOverview}
-{contentAssets}
+{if:assets:contentAssets}
 
 {if:java:contentJava}
 
@@ -598,7 +581,7 @@
 <!-- TEMPLATE contentJavaFiles -->
 
 <div id="page-java-files">
-  <h2>Java Files ({var:javaCodeFiles:0})</h2>
+  <h2>Java - Files ({var:javaCodeFiles:0})</h2>
   <div class="grid">
     <div>
       <div class="card">
@@ -666,7 +649,7 @@
 
 <!-- TEMPLATE contentJavaNames -->
 <div id="page-java-names">
-  <h2>Names</h2>
+  <h2>Java - Names</h2>
   <div class="grid">
     <div class="grid-half">
       <div class="card">
@@ -690,7 +673,7 @@
     </div>
   </div>
 
-  <h2>Characters</h2>
+  <h2>Java - Characters</h2>
   <div class="grid">
     <div>
       <div class="card">
@@ -734,25 +717,27 @@
 <tr><td>{var:package}{var:name}</td></tr>
 
 <!-- TEMPLATE contentJavaControlFlow -->
+
 <div id="page-java-control-flow">
+  <h2>Java - Control Flow</h2>
   <div class="grid">
     <div>
       <div class="card">
         <h3>Conditions / Cycles</h3>
         <table class="summary">
-          <tr><td>0</td><td>If Statements</td></tr>
-          <tr class="separator"><td></td><td></td></tr>
-          <tr><td>0</td><td>For Cycles</td></tr>
-          <tr><td>0</td><td>Enhanced For Cycles</td></tr>
-          <tr><td>0</td><td>While Cycles</td></tr>
-          <tr><td>0</td><td>Do While Cycles</td></tr>
+          <tr><td>{var:javaControlFlowIf:0}</td><td>If Statements</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaControlFlowFor:0}</td><td>For Cycles</td></tr>
+          <tr><td>{var:javaControlFlowEnhFor:0}</td><td>Enhanced For Cycles</td></tr>
+          <tr><td>{var:javaControlFlowWhile:0}</td><td>While Cycles</td></tr>
+          <tr><td>{var:javaControlFlowDoWhile:0}</td><td>Do While Cycles</td></tr>
         </table>
       </div>
       <div class="card">
         <h3>Labels</h3>
         <table class="summary">
-          <tr><td>0</td><td>Labels</td></tr>
-          <tr><td>0</td><td>Goto Statements</td></tr>
+          <tr><td>{var:javaControlFlowLabel:0}</td><td>Labels</td></tr>
+          <tr><td>{var:javaControlFlowGoto:0}</td><td>Goto Statements</td></tr>
         </table>
       </div>
     </div>
@@ -760,15 +745,15 @@
       <div class="card">
         <h3>Switch</h3>
         <table class="summary">
-          <tr><td>0</td><td>Switch Statements</td></tr>
-          <tr class="separator"><td></td><td></td></tr>
-          <tr><td>0</td><td>Case Statements</td></tr>
-          <tr><td>0</td><td>Min Per Switch</td></tr>
-          <tr><td>0</td><td>Max Per Switch</td></tr>
-          <tr><td>0</td><td>Average Per Switch</td></tr>
-          <tr class="separator"><td></td><td></td></tr>
-          <tr><td>0</td><td>Default Cases</td></tr>
-          <tr><td>0%</td><td>Default Cases Per Switch</td></tr>
+          <tr><td>{var:javaControlFlowSwitch:0}</td><td>Switch Statements</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaControlFlowCaseTotal:0}</td><td>Case Statements</td></tr>
+          <tr><td>{var:javaControlFlowCaseMin:0}</td><td>Min Per Switch</td></tr>
+          <tr><td>{var:javaControlFlowCaseMax:0}</td><td>Max Per Switch</td></tr>
+          <tr><td>{var:javaControlFlowCaseAvg:0}</td><td>Average Per Switch</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaControlFlowCaseDefaultTotal:0}</td><td>Default Cases</td></tr>
+          <tr><td>{var:javaControlFlowCaseDefaultPerc:0}%</td><td>Default Cases Per Switch</td></tr>
         </table>
       </div>
     </div>
@@ -776,16 +761,21 @@
       <div class="card">
         <h3>Try Catch</h3>
         <table class="summary">
-          <tr><td>0</td><td>Try-Catch Statements</td></tr>
-          <tr><td>0%</td><td>Finally Blocks</td></tr>
-          <tr class="separator"><td></td><td></td></tr>
-          <tr><td>0</td><td>Try-With-Resources</td></tr>
-          <tr><td>0%</td><td>Finally Blocks</td></tr>
-          <tr class="separator"><td></td><td></td></tr>
-          <tr><td>0</td><td>Catch Blocks</td></tr>
-          <tr><td>0</td><td>Min Per Statement</td></tr>
-          <tr><td>0</td><td>Max Per Statement</td></tr>
-          <tr><td>0</td><td>Average Per Statement</td></tr>
+          <tr><td>{var:javaControlFlowTryCatch:0}</td><td>Try-Catch Statements</td></tr>
+          <tr><td>{var:javaControlFlowTryCatchFinally:0} ({var:javaControlFlowTryCatchFinallyPerc:0}%)</td><td>Finally Blocks</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaControlFlowTryWithResources:0}</td><td>Try-With-Resources</td></tr>
+          <tr><td>{var:javaControlFlowTryWithResourcesFinally:0} ({var:javaControlFlowTryWithResourcesFinallyPerc:0}%)</td><td>Finally Blocks</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaControlFlowCatchTotal:0}</td><td>Catch Blocks</td></tr>
+          <tr><td>{var:javaControlFlowCatchMin:0}</td><td>Min Per Statement</td></tr>
+          <tr><td>{var:javaControlFlowCatchMax:0}</td><td>Max Per Statement</td></tr>
+          <tr><td>{var:javaControlFlowCatchAvg:0}</td><td>Average Per Statement</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
         </table>
       </div>
     </div>
