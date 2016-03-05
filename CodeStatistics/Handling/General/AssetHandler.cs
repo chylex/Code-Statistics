@@ -33,6 +33,7 @@ namespace CodeStatistics.Handling.General{
 
         public override void SetupProject(Variables.Root variables){
             base.SetupProject(variables);
+            variables.AddFlag("assets");
             variables.AddStateObject(this,new State());
         }
 

@@ -13,13 +13,13 @@ namespace CodeStatistics.Handling.Languages{
 
         public override void SetupProject(Variables.Root variables){
             base.SetupProject(variables);
+            variables.AddFlag(Key);
             variables.AddStateObject(stateOwner,new State());
         }
 
         public override void Process(File file, Variables.Root variables){
             base.Process(file,variables);
 
-            variables.AddFlag(Key);
             variables.Increment("fileTypeCode");
             variables.Increment(Key+"CodeFiles");
 
