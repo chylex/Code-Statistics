@@ -490,7 +490,7 @@
     <li><a href="#java-interfaces">Interfaces</a></li>
     <li><a href="#java-enums">Enums</a></li>
     <li><a href="#java-annotations">Annotations</a></li>
-    <li><a href="#java-primitives">Primitives</a></li>
+    <li><a href="#java-fields-methods">Fields &amp; Methods</a></li>
   </ul>
 </li>
 
@@ -558,6 +558,9 @@
 {contentJavaControlFlow}
 {contentJavaClasses}
 {contentJavaInterfaces}
+{contentJavaEnums}
+{contentJavaAnnotations}
+{contentJavaFieldsMethods}
 
 <!-- TEMPLATE contentJavaOverview -->
 
@@ -913,3 +916,178 @@
     </div>
   </div>
 </div>
+
+<!-- TEMPLATE contentJavaEnums -->
+
+<div id="page-java-enums">
+  <h2>Java - Enums</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>General</h3>
+        <table class="summary">
+          <tr><td>{var:javaEnums:0}</td><td>Total Enums</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaEnumsNested:0}</td><td>Nested</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaEnumsValuesTotal:0}</td><td>Total Values</td></tr>
+          <tr><td>{var:javaEnumsValuesMin:0}</td><td>Min Per Enum</td></tr>
+          <tr><td>{var:javaEnumsValuesMax:0}</td><td>Max Per Enum</td></tr>
+          <tr><td>{var:javaEnumsValuesAvg:0}</td><td>Avg Per Enum</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Fields</h3>
+        <table class="summary">
+          <tr><td>{var:javaEnumsFieldsTotal:0}</td><td>Total Fields</td></tr>
+          <tr><td>{var:javaEnumsFieldsMin:0}</td><td>Min Per Interface</td></tr>
+          <tr><td>{var:javaEnumsFieldsMax:0}</td><td>Max Per Interface</td></tr>
+          <tr><td>{var:javaEnumsFieldsAvg:0}</td><td>Average Per Interface</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaEnumsFieldsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaEnumsFieldsVolatile:0}</td><td>Volatile</td></tr>
+          <tr><td>{var:javaEnumsFieldsTransient:0}</td><td>Transient</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Fields - Visibility</h3>
+        <table id="data-pie-java-enum-field-visibility" class="summary">
+          <tr><td>{var:javaEnumsFieldsPublic:0}</td><td>Public</td></tr>
+          <tr><td>{var:javaEnumsFieldsDefaultVisibility:0}</td><td>Default</td></tr>
+          <tr><td>{var:javaEnumsFieldsProtected:0}</td><td>Protected</td></tr>
+          <tr><td>{var:javaEnumsFieldsPrivate:0}</td><td>Private</td></tr>
+        </table>
+        <canvas id="pie-java-enum-field-visibility" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Methods</h3>
+        <table class="summary">
+          <tr><td>{var:javaEnumsMethodsTotal:0}</td><td>Total Methods</td></tr>
+          <tr><td>{var:javaEnumsMethodsMin:0}</td><td>Min Per Class</td></tr>
+          <tr><td>{var:javaEnumsMethodsMax:0}</td><td>Max Per Class</td></tr>
+          <tr><td>{var:javaEnumsMethodsAvg:0}</td><td>Average Per Class</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaEnumsMethodsDefault:0}</td><td>With Default Implementation</td></tr>
+          <tr><td>{var:javaEnumsMethodsStatic:0}</td><td>Static</td></tr>
+          <tr><td>{var:javaEnumsMethodsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaEnumsMethodsNative:0}</td><td>Native</td></tr>
+          <tr><td>{var:javaEnumsMethodsStrictfp:0}</td><td>Strictfp</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Methods - Visibility</h3>
+        <table id="data-pie-java-enum-method-visibility" class="summary">
+          <tr><td>{var:javaEnumsMethodsPublic:0}</td><td>Public</td></tr>
+          <tr><td>{var:javaEnumsMethodsDefaultVisibility:0}</td><td>Default</td></tr>
+          <tr><td>{var:javaEnumsMethodsProtected:0}</td><td>Protected</td></tr>
+          <tr><td>{var:javaEnumsMethodsPrivate:0}</td><td>Private</td></tr>
+        </table>
+        <canvas id="pie-java-enum-method-visibility" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentJavaAnnotations -->
+
+<div id="page-java-annotations">
+  <h2>Java - Annotations</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>General</h3>
+        <table class="summary">
+          <tr><td>{var:javaAnnotations:0}</td><td>Total Annotations</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaAnnotationsNested:0}</td><td>Nested</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaAnnotationsElementsTotal:0}</td><td>Total Elements</td></tr>
+          <tr><td>{var:javaAnnotationsElementsMin:0}</td><td>Min Per Enum</td></tr>
+          <tr><td>{var:javaAnnotationsElementsMax:0}</td><td>Max Per Enum</td></tr>
+          <tr><td>{var:javaAnnotationsElementsAvg:0}</td><td>Avg Per Enum</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="grid-large">
+      <div class="card">
+        <h3>Annotation Use</h3>
+        <table class="summary">
+          <tr><td>{var:javaAnnotationsUsedTotal:0}</td><td>Total Annotations Used</td></tr>
+          <tr class="separator"></tr>
+        </table>
+        <table id="data-pie-java-annotations-used-on" class="summary">
+          <tr><td>{var:javaAnnotationsUsedClasses:0}</td><td>On Classes</td></tr>
+          <tr><td>{var:javaAnnotationsUsedFields:0}</td><td>On Fields</td></tr>
+          <tr><td>{var:javaAnnotationsUsedMethods:0}</td><td>On Methods</td></tr>
+          <tr><td>{var:javaAnnotationsUsedOther:0}</td><td>On Other Elements</td></tr>
+        </table>
+        <canvas id="pie-java-annotations-used-on" height="200"></canvas>
+      </div>
+      <div class="card">
+        <h3>Most Used Annotations</h3>
+        <table class="list">
+          {for:javaAnnotationsUsedTop:contentJavaAnnotationsUsedRow}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentJavaAnnotationsUsedRow -->
+
+<tr><td>{var:name}</td><td>{var:amount}</td></tr>
+
+<!-- TEMPLATE contentJavaFieldsMethods -->
+
+<div id="page-java-fields-methods">
+  <h2>Java - Fields &ampt; Methods</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Field Types</h3>
+        <table class="summary">
+          <tr><td>{var:javaFieldsTotal:0}</td><td>Total Fields</td></tr>
+          <tr class="separator"></tr>
+        </table>
+        <table id="data-pie-java-field-types" class="summary">
+          {for:javaFieldTypes:contentJavaFieldsMethodsRow}
+        </table>
+        <canvas id="pie-java-field-types" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Method Return Types</h3>
+        <table class="summary">
+          <tr><td>{var:javaMethodsTotal:0}</td><td>Total Methods</td></tr>
+          <tr class="separator"></tr>
+        </table>
+        <table id="data-pie-java-method-return-types" class="summary">
+          {for:javaMethodTypes:contentJavaFieldsMethodsRow}
+        </table>
+        <canvas id="pie-java-method-return-types" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Method Parameter Types</h3>
+        <table class="summary">
+          <tr><td>{var:javaMethodParametersTotal:0}</td><td>Total Method Parameters</td></tr>
+          <tr class="separator"></tr>
+        </table>
+        <table id="data-pie-java-method-parameter-types" class="summary">
+          {for:javaMethodParemeterTypes:contentJavaFieldsMethodsRow}
+        </table>
+        <canvas id="pie-java-method-parameter-types" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentJavaFieldsMethodsRow -->
+
+<tr><td>{var:amount}</td><td>{var:type}</td></tr>
