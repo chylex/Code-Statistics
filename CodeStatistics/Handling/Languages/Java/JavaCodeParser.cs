@@ -61,10 +61,11 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
-        /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character. <para/>
+        /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character,
+        /// optionally ending with a star if <paramref name="allowStarAtEnd"/> is true. <para/>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e7695
         /// </summary>
-        public string ReadFullTypeName(){
+        public string ReadFullTypeName(bool allowStarAtEnd = false){
             StringBuilder build = new StringBuilder();
 
             string identifier = ReadIdentifier();
@@ -76,8 +77,14 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (Char == '.'){
                     build.Append('.');
 
-                    identifier = Skip().ReadIdentifier();
-                    if (identifier.Length == 0)return string.Empty;
+                    if (Skip().Char == '*' && allowStarAtEnd){
+                        if (Skip().IsEOF)identifier = "*";
+                        else return string.Empty;
+                    }
+                    else{
+                        identifier = ReadIdentifier();
+                        if (identifier.Length == 0)return string.Empty;
+                    }
                 }
                 else break;
             }
@@ -126,7 +133,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             bool isStatic = SkipIfMatch("static^s");
 
-            string type = ((JavaCodeParser)ReadToSkip(';')).ReadFullTypeName();
+            string type = ((JavaCodeParser)ReadToSkip(';')).ReadFullTypeName(true);
             if (type.Length == 0)return null;
 
             return new Import(type,isStatic);
