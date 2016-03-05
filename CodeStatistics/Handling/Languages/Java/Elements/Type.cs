@@ -6,6 +6,16 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             Class, Interface, Enum, Annotation
         }
 
+        private static string DeclarationTypeToString(DeclarationType type){
+            switch(type){
+                case DeclarationType.Class: return "class";
+                case DeclarationType.Interface: return "interface";
+                case DeclarationType.Enum: return "enum";
+                case DeclarationType.Annotation: return "@interface";
+                default: return "unknown";
+            }
+        }
+
         public readonly DeclarationType Declaration;
         public readonly string Identifier;
         public readonly List<Type> NestedTypes = new List<Type>(1);
@@ -30,6 +40,10 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
 
         public T GetData<T>() where T : TypeData{
             return data as T;
+        }
+
+        public override string ToString(){
+            return base.ToString()+DeclarationTypeToString(Declaration)+' '+Identifier;
         }
 
         public class TypeData{

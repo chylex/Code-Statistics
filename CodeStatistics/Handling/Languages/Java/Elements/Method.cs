@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public class Method : Member{
@@ -21,6 +22,10 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             this.Identifier = identifier;
             this.ReturnType = returnType;
             this.ParameterTypes = TypeOf.EmptyList();
+        }
+
+        public override string ToString(){
+            return base.ToString()+ReturnType+' '+Identifier+'('+string.Join(", ",ParameterTypes)+')';
         }
     }
 }

@@ -27,5 +27,9 @@
         public override int GetHashCode(){
             return FullType.GetHashCode() * (IsStatic ? 1 : -1);
         }
+
+        public override string ToString(){
+            return "import "+(IsStatic ? "static " : "")+FullType;
+        }
     }
 }

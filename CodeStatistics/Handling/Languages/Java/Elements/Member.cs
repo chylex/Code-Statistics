@@ -21,5 +21,15 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             this.Annotations = source.Annotations;
             this.Modifiers = source.Modifiers;
         }
+
+        public override string ToString(){
+            string memberStr = Annotations.Aggregate("",(str, annotation) => str+annotation.ToString()+' ');
+
+            foreach(Modifiers modifier in JavaModifiers.Values){
+                if (Modifiers.HasFlag(modifier))memberStr += JavaModifiers.ToString(modifier)+' ';
+            }
+
+            return memberStr;
+        }
     }
 }

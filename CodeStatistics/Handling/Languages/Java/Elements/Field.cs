@@ -7,5 +7,9 @@
             this.Identifier = identifier;
             this.Type = type;
         }
+
+        public override string ToString(){
+            return base.ToString()+Type+' '+Identifier;
+        }
     }
 }

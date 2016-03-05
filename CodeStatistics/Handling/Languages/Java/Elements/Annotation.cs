@@ -21,5 +21,9 @@
         public override int GetHashCode(){
             return SimpleName.GetHashCode();
         }
+
+        public override string ToString(){
+            return '@'+SimpleName;
+        }
     }
 }
