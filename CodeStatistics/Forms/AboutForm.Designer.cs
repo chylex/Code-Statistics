@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.textContents = new System.Windows.Forms.RichTextBox();
+            this.btnReadme = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textContents
@@ -40,10 +41,25 @@
             this.textContents.ReadOnly = true;
             this.textContents.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.textContents.ShortcutsEnabled = false;
-            this.textContents.Size = new System.Drawing.Size(330, 285);
+            this.textContents.Size = new System.Drawing.Size(330, 256);
             this.textContents.TabIndex = 0;
             this.textContents.TabStop = false;
             this.textContents.Text = "";
+            // 
+            // btnReadme
+            // 
+            this.btnReadme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReadme.AutoSize = true;
+            this.btnReadme.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnReadme.FlatAppearance.BorderSize = 0;
+            this.btnReadme.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReadme.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnReadme.Location = new System.Drawing.Point(310, 274);
+            this.btnReadme.Name = "btnReadme";
+            this.btnReadme.Size = new System.Drawing.Size(32, 23);
+            this.btnReadme.TabIndex = 1;
+            this.btnReadme.UseVisualStyleBackColor = false;
+            this.btnReadme.Click += new System.EventHandler(this.btnReadme_Click);
             // 
             // AboutForm
             // 
@@ -51,6 +67,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(354, 309);
+            this.Controls.Add(this.btnReadme);
             this.Controls.Add(this.textContents);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
@@ -60,11 +77,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.OnHelpButtonClicked);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.RichTextBox textContents;
+        private System.Windows.Forms.Button btnReadme;
     }
 }

@@ -52,7 +52,9 @@ namespace CodeStatistics.Data{
 
                 { "DebugProjectReprocess", "Reprocess" },
                 { "DebugProjectLoadOriginal", "Original" },
-                { "DebugProjectDebug", "Debug" }
+                { "DebugProjectDebug", "Debug" },
+
+                { "AboutReadme", "View ReadMe" }
             };
         }
 
