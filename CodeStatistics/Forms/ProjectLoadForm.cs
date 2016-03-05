@@ -106,10 +106,15 @@ namespace CodeStatistics.Forms{
                             NotifyFilter = NotifyFilters.LastWrite
                         };
 
-                        watcher.Changed += (sender, args) => GenerateOutputFile(variables);
+                        watcher.Changed += (sender, args) => {
+                            labelLoadData.Text = Lang.Get["LoadProjectDummyTemplateRebuild"];
+                            GenerateOutputFile(variables);
+                            labelLoadData.Text = Lang.Get["LoadProjectDummyTemplateWait"];
+                        };
+
                         watcher.EnableRaisingEvents = true;
 
-                        labelLoadData.Text = Lang.Get["LoadProjectDummyDebugTemplate"];
+                        labelLoadData.Text = Lang.Get["LoadProjectDummyTemplateWait"];
                     }
                 });
 
