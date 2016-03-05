@@ -32,6 +32,7 @@
     font-family: sans-serif;
     margin: 0;
     padding: 0;
+    overflow-y: scroll;
   }
 
   #wrap {
@@ -556,6 +557,7 @@
 {contentJavaNames}
 {contentJavaControlFlow}
 {contentJavaClasses}
+{contentJavaInterfaces}
 
 <!-- TEMPLATE contentJavaOverview -->
 
@@ -857,6 +859,56 @@
           <tr><td>{var:javaClassesMethodsPrivate:0}</td><td>Private</td></tr>
         </table>
         <canvas id="pie-java-class-method-visibility" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentJavaInterfaces -->
+
+<div id="page-java-interfaces">
+  <h2>Java - Interfaces</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>General</h3>
+        <table class="summary">
+          <tr><td>{var:javaInterfaces:0}</td><td>Total Interfaces</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaInterfacesNested:0}</td><td>Nested</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Fields (Constants)</h3>
+        <table class="summary">
+          <tr><td>{var:javaInterfacesFieldsTotal:0}</td><td>Total Fields</td></tr>
+          <tr><td>{var:javaInterfacesFieldsMin:0}</td><td>Min Per Interface</td></tr>
+          <tr><td>{var:javaInterfacesFieldsMax:0}</td><td>Max Per Interface</td></tr>
+          <tr><td>{var:javaInterfacesFieldsAvg:0}</td><td>Average Per Interface</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaInterfacesFieldsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaInterfacesFieldsVolatile:0}</td><td>Volatile</td></tr>
+          <tr><td>{var:javaInterfacesFieldsTransient:0}</td><td>Transient</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Methods</h3>
+        <table class="summary">
+          <tr><td>{var:javaInterfacesMethodsTotal:0}</td><td>Total Methods</td></tr>
+          <tr><td>{var:javaInterfacesMethodsMin:0}</td><td>Min Per Class</td></tr>
+          <tr><td>{var:javaInterfacesMethodsMax:0}</td><td>Max Per Class</td></tr>
+          <tr><td>{var:javaInterfacesMethodsAvg:0}</td><td>Average Per Class</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaInterfacesMethodsDefault:0}</td><td>With Default Implementation</td></tr>
+          <tr><td>{var:javaInterfacesMethodsStatic:0}</td><td>Static</td></tr>
+          <tr><td>{var:javaInterfacesMethodsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaInterfacesMethodsNative:0}</td><td>Native</td></tr>
+          <tr><td>{var:javaInterfacesMethodsStrictfp:0}</td><td>Strictfp</td></tr>
+        </table>
       </div>
     </div>
   </div>
