@@ -327,7 +327,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                     string identifier = SkipSpaces().ReadIdentifier();
                     
                     if (string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
-                        identifier = "<init>";
+                        identifier = Method.ConstructorIdentifier;
                         returnOrFieldType = TypeOf.Void();
                     }
 

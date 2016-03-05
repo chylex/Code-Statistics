@@ -7,6 +7,7 @@ using CodeStatistics.Handling.Languages.Java;
 using CodeStatistics.Handling.Languages.Java.Utils;
 using Type = CodeStatistics.Handling.Languages.Java.Elements.Type;
 using CodeStatistics.Handling.Languages.Java.Elements;
+using System.Collections.Generic;
 
 namespace CodeStatistics.Handling.Languages{
     class JavaHandler : AbstractLanguageFileHandler{
@@ -42,15 +43,19 @@ namespace CodeStatistics.Handling.Languages{
                 ProcessType(prefix+"."+type.Identifier,nestedType,variables);
             }
 
+            // declaration type
             variables.Increment("javaTypesTotal");
 
+            string declPrefix = "javaUnknown";
+
             switch(type.Declaration){
-                case Type.DeclarationType.Class: variables.Increment("javaClasses"); break;
-                case Type.DeclarationType.Interface: variables.Increment("javaInterfaces"); break;
-                case Type.DeclarationType.Enum: variables.Increment("javaEnums"); break;
-                case Type.DeclarationType.Annotation: variables.Increment("javaAnnotations"); break;
+                case Type.DeclarationType.Class: variables.Increment(declPrefix = "javaClasses"); break;
+                case Type.DeclarationType.Interface: variables.Increment(declPrefix = "javaInterfaces"); break;
+                case Type.DeclarationType.Enum: variables.Increment(declPrefix = "javaEnums"); break;
+                case Type.DeclarationType.Annotation: variables.Increment(declPrefix = "javaAnnotations"); break;
             }
             
+            // identifier
             TypeIdentifier identifier = new TypeIdentifier(prefix,type.Identifier);
 
             int simpleNameLength = identifier.Name.Length;
@@ -68,6 +73,43 @@ namespace CodeStatistics.Handling.Languages{
             state.IdentifiersSimpleBottom.Add(identifier);
             state.IdentifiersFullTop.Add(identifier);
             state.IdentifiersFullBottom.Add(identifier);
+
+            // fields
+            List<Field> fields = type.GetData().Fields;
+            int fieldsDefault = fields.Count;
+
+            variables.Increment(declPrefix+"FieldsTotal",fields.Count);
+            variables.Minimum(declPrefix+"FieldsMin",fields.Count);
+            variables.Maximum(declPrefix+"FieldsMax",fields.Count);
+
+            foreach(Modifiers modifier in JavaModifiers.Values){
+                int count = fields.Count(field => field.Modifiers.HasFlag(modifier));
+                if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Private)fieldsDefault -= count;
+
+                variables.Increment(declPrefix+"Fields"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
+            }
+
+            variables.Increment(declPrefix+"FieldsDefaultVisibility",fieldsDefault);
+
+            // methods
+            List<Method> constructorMethods = type.GetData().Methods.Where(method => method.IsConstructor).ToList();
+            List<Method> classMethods = type.GetData().Methods.Where(method => !method.IsConstructor).ToList();
+
+            int methodsDefault = classMethods.Count;
+            
+            variables.Increment(declPrefix+"ConstructorsTotal",constructorMethods.Count);
+            variables.Increment(declPrefix+"MethodsTotal",classMethods.Count);
+            variables.Minimum(declPrefix+"MethodsMin",classMethods.Count);
+            variables.Maximum(declPrefix+"MethodsMax",classMethods.Count);
+
+            foreach(Modifiers modifier in JavaModifiers.Values){
+                int count = classMethods.Count(method => method.Modifiers.HasFlag(modifier));
+                if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Protected)methodsDefault -= count;
+
+                variables.Increment(declPrefix+"Methods"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
+            }
+
+            variables.Increment(declPrefix+"MethodsDefaultVisibility",methodsDefault);
         }
 
         public override void FinalizeProject(Variables.Root variables){
@@ -75,12 +117,15 @@ namespace CodeStatistics.Handling.Languages{
 
             JavaState state = variables.GetStateObject<JavaState>(this);
 
+            // general
             variables.SetVariable("javaPackages",state.PackageCount);
 
+            // imports
             variables.Average("javaImportsAvg","javaImportsTotal","javaCodeFiles");
             variables.Average("javaNamesSimpleAvg","javaNamesSimpleTotal","javaTypesTotal");
             variables.Average("javaNamesFullAvg","javaNamesFullTotal","javaTypesTotal");
 
+            // identifiers
             foreach(TypeIdentifier identifier in state.IdentifiersSimpleTop){
                 variables.AddToArray("javaNamesSimpleTop",new { package = identifier.Prefix, name = identifier.Name });
             }
@@ -96,6 +141,11 @@ namespace CodeStatistics.Handling.Languages{
             foreach(TypeIdentifier identifier in state.IdentifiersFullBottom.Reverse()){
                 variables.AddToArray("javaNamesFullBottom",new { package = identifier.Prefix, name = identifier.Name });
             }
+
+            // fields and methods
+            variables.Average("javaClassesFieldsAvg","javaClassesFieldsTotal","javaClasses");
+            variables.Average("javaClassesConstructorsAvg","javaClassesConstructorsTotal","javaClasses");
+            variables.Average("javaClassesMethodsAvg","javaClassesMethodsTotal","javaClasses");
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
