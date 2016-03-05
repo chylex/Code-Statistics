@@ -335,14 +335,21 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                     if (SkipSpaces().Char == '('){ // method
                         List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
-                        Method method = new Method(identifier,returnOrFieldType.Value,parameterList,type.GetData().UpdateMethodInfo(memberInfo));
 
-                        if (SkipSpaces().SkipIfMatch("throws^s")){
-                            while(true){
-                                ReadFullTypeName();
+                        if (type.Declaration == Type.DeclarationType.Annotation){
+                            if (SkipSpaces().SkipIfMatch("default^n")){
+                                memberInfo = new Member(memberInfo,memberInfo.Modifiers | Modifiers.Default);
+                                SkipTo(';');
+                            }
+                        }
+                        else{
+                            if (SkipSpaces().SkipIfMatch("throws^s")){
+                                while(true){
+                                    ReadFullTypeName();
 
-                                if (SkipSpaces().Char == ',')Skip().SkipSpaces();
-                                else break;
+                                    if (SkipSpaces().Char == ',')Skip().SkipSpaces();
+                                    else break;
+                                }
                             }
                         }
                         
@@ -351,8 +358,8 @@ namespace CodeStatistics.Handling.Languages.Java{
                             SkipBlock('{','}');
                             if (SkipSpaces().Char == ';')Skip();
                         }
-
-                        type.GetData().Methods.Add(method);
+                        
+                        type.GetData().Methods.Add(new Method(identifier,returnOrFieldType.Value,parameterList,type.GetData().UpdateMethodInfo(memberInfo)));
                     }
                     else{ // field
                         Type.TypeData data = type.GetData();
