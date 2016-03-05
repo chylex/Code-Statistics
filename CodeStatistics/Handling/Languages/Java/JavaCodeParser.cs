@@ -326,7 +326,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                     int prevCursor = cursor;
                     string identifier = SkipSpaces().ReadIdentifier();
                     
-                    if (string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
+                    if (identifier.Length == 0 && string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
                         identifier = Method.ConstructorIdentifier;
                         returnOrFieldType = TypeOf.Void();
                     }
