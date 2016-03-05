@@ -41,6 +41,8 @@ namespace CodeStatistics.Handling{
             }
 
             public void Increment(string name, int amount = 1){
+                if (amount == 0)return;
+
                 if (variablesInt.ContainsKey(name)){
                     variables[name] = (variablesInt[name] += amount).ToString("N0",NumberFormat);
                 }
