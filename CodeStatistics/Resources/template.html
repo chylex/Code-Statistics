@@ -496,8 +496,8 @@
 <!-- TEMPLATE contentList -->
 
 {contentOverview}
-{if:assets:contentAssets}
 
+{if:assets:contentAssets}
 {if:java:contentJava}
 
 <!-- TEMPLATE contentOverview -->
@@ -555,6 +555,7 @@
 {contentJavaFiles}
 {contentJavaNames}
 {contentJavaControlFlow}
+{contentJavaClasses}
 
 <!-- TEMPLATE contentJavaOverview -->
 
@@ -776,7 +777,86 @@
     </div>
   </div>
 </div>
+
+<!-- TEMPLATE contentJavaClasses -->
+
+<div id="page-java-classes">
+  <h2>Java - Classes</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>General</h3>
+        <table class="summary">
+          <tr><td>{var:javaClasses:0}</td><td>Total Classes</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaClassesNested:0}</td><td>Nested</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaClassesAbstract:0}</td><td>Abstract</td></tr>
+          <tr><td>{var:javaClassesFinal:0}</td><td>Final</td></tr>
         </table>
+      </div>
+      <div class="card">
+        <h3>Constructors</h3>
+        <table class="summary">
+          <tr><td>{var:javaClassesConstructorsTotal:0}</td><td>Total Constructors</td></tr>
+          <tr><td>{var:javaClassesConstructorsAvg:0}</td><td>Average Per Class</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Fields</h3>
+        <table class="summary">
+          <tr><td>{var:javaClassesFieldsTotal:0}</td><td>Total Fields</td></tr>
+          <tr><td>{var:javaClassesFieldsMin:0}</td><td>Min Per Class</td></tr>
+          <tr><td>{var:javaClassesFieldsMax:0}</td><td>Max Per Class</td></tr>
+          <tr><td>{var:javaClassesFieldsAvg:0}</td><td>Average Per Class</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaClassesFieldsStatic:0}</td><td>Static</td></tr>
+          <tr><td>{var:javaClassesFieldsFinal:0}</td><td>Final</td></tr>
+          <tr><td>{var:javaClassesFieldsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaClassesFieldsVolatile:0}</td><td>Volatile</td></tr>
+          <tr><td>{var:javaClassesFieldsTransient:0}</td><td>Transient</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Fields - Visibility</h3>
+        <table id="data-pie-java-class-field-visibility" class="summary">
+          <tr><td>{var:javaClassesFieldsPublic:0}</td><td>Public</td></tr>
+          <tr><td>{var:javaClassesFieldsDefaultVisibility:0}</td><td>Default</td></tr>
+          <tr><td>{var:javaClassesFieldsProtected:0}</td><td>Protected</td></tr>
+          <tr><td>{var:javaClassesFieldsPrivate:0}</td><td>Private</td></tr>
+        </table>
+        <canvas id="pie-java-class-field-visibility" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Methods</h3>
+        <table class="summary">
+          <tr><td>{var:javaClassesMethodsTotal:0}</td><td>Total Methods</td></tr>
+          <tr><td>{var:javaClassesMethodsMin:0}</td><td>Min Per Class</td></tr>
+          <tr><td>{var:javaClassesMethodsMax:0}</td><td>Max Per Class</td></tr>
+          <tr><td>{var:javaClassesMethodsAvg:0}</td><td>Average Per Class</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaClassesMethodsAbstract:0}</td><td>Abstract</td></tr>
+          <tr><td>{var:javaClassesMethodsFinal:0}</td><td>Final</td></tr>
+          <tr class="separator"></tr>
+          <tr><td>{var:javaClassesMethodsStatic:0}</td><td>Static</td></tr>
+          <tr><td>{var:javaClassesMethodsSynchronized:0}</td><td>Synchronized</td></tr>
+          <tr><td>{var:javaClassesMethodsNative:0}</td><td>Native</td></tr>
+          <tr><td>{var:javaClassesMethodsStrictfp:0}</td><td>Strictfp</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Methods - Visibility</h3>
+        <table id="data-pie-java-class-method-visibility" class="summary">
+          <tr><td>{var:javaClassesMethodsPublic:0}</td><td>Public</td></tr>
+          <tr><td>{var:javaClassesMethodsDefaultVisibility:0}</td><td>Default</td></tr>
+          <tr><td>{var:javaClassesMethodsProtected:0}</td><td>Protected</td></tr>
+          <tr><td>{var:javaClassesMethodsPrivate:0}</td><td>Private</td></tr>
+        </table>
+        <canvas id="pie-java-class-method-visibility" height="200"></canvas>
       </div>
     </div>
   </div>
