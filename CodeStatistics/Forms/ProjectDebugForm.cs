@@ -41,7 +41,7 @@ namespace CodeStatistics.Forms{
             SetTextBoxContents(handler.PrepareFileContents(item.File.Contents));
 
             treeViewData.Nodes.Clear();
-            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File)))treeViewData.Nodes.Add(node);
+            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File),item.File))treeViewData.Nodes.Add(node);
         }
 
         private void btnLoadOriginal_Click(object sender, EventArgs e){

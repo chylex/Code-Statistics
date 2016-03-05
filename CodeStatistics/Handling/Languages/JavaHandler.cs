@@ -164,7 +164,7 @@ namespace CodeStatistics.Handling.Languages{
             return JavaParseUtils.PrepareCodeFile(contents);
         }
 
-        public override IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables){
+        public override IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables, File file){
             return Enumerable.Empty<TreeNode>();
         }
     }

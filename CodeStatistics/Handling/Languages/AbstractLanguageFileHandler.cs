@@ -91,7 +91,7 @@ namespace CodeStatistics.Handling.Languages{
 
         protected abstract object GetFileObject(FileIntValue fi, Variables.Root variables);
         public abstract string PrepareFileContents(string contents);
-        public abstract IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables);
+        public abstract IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables, File file);
 
         private class State{
             public readonly TopElementList<FileIntValue> MaxLines = new TopElementList<FileIntValue>(8,FileIntValue.SortMax);
