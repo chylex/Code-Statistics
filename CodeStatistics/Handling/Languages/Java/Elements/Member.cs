@@ -12,6 +12,11 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
             this.Modifiers = modifiers.Aggregate(Modifiers.None, (acc, modifier) => acc | modifier);
         }
 
+        public Member(Member source, Modifiers newModifiers){
+            this.Annotations = source.Annotations;
+            this.Modifiers = newModifiers;
+        }
+
         public Member(Member source){
             this.Annotations = source.Annotations;
             this.Modifiers = source.Modifiers;

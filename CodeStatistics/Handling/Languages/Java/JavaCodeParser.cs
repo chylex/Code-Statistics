@@ -335,7 +335,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                     if (SkipSpaces().Char == '('){ // method
                         List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
-                        Method method = new Method(identifier,returnOrFieldType.Value,parameterList,memberInfo);
+                        Method method = new Method(identifier,returnOrFieldType.Value,parameterList,type.GetData().UpdateMethodInfo(memberInfo));
 
                         if (SkipSpaces().SkipIfMatch("throws^s")){
                             while(true){
@@ -359,7 +359,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                         cursor = prevCursor;
 
                         foreach(string fieldIdentifier in ReadToIfBalanced(';').ReadFieldIdentifierList()){
-                            data.Fields.Add(new Field(fieldIdentifier,returnOrFieldType.Value,memberInfo));
+                            data.Fields.Add(new Field(fieldIdentifier,returnOrFieldType.Value,data.UpdateFieldInfo(memberInfo)));
                         }
                         
                         Skip();
