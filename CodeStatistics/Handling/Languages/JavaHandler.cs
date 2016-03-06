@@ -212,7 +212,7 @@ namespace CodeStatistics.Handling.Languages{
             List<KeyValuePair<string,int>> annotationUses = state.AnnotationUses.ListFromTop();
             int totalAnnotationsUsed = annotationUses.Sum(kvp => kvp.Value);
 
-            for(int annotationIndex = 0; annotationIndex < 10; annotationIndex++){
+            for(int annotationIndex = 0; annotationIndex < Math.Min(annotationUses.Count,10); annotationIndex++){
                 variables.AddToArray("javaAnnotationsUsedTop",new { name = annotationUses[annotationIndex].Key, amount = annotationUses[annotationIndex].Value });
             }
 
