@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Handling.Languages.Java.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public struct TypeOf{
@@ -48,6 +49,11 @@ namespace CodeStatistics.Handling.Languages.Java.Elements{
         public string AsSimpleType(){
             if (IsTypeObject)return JavaParseUtils.FullToSimpleName((string)obj);
             else return null;
+        }
+
+        [Pure]
+        public string ToStringGeneral(){
+            return IsTypeObject ? "object" : ToString();
         }
 
         public override string ToString(){
