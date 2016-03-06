@@ -1067,7 +1067,7 @@
           <tr class="separator"></tr>
         </table>
         <table id="data-pie-java-method-return-types" class="summary">
-          {for:javaMethodTypes:contentJavaFieldsMethodsRow}
+          {for:javaMethodReturnTypes:contentJavaFieldsMethodsRow}
         </table>
         <canvas id="pie-java-method-return-types" height="200"></canvas>
       </div>
@@ -1077,10 +1077,13 @@
         <h3>Method Parameter Types</h3>
         <table class="summary">
           <tr><td>{var:javaMethodParametersTotal:0}</td><td>Total Method Parameters</td></tr>
+          <tr><td>{var:javaMethodParametersMin:0}</td><td>Min Per Method</td></tr>
+          <tr><td>{var:javaMethodParametersMax:0}</td><td>Max Per Method</td></tr>
+          <tr><td>{var:javaMethodParametersAvg:0}</td><td>Average Per Method</td></tr>
           <tr class="separator"></tr>
         </table>
         <table id="data-pie-java-method-parameter-types" class="summary">
-          {for:javaMethodParemeterTypes:contentJavaFieldsMethodsRow}
+          {for:javaMethodParameterTypes:contentJavaFieldsMethodsRow}
         </table>
         <canvas id="pie-java-method-parameter-types" height="200"></canvas>
       </div>

@@ -142,6 +142,16 @@ namespace CodeStatistics.Handling.Languages{
             foreach(Method method in type.GetData().Methods){
                 variables.Increment("javaAnnotationsUsedMethods",method.Annotations.Count);
             }
+
+            // field and method counting
+            variables.Increment("javaFieldsTotal",type.GetData().Fields.Count);
+            variables.Increment("javaMethodsTotal",type.GetData().Methods.Count);
+
+            foreach(Method method in type.GetData().Methods){
+                variables.Increment("javaMethodParametersTotal",method.ParameterTypes.Count);
+                variables.Minimum("javaMethodParametersMin",method.ParameterTypes.Count);
+                variables.Maximum("javaMethodParametersMax",method.ParameterTypes.Count);
+            }
         }
 
         public override void FinalizeProject(Variables.Root variables){
@@ -183,6 +193,20 @@ namespace CodeStatistics.Handling.Languages{
             variables.Average("javaInterfacesMethodsAvg","javaInterfacesMethodsTotal","javaInterfaces");
 
             variables.Average("javaAnnotationsElementsAvg","javaAnnotationsElementsTotal","javaAnnotations");
+
+            variables.Average("javaMethodParametersAvg","javaMethodParametersTotal","javaMethodsTotal");
+
+            foreach(KeyValuePair<string,int> fieldType in state.FieldTypes.ListFromTop()){
+                variables.AddToArray("javaFieldTypes",new { type = fieldType.Key, amount = fieldType.Value });
+            }
+
+            foreach(KeyValuePair<string,int> methodReturnType in state.MethodReturnTypes.ListFromTop()){
+                variables.AddToArray("javaMethodReturnTypes",new { type = methodReturnType.Key, amount = methodReturnType.Value });
+            }
+
+            foreach(KeyValuePair<string,int> methodParameterType in state.MethodParameterTypes.ListFromTop()){
+                variables.AddToArray("javaMethodParameterTypes",new { type = methodParameterType.Key, amount = methodParameterType.Value });
+            }
 
             // annotations
             List<KeyValuePair<string,int>> annotationUses = state.AnnotationUses.ListFromTop();

@@ -10,6 +10,9 @@ namespace CodeStatistics.Handling.Languages.Java{
         private readonly HashSet<string> packages = new HashSet<string>();
 
         public readonly CounterDictionary<string> AnnotationUses = new CounterDictionary<string>(8);
+        public readonly CounterDictionary<string> FieldTypes = new CounterDictionary<string>(10);
+        public readonly CounterDictionary<string> MethodReturnTypes = new CounterDictionary<string>(10);
+        public readonly CounterDictionary<string> MethodParameterTypes = new CounterDictionary<string>(10);
 
         public readonly TopElementList<TypeIdentifier> IdentifiersSimpleTop = new TopElementList<TypeIdentifier>(10,(x,y) => y.Name.Length-x.Name.Length);
         public readonly TopElementList<TypeIdentifier> IdentifiersSimpleBottom = new TopElementList<TypeIdentifier>(10,(x,y) => x.Name.Length-y.Name.Length);
@@ -40,6 +43,28 @@ namespace CodeStatistics.Handling.Languages.Java{
 
         private void UpdateLocalData(JavaFileInfo info){
             packages.Add(info.Package);
+
+            foreach(Type type in info.Types){
+                UpdateLocalDataForType(type);
+            }
+        }
+
+        private void UpdateLocalDataForType(Type type){
+            foreach(Type nestedType in type.NestedTypes){
+                UpdateLocalDataForType(nestedType);
+            }
+
+            foreach(Field field in type.GetData().Fields){
+                FieldTypes.Increment(field.Type.ToStringGeneral());
+            }
+
+            foreach(Method method in type.GetData().Methods){
+                MethodReturnTypes.Increment(method.ReturnType.ToStringGeneral());
+
+                foreach(TypeOf parameterType in method.ParameterTypes){
+                    MethodParameterTypes.Increment(parameterType.ToStringGeneral());
+                }
+            }
         }
 
         private void IncrementAnnotation(Annotation annotation){
