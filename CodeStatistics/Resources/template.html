@@ -197,6 +197,11 @@
     text-align: left;
     border-left: 1px solid #DDDDDD;
   }
+  
+  .list.onecol {
+    table-layout: fixed;
+    width: 100%;
+  }
 
   .list td {
     padding-left: 12px;
@@ -206,10 +211,14 @@
   .list td:first-child {
     white-space: normal;
     word-wrap: break-word;
-    text-align: left !important;
+    text-align: left;
+  }
+  
+  .list.onecol td {
+    width: 100%;
   }
 
-  .list td:last-child {
+  .list.twocol td:last-child {
     text-align: right;
   }
 
@@ -627,7 +636,7 @@
     <div class="grid-full">
       <div class="card">
         <h3>Lines</h3>
-        <table class="list">
+        <table class="list twocol">
           {for:javaLinesTop:contentJavaFilesRow}
           <tr><td class="subtle">...</td><td></td></tr>
           {for:javaLinesBottom:contentJavaFilesRow}
@@ -639,7 +648,7 @@
     <div class="grid-full">
       <div class="card">
         <h3>Characters</h3>
-        <table class="list">
+        <table class="list twocol">
           {for:javaCharsTop:contentJavaFilesRow}
           <tr><td class="subtle">...</td><td></td></tr>
           {for:javaCharsBottom:contentJavaFilesRow}
@@ -660,7 +669,7 @@
     <div class="grid-half">
       <div class="card">
         <h3>Simple Type Names</h3>
-        <table class="list">
+        <table class="list onecol">
           {for:javaNamesSimpleTop:contentJavaNamesSimpleRow}
           <tr><td class="subtle">...</td></tr>
           {for:javaNamesSimpleBottom:contentJavaNamesSimpleRow}
@@ -670,7 +679,7 @@
     <div class="grid-half">
       <div class="card">
         <h3>Full Type Names</h3>
-        <table class="list">
+        <table class="list onecol">
           {for:javaNamesFullTop:contentJavaNamesFullRow}
           <tr><td class="subtle">...</td></tr>
           {for:javaNamesFullBottom:contentJavaNamesFullRow}
@@ -1029,7 +1038,7 @@
       </div>
       <div class="card">
         <h3>Most Used Annotations</h3>
-        <table class="list">
+        <table class="list twocol">
           {for:javaAnnotationsUsedTop:contentJavaAnnotationsUsedRow}
         </table>
       </div>
