@@ -91,7 +91,7 @@
   #content {
     flex-grow: 1;
     font-size: 20px;
-    padding: 18px 20px 12px 24px;
+    padding: 14px 20px 12px 24px;
     background-color: #EEE;
     box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
   }
@@ -101,7 +101,7 @@
   }
 
   h2 {
-    margin: 0 0 24px;
+    margin: 4px 0 24px;
     padding: 2px 0;
     font-size: 36px;
     text-align: center;
@@ -244,6 +244,14 @@
     #content > div {
       display: block !important;
     }
+    
+    h2 {
+      margin-top: 72px;
+    }
+    
+    #content > div:first-child h2 {
+      margin-top: 4px;
+    }
   </style>
 </noscript>
 
@@ -268,7 +276,7 @@
       if (activePage)activePage.style.display = "none";
 
       activePageMenu = ele;
-      activePage = document.getElementById("page-"+ele.getAttribute("href").substr(1));
+      activePage = document.getElementById(ele.getAttribute("href").substr(1));
       if (!activePage)return;
 
       activePageMenu.classList.add("active");
@@ -512,7 +520,7 @@
 
 <!-- TEMPLATE contentOverview -->
 
-<div id="page-overview">
+<div id="overview">
   <h2>Overview</h2>
   <div class="grid">
     <div>
@@ -556,7 +564,7 @@
 
 <!-- TEMPLATE contentAssets -->
 
-<div id="page-assets">
+<div id="assets">
   <h2>Assets</h2>
 </div>
 
@@ -595,7 +603,7 @@
 
 <!-- TEMPLATE contentJavaFiles -->
 
-<div id="page-java-files">
+<div id="java-files">
   <h2>Java - Files ({var:javaCodeFiles:0})</h2>
   <div class="grid">
     <div>
@@ -663,7 +671,7 @@
 <tr><td><span class="subtle">{var:package}</span>{var:file}</td><td>{var:amount:0}</td></tr>
 
 <!-- TEMPLATE contentJavaNames -->
-<div id="page-java-names">
+<div id="java-names">
   <h2>Java - Names</h2>
   <div class="grid">
     <div class="grid-half">
@@ -733,7 +741,7 @@
 
 <!-- TEMPLATE contentJavaControlFlow -->
 
-<div id="page-java-control-flow">
+<div id="java-control-flow">
   <h2>Java - Control Flow</h2>
   <div class="grid">
     <div>
@@ -794,7 +802,7 @@
 
 <!-- TEMPLATE contentJavaClasses -->
 
-<div id="page-java-classes">
+<div id="java-classes">
   <h2>Java - Classes</h2>
   <div class="grid">
     <div>
@@ -804,6 +812,7 @@
           <tr><td>{var:javaClasses:0}</td><td>Total Classes</td></tr>
           <tr class="separator"></tr>
           <tr><td>{var:javaClassesNested:0}</td><td>Nested</td></tr>
+          <tr><td>{var:javaClassesInner:0}</td><td>Inner</td></tr>
           <tr class="separator"></tr>
           <tr><td>{var:javaClassesAbstract:0}</td><td>Abstract</td></tr>
           <tr><td>{var:javaClassesFinal:0}</td><td>Final</td></tr>
@@ -878,7 +887,7 @@
 
 <!-- TEMPLATE contentJavaInterfaces -->
 
-<div id="page-java-interfaces">
+<div id="java-interfaces">
   <h2>Java - Interfaces</h2>
   <div class="grid">
     <div>
@@ -888,6 +897,7 @@
           <tr><td>{var:javaInterfaces:0}</td><td>Total Interfaces</td></tr>
           <tr class="separator"></tr>
           <tr><td>{var:javaInterfacesNested:0}</td><td>Nested</td></tr>
+          <tr><td>{var:javaInterfacesInner:0}</td><td>Inner</td></tr>
         </table>
       </div>
     </div>
@@ -911,9 +921,9 @@
         <h3>Methods</h3>
         <table class="summary">
           <tr><td>{var:javaInterfacesMethodsTotal:0}</td><td>Total Methods</td></tr>
-          <tr><td>{var:javaInterfacesMethodsMin:0}</td><td>Min Per Class</td></tr>
-          <tr><td>{var:javaInterfacesMethodsMax:0}</td><td>Max Per Class</td></tr>
-          <tr><td>{var:javaInterfacesMethodsAvg:0}</td><td>Average Per Class</td></tr>
+          <tr><td>{var:javaInterfacesMethodsMin:0}</td><td>Min Per Interface</td></tr>
+          <tr><td>{var:javaInterfacesMethodsMax:0}</td><td>Max Per Interface</td></tr>
+          <tr><td>{var:javaInterfacesMethodsAvg:0}</td><td>Average Per Interface</td></tr>
           <tr class="separator"></tr>
           <tr><td>{var:javaInterfacesMethodsDefault:0}</td><td>With Default Implementation</td></tr>
           <tr><td>{var:javaInterfacesMethodsStatic:0}</td><td>Static</td></tr>
@@ -928,7 +938,7 @@
 
 <!-- TEMPLATE contentJavaEnums -->
 
-<div id="page-java-enums">
+<div id="java-enums">
   <h2>Java - Enums</h2>
   <div class="grid">
     <div>
@@ -1003,7 +1013,7 @@
 
 <!-- TEMPLATE contentJavaAnnotations -->
 
-<div id="page-java-annotations">
+<div id="java-annotations">
   <h2>Java - Annotations</h2>
   <div class="grid">
     <div>
@@ -1015,9 +1025,9 @@
           <tr><td>{var:javaAnnotationsNested:0}</td><td>Nested</td></tr>
           <tr class="separator"></tr>
           <tr><td>{var:javaAnnotationsElementsTotal:0}</td><td>Total Elements</td></tr>
-          <tr><td>{var:javaAnnotationsElementsMin:0}</td><td>Min Per Enum</td></tr>
-          <tr><td>{var:javaAnnotationsElementsMax:0}</td><td>Max Per Enum</td></tr>
-          <tr><td>{var:javaAnnotationsElementsAvg:0}</td><td>Avg Per Enum</td></tr>
+          <tr><td>{var:javaAnnotationsElementsMin:0}</td><td>Min Per Annotation</td></tr>
+          <tr><td>{var:javaAnnotationsElementsMax:0}</td><td>Max Per Annotation</td></tr>
+          <tr><td>{var:javaAnnotationsElementsAvg:0}</td><td>Avg Per Annotation</td></tr>
         </table>
       </div>
     </div>
@@ -1052,7 +1062,7 @@
 
 <!-- TEMPLATE contentJavaFieldsMethods -->
 
-<div id="page-java-fields-methods">
+<div id="java-fields-methods">
   <h2>Java - Fields &amp; Methods</h2>
   <div class="grid">
     <div>
