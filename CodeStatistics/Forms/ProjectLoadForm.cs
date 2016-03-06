@@ -11,7 +11,7 @@ using CodeStatistics.Input.Methods;
 using System.IO;
 
 namespace CodeStatistics.Forms{
-    public partial class ProjectLoadForm : Form{
+    public sealed partial class ProjectLoadForm : Form{
         private static string GenerateOutputFile(Variables variables){
             string template = Program.Config.GetTemplateContents();
             if (template == null)return null; // TODO
@@ -31,7 +31,7 @@ namespace CodeStatistics.Forms{
         private ProjectLoadForm(){
             InitializeComponent();
             
-            this.Text = Lang.Get["TitleProject"];
+            Text = Lang.Get["TitleProject"];
             btnCancel.Text = Lang.Get["LoadProjectCancel"];
             btnClose.Text = Lang.Get["LoadProjectClose"];
             btnOpenOutput.Text = Lang.Get["LoadProjectOpenOutput"];

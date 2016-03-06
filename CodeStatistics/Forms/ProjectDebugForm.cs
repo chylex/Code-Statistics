@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace CodeStatistics.Forms{
-    partial class ProjectDebugForm : Form{
+    sealed partial class ProjectDebugForm : Form{
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
 
@@ -19,7 +19,7 @@ namespace CodeStatistics.Forms{
         public ProjectDebugForm(Project project){
             InitializeComponent();
 
-            this.Text = Lang.Get["TitleDebug"];
+            Text = Lang.Get["TitleDebug"];
             btnReprocess.Text = Lang.Get["DebugProjectReprocess"];
             btnLoadOriginal.Text = Lang.Get["DebugProjectLoadOriginal"];
             btnDebug.Text = Lang.Get["DebugProjectDebug"];

@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System;
 
 namespace CodeStatistics.Forms{
-    public partial class AboutForm : Form{
+    public sealed partial class AboutForm : Form{
         private static Dictionary<string,string> AboutFormData{
             get{
                 return new Dictionary<string,string>{

@@ -4,7 +4,7 @@ using System;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Forms{
-    public partial class GitHubForm : Form{
+    public sealed partial class GitHubForm : Form{
         public GitHub GitHub { get; private set; }
 
         private readonly Timer timer = new Timer{

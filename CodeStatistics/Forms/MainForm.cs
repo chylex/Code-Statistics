@@ -7,13 +7,13 @@ using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Forms{
-    public partial class MainForm : Form{
+    public sealed partial class MainForm : Form{
         public IInputMethod InputMethod{ get; private set; }
 
         public MainForm(){
             InitializeComponent();
             
-            this.Text = Lang.Get["Title"];
+            Text = Lang.Get["Title"];
             btnProjectFolder.Text = Lang.Get["MenuProjectFromFolder"];
             btnProjectGitHub.Text = Lang.Get["MenuProjectFromGitHub"];
             btnViewSourceCode.Text = Lang.Get["MenuViewSourceCode"];
