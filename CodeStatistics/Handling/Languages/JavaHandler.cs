@@ -114,6 +114,17 @@ namespace CodeStatistics.Handling.Languages{
             }
 
             variables.Increment(declPrefix+"MethodsDefaultVisibility",methodsDefault);
+
+            // annotations
+            variables.Increment("javaAnnotationsUsedClasses",type.Annotations.Count);
+
+            foreach(Field field in type.GetData().Fields){
+                variables.Increment("javaAnnotationsUsedFields",field.Annotations.Count);
+            }
+
+            foreach(Method method in type.GetData().Methods){
+                variables.Increment("javaAnnotationsUsedMethods",method.Annotations.Count);
+            }
         }
 
         public override void FinalizeProject(Variables.Root variables){
@@ -153,6 +164,17 @@ namespace CodeStatistics.Handling.Languages{
             
             variables.Average("javaInterfacesFieldsAvg","javaInterfacesFieldsTotal","javaInterfaces");
             variables.Average("javaInterfacesMethodsAvg","javaInterfacesMethodsTotal","javaInterfaces");
+
+            // annotations
+            List<KeyValuePair<string,int>> annotationUses = state.AnnotationUses;
+            int totalAnnotationsUsed = annotationUses.Aggregate(0,(prev, kvp) => prev+kvp.Value);
+
+            for(int annotationIndex = 0; annotationIndex < 10; annotationIndex++){
+                variables.AddToArray("javaAnnotationsUsedTop",new { name = annotationUses[annotationIndex].Key, amount = annotationUses[annotationIndex].Value });
+            }
+
+            variables.SetVariable("javaAnnotationsUsedTotal",totalAnnotationsUsed);
+            variables.SetVariable("javaAnnotationsUsedOther",totalAnnotationsUsed-variables.GetVariable("javaAnnotationsUsedClasses",0)-variables.GetVariable("javaAnnotationsUsedFields",0)-variables.GetVariable("javaAnnotationsUsedMethods",0));
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
