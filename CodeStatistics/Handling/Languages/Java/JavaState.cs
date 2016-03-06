@@ -61,11 +61,9 @@ namespace CodeStatistics.Handling.Languages.Java{
 
         private static void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
             parser.SkipSpaces();
-
-            List<Annotation> annotations = parser.SkipReadAnnotationList();
-            // TODO handle annotation list
-            
+            parser.SkipReadAnnotationList();
             parser.SkipSpaces();
+
             info.Package = parser.ReadPackageDeclaration();
         }
 
