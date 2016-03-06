@@ -1,15 +1,18 @@
-﻿using System;
+﻿using CodeStatistics.Data;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Input.Helpers{
     static class MultiFolderDialog{
+        private const string FilterFolders = "|\n";
+
         public static string[] Show(Form parent){
             if (Environment.OSVersion.Version.Major >= 6){ // vista and newer
                 try{
                     OpenFileDialog dialog = new OpenFileDialog{
-                        Filter = "Folders|\n",
+                        Filter = Lang.Get["DialogFilterFolders"]+FilterFolders,
                         CheckFileExists = false,
                         CheckPathExists = true,
                         DereferenceLinks = true,

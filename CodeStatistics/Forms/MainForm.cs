@@ -5,7 +5,6 @@ using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
-using System.IO;
 
 namespace CodeStatistics.Forms{
     public partial class MainForm : Form{
@@ -66,7 +65,7 @@ namespace CodeStatistics.Forms{
 
         private void btnProjectArchive_Click(object sender, EventArgs e){
             OpenFileDialog dialog = new OpenFileDialog{
-                Filter = "Archives (.zip)|*.zip",
+                Filter = Lang.Get["DialogFilterArchives"]+ArchiveExtraction.FilterArchives,
                 CheckFileExists = true,
                 DereferenceLinks = true,
                 AutoUpgradeEnabled = true

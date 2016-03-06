@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CodeStatistics.Data;
 using FileIO = System.IO.File;
 
 namespace CodeStatistics.Input{
@@ -13,7 +14,7 @@ namespace CodeStatistics.Input{
         /// For example, <code>FindRootPath({ "C:\Projects\One", "C:\Projects\Two" })</code> returns C:\Projects
         /// </summary>
         public static string FindRootPath(string[] paths){
-            if (paths.Length == 0)throw new ArgumentException("Array must contain at least one element.","paths");
+            if (paths.Length == 0)throw new ArgumentException(Lang.Get["ErrorArgumentArrayAtLeastOne"],"paths");
             if (paths.Length == 1)return paths[0];
 
             List<string[]> split = paths.Select(path => path.Split(new []{ Path.DirectorySeparatorChar },StringSplitOptions.RemoveEmptyEntries)).ToList();

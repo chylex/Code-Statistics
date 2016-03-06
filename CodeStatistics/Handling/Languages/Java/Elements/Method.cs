@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public class Method : Member{

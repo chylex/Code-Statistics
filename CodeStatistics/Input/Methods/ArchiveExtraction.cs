@@ -1,10 +1,13 @@
 ﻿using System;
 using CodeStatistics.Forms;
 using System.Threading;
+using CodeStatistics.Data;
 using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{
     class ArchiveExtraction : IInputMethod{
+        public const string FilterArchives = "|*.zip";
+
         private readonly string file, extractPath;
         private CancellationTokenSource cancel;
 
@@ -14,7 +17,7 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){
-            callbacks.UpdateInfoLabel("Extracting archive...");
+            callbacks.UpdateInfoLabel(Lang.Get["LoadArchiveExtracting"]);
 
             ZipArchive archive = new ZipArchive(file,extractPath);
 

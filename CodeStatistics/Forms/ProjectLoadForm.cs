@@ -1,6 +1,7 @@
 ﻿using CodeStatistics.Handling;
 using CodeStatistics.Input;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using CodeStatistics.Output;
 using System.Diagnostics;
@@ -201,11 +202,11 @@ namespace CodeStatistics.Forms{
                 this.form = form;
             }
 
-            public void UpdateInfoLabel(string text){
+            public void UpdateInfoLabel([Localizable(true)] string text){
                 form.InvokeOnUIThread(() => form.labelLoadInfo.Text = text);
             }
 
-            public void UpdateDataLabel(string text){
+            public void UpdateDataLabel([Localizable(true)] string text){
                 form.InvokeOnUIThread(() => form.labelLoadData.Text = text);
             }
 

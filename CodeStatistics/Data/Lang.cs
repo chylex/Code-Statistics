@@ -20,6 +20,9 @@ namespace CodeStatistics.Data{
                 { "ErrorInvalidArgsFolderNotFound", "Folder not found: $1" },
                 { "ErrorInvalidArgsGitHub", "Invalid GitHub repository, correct format is <username/repo[/branch]>: $1" },
 
+                { "ErrorArgumentEqualLargerOne", "Argument must be equal to or larger than 1." },
+                { "ErrorArgumentArrayAtLeastOne", "Array must contain at least one element." },
+
                 { "MenuProjectFromFolder", "Project From Folder" },
                 { "MenuProjectFromGitHub", "Project From GitHub" },
                 { "MenuProjectFromArchive", "Project From Archive" },
@@ -50,12 +53,17 @@ namespace CodeStatistics.Data{
                 { "LoadGitHubNoConnection", "No internet connection." },
                 { "LoadGitHubNoInternet", "Could not establish connection with GitHub." },
                 { "LoadGitHubDownloadError", "Could not download the repository." },
+                
+                { "LoadArchiveExtracting", "Extracting archive..." },
 
                 { "DebugProjectReprocess", "Reprocess" },
                 { "DebugProjectLoadOriginal", "Original" },
                 { "DebugProjectDebug", "Debug" },
 
-                { "AboutReadme", "View ReadMe" }
+                { "AboutReadme", "View ReadMe" },
+
+                { "DialogFilterFolders", "Folders" },
+                { "DialogFilterArchives", "Archives (.zip)" }
             };
         }
 

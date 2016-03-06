@@ -1,4 +1,4 @@
-<!-- TEMPLATE html -->
+﻿<!-- TEMPLATE html -->
 
 <!DOCTYPE html>
 <html>
@@ -80,8 +80,8 @@
     text-decoration: none;
     color: #000;
     padding: 4px 4px 4px 22px;
-    box-sizing: border-box;
     -moz-box-sizing: border-box;
+    box-sizing: border-box;
   }
 
   #navigation > ul > li > ul > li > a:hover, #navigation > ul > li > ul > li > a.active {
@@ -288,8 +288,6 @@
     setActivePage(document.getElementById("nav-default"));
 
     // Category Events
-    var navCategories = document.getElementById("navigation").children;
-
     var tabEvent = function(e){
       setActivePage(this);
     };
@@ -349,7 +347,7 @@
       ctx.fill();
 
       ctx.shadowColor = "transparent";
-      ctx.shadowBlur = 0
+      ctx.shadowBlur = 0;
 
       // Wedge rendering
       for(var part = 0, angle = startAngle; part < pie.data.length; part++){
