@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using CodeStatistics.Handling.Languages.Java.Elements;
 using CodeStatistics.Handling.Languages.Java.Utils;
 using CodeStatistics.Collections;
-using System.Linq;
 
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaState{
         private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
         private readonly HashSet<string> packages = new HashSet<string>();
-        private readonly Dictionary<string,int> annotationUses = new Dictionary<string,int>();
+
+        public readonly CounterDictionary<string> AnnotationUses = new CounterDictionary<string>(8);
 
         public readonly TopElementList<TypeIdentifier> IdentifiersSimpleTop = new TopElementList<TypeIdentifier>(10,(x,y) => y.Name.Length-x.Name.Length);
         public readonly TopElementList<TypeIdentifier> IdentifiersSimpleBottom = new TopElementList<TypeIdentifier>(10,(x,y) => x.Name.Length-y.Name.Length);
         public readonly TopElementList<TypeIdentifier> IdentifiersFullTop = new TopElementList<TypeIdentifier>(10,(x,y) => y.FullName.Length-x.FullName.Length);
         public readonly TopElementList<TypeIdentifier> IdentifiersFullBottom = new TopElementList<TypeIdentifier>(10,(x,y) => x.FullName.Length-y.FullName.Length);
-
-        public List<KeyValuePair<string,int>> AnnotationUses{
-            get{
-                List<KeyValuePair<string,int>> list = annotationUses.ToList();
-                list.Sort((kvp1, kvp2) => kvp2.Value-kvp1.Value);
-                return list;
-            }
-        }
 
         public int PackageCount { get { return packages.Count; } }
 
@@ -51,12 +43,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         private void IncrementAnnotation(Annotation annotation){
-            if (annotationUses.ContainsKey(annotation.SimpleName)){
-                ++annotationUses[annotation.SimpleName];
-            }
-            else{
-                annotationUses[annotation.SimpleName] = 1;
-            }
+            AnnotationUses.Increment(annotation.SimpleName);
         }
 
         private static void ReadPackage(JavaCodeParser parser, JavaFileInfo info){
