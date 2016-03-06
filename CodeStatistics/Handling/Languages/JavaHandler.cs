@@ -35,13 +35,13 @@ namespace CodeStatistics.Handling.Languages{
             variables.Maximum("javaImportsMax",info.Imports.Count);
 
             foreach(Type type in info.Types){
-                ProcessType(info.Package,type,variables);
+                ProcessType(info.Package,type,variables,false);
             }
         }
 
-        private void ProcessType(string prefix, Type type, Variables.Root variables){
+        private void ProcessType(string prefix, Type type, Variables.Root variables, bool isNested){
             foreach(Type nestedType in type.NestedTypes){
-                ProcessType(prefix+"."+type.Identifier,nestedType,variables);
+                ProcessType(prefix+"."+type.Identifier,nestedType,variables,true);
             }
 
             // declaration type
@@ -55,19 +55,27 @@ namespace CodeStatistics.Handling.Languages{
                 case Type.DeclarationType.Enum: variables.Increment(declPrefix = "javaEnums"); break;
                 case Type.DeclarationType.Annotation: variables.Increment(declPrefix = "javaAnnotations"); break;
             }
+
+            if (isNested){
+                variables.Increment(declPrefix+"Nested");
+            }
+
+            foreach(Modifiers modifier in JavaModifiers.Values.Where(modifier => type.Modifiers.HasFlag(modifier))){
+                variables.Increment(declPrefix+JavaModifiers.ToString(modifier).CapitalizeFirst());
+            }
             
             // identifier
             TypeIdentifier identifier = new TypeIdentifier(prefix,type.Identifier);
 
             int simpleNameLength = identifier.Name.Length;
+            variables.Increment("javaNamesSimpleTotal",simpleNameLength);
             variables.Minimum("javaNamesSimpleMin",simpleNameLength);
             variables.Maximum("javaNamesSimpleMax",simpleNameLength);
-            variables.Increment("javaNamesSimpleTotal",simpleNameLength);
 
             int fullLength = identifier.FullName.Length;
+            variables.Increment("javaNamesFullTotal",fullLength);
             variables.Minimum("javaNamesFullMin",fullLength);
             variables.Maximum("javaNamesFullMax",fullLength);
-            variables.Increment("javaNamesFullTotal",fullLength);
 
             JavaState state = variables.GetStateObject<JavaState>(this);
             state.IdentifiersSimpleTop.Add(identifier);
@@ -75,45 +83,54 @@ namespace CodeStatistics.Handling.Languages{
             state.IdentifiersFullTop.Add(identifier);
             state.IdentifiersFullBottom.Add(identifier);
 
-            // fields
-            List<Field> fields = type.GetData().Fields;
-            int fieldsDefault = fields.Count;
-
-            variables.Increment(declPrefix+"FieldsTotal",fields.Count);
-            variables.Minimum(declPrefix+"FieldsMin",fields.Count);
-            variables.Maximum(declPrefix+"FieldsMax",fields.Count);
-
-            foreach(Modifiers modifier in JavaModifiers.Values){
-                int count = fields.Count(field => field.Modifiers.HasFlag(modifier));
-                if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Private)fieldsDefault -= count;
-
-                variables.Increment(declPrefix+"Fields"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
+            if (type.Declaration == Type.DeclarationType.Annotation){
+                // annotation elements
+                int methodCount = type.GetData().Methods.Count;
+                variables.Increment("javaAnnotationsElementsTotal",methodCount);
+                variables.Minimum("javaAnnotationsElementsMin",methodCount);
+                variables.Maximum("javaAnnotationsElementsMax",methodCount);
             }
+            else{
+                // fields
+                List<Field> fields = type.GetData().Fields;
+                int fieldsDefault = fields.Count;
 
-            variables.Increment(declPrefix+"FieldsDefaultVisibility",fieldsDefault);
+                variables.Increment(declPrefix+"FieldsTotal",fields.Count);
+                variables.Minimum(declPrefix+"FieldsMin",fields.Count);
+                variables.Maximum(declPrefix+"FieldsMax",fields.Count);
 
-            // methods
-            List<Method> constructorMethods = type.GetData().Methods.Where(method => method.IsConstructor).ToList();
-            List<Method> classMethods = type.GetData().Methods.Where(method => !method.IsConstructor).ToList();
+                foreach(Modifiers modifier in JavaModifiers.Values){
+                    int count = fields.Count(field => field.Modifiers.HasFlag(modifier));
+                    if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Private)fieldsDefault -= count;
 
-            int methodsDefault = classMethods.Count;
+                    variables.Increment(declPrefix+"Fields"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
+                }
+
+                variables.Increment(declPrefix+"FieldsDefaultVisibility",fieldsDefault);
+
+                // methods
+                List<Method> constructorMethods = type.GetData().Methods.Where(method => method.IsConstructor).ToList();
+                List<Method> classMethods = type.GetData().Methods.Where(method => !method.IsConstructor).ToList();
+
+                int methodsDefault = classMethods.Count;
             
-            if (type.GetData().CanHaveConstructors){
-                variables.Increment(declPrefix+"ConstructorsTotal",Math.Max(1,constructorMethods.Count)); // if 0, count an implicit constructor
+                if (type.GetData().CanHaveConstructors){
+                    variables.Increment(declPrefix+"ConstructorsTotal",Math.Max(1,constructorMethods.Count)); // if 0, count an implicit constructor
+                }
+
+                variables.Increment(declPrefix+"MethodsTotal",classMethods.Count);
+                variables.Minimum(declPrefix+"MethodsMin",classMethods.Count);
+                variables.Maximum(declPrefix+"MethodsMax",classMethods.Count);
+
+                foreach(Modifiers modifier in JavaModifiers.Values){
+                    int count = classMethods.Count(method => method.Modifiers.HasFlag(modifier));
+                    if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Protected)methodsDefault -= count;
+
+                    variables.Increment(declPrefix+"Methods"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
+                }
+
+                variables.Increment(declPrefix+"MethodsDefaultVisibility",methodsDefault);
             }
-
-            variables.Increment(declPrefix+"MethodsTotal",classMethods.Count);
-            variables.Minimum(declPrefix+"MethodsMin",classMethods.Count);
-            variables.Maximum(declPrefix+"MethodsMax",classMethods.Count);
-
-            foreach(Modifiers modifier in JavaModifiers.Values){
-                int count = classMethods.Count(method => method.Modifiers.HasFlag(modifier));
-                if (modifier == Modifiers.Public || modifier == Modifiers.Protected || modifier == Modifiers.Protected)methodsDefault -= count;
-
-                variables.Increment(declPrefix+"Methods"+JavaModifiers.ToString(modifier).CapitalizeFirst(),count);
-            }
-
-            variables.Increment(declPrefix+"MethodsDefaultVisibility",methodsDefault);
 
             // annotations
             variables.Increment("javaAnnotationsUsedClasses",type.Annotations.Count);
@@ -164,6 +181,8 @@ namespace CodeStatistics.Handling.Languages{
             
             variables.Average("javaInterfacesFieldsAvg","javaInterfacesFieldsTotal","javaInterfaces");
             variables.Average("javaInterfacesMethodsAvg","javaInterfacesMethodsTotal","javaInterfaces");
+
+            variables.Average("javaAnnotationsElementsAvg","javaAnnotationsElementsTotal","javaAnnotations");
 
             // annotations
             List<KeyValuePair<string,int>> annotationUses = state.AnnotationUses;
