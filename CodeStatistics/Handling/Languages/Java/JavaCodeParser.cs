@@ -68,7 +68,8 @@ namespace CodeStatistics.Handling.Languages.Java{
 
         /// <summary>
         /// Reads the entire full type name, which consists of one or more identifiers separated by the dot character,
-        /// optionally ending with a star if <paramref name="allowStarAtEnd"/> is true. <para/>
+        /// optionally ending with a star if <paramref name="allowStarAtEnd"/> is true. Skips generics when referring
+        /// to nested types. <para/>
         /// https://docs.oracle.com/javase/specs/jls/se8/html/jls-6.html#d5e7695
         /// </summary>
         public string ReadFullTypeName(bool allowStarAtEnd = false){
@@ -91,6 +92,9 @@ namespace CodeStatistics.Handling.Languages.Java{
                         identifier = ReadIdentifier();
                         if (identifier.Length == 0)return string.Empty;
                     }
+                }
+                else if (SkipSpaces().Char == '<'){
+                    SkipBlock('<','>');
                 }
                 else break;
             }
@@ -176,6 +180,8 @@ namespace CodeStatistics.Handling.Languages.Java{
         public Primitives? ReadPrimitive(){
             foreach(string primitiveStr in JavaPrimitives.Strings){
                 if (SkipIfMatch(primitiveStr+"^n")){
+                    if (cursor > 0 && !IsWhiteSpace(code[cursor-1]))--cursor; // fix arrays and varargs
+
                     return JavaPrimitives.FromString(primitiveStr);
                 }
             }
@@ -205,13 +211,14 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
-        /// Skips spaces and all following pairs of angled and square brackets.
+        /// Skips spaces and all following pairs of angled and square brackets, and triple dots (varargs).
         /// </summary>
         public JavaCodeParser SkipTypeArrayAndGenerics(){
             do{
                 SkipSpaces();
                 if (Char == '[')SkipBlock('[',']');
                 if (Char == '<')SkipBlock('<','>');
+                if (Char == '.')SkipIfMatch("...");
             }
             while(!IsEOF && (Char == '[' || Char == '<'));
 
