@@ -95,6 +95,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 }
                 else if (SkipSpaces().Char == '<'){
                     SkipBlock('<','>');
+                    identifier = string.Empty;
                 }
                 else break;
             }
@@ -226,12 +227,13 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
-        /// Reads the type, which can either be a method return type or a field type, and skips it.
+        /// Reads the type, which can either be a method return/parameter type or a field type, and skips it.
         /// </summary>
-        public TypeOf? ReadTypeOf(){
+        public TypeOf? ReadTypeOf(bool isMethodParameter){
             while(ReadAnnotation().HasValue){} // skip type annotations
 
-            SkipGenerics();
+            if (isMethodParameter)SkipIfMatch("final^s"); // skip final keyword in method parameters
+            else SkipGenerics(); // skip method return type generics
 
             // void
             if (SkipIfMatch("void^s"))return TypeOf.Void();
@@ -336,7 +338,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 }
 
                 // fields and methods
-                TypeOf? returnOrFieldType = ReadTypeOf();
+                TypeOf? returnOrFieldType = ReadTypeOf(false);
 
                 if (returnOrFieldType.HasValue){
                     int prevCursor = cursor;
@@ -436,7 +438,7 @@ namespace CodeStatistics.Handling.Languages.Java{
             if (SkipSpaces().IsEOF)return list;
 
             while(true){
-                TypeOf? type = ReadTypeOf();
+                TypeOf? type = ReadTypeOf(true);
                 if (!type.HasValue)break;
 
                 list.Add(type.Value);
