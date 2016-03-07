@@ -134,6 +134,7 @@
     <Compile Include="Output\GenerateHtml.cs" />
     <Compile Include="Output\Template.cs" />
     <Compile Include="Output\TemplateDeclaration.cs" />
+    <Compile Include="Output\TemplateException.cs" />
     <Compile Include="Output\TemplateList.cs" />
     <Compile Include="Output\TemplateToken.cs" />
     <Compile Include="Program.cs" />

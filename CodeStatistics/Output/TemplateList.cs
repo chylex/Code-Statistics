@@ -1,5 +1,6 @@
 ﻿using CodeStatistics.Handling;
 using System.Collections.Generic;
+using CodeStatistics.Data;
 
 namespace CodeStatistics.Output{
     class TemplateList{
@@ -11,7 +12,7 @@ namespace CodeStatistics.Output{
                 TemplateDeclaration declaration;
 
                 if (TemplateDeclaration.TryReadLine(line,out declaration)){
-                    List<string> templateLines = new List<string>();
+                    var templateLines = new List<string>();
 
                     while(++lineIndex < lines.Count){
                         string templateLine = lines[lineIndex];
@@ -31,7 +32,14 @@ namespace CodeStatistics.Output{
         }
 
         public string ProcessTemplate(string templateName, Variables variables){
-            return templates[templateName].Process(this,variables); // throws KeyNotFoundException if the template is missing
+            Template template;
+
+            if (templates.TryGetValue(templateName,out template)){
+                return template.Process(this,variables);
+            }
+            else{
+                throw new TemplateException(Lang.Get["TemplateErrorNotFound",templateName]);
+            }
         }
     }
 }

@@ -12,21 +12,13 @@ using System.IO;
 
 namespace CodeStatistics.Forms{
     public sealed partial class ProjectLoadForm : Form{
-        private static string GenerateOutputFile(Variables variables){
-            string template = Program.Config.GetTemplateContents();
-            if (template == null)return null; // TODO
-
-            string output = Program.Config.GetOutputFilePath();
-            new GenerateHtml(template.Split('\n','\r'),variables).ToFile(output);
-
-            return output;
-        }
-
         private readonly IInputMethod inputMethod;
         private FileSearch search;
         private Project project;
         private Variables variables;
+
         private string outputFile;
+        [Localizable(true)] private string lastOutputGenError;
 
         private ProjectLoadForm(){
             InitializeComponent();
@@ -86,7 +78,15 @@ namespace CodeStatistics.Forms{
                         flowLayoutButtonsDebug.Visible = true;
                     #endif
 
-                    outputFile = GenerateOutputFile(variables);
+                    while(!GenerateOutputFile()){
+                        DialogResult res = MessageBox.Show(lastOutputGenError,Lang.Get["LoadProjectError"],MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
+
+                        if (res == DialogResult.Cancel){
+                            DialogResult = DialogResult.Abort;
+                            Close();
+                            break;
+                        }
+                    }
 
                     if (Program.Config.AutoOpenBrowser){
                         btnOpenOutput_Click(null,new EventArgs());
@@ -109,8 +109,7 @@ namespace CodeStatistics.Forms{
 
                         watcher.Changed += (sender, args) => {
                             labelLoadData.Text = Lang.Get["LoadProjectDummyTemplateRebuild"];
-                            GenerateOutputFile(variables);
-                            labelLoadData.Text = Lang.Get["LoadProjectDummyTemplateWait"];
+                            labelLoadData.Text = GenerateOutputFile() ? Lang.Get["LoadProjectDummyTemplateWait"] : Lang.Get["LoadProjectDummyTemplateFailed"];
                         };
 
                         watcher.EnableRaisingEvents = true;
@@ -120,19 +119,48 @@ namespace CodeStatistics.Forms{
                 });
 
                 project.Failure += ex => this.InvokeOnUIThread(() => {
-                    // TODO
-                    MessageBox.Show("Unhandled exception in Project: "+ex.ToString());
+                    MessageBox.Show(Lang.Get["LoadProjectErrorProcessing",ex.ToString()],Lang.Get["LoadProjectError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    Close();
                 });
 
                 project.ProcessAsync();
             });
 
             search.Failure += ex => this.InvokeOnUIThread(() => {
-                // TODO
-                MessageBox.Show("Unhandled exception in FileSearch: "+ex.ToString());
+                MessageBox.Show(Lang.Get["LoadProjectErrorFileSearch",ex.ToString()],Lang.Get["LoadProjectError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                Close();
             });
 
             search.StartAsync();
+        }
+
+        private bool GenerateOutputFile(){
+            string template = Program.Config.GetTemplateContents();
+
+            if (template == null){
+                lastOutputGenError = Lang.Get["LoadProjectErrorNoTemplate"];
+                return false;
+            }
+
+            outputFile = Program.Config.GetOutputFilePath();
+
+            GenerateHtml generator = new GenerateHtml(template.Split('\n','\r'),variables);
+
+            switch(generator.ToFile(outputFile)){
+                case GenerateHtml.Result.Succeeded: return true;
+
+                case GenerateHtml.Result.TemplateError:
+                    lastOutputGenError = Lang.Get["LoadProjectErrorInvalidTemplate",generator.LastError];
+                    return false;
+
+                case GenerateHtml.Result.IoError:
+                    lastOutputGenError = Lang.Get["LoadProjectErrorIO",generator.LastError];
+                    return false;
+
+                default:
+                    lastOutputGenError = Lang.Get["LoadProjectErrorUnknown"];
+                    return false;
+            }
         }
 
         private void UpdateProgress(ProgressBarStyle style, int percentage){

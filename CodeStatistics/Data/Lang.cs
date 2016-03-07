@@ -34,10 +34,19 @@ namespace CodeStatistics.Data{
                 { "LoadProjectProcessingDone", "Project processing finished." },
                 { "LoadProjectDummyTemplateWait", "Waiting for template to update..." },
                 { "LoadProjectDummyTemplateRebuild", "Rebuilding template..." },
+                { "LoadProjectDummyTemplateFailed", "Template generation failed." },
                 { "LoadProjectProcessingFiles", "$1 / $2" },
                 { "LoadProjectCancel", "Cancel" },
                 { "LoadProjectClose", "Close" },
                 { "LoadProjectOpenOutput", "Open HTML" },
+                
+                { "LoadProjectError", "Project processing failed" },
+                { "LoadProjectErrorFileSearch", "Could not read project files:\n$1" },
+                { "LoadProjectErrorProcessing", "Could not process the project:\n$1" },
+                { "LoadProjectErrorNoTemplate", "Could not read the template file." },
+                { "LoadProjectErrorInvalidTemplate", "The template contains errors:\n$1" },
+                { "LoadProjectErrorIO", "Could not create the HTML file:\n$1" },
+                { "LoadProjectErrorUnknown", "Unknown error occurred when generating the HTML file." },
 
                 { "LoadProjectDebug", "Debug" },
                 { "LoadProjectBreakpoint", "Break" },
@@ -63,7 +72,10 @@ namespace CodeStatistics.Data{
                 { "AboutReadme", "View ReadMe" },
 
                 { "DialogFilterFolders", "Folders" },
-                { "DialogFilterArchives", "Archives (.zip)" }
+                { "DialogFilterArchives", "Archives (.zip)" },
+                
+                { "TemplateErrorNotFound", "Template not found: $1" },
+                { "TemplateErrorUnknownToken", "Unknown template token: $1" }
             };
         }
 

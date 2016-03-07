@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using CodeStatistics.Handling;
-using System.Diagnostics;
 using System.Text;
+using CodeStatistics.Data;
 
 namespace CodeStatistics.Output{
     abstract class TemplateToken{
@@ -13,7 +14,7 @@ namespace CodeStatistics.Output{
             foreach(Match match in MatchToken.Matches(text)){
                 TemplateToken token = FromContent(match.Index,match.Length,match.Groups[1].Value);
 
-                if (token == null)Debug.WriteLine(match.Groups[1].Value); // TODO
+                if (token == null)throw new TemplateException(Lang.Get["TemplateErrorUnknownToken",match.Groups[1].Value]);
                 else yield return token;
             }
         }
