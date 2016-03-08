@@ -13,8 +13,8 @@ namespace CodeStatistics.Handling.Languages.Java.Utils{
         public static string PrepareCodeFile(string code){
             string processed = code;
             processed = RegexString.Replace(processed,@""""""); // beautiful
-            processed = RegexCommentSingle.Replace(processed,"");
-            processed = RegexCommentMulti.Replace(processed,"");
+            processed = RegexCommentSingle.Replace(processed," ");
+            processed = RegexCommentMulti.Replace(processed," ");
             return processed;
         }
 
