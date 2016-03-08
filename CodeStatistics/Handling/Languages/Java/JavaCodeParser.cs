@@ -317,7 +317,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                 if (declaration.HasValue){
                     string identifier = SkipSpaces().ReadIdentifier();
-                    if (identifier.Length == 0)break; // TODO handle error
+                    if (identifier.Length == 0)break; // error, break out
 
                     Type nestedType = new Type(declaration.Value,identifier,memberInfo);
                     ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
@@ -349,7 +349,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                         returnOrFieldType = TypeOf.Void();
                     }
 
-                    if (identifier.Length == 0)break; // TODO handle error
+                    if (identifier.Length == 0)break; // error, break out
 
                     if (SkipSpaces().Char == '('){ // method
                         List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
@@ -402,7 +402,9 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (IsEOF)break;
 
                 // skip
-                if (skippedMembers == 0)System.Diagnostics.Debugger.Break(); // TODO
+                if (skippedMembers == 0){
+                    System.Diagnostics.Debugger.Break();
+                }
                 
                 SkipBlock('{','}');
                 SkipSpaces();
