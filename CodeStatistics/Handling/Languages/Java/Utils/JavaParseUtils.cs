@@ -29,9 +29,9 @@ namespace CodeStatistics.Handling.Languages.Java.Utils{
             parser.SkipSpacesAndSemicolons();
 
             while(true){
-                parser.SkipSpaces();
-
                 T? structObj = readFunc();
+
+                parser.SkipSpaces();
                 
                 if (structObj.HasValue)structs.Add(structObj.Value);
                 else break;
