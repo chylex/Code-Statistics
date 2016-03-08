@@ -7,8 +7,10 @@ using CodeStatistics.Handling.Languages.Java.Utils;
 namespace CodeStatistics.Handling.Languages.Java{
     public class JavaCodeParser : CodeParser{
         public delegate void OnAnnotationRead(Annotation annotation);
+        public delegate void OnCodeBlockRead(JavaCodeParser blockParser);
 
         public event OnAnnotationRead AnnotationCallback;
+        public event OnCodeBlockRead CodeBlockCallback;
 
         public JavaCodeParser(string code) : base(code){
             IsWhiteSpace = JavaCharacters.IsWhiteSpace;
@@ -19,7 +21,8 @@ namespace CodeStatistics.Handling.Languages.Java{
 
         public override CodeParser Clone(string newCode = null){
             return new JavaCodeParser(newCode ?? string.Empty){
-                AnnotationCallback = this.AnnotationCallback
+                AnnotationCallback = this.AnnotationCallback,
+                CodeBlockCallback = this.CodeBlockCallback
             };
         }
 
@@ -331,7 +334,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 // static / instance initializer
                 if (Char == '{'){
                     Method method = new Method(memberInfo.Modifiers.HasFlag(Modifiers.Static) ? "<clinit>" : "<init>",TypeOf.Void(),memberInfo);
-                    SkipBlock('{','}');
+                    SkipProcessCodeBlock();
 
                     type.GetData().Methods.Add(method);
                     continue;
@@ -373,7 +376,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                         
                         if (Char == ';')Skip();
                         else{
-                            SkipBlock('{','}');
+                            SkipProcessCodeBlock();
                             if (SkipSpaces().Char == ';')Skip();
                         }
                         
@@ -415,7 +418,7 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// <summary>
         /// Reads all identifier names in a field declaration.
         /// </summary>
-        private List<string> ReadFieldIdentifierList(){
+        private List<string> ReadFieldIdentifierList(){ // TODO handle code in fields
             var list = new List<string>();
             if (SkipSpaces().IsEOF)return list;
 
@@ -470,6 +473,19 @@ namespace CodeStatistics.Handling.Languages.Java{
             }
 
             return list;
+        }
+
+        /// <summary>
+        /// Reads a block of code between { and }, and skips it. If an event listener exists for <see cref="CodeBlockCallback"/>, the event is called with the contents
+        /// of the skipped block. Uses <see cref="CodeParser.SkipBlock"/> or <see cref="CodeParser.ReadBlock"/>.
+        /// </summary>
+        private void SkipProcessCodeBlock(){
+            if (CodeBlockCallback == null){
+                SkipBlock('{','}');
+            }
+            else{
+                CodeBlockCallback((JavaCodeParser)ReadBlock('{','}'));
+            }
         }
     }
 }

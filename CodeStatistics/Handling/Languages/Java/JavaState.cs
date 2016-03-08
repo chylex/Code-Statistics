@@ -31,6 +31,7 @@ namespace CodeStatistics.Handling.Languages.Java{
 
             JavaCodeParser parser = new JavaCodeParser(JavaParseUtils.PrepareCodeFile(file.Contents));
             parser.AnnotationCallback += IncrementAnnotation;
+            parser.CodeBlockCallback += blockParser => ReadCodeBlock(blockParser,info);
 
             ReadPackage(parser,info);
             ReadImportList(parser,info);
@@ -100,6 +101,10 @@ namespace CodeStatistics.Handling.Languages.Java{
                 if (type != null)info.Types.Add(type);
                 else break;
             }
+        }
+
+        private static void ReadCodeBlock(JavaCodeParser blockParser, JavaFileInfo info){
+            // TODO
         }
     }
 }
