@@ -26,6 +26,8 @@ namespace CodeStatistics.Handling.Languages.Java.Utils{
         public static List<T> ReadStructList<T>(JavaCodeParser parser, ReadStruct<T> readFunc, int defaultCapacity) where T : struct{
             var structs = new List<T>(defaultCapacity);
 
+            parser.SkipSpacesAndSemicolons();
+
             while(true){
                 parser.SkipSpaces();
 

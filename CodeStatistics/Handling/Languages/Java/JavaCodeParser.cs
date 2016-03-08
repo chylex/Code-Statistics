@@ -27,6 +27,20 @@ namespace CodeStatistics.Handling.Languages.Java{
         }
 
         /// <summary>
+        /// Skips all whitespace and semicolons and places the cursor after the last skipped character. Returns itself.
+        /// </summary>
+        public JavaCodeParser SkipSpacesAndSemicolons(){
+            int prevCursor;
+
+            do{
+                prevCursor = cursor;
+                if (SkipSpaces().Char == ';')Skip();
+            }while(!IsEOF && prevCursor != cursor);
+
+            return this;
+        }
+
+        /// <summary>
         /// Skips to the next matching character where the brackets ([{ }]) are balanced, and returns itself.
         /// If the skip fails, the cursor will not move.
         /// </summary>
@@ -325,7 +339,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                     Type nestedType = new Type(declaration.Value,identifier,memberInfo);
                     ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
 
-                    if (SkipSpaces().Char == ';')Skip(); // skip semicolons after nested type declarations
+                    SkipSpacesAndSemicolons();
 
                     type.NestedTypes.Add(nestedType);
                     continue;
@@ -377,7 +391,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                         if (Char == ';')Skip();
                         else{
                             SkipProcessCodeBlock();
-                            if (SkipSpaces().Char == ';')Skip();
+                            SkipSpacesAndSemicolons();
                         }
                         
                         type.GetData().Methods.Add(new Method(identifier,returnOrFieldType.Value,parameterList,type.GetData().UpdateMethodInfo(memberInfo)));
@@ -410,7 +424,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 }
                 
                 SkipBlock('{','}');
-                SkipSpaces();
+                SkipSpacesAndSemicolons();
                 ++skippedMembers;
             }
         }
