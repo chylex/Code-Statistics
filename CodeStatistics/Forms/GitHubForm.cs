@@ -47,6 +47,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void textBoxRepository_TextChanged(object sender, EventArgs e){
+            btnDownload.Enabled = false;
             timer.Stop();
             timer.Start();
         }

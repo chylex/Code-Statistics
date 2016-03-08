@@ -46,7 +46,7 @@ namespace CodeStatistics.Input.Methods{
         public event AsyncCompletedEventHandler DownloadFinished;
         private event Action CancelFinish;
 
-        public GitHub(string repository){ // TODO validate
+        public GitHub(string repository){
             Match match = RepositoryRegexCustom.Match(repository.Replace(' ','-'));
 
             target = match.Groups[1].Value+'/'+match.Groups[2].Value;
