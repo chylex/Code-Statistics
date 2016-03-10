@@ -62,6 +62,7 @@
     <Compile Include="Collections\BiDictionary.cs" />
     <Compile Include="Collections\CharacterRangeSet.cs" />
     <Compile Include="Collections\CounterDictionary.cs" />
+    <Compile Include="Collections\EnumDictionary.cs" />
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Data\Lang.cs" />
     <Compile Include="Forms\AboutForm.cs">
