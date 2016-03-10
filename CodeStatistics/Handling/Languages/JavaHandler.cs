@@ -77,11 +77,11 @@ namespace CodeStatistics.Handling.Languages{
             variables.Minimum("javaNamesFullMin",fullLength);
             variables.Maximum("javaNamesFullMax",fullLength);
 
-            JavaState state = variables.GetStateObject<JavaState>(this);
-            state.IdentifiersSimpleTop.Add(identifier);
-            state.IdentifiersSimpleBottom.Add(identifier);
-            state.IdentifiersFullTop.Add(identifier);
-            state.IdentifiersFullBottom.Add(identifier);
+            JavaGlobalInfo global = variables.GetStateObject<JavaState>(this).GlobalInfo;
+            global.IdentifiersSimpleTop.Add(identifier);
+            global.IdentifiersSimpleBottom.Add(identifier);
+            global.IdentifiersFullTop.Add(identifier);
+            global.IdentifiersFullBottom.Add(identifier);
 
             if (type.Declaration == Type.DeclarationType.Annotation){
                 // annotation elements
@@ -158,6 +158,7 @@ namespace CodeStatistics.Handling.Languages{
             base.FinalizeProject(variables);
 
             JavaState state = variables.GetStateObject<JavaState>(this);
+            JavaGlobalInfo global = state.GlobalInfo;
 
             // general
             variables.SetVariable("javaPackages",state.PackageCount);
@@ -168,19 +169,19 @@ namespace CodeStatistics.Handling.Languages{
             variables.Average("javaNamesFullAvg","javaNamesFullTotal","javaTypesTotal");
 
             // identifiers
-            foreach(TypeIdentifier identifier in state.IdentifiersSimpleTop){
+            foreach(TypeIdentifier identifier in global.IdentifiersSimpleTop){
                 variables.AddToArray("javaNamesSimpleTop",new { package = identifier.Prefix, name = identifier.Name });
             }
 
-            foreach(TypeIdentifier identifier in state.IdentifiersSimpleBottom.Reverse()){
+            foreach(TypeIdentifier identifier in global.IdentifiersSimpleBottom.Reverse()){
                 variables.AddToArray("javaNamesSimpleBottom",new { package = identifier.Prefix, name = identifier.Name });
             }
 
-            foreach(TypeIdentifier identifier in state.IdentifiersFullTop){
+            foreach(TypeIdentifier identifier in global.IdentifiersFullTop){
                 variables.AddToArray("javaNamesFullTop",new { package = identifier.Prefix, name = identifier.Name });
             }
 
-            foreach(TypeIdentifier identifier in state.IdentifiersFullBottom.Reverse()){
+            foreach(TypeIdentifier identifier in global.IdentifiersFullBottom.Reverse()){
                 variables.AddToArray("javaNamesFullBottom",new { package = identifier.Prefix, name = identifier.Name });
             }
 
@@ -196,20 +197,20 @@ namespace CodeStatistics.Handling.Languages{
 
             variables.Average("javaMethodParametersAvg","javaMethodParametersTotal","javaMethodsTotal");
 
-            foreach(KeyValuePair<string,int> fieldType in state.FieldTypes.ListFromTop()){
+            foreach(KeyValuePair<string,int> fieldType in global.FieldTypes.ListFromTop()){
                 variables.AddToArray("javaFieldTypes",new { type = fieldType.Key, amount = fieldType.Value });
             }
 
-            foreach(KeyValuePair<string,int> methodReturnType in state.MethodReturnTypes.ListFromTop()){
+            foreach(KeyValuePair<string,int> methodReturnType in global.MethodReturnTypes.ListFromTop()){
                 variables.AddToArray("javaMethodReturnTypes",new { type = methodReturnType.Key, amount = methodReturnType.Value });
             }
 
-            foreach(KeyValuePair<string,int> methodParameterType in state.MethodParameterTypes.ListFromTop()){
+            foreach(KeyValuePair<string,int> methodParameterType in global.MethodParameterTypes.ListFromTop()){
                 variables.AddToArray("javaMethodParameterTypes",new { type = methodParameterType.Key, amount = methodParameterType.Value });
             }
 
             // annotations
-            List<KeyValuePair<string,int>> annotationUses = state.AnnotationUses.ListFromTop();
+            List<KeyValuePair<string,int>> annotationUses = global.AnnotationUses.ListFromTop();
             int totalAnnotationsUsed = annotationUses.Sum(kvp => kvp.Value);
 
             for(int annotationIndex = 0; annotationIndex < Math.Min(annotationUses.Count,10); annotationIndex++){
