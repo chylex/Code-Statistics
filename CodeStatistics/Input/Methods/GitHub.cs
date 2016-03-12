@@ -30,7 +30,7 @@ namespace CodeStatistics.Input.Methods{
             NoInternet, NoConnection, Started
         }
 
-        public delegate void BranchListRetrieved(IEnumerable<string> branches);
+        public delegate void BranchListRetrieved(IEnumerable<string> branches, Exception exception);
 
         private readonly string target;
         private WebClient dlBranches, dlRepo;
@@ -64,18 +64,18 @@ namespace CodeStatistics.Input.Methods{
 
             dlBranches.DownloadStringCompleted += (sender, args) => {
                 if (args.Cancelled || args.Error != null){
-                    onRetrieved(null);
+                    onRetrieved(null,ProcessWebException(args.Error as WebException));
                     return;
                 }
-                
+
                 List<string> branches = new List<string>(2);
 
                 foreach(object entry in (object[])new JavaScriptSerializer().DeserializeObject(args.Result)){
                     branches.Add((string)((Dictionary<string,object>)entry)["name"]);
                 }
 
-                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master",1).Concat(branches));
-                else onRetrieved(branches);
+                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master",1).Concat(branches),null);
+                else onRetrieved(branches,null);
             };
 
             try{
@@ -182,6 +182,20 @@ namespace CodeStatistics.Input.Methods{
             client.Proxy = null;
             client.Headers.Add("User-Agent","CodeStatistics");
             return client;
+        }
+
+        private static Exception ProcessWebException(WebException ex){
+            if (ex != null && ex.Status == WebExceptionStatus.ProtocolError){
+                HttpWebResponse response = ex.Response as HttpWebResponse;
+
+                if (response != null){
+                    if (response.StatusCode == HttpStatusCode.NotFound || response.StatusCode == HttpStatusCode.Forbidden){
+                        return null; // ignore 403/404
+                    }
+                }
+            }
+
+            return ex;
         }
     }
 }

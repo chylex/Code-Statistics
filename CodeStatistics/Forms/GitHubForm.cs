@@ -12,9 +12,6 @@ namespace CodeStatistics.Forms{
             Enabled = false,
         };
 
-        private readonly ItemBranchLoading branchLoading = new ItemBranchLoading();
-        private object previousSelectedBranch;
-
         public GitHubForm(){
             InitializeComponent();
 
@@ -35,7 +32,7 @@ namespace CodeStatistics.Forms{
 
         private void OnLoad(object sender, EventArgs e){
             ActiveControl = textBoxRepository;
-            listBranches.Text = GitHub.DefaultBranch;
+            listBranches.SelectedText = GitHub.DefaultBranch;
         }
 
         private void btnDownload_Click(object sender, EventArgs e){
@@ -53,25 +50,28 @@ namespace CodeStatistics.Forms{
         }
 
         private void listBranches_SelectedValueChanged(object sender, EventArgs e){
-            if (listBranches.SelectedItem == branchLoading){
-                listBranches.SelectedItem = previousSelectedBranch;
+            if (listBranches.SelectedItem is ItemBranchTechnical){
+                listBranches.SelectedIndex = -1;
             }
-
-            previousSelectedBranch = listBranches.SelectedItem;
         }
 
         private void timer_Tick(object sender, EventArgs e){
             timer.Stop();
 
             if (GitHub.IsRepositoryValid(textBoxRepository.Text)){
-                listBranches.Items.Add(branchLoading);
+                listBranches.Items.Add(new ItemBranchTechnical("LoadGitHubBranchLoading"));
 
                 GitHub github = new GitHub(textBoxRepository.Text);
 
-                github.RetrieveBranchList(branches => this.InvokeOnUIThread(() => {
+                GitHub.DownloadStatus status = github.RetrieveBranchList((branches, ex) => this.InvokeOnUIThread(() => {
                     github.Dispose();
-
                     listBranches.Items.Clear();
+
+                    if (ex != null){
+                        btnDownload.Enabled = false;
+                        listBranches.Items.Add(new ItemBranchTechnical("LoadGitHubBranchFailure"));
+                        return;
+                    }
 
                     if (branches == null){
                         btnDownload.Enabled = false;
@@ -88,6 +88,16 @@ namespace CodeStatistics.Forms{
 
                     btnDownload.Enabled = true;
                 }));
+
+                switch(status){
+                    case GitHub.DownloadStatus.NoInternet:
+                        MessageBox.Show(Lang.Get["LoadGitHubNoInternet"],Lang.Get["LoadGitHubError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        break;
+
+                    case GitHub.DownloadStatus.NoConnection:
+                        MessageBox.Show(Lang.Get["LoadGitHubNoEstablishedConnection"],Lang.Get["LoadGitHubError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        break;
+                }
             }
         }
 
@@ -96,9 +106,15 @@ namespace CodeStatistics.Forms{
             Close();
         }
 
-        private class ItemBranchLoading{
+        private class ItemBranchTechnical{
+            private readonly string str;
+
+            public ItemBranchTechnical(string langKey){
+                this.str = Lang.Get[langKey];
+            }
+
             public override string ToString(){
-                return Lang.Get["LoadGitHubBranchLoading"];
+                return str;
             }
         }
     }

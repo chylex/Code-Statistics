@@ -54,6 +54,7 @@ namespace CodeStatistics.Data{
                 { "LoadGitHubRepositoryName", "Repository Name:" },
                 { "LoadGitHubBranch", "Branch:" },
                 { "LoadGitHubBranchLoading", "(Loading...)" },
+                { "LoadGitHubBranchFailure", "(Failed)" },
                 { "LoadGitHubDownload", "Download" },
                 { "LoadGitHubCancel", "Cancel" },
 
@@ -62,6 +63,7 @@ namespace CodeStatistics.Data{
                 { "LoadGitHubNoConnection", "No internet connection." },
                 { "LoadGitHubNoInternet", "Could not establish connection with GitHub." },
                 { "LoadGitHubDownloadError", "Could not download the repository." },
+                { "LoadGitHubError", "GitHub Project Error" },
                 
                 { "LoadArchiveExtracting", "Extracting archive..." },
 
