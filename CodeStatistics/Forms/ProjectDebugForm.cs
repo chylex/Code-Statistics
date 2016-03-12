@@ -11,8 +11,10 @@ using System.Collections.Generic;
 
 namespace CodeStatistics.Forms{
     sealed partial class ProjectDebugForm : Form{
+#if WINDOWS
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
+#endif
 
         private readonly List<RelativeFile> entries = new List<RelativeFile>(64);
 
@@ -33,7 +35,9 @@ namespace CodeStatistics.Forms{
             textBoxFilterFiles_TextChanged(textBoxFilterFiles,new EventArgs());
             listBoxFiles_SelectedValueChange(listBoxFiles,new EventArgs());
 
+#if WINDOWS
             SendMessage(textBoxCode.Handle,0x00CB,new IntPtr(1),new []{ 16 });
+#endif
         }
 
         private void textBoxFilterFiles_TextChanged(object sender, EventArgs e){
