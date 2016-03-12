@@ -12,6 +12,10 @@ namespace CodeStatistics.Input.Helpers{
             return IOUtils.CheckExtension(file,"ZIP");
         }
 
+        public static bool CheckZipSupport(){
+            return typeof(System.IO.Packaging.Package).Assembly.GetType("MS.Internal.IO.Zip.ZipArchive") != null;
+        }
+
         private readonly string file;
         private readonly string extractPath;
         private readonly object inner;
@@ -20,6 +24,8 @@ namespace CodeStatistics.Input.Helpers{
 
         public ZipArchive(string file, string extractPath){
             var type = typeof(System.IO.Packaging.Package).Assembly.GetType("MS.Internal.IO.Zip.ZipArchive");
+            if (type == null)throw new InvalidOperationException();
+
             var openFile = type.GetMethod("OpenOnFile",BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
             this.file = file;

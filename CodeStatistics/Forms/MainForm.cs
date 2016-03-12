@@ -5,6 +5,7 @@ using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
+using System.Drawing;
 
 namespace CodeStatistics.Forms{
     public sealed partial class MainForm : Form{
@@ -15,10 +16,15 @@ namespace CodeStatistics.Forms{
             
             Text = Lang.Get["Title"];
             btnProjectFolder.Text = Lang.Get["MenuProjectFromFolder"];
+            btnProjectArchive.Text = Lang.Get["MenuProjectFromArchive"];
             btnProjectGitHub.Text = Lang.Get["MenuProjectFromGitHub"];
             btnViewSourceCode.Text = Lang.Get["MenuViewSourceCode"];
             btnViewAbout.Text = Lang.Get["MenuViewAbout"];
-            btnProjectArchive.Text = Lang.Get["MenuProjectFromArchive"];
+
+            if (!ZipArchive.CheckZipSupport()){
+                btnProjectArchive.Enabled = false;
+                btnProjectArchive.BackColor = Color.WhiteSmoke;
+            }
         }
 
         // Drag Events
