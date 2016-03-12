@@ -1,6 +1,8 @@
 ﻿using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using System;
+using System.Diagnostics;
+using System.Net;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Forms{
@@ -70,6 +72,24 @@ namespace CodeStatistics.Forms{
                     if (ex != null){
                         btnDownload.Enabled = false;
                         listBranches.Items.Add(new ItemBranchTechnical("LoadGitHubBranchFailure"));
+#if MONO
+                        Exception testEx = ex.InnerException;
+
+                        while(testEx != null){
+                            if (testEx.GetType().FullName == "Mono.Security.Protocol.Tls.TlsException"){
+                                if (MessageBox.Show(Lang.Get["LoadGitHubTrustError"],Lang.Get["LoadGitHubError"],MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes){
+                                    Process process = Process.Start("mozroots","--import --ask-remove --quiet");
+                                    if (process != null)process.WaitForExit();
+
+                                    timer_Tick(timer,new EventArgs());
+                                }
+
+                                break;
+                            }
+
+                            testEx = testEx.InnerException;
+                        }
+#endif
                         return;
                     }
 

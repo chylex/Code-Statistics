@@ -57,13 +57,14 @@ namespace CodeStatistics.Data{
                 { "LoadGitHubBranchFailure", "(Failed)" },
                 { "LoadGitHubDownload", "Download" },
                 { "LoadGitHubCancel", "Cancel" },
-
+                
+                { "LoadGitHubError", "GitHub Project Error" },
                 { "LoadGitHubDownloadingRepo", "Downloading repository..." },
                 { "LoadGitHubExtractingRepo", "Extracting repository..." },
                 { "LoadGitHubNoConnection", "No internet connection." },
                 { "LoadGitHubNoInternet", "Could not establish connection with GitHub." },
                 { "LoadGitHubDownloadError", "Could not download the repository." },
-                { "LoadGitHubError", "GitHub Project Error" },
+                { "LoadGitHubTrustError", "Your Mono installation is not trusting GitHub certificates. Do you want to download them automatically? You can also run 'mozroots --import --ask-remove' for manual installation." },
                 
                 { "LoadArchiveExtracting", "Extracting archive..." },
 

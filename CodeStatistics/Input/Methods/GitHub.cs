@@ -30,7 +30,7 @@ namespace CodeStatistics.Input.Methods{
             NoInternet, NoConnection, Started
         }
 
-        public delegate void BranchListRetrieved(IEnumerable<string> branches, Exception exception);
+        public delegate void BranchListRetrieved(IEnumerable<string> branches, WebException exception);
 
         private readonly string target;
         private WebClient dlBranches, dlRepo;
@@ -184,7 +184,7 @@ namespace CodeStatistics.Input.Methods{
             return client;
         }
 
-        private static Exception ProcessWebException(WebException ex){
+        private static WebException ProcessWebException(WebException ex){
             if (ex != null && ex.Status == WebExceptionStatus.ProtocolError){
                 HttpWebResponse response = ex.Response as HttpWebResponse;
 
