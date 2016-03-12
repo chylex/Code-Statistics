@@ -101,6 +101,7 @@
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Field.cs" />
+    <Compile Include="Handling\Languages\Java\Elements\FlowStatement.cs" />
     <Compile Include="Handling\Languages\Java\Elements\TypeIdentifier.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Import.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Member.cs" />
