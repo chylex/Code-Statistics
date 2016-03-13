@@ -3,9 +3,11 @@ using CodeStatistics.Data;
 using CodeStatistics.Properties;
 using System.Windows.Forms;
 using System.Linq;
-using System.ComponentModel;
 using System.Diagnostics;
 using System;
+#if !MONO
+using System.ComponentModel;
+#endif
 
 namespace CodeStatistics.Forms{
     public sealed partial class AboutForm : Form{
@@ -20,17 +22,19 @@ namespace CodeStatistics.Forms{
 
         public AboutForm(){
             InitializeComponent();
-
+#if !MONO
+            this.HelpButton = true; // Mono does not support OnHelpButtonClicked
+#endif
             Text = Lang.Get["TitleAbout"];
             btnReadme.Text = Lang.Get["AboutReadme"];
             textContents.Rtf = AboutFormData.Aggregate(Resources.about,(contents, kvp) => contents.Replace(kvp.Key,kvp.Value));
         }
-
+#if !MONO
         private void OnHelpButtonClicked(object sender, CancelEventArgs e){
             e.Cancel = true;
             Process.Start("https://github.com/chylex/Code-Statistics/issues");
         }
-
+#endif
         private void btnReadme_Click(object sender, EventArgs e){
             Process.Start("https://github.com/chylex/Code-Statistics/blob/master/README.md");
         }

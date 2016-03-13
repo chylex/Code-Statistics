@@ -70,7 +70,6 @@
             this.Controls.Add(this.btnReadme);
             this.Controls.Add(this.textContents);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
