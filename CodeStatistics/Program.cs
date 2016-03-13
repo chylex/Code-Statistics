@@ -45,5 +45,9 @@ namespace CodeStatistics{
                 else return;
             }
         }
+
+        public static bool IsRunningMono(){
+            return Type.GetType("Mono.Runtime") != null;
+        }
     }
 }
