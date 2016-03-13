@@ -55,7 +55,7 @@ namespace CodeStatistics.Input{
         /// Creates a randomly named directory in %TEMP%/CSTMP and returns the full path, or null if the creation fails.
         /// </summary>
         public static string CreateTemporaryDirectory(){
-            string path = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP",Path.GetRandomFileName());
+            string path = Path.Combine(GetTempRoot(),"CSTMP",Path.GetRandomFileName());
             
             try{
                 Directory.CreateDirectory(path);
@@ -70,11 +70,22 @@ namespace CodeStatistics.Input{
         /// </summary>
         public static bool CleanupTemporaryDirectory(){
             try{
-                Directory.Delete(Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"),"CSTMP"),true);
+                Directory.Delete(Path.Combine(GetTempRoot(),"CSTMP"),true);
                 return true;
             }catch(Exception){
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns the temporary folder for currently running system.
+        /// </summary>
+        private static string GetTempRoot(){
+#if WINDOWS
+            return Environment.ExpandEnvironmentVariables("%TEMP%");
+#else
+            return Path.GetTempPath();
+#endif
         }
     }
 }
