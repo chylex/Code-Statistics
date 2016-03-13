@@ -12,6 +12,9 @@ namespace CodeStatistics.Data{
                 { "TitleProject", "Code Statistics - Project" },
                 { "TitleDebug", "Code Statistics - Project Debug" },
 
+                { "ErrorLaunchTitle", "Launch Error" },
+                { "ErrorLaunchMonoOnWindowsBuild", "You are running Mono with the Windows build of Code Statistics. Please, download the Mono build instead." },
+
                 { "ErrorInvalidArgsTitle", "Invalid Program Arguments" },
                 { "ErrorInvalidArgsDuplicateIdentifier", "Duplicate identifier: $1" },
                 { "ErrorInvalidArgsUnknown", "Unknown parameter: $1" },
