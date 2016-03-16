@@ -76,6 +76,8 @@ namespace CodeStatistics.Forms{
 
                     #if DEBUG
                         flowLayoutButtonsDebug.Visible = true;
+                    #else
+                        flowLayoutButtonsDebug.Visible = Program.Config.IsDebuggingProject;
                     #endif
 
                     while(!GenerateOutputFile()){

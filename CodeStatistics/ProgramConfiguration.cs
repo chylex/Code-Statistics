@@ -16,6 +16,7 @@ namespace CodeStatistics{
                 case "nogui":
                 case "openbrowser":
                 case "autoclose":
+                case "debug":
                 case "in:dummy":
                     return true;
 
@@ -67,6 +68,7 @@ namespace CodeStatistics{
         public readonly bool NoGui;
         public readonly bool AutoOpenBrowser;
         public readonly bool CloseOnFinish;
+        public readonly bool IsDebuggingProject;
         public readonly bool IsDebuggingTemplate;
 
         public ProgramConfiguration(ProgramArguments args){
@@ -76,6 +78,7 @@ namespace CodeStatistics{
             NoGui = args.CheckFlag("nogui");
             AutoOpenBrowser = args.CheckFlag("openbrowser");
             CloseOnFinish = args.CheckFlag("autoclose");
+            IsDebuggingProject = args.HasVariable("debug");
             IsDebuggingTemplate = args.HasVariable("template:debug");
 
             if (args.CheckFlag("in:dummy")){
