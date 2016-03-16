@@ -132,6 +132,15 @@ namespace CodeStatistics.Handling.Languages{
                 variables.Increment(declPrefix+"MethodsDefaultVisibility",methodsDefault);
             }
 
+            // enums
+            if (type.Declaration == Type.DeclarationType.Enum){
+                Type.DataEnum enumData = type.GetData<Type.DataEnum>();
+                
+                variables.Increment("javaEnumsValuesTotal",enumData.EnumValues.Count);
+                variables.Minimum("javaEnumsValuesMin",enumData.EnumValues.Count);
+                variables.Maximum("javaEnumsValuesMax",enumData.EnumValues.Count);
+            }
+
             // annotations
             variables.Increment("javaAnnotationsUsedClasses",type.Annotations.Count);
 
@@ -208,6 +217,9 @@ namespace CodeStatistics.Handling.Languages{
             foreach(KeyValuePair<string,int> methodParameterType in global.MethodParameterTypes.ListFromTop()){
                 variables.AddToArray("javaMethodParameterTypes",new { type = methodParameterType.Key, amount = methodParameterType.Value });
             }
+
+            // enums
+            variables.Average("javaEnumsValuesAvg","javaEnumsValuesTotal","javaEnums");
 
             // annotations
             List<KeyValuePair<string,int>> annotationUses = global.AnnotationUses.ListFromTop();
