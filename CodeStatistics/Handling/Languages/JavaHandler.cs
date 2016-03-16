@@ -240,6 +240,8 @@ namespace CodeStatistics.Handling.Languages{
 
         private TreeNode GenerateTreeViewDataForType(JavaFileInfo fileInfo, Type type){
             Type.TypeData data = type.GetData();
+            Type.DataEnum dataEnum = data as Type.DataEnum;
+
             TreeNode node = new TreeNode(type.ToString());
 
             if (fileInfo != null){
@@ -268,6 +270,12 @@ namespace CodeStatistics.Handling.Languages{
                 TreeNode nestedNode = new TreeNode("[Nested Types]");
                 foreach(Type nestedType in type.NestedTypes)nestedNode.Nodes.Add(GenerateTreeViewDataForType(null,nestedType));
                 node.Nodes.Add(nestedNode);
+            }
+
+            if (dataEnum != null){
+                TreeNode enumNode = new TreeNode("[Enum Values]");
+                foreach(string value in dataEnum.EnumValues)enumNode.Nodes.Add(value);
+                node.Nodes.Add(enumNode);
             }
 
             return node;
