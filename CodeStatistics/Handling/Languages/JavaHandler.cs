@@ -57,7 +57,7 @@ namespace CodeStatistics.Handling.Languages{
             }
 
             if (isNested){
-                variables.Increment(declPrefix+"Nested");
+                variables.Increment(declPrefix+(type.Modifiers.HasFlag(Modifiers.Static) ? "NestedStatic" : "NestedInner"));
             }
 
             foreach(Modifiers modifier in JavaModifiers.Values.Where(modifier => type.Modifiers.HasFlag(modifier))){
