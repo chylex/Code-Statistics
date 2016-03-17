@@ -110,6 +110,7 @@
     <Compile Include="Handling\Languages\Java\Elements\Primitives.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Type.cs" />
     <Compile Include="Handling\Languages\Java\Elements\TypeOf.cs" />
+    <Compile Include="Handling\Languages\Java\JavaCodeBlockParser.cs" />
     <Compile Include="Handling\Languages\Java\JavaGlobalInfo.cs" />
     <Compile Include="Handling\Languages\Java\Utils\JavaCharacters.cs" />
     <Compile Include="Handling\Languages\Java\JavaCodeParser.cs" />

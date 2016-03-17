@@ -7,7 +7,7 @@ using CodeStatistics.Handling.Languages.Java.Utils;
 namespace CodeStatistics.Handling.Languages.Java{
     public class JavaCodeParser : CodeParser{
         public delegate void OnAnnotationRead(Annotation annotation);
-        public delegate void OnCodeBlockRead(JavaCodeParser blockParser);
+        public delegate void OnCodeBlockRead(JavaCodeBlockParser blockParser);
 
         public event OnAnnotationRead AnnotationCallback;
         public event OnCodeBlockRead CodeBlockCallback;
@@ -498,7 +498,7 @@ namespace CodeStatistics.Handling.Languages.Java{
                 SkipBlock('{','}');
             }
             else{
-                CodeBlockCallback((JavaCodeParser)ReadBlock('{','}'));
+                CodeBlockCallback(new JavaCodeBlockParser(ReadBlock('{','}').Contents));
             }
         }
     }

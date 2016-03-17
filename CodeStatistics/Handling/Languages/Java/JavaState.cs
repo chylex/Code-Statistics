@@ -94,8 +94,12 @@ namespace CodeStatistics.Handling.Languages.Java{
             }
         }
 
-        private static void ReadCodeBlock(JavaCodeParser blockParser, JavaGlobalInfo info){
-            // TODO
+        private static void ReadCodeBlock(JavaCodeBlockParser blockParser, JavaGlobalInfo info){
+            string keyword;
+            
+            while((keyword = blockParser.ReadNextKeywordSkip()).Length > 0){
+                System.Diagnostics.Debug.WriteLine(keyword); // TODO
+            }
         }
     }
 }
