@@ -184,6 +184,19 @@ namespace CodeStatistics.Handling.Languages.Java{
                         ++info.Statements[isTryWithResources ? FlowStatement.TryWithResources : FlowStatement.TryCatch];
                         ++info.Statements[FlowStatement.Try];
                         break;
+
+                    case "if":
+                        ++info.Statements[FlowStatement.If];
+                        break;
+
+                    case "else":
+                        ++info.Statements[FlowStatement.Else];
+
+                        if (blockParser.ReadNextKeywordSkip() != "if"){
+                            blockParser.RevertKeywordSkip();
+                        }
+
+                        break;
                 }
             }
         }

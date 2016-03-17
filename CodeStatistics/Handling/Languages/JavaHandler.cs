@@ -233,6 +233,8 @@ namespace CodeStatistics.Handling.Languages{
             variables.SetVariable("javaAnnotationsUsedOther",totalAnnotationsUsed-variables.GetVariable("javaAnnotationsUsedClasses",0)-variables.GetVariable("javaAnnotationsUsedFields",0)-variables.GetVariable("javaAnnotationsUsedMethods",0));
 
             // control flow
+            variables.SetVariable("javaControlFlowIf",state.GlobalInfo.Statements[FlowStatement.If]+state.GlobalInfo.Statements[FlowStatement.Else]);
+
             variables.SetVariable("javaControlFlowFor",state.GlobalInfo.Statements[FlowStatement.For]);
             variables.SetVariable("javaControlFlowEnhFor",state.GlobalInfo.Statements[FlowStatement.EnhancedFor]);
             variables.SetVariable("javaControlFlowWhile",state.GlobalInfo.Statements[FlowStatement.While]);
