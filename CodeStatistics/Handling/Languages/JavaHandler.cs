@@ -231,6 +231,12 @@ namespace CodeStatistics.Handling.Languages{
 
             variables.SetVariable("javaAnnotationsUsedTotal",totalAnnotationsUsed);
             variables.SetVariable("javaAnnotationsUsedOther",totalAnnotationsUsed-variables.GetVariable("javaAnnotationsUsedClasses",0)-variables.GetVariable("javaAnnotationsUsedFields",0)-variables.GetVariable("javaAnnotationsUsedMethods",0));
+
+            // control flow
+            variables.SetVariable("javaControlFlowFor",state.GlobalInfo.Statements[FlowStatement.For]);
+            variables.SetVariable("javaControlFlowEnhFor",state.GlobalInfo.Statements[FlowStatement.EnhancedFor]);
+            variables.SetVariable("javaControlFlowWhile",state.GlobalInfo.Statements[FlowStatement.While]);
+            variables.SetVariable("javaControlFlowDoWhile",state.GlobalInfo.Statements[FlowStatement.DoWhile]);
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){

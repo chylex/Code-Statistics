@@ -98,7 +98,32 @@ namespace CodeStatistics.Handling.Languages.Java{
             string keyword;
             
             while((keyword = blockParser.ReadNextKeywordSkip()).Length > 0){
-                System.Diagnostics.Debug.WriteLine(keyword); // TODO
+                switch(keyword){
+                    case "do":
+                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+
+                        if (blockParser.ReadNextKeywordSkip() != "while"){
+                            blockParser.RevertKeywordSkip(); // should not happen
+                        }
+
+                        ++info.Statements[FlowStatement.DoWhile];
+                        break;
+
+                    case "while":
+                        ++info.Statements[FlowStatement.While];
+                        break;
+
+                    case "for":
+                        JavaCodeBlockParser cycleDeclBlock = (JavaCodeBlockParser)blockParser.ReadBlock('(',')');
+                        ReadCodeBlock(cycleDeclBlock,info);
+                        
+                        JavaCodeParser cycleDeclParser = new JavaCodeParser(cycleDeclBlock.Contents);
+                        cycleDeclParser.ReadTypeOf(false);
+                        cycleDeclParser.SkipSpaces().ReadIdentifier();
+
+                        ++info.Statements[cycleDeclParser.SkipSpaces().Char == ':' ? FlowStatement.EnhancedFor : FlowStatement.For];
+                        break;
+                }
             }
         }
     }
