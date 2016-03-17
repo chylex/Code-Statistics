@@ -1,8 +1,6 @@
 ﻿using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using System;
-using System.Diagnostics;
-using System.Net;
 using System.Windows.Forms;
 
 namespace CodeStatistics.Forms{

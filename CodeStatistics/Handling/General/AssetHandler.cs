@@ -1,5 +1,4 @@
-﻿using CodeStatistics.Collections;
-using CodeStatistics.Input;
+﻿using CodeStatistics.Input;
 using System;
 using System.Collections.Generic;
 
