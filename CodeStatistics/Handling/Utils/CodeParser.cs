@@ -40,6 +40,14 @@ namespace CodeStatistics.Handling.Utils{
         }
 
         /// <summary>
+        /// Resets the cursor back to position zero and returns itself.
+        /// </summary>
+        public CodeParser Reset(){
+            cursor = 0;
+            return this;
+        }
+
+        /// <summary>
         /// Skips to the next character and returns it.
         /// </summary>
         public char Next(){
