@@ -197,6 +197,18 @@ namespace CodeStatistics.Handling.Languages.Java{
                         }
 
                         break;
+
+                    case "return":
+                        ++info.Statements[FlowStatement.Return];
+                        break;
+
+                    case "continue":
+                        ++info.Statements[FlowStatement.Continue];
+                        break;
+
+                    case "break":
+                        ++info.Statements[FlowStatement.Break];
+                        break;
                 }
             }
         }

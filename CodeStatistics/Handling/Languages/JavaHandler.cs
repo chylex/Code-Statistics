@@ -206,6 +206,8 @@ namespace CodeStatistics.Handling.Languages{
 
             variables.Average("javaMethodParametersAvg","javaMethodParametersTotal","javaMethodsTotal");
 
+            variables.SetVariable("javaMethodsReturnsTotal",state.GlobalInfo.Statements[FlowStatement.Return]);
+
             foreach(KeyValuePair<string,int> fieldType in global.FieldTypes.ListFromTop()){
                 variables.AddToArray("javaFieldTypes",new { type = fieldType.Key, amount = fieldType.Value });
             }
