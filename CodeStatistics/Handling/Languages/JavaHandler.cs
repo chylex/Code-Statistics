@@ -246,6 +246,19 @@ namespace CodeStatistics.Handling.Languages{
             variables.SetVariable("javaControlFlowCaseMax",state.GlobalInfo.MaxSwitchCases);
             variables.Average("javaControlFlowCaseAvg","javaControlFlowCaseTotal","javaControlFlowSwitch");
             variables.Percent("javaControlFlowCaseDefaultPerc","javaControlFlowCaseDefaultTotal","javaControlFlowSwitch");
+            
+            variables.SetVariable("javaControlFlowTry",state.GlobalInfo.Statements[FlowStatement.Try]);
+            variables.SetVariable("javaControlFlowTryCatch",state.GlobalInfo.Statements[FlowStatement.TryCatch]);
+            variables.SetVariable("javaControlFlowTryWithResources",state.GlobalInfo.Statements[FlowStatement.TryWithResources]);
+            variables.SetVariable("javaControlFlowTryCatchFinally",state.GlobalInfo.TryCatchWithFinally);
+            variables.SetVariable("javaControlFlowTryWithResourcesFinally",state.GlobalInfo.TryWithResourcesWithFinally);
+            variables.Percent("javaControlFlowTryCatchFinallyPerc","javaControlFlowTryCatchFinally","javaControlFlowTry");
+            variables.Percent("javaControlFlowTryWithResourcesFinallyPerc","javaControlFlowTryWithResourcesFinally","javaControlFlowTry");
+
+            variables.SetVariable("javaControlFlowCatchTotal",state.GlobalInfo.Statements[FlowStatement.Catch]);
+            variables.SetVariable("javaControlFlowCatchMin",state.GlobalInfo.MinCatchBlocks);
+            variables.SetVariable("javaControlFlowCatchMax",state.GlobalInfo.MaxCatchBlocks);
+            variables.Average("javaControlFlowCatchAvg","javaControlFlowCatchTotal","javaControlFlowTry");
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){

@@ -150,6 +150,40 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                         ++info.Statements[FlowStatement.Switch];
                         break;
+
+                    case "try":
+                        bool isTryWithResources = blockParser.SkipSpaces().Char == '(';
+
+                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+
+                        string tryKeyword;
+                        int catches = 0;
+
+                        while((tryKeyword = blockParser.ReadNextKeywordSkip()).Length > 0){
+                            if (tryKeyword == "catch"){
+                                ++info.Statements[FlowStatement.Catch];
+                                ++catches;
+                            }
+                            else if (tryKeyword == "finally"){
+                                ++info.Statements[FlowStatement.Finally];
+                                
+                                if (isTryWithResources)++info.TryWithResourcesWithFinally;
+                                else ++info.TryCatchWithFinally;
+                            }
+                            else if (tryKeyword != "try"){
+                                blockParser.RevertKeywordSkip();
+                                break;
+                            }
+
+                            ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+                        }
+                        
+                        if (catches < info.MinCatchBlocks)info.MinCatchBlocks = catches;
+                        if (catches > info.MaxCatchBlocks)info.MaxCatchBlocks = catches;
+
+                        ++info.Statements[isTryWithResources ? FlowStatement.TryWithResources : FlowStatement.TryCatch];
+                        ++info.Statements[FlowStatement.Try];
+                        break;
                 }
             }
         }
