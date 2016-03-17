@@ -147,7 +147,7 @@ namespace CodeStatistics.Handling{
                 string strValue = GetVariable(name,defaultValue.ToString(NumberFormat));
 
                 int intValue;
-                return int.TryParse(strValue,NumberStyles.Integer,NumberFormat,out intValue) ? intValue : defaultValue;
+                return int.TryParse(strValue,NumberStyles.AllowThousands,NumberFormat,out intValue) ? intValue : defaultValue;
             }
 
             public override IEnumerable<Variables> GetArray(string name){
