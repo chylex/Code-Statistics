@@ -123,6 +123,33 @@ namespace CodeStatistics.Handling.Languages.Java{
 
                         ++info.Statements[cycleDeclParser.SkipSpaces().Char == ':' ? FlowStatement.EnhancedFor : FlowStatement.For];
                         break;
+
+                    case "switch":
+                        JavaCodeBlockParser switchBlock = (JavaCodeBlockParser)blockParser.ReadBlock('{','}');
+                        ReadCodeBlock(switchBlock,info);
+
+                        switchBlock.Reset();
+                        string switchKeyword;
+                        int cases = 0;
+
+                        while((switchKeyword = switchBlock.ReadNextKeywordSkip()).Length > 0){
+                            if (switchKeyword == "switch"){
+                                switchBlock.SkipBlock('{','}');
+                            }
+                            else if (switchKeyword == "case"){
+                                ++info.Statements[FlowStatement.SwitchCase];
+                                ++cases;
+                            }
+                            else if (switchKeyword == "default"){
+                                ++info.Statements[FlowStatement.SwitchDefault]; // TODO count as a case?
+                            }
+                        }
+
+                        if (cases < info.MinSwitchCases)info.MinSwitchCases = cases;
+                        if (cases > info.MaxSwitchCases)info.MaxSwitchCases = cases;
+
+                        ++info.Statements[FlowStatement.Switch];
+                        break;
                 }
             }
         }
