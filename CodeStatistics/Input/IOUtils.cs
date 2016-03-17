@@ -7,6 +7,8 @@ using FileIO = System.IO.File;
 
 namespace CodeStatistics.Input{
     public static class IOUtils{
+        private readonly static string[] FileSizeSuffixes = { "B", "kB", "MB", "GB", "TB", "PB", "EB" };
+
         /// <summary>
         /// Finds the longest common path in an array. Does not include the trailing path separator, except when only the drive letter is returned. <para/>
         /// If a path includes a file, the returned path will also include it if it's present in all other paths. <para/>
@@ -75,6 +77,14 @@ namespace CodeStatistics.Input{
             }catch(Exception){
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns a friendly representation of file size, going from B to EB.
+        /// </summary>
+        public static KeyValuePair<long,string> GetFriendlyFileSize(long bytes){
+            int level = bytes == 0 ? 0 : (int)Math.Floor(Math.Log(bytes,1024));
+            return new KeyValuePair<long,string>((long)Math.Round(bytes/Math.Pow(1024,level)),FileSizeSuffixes[level]);
         }
 
         /// <summary>

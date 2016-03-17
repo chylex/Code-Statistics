@@ -8,14 +8,25 @@ namespace CodeStatistics.Input{
         public readonly string Ext;
 
         private string _contents;
+        private long _size;
 
         public string Contents{
-            get {
+            get{
                 if (_contents == "\0"){
                     _contents = System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace(@"\r","").TrimEnd();
                 }
 
                 return _contents;
+            }
+        }
+
+        public long SizeInBytes{
+            get{
+                if (_size == -1){
+                    _size = new FileInfo(FullPath).Length;
+                }
+
+                return _size;
             }
         }
 
@@ -26,6 +37,7 @@ namespace CodeStatistics.Input{
             this.Ext = Path.GetExtension(fullPath).Replace(".","").ToLowerInvariant();
 
             this._contents = "\0";
+            this._size = -1;
         }
 
         public override bool Equals(object obj){
