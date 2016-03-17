@@ -245,7 +245,7 @@ namespace CodeStatistics.Handling.Languages{
             variables.SetVariable("javaControlFlowCaseMin",state.GlobalInfo.MinSwitchCases);
             variables.SetVariable("javaControlFlowCaseMax",state.GlobalInfo.MaxSwitchCases);
             variables.Average("javaControlFlowCaseAvg","javaControlFlowCaseTotal","javaControlFlowSwitch");
-            variables.SetVariable("javaControlFlowCaseDefaultPerc",(int)Math.Round(100.0*state.GlobalInfo.Statements[FlowStatement.SwitchDefault]/state.GlobalInfo.Statements[FlowStatement.Switch]));
+            variables.Percent("javaControlFlowCaseDefaultPerc","javaControlFlowCaseDefaultTotal","javaControlFlowSwitch");
         }
 
         protected override object GetFileObject(FileIntValue fi, Variables.Root variables){
