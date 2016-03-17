@@ -563,8 +563,31 @@
 <!-- TEMPLATE contentAssets -->
 
 <div id="assets">
-  <h2>Assets</h2>
+  <h2>Assets ({var:fileTypeAssets:0})</h2>
+  <div class="grid">
+    <div class="grid-half">
+      <div class="card">
+        <h3>Types</h3>
+        <table id="data-pie-assets" class="summary">
+          {for:assetTypes:contentAssetRow}
+        </table>
+        <canvas id="pie-assets" height="200"></canvas>
+      </div>
+    </div>
+    <div class="grid-half">
+      <div class="card">
+        <h3>File Sizes</h3>
+        <table id="data-pie-assets-sizes" class="summary">
+          {for:assetSizes:contentAssetSizeRow}
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- TEMPLATE contentAssetSizeRow -->
+
+<tr><td>{var:size} {var:units}</td><td>{var:title}</td></tr>
 
 <!-- TEMPLATE contentJava -->
 

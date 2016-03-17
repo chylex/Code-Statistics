@@ -1,5 +1,7 @@
-﻿using CodeStatistics.Input;
+﻿using CodeStatistics.Collections;
+using CodeStatistics.Input;
 using System;
+using System.Collections.Generic;
 
 namespace CodeStatistics.Handling.General{
     class AssetHandler : AbstractFileHandler{
@@ -20,6 +22,7 @@ namespace CodeStatistics.Handling.General{
         }
 
         private static readonly Comparison<Variables> AssetRowSorter = (x, y) => y.GetVariable("value",0)-x.GetVariable("value",0);
+        private static readonly Comparison<Variables> AssetSizeRowSorter = (x, y) => Math.Sign((long)y.GetVariable("comph",0)<<32|y.GetVariable("compl",0)-((long)x.GetVariable("comph",0)<<32|x.GetVariable("compl",0)));
 
         private readonly Type type;
 
@@ -45,16 +48,34 @@ namespace CodeStatistics.Handling.General{
 
             if (++state.Count == 1){
                 variables.SetArraySorter("assetTypes",AssetRowSorter);
-                state.Array = variables.AddToArray("assetTypes",new { title = GetAssetTypeName(type), value = 1 });
+                state.TypeEntry = variables.AddToArray("assetTypes",new { title = GetAssetTypeName(type), value = 0 });
+
+                variables.SetArraySorter("assetSizes",AssetSizeRowSorter);
+                state.SizeEntry = variables.AddToArray("assetSizes",new { title = GetAssetTypeName(type), compl = 0, comph = 0, size = 0, units = "" });
             }
-            else{
-                state.Array.UpdateVariable("value",state.Count);
-            }
+
+            state.Size += file.SizeInBytes;
+        }
+
+        public override void FinalizeProject(Variables.Root variables){
+            base.FinalizeProject(variables);
+
+            State state = variables.GetStateObject<State>(this);
+            state.TypeEntry.UpdateVariable("value",state.Count);
+
+            KeyValuePair<long,string> size = IOUtils.GetFriendlyFileSize(state.Size);
+            state.SizeEntry.UpdateVariable("size",(int)size.Key);
+            state.SizeEntry.UpdateVariable("units",size.Value);
+
+            state.SizeEntry.UpdateVariable("compl",(int)(state.Size&((1L<<32)-1L)));
+            state.SizeEntry.UpdateVariable("comph",(int)(state.Size>>32));
         }
 
         private class State{
             public int Count;
-            public Variables.ArrayAdapter Array;
+            public long Size;
+            public Variables.ArrayAdapter TypeEntry;
+            public Variables.ArrayAdapter SizeEntry;
         }
     }
 }
