@@ -83,7 +83,7 @@ namespace CodeStatistics.Input{
         /// Returns a friendly representation of file size, going from B to EB.
         /// </summary>
         public static KeyValuePair<long,string> GetFriendlyFileSize(long bytes){
-            int level = bytes == 0 ? 0 : (int)Math.Floor(Math.Log(bytes,1024));
+            int level = bytes == 0 ? 0 : Math.Max((int)Math.Floor(Math.Log(bytes,1024))-1,0);
             return new KeyValuePair<long,string>((long)Math.Round(bytes/Math.Pow(1024,level)),FileSizeSuffixes[level]);
         }
 
