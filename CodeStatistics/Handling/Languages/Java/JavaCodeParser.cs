@@ -432,9 +432,13 @@ namespace CodeStatistics.Handling.Languages.Java{
         /// <summary>
         /// Reads all identifier names in a field declaration.
         /// </summary>
-        private List<string> ReadFieldIdentifierList(){ // TODO handle code in fields
+        private List<string> ReadFieldIdentifierList(){
             var list = new List<string>();
             if (SkipSpaces().IsEOF)return list;
+
+            if (CodeBlockCallback != null){
+                CodeBlockCallback(new JavaCodeBlockParser(Contents));
+            }
 
             while(true){
                 string identifier = ReadIdentifier();
