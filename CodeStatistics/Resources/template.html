@@ -118,7 +118,7 @@
 
   h3 {
     margin: 0 auto 8px;
-    padding: 4px 0;
+    padding: 4px 8px;
     font-size: 24px;
     color: #FFF;
     background-color: #2196F3;
@@ -229,6 +229,10 @@
 
   .subtle {
     color: rgba(0,0,0,0.5);
+  }
+  
+  .smallfont {
+    font-size: 17px;
   }
 
   canvas {
@@ -701,7 +705,15 @@
     <div class="grid-half">
       <div class="card">
         <h3>Simple Type Names</h3>
-        <table class="list onecol">
+        <table class="summary">
+          <tr><td>{var:javaNamesSimpleMin:0}</td><td>Min</td></tr>
+          <tr><td>{var:javaNamesSimpleMax:0}</td><td>Max</td></tr>
+          <tr><td>{var:javaNamesSimpleAvg:0}</td><td>Average</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Simple Type Names</h3>
+        <table class="list onecol smallfont">
           {for:javaNamesSimpleTop:contentJavaNamesSimpleRow}
           <tr><td class="subtle">...</td></tr>
           {for:javaNamesSimpleBottom:contentJavaNamesSimpleRow}
@@ -711,44 +723,18 @@
     <div class="grid-half">
       <div class="card">
         <h3>Full Type Names</h3>
-        <table class="list onecol">
-          {for:javaNamesFullTop:contentJavaNamesFullRow}
-          <tr><td class="subtle">...</td></tr>
-          {for:javaNamesFullBottom:contentJavaNamesFullRow}
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <h2>Java - Characters</h2>
-  <div class="grid">
-    <div>
-      <div class="card">
-        <h3>Simple Type Names</h3>
-        <table class="summary">
-          <tr><td>{var:javaNamesSimpleMin:0}</td><td>Min</td></tr>
-          <tr><td>{var:javaNamesSimpleMax:0}</td><td>Max</td></tr>
-          <tr><td>{var:javaNamesSimpleAvg:0}</td><td>Average</td></tr>
-        </table>
-      </div>
-    </div>
-    <div>
-      <div class="card">
-        <h3>Full Type Names</h3>
         <table class="summary">
           <tr><td>{var:javaNamesFullMin:0}</td><td>Min</td></tr>
           <tr><td>{var:javaNamesFullMax:0}</td><td>Max</td></tr>
           <tr><td>{var:javaNamesFullAvg:0}</td><td>Average</td></tr>
         </table>
       </div>
-    </div>
-    <div>
       <div class="card">
-        <h3>Separate Package Names</h3>
-        <table class="summary">
-          <tr><td>{var:javaNamesPackageMin:0}</td><td>Min</td></tr>
-          <tr><td>{var:javaNamesPackageMax:0}</td><td>Max</td></tr>
-          <tr><td>{var:javaNamesPackageAvg:0}</td><td>Average</td></tr>
+        <h3>Full Type Names</h3>
+        <table class="list onecol smallfont">
+          {for:javaNamesFullTop:contentJavaNamesFullRow}
+          <tr><td class="subtle">...</td></tr>
+          {for:javaNamesFullBottom:contentJavaNamesFullRow}
         </table>
       </div>
     </div>
