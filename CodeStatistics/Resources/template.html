@@ -1,4 +1,4 @@
-﻿<!-- TEMPLATE html -->
+<!-- TEMPLATE html -->
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +58,7 @@
     margin-top: 14px;
   }
 
-  #navigation > ul > li > a {
+  #navigation > ul > li > span {
     padding: 4px 4px 4px 14px;
     position: relative;
     color: #FFF;
@@ -66,6 +66,7 @@
     font-weight: bold;
     text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
     box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+    cursor: default;
     z-index: 1;
   }
 
@@ -74,7 +75,7 @@
     width: 100%;
   }
 
-  #navigation a {
+  #navigation a, #navigation span {
     display: block;
     width: 100%;
     text-decoration: none;
@@ -289,6 +290,8 @@
 
     // Category Events
     var tabEvent = function(e){
+      e.preventDefault();
+      window.location.hash = this.getAttribute("href");
       setActivePage(this);
     };
       
@@ -482,7 +485,7 @@
 
 <!-- TEMPLATE navigationList -->
 
-<li><a href="#">General</a>
+<li><span>General</span>
   <ul>
     <li><a href="#overview" id="nav-default">Overview</a></li>
     {if:assets:navigationListGeneralAssets}
@@ -496,7 +499,7 @@
 
 <!-- TEMPLATE navigationListJava -->
 
-<li><a href="#">Java</a>
+<li><span>Java</span>
   <ul>
     <li><a href="#java-files">Files</a></li>
     <li><a href="#java-names">Names</a></li>
