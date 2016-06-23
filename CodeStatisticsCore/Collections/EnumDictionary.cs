@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeStatistics.Collections{
+namespace CodeStatisticsCore.Collections{
     public static class EnumDictionary{
         /// <summary>
         /// Creates a Dictionary&lt;Enum,TValue&gt; and prefills it with <paramref name="initializeTo"/> assigned to each element of the Enum.

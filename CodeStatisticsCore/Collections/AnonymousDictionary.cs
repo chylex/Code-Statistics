@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace CodeStatistics.Collections{
-    static class AnonymousDictionary{
+namespace CodeStatisticsCore.Collections{
+    public static class AnonymousDictionary{
         public delegate string ToStringFunction(object obj);
 
         public static Dictionary<string,TValue> Create<TValue>(object obj){

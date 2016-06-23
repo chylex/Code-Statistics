@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Input{
-    public class FileSearchData{
+    class FileSearchData{
         private readonly HashSet<File> files = new HashSet<File>();
         private readonly HashSet<string> folders = new HashSet<string>();
 

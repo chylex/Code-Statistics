@@ -1,11 +1,11 @@
-﻿using CodeStatistics.Collections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using CodeStatisticsCore.Collections;
 
-namespace CodeStatistics.Handling{
-    abstract class Variables{
+namespace CodeStatisticsCore.Handling{
+    public abstract class Variables{
         private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo{
             NumberGroupSeparator = " ",
             NumberDecimalSeparator = ".",

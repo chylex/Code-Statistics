@@ -75,6 +75,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodeStatisticsCore\CodeStatisticsCore.csproj">
+      <Project>{6e9bf33e-c035-4a44-ae11-6c2cfb029c0b}</Project>
+      <Name>CodeStatisticsCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeStatistics\CodeStatistics.csproj">
       <Project>{b1bc156c-aaa8-40eb-b90b-aee950870d62}</Project>
       <Name>CodeStatistics</Name>

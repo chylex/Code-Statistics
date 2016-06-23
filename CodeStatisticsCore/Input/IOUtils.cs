@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CodeStatistics.Data;
 using FileIO = System.IO.File;
 
-namespace CodeStatistics.Input{
+namespace CodeStatisticsCore.Input{
     public static class IOUtils{
-        private readonly static string[] FileSizeSuffixes = { "B", "kB", "MB", "GB", "TB", "PB", "EB" };
+        private static readonly string[] FileSizeSuffixes = { "B", "kB", "MB", "GB", "TB", "PB", "EB" };
 
         /// <summary>
         /// Finds the longest common path in an array. Does not include the trailing path separator, except when only the drive letter is returned. <para/>
@@ -16,7 +15,7 @@ namespace CodeStatistics.Input{
         /// For example, <code>FindRootPath({ "C:\Projects\One", "C:\Projects\Two" })</code> returns C:\Projects
         /// </summary>
         public static string FindRootPath(string[] paths){
-            if (paths.Length == 0)throw new ArgumentException(Lang.Get["ErrorArgumentArrayAtLeastOne"],"paths");
+            if (paths.Length == 0)throw new ArgumentException("Array must contain at least one element.","paths");
             if (paths.Length == 1)return paths[0];
 
             List<string[]> split = paths.Select(path => path.Split(new []{ Path.DirectorySeparatorChar },StringSplitOptions.RemoveEmptyEntries)).ToList();

@@ -1,7 +1,9 @@
-﻿using CodeStatistics.Input;
+﻿using CodeStatisticsCore.Input;
 
-namespace CodeStatistics.Handling{
-    interface IFileHandler : HandlerList.IWeightedEntry{
+namespace CodeStatisticsCore.Handling{
+    public interface IFileHandler{
+        int Weight { get; }
+
         void SetupProject(Variables.Root variables);
         void Process(File file, Variables.Root variables);
         void FinalizeProject(Variables.Root variables);

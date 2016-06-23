@@ -11,9 +11,10 @@ using System.IO;
 using System.Text.RegularExpressions;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Helpers;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Input.Methods{
-    public class GitHub : IInputMethod, IDisposable{
+    class GitHub : IInputMethod, IDisposable{
         public const string DefaultBranch = "master";
 
         private static readonly Regex RepositoryRegexCustom = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\. ]+)(?:/([^\\[?^:~ ]+))?$",RegexOptions.CultureInvariant);

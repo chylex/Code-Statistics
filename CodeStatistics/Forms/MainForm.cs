@@ -6,10 +6,11 @@ using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
 using System.Drawing;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Forms{
-    public sealed partial class MainForm : Form{
-        public IInputMethod InputMethod{ get; private set; }
+    sealed partial class MainForm : Form{
+        public IInputMethod InputMethod { get; private set; }
 
         public MainForm(){
             InitializeComponent();

@@ -2,9 +2,10 @@
 using CodeStatistics.Input.Methods;
 using System;
 using System.Windows.Forms;
+using CodeStatisticsCore.Forms;
 
 namespace CodeStatistics.Forms{
-    public sealed partial class GitHubForm : Form{
+    sealed partial class GitHubForm : Form{
         public GitHub GitHub { get; private set; }
 
         private readonly Timer timer = new Timer{

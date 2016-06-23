@@ -7,9 +7,10 @@ using FileIO = System.IO.File;
 using DirectoryIO = System.IO.Directory;
 using CodeStatistics.Input.Methods;
 using CodeStatistics.Forms;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Input{
-    public class FileSearch : IInputMethod{
+    class FileSearch : IInputMethod{
         public delegate void RefreshEventHandler(int entriesFound);
         public delegate void FinishEventHandler(FileSearchData searchData);
         public delegate void FailureEventHandler(Exception ex);

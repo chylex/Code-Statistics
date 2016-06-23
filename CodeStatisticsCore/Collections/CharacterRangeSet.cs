@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace CodeStatistics.Collections{
+namespace CodeStatisticsCore.Collections{
     public class CharacterRangeSet : IEnumerable<KeyValuePair<int,int>>{
         private readonly List<KeyValuePair<int,int>> innerList = new List<KeyValuePair<int,int>>();
 

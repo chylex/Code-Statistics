@@ -2,7 +2,7 @@
 using CodeStatistics.Forms;
 
 namespace CodeStatistics.Input.Methods{
-    public interface IInputMethod{
+    interface IInputMethod{
         void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks);
         void CancelProcess(Action onCancelFinish);
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace CodeStatistics.Handling.Utils{
-    static class VariableUtils{
+namespace CodeStatisticsCore.Handling.Utils{
+    public static class VariableUtils{
         public static void Average(this Variables.Root variables, string targetName, string totalValueName, string unitValueName, int roundingThreshold = 10){
             float avg = (float)variables.GetVariable(totalValueName,0)/Math.Max(1,variables.GetVariable(unitValueName,1));
             variables.SetVariable(targetName,avg >= roundingThreshold ? (int)Math.Round(avg) : avg);

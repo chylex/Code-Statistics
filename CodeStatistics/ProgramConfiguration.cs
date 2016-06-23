@@ -8,6 +8,7 @@ using CodeStatistics.Data;
 using DirectoryIO = System.IO.Directory;
 using FileIO = System.IO.File;
 using CodeStatistics.Input.Methods;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics{
     class ProgramConfiguration{

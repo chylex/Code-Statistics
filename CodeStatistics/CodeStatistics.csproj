@@ -66,12 +66,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\AnonymousDictionary.cs" />
-    <Compile Include="Collections\BiDictionary.cs" />
-    <Compile Include="Collections\CharacterRangeSet.cs" />
-    <Compile Include="Collections\CounterDictionary.cs" />
-    <Compile Include="Collections\EnumDictionary.cs" />
-    <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Data\Lang.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
@@ -79,7 +73,6 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormUtils.cs" />
     <Compile Include="Forms\GitHubForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,12 +85,9 @@
     <Compile Include="Forms\ProjectDebugForm.Designer.cs">
       <DependentUpon>ProjectDebugForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handling\General\AbstractFileHandler.cs" />
-    <Compile Include="Handling\IFolderHandler.cs" />
     <Compile Include="Handling\General\AssetHandler.cs" />
     <Compile Include="Handling\General\FolderHandler.cs" />
     <Compile Include="Handling\General\UnknownHandler.cs" />
-    <Compile Include="Handling\Languages\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\Languages\JavaHandler.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
     <Compile Include="Handling\Languages\Java\Elements\Field.cs" />
@@ -117,20 +107,10 @@
     <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
     <Compile Include="Handling\Languages\Java\Utils\JavaParseUtils.cs" />
     <Compile Include="Handling\Languages\Java\JavaState.cs" />
-    <Compile Include="Handling\Utils\CodeParser.cs" />
-    <Compile Include="Handling\Utils\FileIntValue.cs" />
-    <Compile Include="Handling\Utils\ParseUtils.cs" />
-    <Compile Include="Handling\Utils\StringUtils.cs" />
-    <Compile Include="Handling\IFileHandler.cs" />
     <Compile Include="Handling\HandlerList.cs" />
     <Compile Include="Handling\Project.cs" />
-    <Compile Include="Handling\Utils\VariableUtils.cs" />
-    <Compile Include="Handling\Variables.cs" />
-    <Compile Include="Input\File.cs" />
     <Compile Include="Input\FileSearch.cs" />
     <Compile Include="Input\FileSearchData.cs" />
-    <Compile Include="Input\IOEntry.cs" />
-    <Compile Include="Input\IOUtils.cs" />
     <Compile Include="Input\Methods\ArchiveExtraction.cs" />
     <Compile Include="Input\Methods\DummyInputMethod.cs" />
     <Compile Include="Input\Methods\GitHub.cs" />
@@ -204,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\about.rtf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeStatisticsCore\CodeStatisticsCore.csproj">
+      <Project>{6e9bf33e-c035-4a44-ae11-6c2cfb029c0b}</Project>
+      <Name>CodeStatisticsCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

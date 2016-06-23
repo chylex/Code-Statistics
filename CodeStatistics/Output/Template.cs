@@ -1,5 +1,5 @@
-﻿using CodeStatistics.Handling;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     abstract class Template{

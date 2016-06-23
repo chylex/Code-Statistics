@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using CodeStatistics.Forms;
-using CodeStatistics.Input;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
+using CodeStatisticsCore.Input;
 
-[assembly:CLSCompliant(true)]
 namespace CodeStatistics{
     static class Program{
         public static ProgramConfiguration Config { get; private set; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeStatistics.Handling.Utils{
+namespace CodeStatisticsCore.Handling.Utils{
     public class CodeParser{
         protected readonly string code;
         protected readonly int length;

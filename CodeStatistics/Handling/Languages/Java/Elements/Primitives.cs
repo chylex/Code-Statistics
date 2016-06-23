@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Collections;
+using CodeStatisticsCore.Collections;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     public enum Primitives{

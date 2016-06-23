@@ -1,4 +1,4 @@
-namespace CodeStatistics.Input{
+namespace CodeStatisticsCore.Input{
     public struct IOEntry{
         public enum Type{
             File, Folder

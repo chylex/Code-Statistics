@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace CodeStatistics.Collections{
+namespace CodeStatisticsCore.Collections{
     public class BiDictionary<TKey,TValue> : IEnumerable<KeyValuePair<TKey,TValue>>{
         private readonly Dictionary<TKey,TValue> kv;
         private readonly Dictionary<TValue,TKey> vk;

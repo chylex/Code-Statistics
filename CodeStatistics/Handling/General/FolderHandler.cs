@@ -1,4 +1,6 @@
-﻿namespace CodeStatistics.Handling.General{
+﻿using CodeStatisticsCore.Handling;
+
+namespace CodeStatistics.Handling.General{
     class FolderHandler : IFolderHandler{
         public int Weight{
             get { return 1; }

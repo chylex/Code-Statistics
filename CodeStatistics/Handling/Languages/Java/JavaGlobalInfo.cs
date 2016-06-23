@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Collections;
 using CodeStatistics.Handling.Languages.Java.Elements;
+using CodeStatisticsCore.Collections;
 
 namespace CodeStatistics.Handling.Languages.Java{
     class JavaGlobalInfo{

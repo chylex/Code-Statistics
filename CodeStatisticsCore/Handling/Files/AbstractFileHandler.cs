@@ -1,7 +1,7 @@
-﻿using CodeStatistics.Input;
+﻿using CodeStatisticsCore.Input;
 
-namespace CodeStatistics.Handling.General{
-    abstract class AbstractFileHandler : IFileHandler{
+namespace CodeStatisticsCore.Handling.Files{
+    public abstract class AbstractFileHandler : IFileHandler{
         public abstract int Weight { get; }
 
         public virtual void SetupProject(Variables.Root variables){}

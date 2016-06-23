@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Handling.Utils{
+﻿namespace CodeStatisticsCore.Handling.Utils{
     public static class StringUtils{
         /// <summary>
         /// Capitalizes the first character of a string and leaves the rest intact.

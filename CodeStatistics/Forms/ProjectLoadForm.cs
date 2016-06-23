@@ -9,9 +9,11 @@ using System.Globalization;
 using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using System.IO;
+using CodeStatisticsCore.Forms;
+using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Forms{
-    public sealed partial class ProjectLoadForm : Form{
+    sealed partial class ProjectLoadForm : Form{
         private readonly IInputMethod inputMethod;
         private FileSearch search;
         private Project project;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeStatistics.Handling;
 using System.IO;
 using System.Text;
+using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     class GenerateHtml{

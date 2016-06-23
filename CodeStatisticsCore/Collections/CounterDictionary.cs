@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CodeStatistics.Collections{
-    class CounterDictionary<TKey> : IEnumerable<KeyValuePair<TKey,int>>{
+namespace CodeStatisticsCore.Collections{
+    public class CounterDictionary<TKey> : IEnumerable<KeyValuePair<TKey,int>>{
         private readonly Dictionary<TKey,int> innerDict;
 
         public int Count { get { return innerDict.Count; } }

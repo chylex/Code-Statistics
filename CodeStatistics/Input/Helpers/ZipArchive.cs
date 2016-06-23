@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Input.Helpers{
     class ZipArchive : IDisposable{

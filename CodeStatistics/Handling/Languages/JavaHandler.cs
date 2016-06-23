@@ -1,14 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using CodeStatistics.Handling.Utils;
-using File = CodeStatistics.Input.File;
+using File = CodeStatisticsCore.Input.File;
 using CodeStatistics.Handling.Languages.Java;
 using CodeStatistics.Handling.Languages.Java.Utils;
 using Type = CodeStatistics.Handling.Languages.Java.Elements.Type;
 using CodeStatistics.Handling.Languages.Java.Elements;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Handling.Utils;
+using CodeStatisticsCore.Handling.Files;
 
 namespace CodeStatistics.Handling.Languages{
     class JavaHandler : AbstractLanguageFileHandler{

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace CodeStatistics.Input{
+namespace CodeStatisticsCore.Input{
     public struct File{
         public readonly string FullPath;
         public readonly string Ext;

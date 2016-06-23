@@ -1,6 +1,6 @@
-﻿using CodeStatistics.Handling;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodeStatistics.Data;
+using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     class TemplateList{

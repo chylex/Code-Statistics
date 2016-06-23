@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E9BF33E-C035-4A44-AE11-6C2CFB029C0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeStatisticsCore</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\AnonymousDictionary.cs" />
+    <Compile Include="Collections\BiDictionary.cs" />
+    <Compile Include="Collections\CharacterRangeSet.cs" />
+    <Compile Include="Collections\CounterDictionary.cs" />
+    <Compile Include="Collections\EnumDictionary.cs" />
+    <Compile Include="Collections\TopElementList.cs" />
+    <Compile Include="Forms\FormUtils.cs" />
+    <Compile Include="Handling\Files\AbstractFileHandler.cs" />
+    <Compile Include="Handling\Files\AbstractLanguageFileHandler.cs" />
+    <Compile Include="Handling\IFileHandler.cs" />
+    <Compile Include="Handling\IFolderHandler.cs" />
+    <Compile Include="Handling\Utils\CodeParser.cs" />
+    <Compile Include="Handling\Utils\FileIntValue.cs" />
+    <Compile Include="Handling\Utils\ParseUtils.cs" />
+    <Compile Include="Handling\Utils\StringUtils.cs" />
+    <Compile Include="Handling\Utils\VariableUtils.cs" />
+    <Compile Include="Handling\Variables.cs" />
+    <Compile Include="Input\File.cs" />
+    <Compile Include="Input\IOEntry.cs" />
+    <Compile Include="Input\IOUtils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodeStatistics.Handling.Languages.Java.Utils;
-using CodeStatistics.Handling.Utils;
 using System.Linq;
+using CodeStatisticsCore.Handling.Utils;
 
 namespace CodeStatistics.Handling.Languages.Java{
     public class JavaCodeBlockParser : CodeParser{

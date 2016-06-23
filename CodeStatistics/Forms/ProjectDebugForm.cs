@@ -1,16 +1,17 @@
 ﻿using CodeStatistics.Handling;
 using System.Windows.Forms;
-using CodeStatistics.Input;
 using System;
 using System.Runtime.InteropServices;
-using CodeStatistics.Handling.Languages;
 using PathIO = System.IO.Path;
 using CodeStatistics.Data;
 using System.Diagnostics;
 using System.Collections.Generic;
+using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Handling.Files;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Forms{
-    sealed partial class ProjectDebugForm : Form{
+    partial class ProjectDebugForm : Form{
 #if WINDOWS
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);

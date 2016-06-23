@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Input;
 
 // ReSharper disable AccessToModifiedClosure
 namespace CodeStatistics.Handling{

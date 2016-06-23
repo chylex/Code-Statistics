@@ -1,4 +1,6 @@
-﻿using CodeStatistics.Input;
+﻿using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Handling.Files;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Handling.General{
     class UnknownHandler : AbstractFileHandler{

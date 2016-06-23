@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using CodeStatistics.Handling;
 using System.Text;
 using CodeStatistics.Data;
+using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     abstract class TemplateToken{

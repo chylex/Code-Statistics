@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CodeStatistics.Collections {
-    class TopElementList<T> : IList<T>{
+namespace CodeStatisticsCore.Collections {
+    public class TopElementList<T> : IList<T>{
         private readonly List<T> internalList;
         private readonly Comparison<T> sorter;
         private readonly int maxSize;

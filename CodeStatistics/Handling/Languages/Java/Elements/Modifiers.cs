@@ -1,6 +1,6 @@
 ﻿using System;
-using CodeStatistics.Collections;
 using System.Collections.Generic;
+using CodeStatisticsCore.Collections;
 
 namespace CodeStatistics.Handling.Languages.Java.Elements{
     [Flags]

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using CodeStatistics.Collections;
-using CodeStatistics.Handling.General;
-using CodeStatistics.Handling.Utils;
-using CodeStatistics.Input;
+using CodeStatisticsCore.Collections;
+using CodeStatisticsCore.Handling.Utils;
+using CodeStatisticsCore.Input;
 
-namespace CodeStatistics.Handling.Languages{
-    abstract class AbstractLanguageFileHandler : AbstractFileHandler{
+namespace CodeStatisticsCore.Handling.Files{
+    public abstract class AbstractLanguageFileHandler : AbstractFileHandler{
         protected abstract string Key { get; }
 
         private readonly object stateOwner = new object();

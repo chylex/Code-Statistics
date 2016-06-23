@@ -3,13 +3,11 @@ using CodeStatistics.Handling.Languages;
 using CodeStatistics.Input;
 using System.Collections.Generic;
 using System.Linq;
+using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Handling{
     static class HandlerList{
-        public interface IWeightedEntry{
-            int Weight { get; }
-        }
-
         private static readonly Dictionary<string,IFileHandler> FileHandlers = new Dictionary<string,IFileHandler>(8);
         private static readonly IFileHandler UnknownFileHandler;
 

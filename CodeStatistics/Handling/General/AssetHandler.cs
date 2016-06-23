@@ -1,6 +1,8 @@
-﻿using CodeStatistics.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CodeStatisticsCore.Handling;
+using CodeStatisticsCore.Handling.Files;
+using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Handling.General{
     class AssetHandler : AbstractFileHandler{

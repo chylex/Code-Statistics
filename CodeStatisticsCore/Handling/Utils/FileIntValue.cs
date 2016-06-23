@@ -1,8 +1,8 @@
 using System;
-using CodeStatistics.Input;
+using CodeStatisticsCore.Input;
 
-namespace CodeStatistics.Handling.Utils{
-    struct FileIntValue{
+namespace CodeStatisticsCore.Handling.Utils{
+    public struct FileIntValue{
         public static readonly Comparison<FileIntValue> SortMax = (x, y) => y.Value-x.Value;
         public static readonly Comparison<FileIntValue> SortMin = (x, y) => x.Value-y.Value;
 
