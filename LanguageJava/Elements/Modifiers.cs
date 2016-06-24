@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CodeStatisticsCore.Collections;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     [Flags]
     public enum Modifiers{
         None = 0x0,

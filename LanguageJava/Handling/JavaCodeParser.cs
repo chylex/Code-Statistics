@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Handling.Languages.Java.Elements;
 using System.Text;
-using CodeStatistics.Handling.Languages.Java.Utils;
 using CodeStatisticsCore.Handling.Utils;
+using LanguageJava.Elements;
+using LanguageJava.Utils;
 
-namespace CodeStatistics.Handling.Languages.Java{
+namespace LanguageJava.Handling{
     public class JavaCodeParser : CodeParser{
         public delegate void OnAnnotationRead(Annotation annotation);
         public delegate void OnCodeBlockRead(JavaCodeBlockParser blockParser);

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Handling.Languages.Java.Elements;
 using CodeStatisticsCore.Collections;
+using LanguageJava.Elements;
 
-namespace CodeStatistics.Handling.Languages.Java{
-    class JavaGlobalInfo{
+namespace LanguageJava.Handling{
+    public class JavaGlobalInfo{
         public readonly CounterDictionary<string> AnnotationUses = new CounterDictionary<string>(8);
         public readonly CounterDictionary<string> FieldTypes = new CounterDictionary<string>(10);
         public readonly CounterDictionary<string> MethodReturnTypes = new CounterDictionary<string>(10);

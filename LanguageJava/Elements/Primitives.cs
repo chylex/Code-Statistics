@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeStatisticsCore.Collections;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     public enum Primitives{
         Boolean,
         Byte,

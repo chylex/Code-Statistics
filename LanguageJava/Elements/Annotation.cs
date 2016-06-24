@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Handling.Languages.Java.Elements{
+﻿namespace LanguageJava.Elements{
     public struct Annotation{
         public static bool operator ==(Annotation obj1, Annotation obj2){
             return obj1.Equals(obj2);

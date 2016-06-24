@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Handling.Languages.Java.Elements{
+﻿namespace LanguageJava.Elements{
     public class Field : Member{
         public readonly string Identifier;
         public readonly TypeOf Type;

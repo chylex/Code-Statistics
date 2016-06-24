@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeStatistics.Handling.Languages.Java.Utils;
+﻿using LanguageJava.Utils;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeStatisticsTests.Languages.Java{
     [TestClass]

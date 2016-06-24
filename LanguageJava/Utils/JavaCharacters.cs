@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeStatisticsCore.Collections;
 
-namespace CodeStatistics.Handling.Languages.Java.Utils{
+namespace LanguageJava.Utils{
     static class JavaCharacters{
         private static readonly CharacterRangeSet ValidIdentiferStarts = new CharacterRangeSet{
             { 36, 36 }, { 65, 90 }, { 95, 95 }, { 97, 122 }, { 162, 165 }, { 170, 170 }, { 181, 181 }, { 186, 186 }, { 192, 214 }, { 216, 246 }, { 248, 705 }, { 710, 721 },

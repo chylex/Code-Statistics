@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CodeStatistics.Handling.Languages.Java.Utils;
 using System.Linq;
 using CodeStatisticsCore.Handling.Utils;
+using LanguageJava.Utils;
 
-namespace CodeStatistics.Handling.Languages.Java{
+namespace LanguageJava.Handling{
     public class JavaCodeBlockParser : CodeParser{
         private static readonly string[] ParsedKeywords = {
             "if", "else", "for", "while", "do", "switch", "case", "default", "try", "catch", "finally", "return", "break", "continue"

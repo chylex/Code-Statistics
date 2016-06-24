@@ -1,10 +1,10 @@
 ﻿using CodeStatistics.Handling.General;
-using CodeStatistics.Handling.Languages;
 using CodeStatistics.Input;
 using System.Collections.Generic;
 using System.Linq;
 using CodeStatisticsCore.Handling;
 using CodeStatisticsCore.Input;
+using LanguageJava;
 
 namespace CodeStatistics.Handling{
     static class HandlerList{

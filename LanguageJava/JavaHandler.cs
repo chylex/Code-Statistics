@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using File = CodeStatisticsCore.Input.File;
-using CodeStatistics.Handling.Languages.Java;
-using CodeStatistics.Handling.Languages.Java.Utils;
-using Type = CodeStatistics.Handling.Languages.Java.Elements.Type;
-using CodeStatistics.Handling.Languages.Java.Elements;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using CodeStatisticsCore.Handling;
-using CodeStatisticsCore.Handling.Utils;
 using CodeStatisticsCore.Handling.Files;
+using CodeStatisticsCore.Handling.Utils;
+using LanguageJava.Elements;
+using LanguageJava.Handling;
+using LanguageJava.Utils;
+using File = CodeStatisticsCore.Input.File;
+using Type = LanguageJava.Elements.Type;
 
-namespace CodeStatistics.Handling.Languages{
-    class JavaHandler : AbstractLanguageFileHandler{
+namespace LanguageJava{
+    public class JavaHandler : AbstractLanguageFileHandler{
         public override int Weight{
             get { return 50; }
         }

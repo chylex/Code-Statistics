@@ -88,25 +88,6 @@
     <Compile Include="Handling\General\AssetHandler.cs" />
     <Compile Include="Handling\General\FolderHandler.cs" />
     <Compile Include="Handling\General\UnknownHandler.cs" />
-    <Compile Include="Handling\Languages\JavaHandler.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Annotation.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Field.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\FlowStatement.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\TypeIdentifier.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Import.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Member.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Method.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Modifiers.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Primitives.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\Type.cs" />
-    <Compile Include="Handling\Languages\Java\Elements\TypeOf.cs" />
-    <Compile Include="Handling\Languages\Java\JavaCodeBlockParser.cs" />
-    <Compile Include="Handling\Languages\Java\JavaGlobalInfo.cs" />
-    <Compile Include="Handling\Languages\Java\Utils\JavaCharacters.cs" />
-    <Compile Include="Handling\Languages\Java\JavaCodeParser.cs" />
-    <Compile Include="Handling\Languages\Java\JavaFileInfo.cs" />
-    <Compile Include="Handling\Languages\Java\Utils\JavaParseUtils.cs" />
-    <Compile Include="Handling\Languages\Java\JavaState.cs" />
     <Compile Include="Handling\HandlerList.cs" />
     <Compile Include="Handling\Project.cs" />
     <Compile Include="Input\FileSearch.cs" />
@@ -189,6 +170,10 @@
     <ProjectReference Include="..\CodeStatisticsCore\CodeStatisticsCore.csproj">
       <Project>{6e9bf33e-c035-4a44-ae11-6c2cfb029c0b}</Project>
       <Name>CodeStatisticsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LanguageJava\LanguageJava.csproj">
+      <Project>{bdc141f0-956d-441d-9711-16af83909294}</Project>
+      <Name>LanguageJava</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

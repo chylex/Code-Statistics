@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Handling.Languages.Java.Elements{
+﻿namespace LanguageJava.Elements{
     public struct Import{
         public static bool operator ==(Import obj1, Import obj2){
             return obj1.Equals(obj2);

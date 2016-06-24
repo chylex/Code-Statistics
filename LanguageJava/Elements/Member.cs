@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     public class Member{
         public readonly ReadOnlyCollection<Annotation> Annotations;
         public readonly Modifiers Modifiers;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     public class Method : Member{
         public const string ConstructorIdentifier = "<explinit>"; // explicit constructor
 

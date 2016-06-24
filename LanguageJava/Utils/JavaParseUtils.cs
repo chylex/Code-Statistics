@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using LanguageJava.Handling;
 
-namespace CodeStatistics.Handling.Languages.Java.Utils{
+namespace LanguageJava.Utils{
     public static class JavaParseUtils{
         // verbatim strings with quotes need "" for literal
         private static readonly Regex RegexString = new Regex(@"([""'])(?:\\[\\'""btnfru0-7]|[^\\""])*?(?:\1|$|(?=\*/))",RegexOptions.Compiled | RegexOptions.Multiline);

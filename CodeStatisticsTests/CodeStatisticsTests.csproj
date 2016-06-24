@@ -83,6 +83,10 @@
       <Project>{b1bc156c-aaa8-40eb-b90b-aee950870d62}</Project>
       <Name>CodeStatistics</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LanguageJava\LanguageJava.csproj">
+      <Project>{BDC141F0-956D-441D-9711-16AF83909294}</Project>
+      <Name>LanguageJava</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

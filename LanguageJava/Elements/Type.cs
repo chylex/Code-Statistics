@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     public class Type : Member{
         public enum DeclarationType{
             Class, Interface, Enum, Annotation

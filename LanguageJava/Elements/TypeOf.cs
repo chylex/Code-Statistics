@@ -1,9 +1,9 @@
-﻿using CodeStatistics.Handling.Languages.Java.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.Contracts;
+using LanguageJava.Utils;
 
-namespace CodeStatistics.Handling.Languages.Java.Elements{
+namespace LanguageJava.Elements{
     public struct TypeOf{
         private static readonly ReadOnlyCollection<TypeOf> EmptyCollection = new List<TypeOf>().AsReadOnly();
 

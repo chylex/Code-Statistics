@@ -1,5 +1,5 @@
-﻿using CodeStatistics.Handling.Languages.Java;
-using CodeStatistics.Handling.Languages.Java.Elements;
+﻿using LanguageJava.Elements;
+using LanguageJava.Handling;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeStatisticsTests.Languages.Java{

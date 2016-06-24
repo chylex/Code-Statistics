@@ -1,5 +1,5 @@
-﻿namespace CodeStatistics.Handling.Languages.Java.Elements{
-    struct TypeIdentifier{
+﻿namespace LanguageJava.Elements{
+    public struct TypeIdentifier{
         public static bool operator ==(TypeIdentifier obj1, TypeIdentifier obj2){
             return obj1.Equals(obj2);
         }

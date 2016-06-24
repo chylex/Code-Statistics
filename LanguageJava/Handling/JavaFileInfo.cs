@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Handling.Languages.Java.Elements;
+using LanguageJava.Elements;
 
-namespace CodeStatistics.Handling.Languages.Java{
-    class JavaFileInfo{
+namespace LanguageJava.Handling{
+    public class JavaFileInfo{
         public string Package;
         public readonly HashSet<Import> Imports;
         public readonly List<Type> Types;

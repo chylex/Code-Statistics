@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using CodeStatistics.Handling.Languages.Java.Elements;
-using CodeStatistics.Handling.Languages.Java.Utils;
 using CodeStatisticsCore.Input;
+using LanguageJava.Elements;
+using LanguageJava.Utils;
 
-namespace CodeStatistics.Handling.Languages.Java{
-    class JavaState{
+namespace LanguageJava.Handling{
+    public class JavaState{
         private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
         private readonly HashSet<string> packages = new HashSet<string>();
 
