@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeStatisticsTests", "Code
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeStatisticsCore", "CodeStatisticsCore\CodeStatisticsCore.csproj", "{6E9BF33E-C035-4A44-AE11-6C2CFB029C0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Languages", "Languages", "{D767D50E-CD3A-42A5-A50A-FA0479AA8DAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7DF275DC-FB62-4FC3-B8FC-4BC3EDB870AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{173BB629-3810-4862-9191-4EE4D1118C81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,5 +47,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1BC156C-AAA8-40EB-B90B-AEE950870D62} = {7DF275DC-FB62-4FC3-B8FC-4BC3EDB870AD}
+		{BD148062-5858-49E7-B11B-20FC6E7114DD} = {173BB629-3810-4862-9191-4EE4D1118C81}
+		{6E9BF33E-C035-4A44-AE11-6C2CFB029C0B} = {7DF275DC-FB62-4FC3-B8FC-4BC3EDB870AD}
 	EndGlobalSection
 EndGlobal
