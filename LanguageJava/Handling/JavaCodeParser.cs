@@ -382,7 +382,7 @@ namespace LanguageJava.Handling{
                                 while(true){
                                     ReadFullTypeName();
 
-                                    if (SkipSpaces().Char == ', ')Skip().SkipSpaces();
+                                    if (SkipSpaces().Char == ',')Skip().SkipSpaces();
                                     else break;
                                 }
                             }
@@ -446,7 +446,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(identifier);
 
-                if (SkipToIfBalanced(', ').Char == ', ')Skip().SkipSpaces();
+                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
                 else break;
             }
 
@@ -466,7 +466,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(type.Value);
 
-                if (SkipTo(', ').Char == ', ')Skip().SkipSpaces();
+                if (SkipTo(',').Char == ',')Skip().SkipSpaces();
                 else break;
             }
 
@@ -486,7 +486,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(value);
 
-                if (SkipToIfBalanced(', ').Char == ', ')Skip().SkipSpaces();
+                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
                 else break;
             }
 
