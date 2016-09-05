@@ -284,7 +284,7 @@ namespace LanguageJava{
             }
         }
 
-        private TreeNode GenerateTreeViewDataForType(JavaFileInfo fileInfo, Type type){
+        private static TreeNode GenerateTreeViewDataForType(JavaFileInfo fileInfo, Type type){
             Type.TypeData data = type.GetData();
             Type.DataEnum dataEnum = data as Type.DataEnum;
 

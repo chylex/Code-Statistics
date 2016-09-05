@@ -33,7 +33,7 @@ namespace CodeStatistics.Handling{
             FileHandlers.Add(extension, handler);
         }
 
-        private static void AddFileHandler(IFileHandler handler, string[] extensions){
+        private static void AddFileHandler(IFileHandler handler, IEnumerable<string> extensions){
             foreach(string ext in extensions)FileHandlers.Add(ext, handler);
         }
 

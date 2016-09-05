@@ -303,7 +303,7 @@
       forEach(eleCategory.getElementsByTagName("a"), function(indTab, eleTab){
         eleTab.addEventListener("click", tabEvent);
 
-        if (window.location.hash == eleTab.getAttribute("href")){
+        if (window.location.hash === eleTab.getAttribute("href")){
           setActivePage(eleTab);
         }
       });
@@ -338,7 +338,7 @@
       // Calculations
       var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; }, 0);
       var radPerValue = 2*Math.PI/valueSum;
-      var startAngle = pie.startAngle == 0 ? 0 : pie.startAngle*Math.PI/180;
+      var startAngle = pie.startAngle === 0 ? 0 : pie.startAngle*Math.PI/180;
       var donutRadius = pie.radius*pie.donutPercentage/100;
 
       // Shadow
@@ -475,7 +475,7 @@
         forEach(table.getElementsByTagName("tr"), function(indRow, eleRow){
           var value = parseInt(eleRow.children[0].innerHTML.replace(/\D/g, ""), 10);
 
-          if (value == 0)++chartColorIndex;
+          if (value === 0)++chartColorIndex;
           else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
         });
 
@@ -554,10 +554,10 @@
     <div>
       <div class="card">
         <h3>Assets</h3>
-        <table id="data-pie-assets" class="summary">
+        <table id="data-pie-assets-overview" class="summary">
           {for:assetTypes:contentAssetRow}
         </table>
-        <canvas id="pie-assets" height="200"></canvas>
+        <canvas id="pie-assets-overview" height="200"></canvas>
       </div>
     </div>
   </div>

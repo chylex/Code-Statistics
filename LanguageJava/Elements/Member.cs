@@ -17,7 +17,7 @@ namespace LanguageJava.Elements{
             this.Modifiers = newModifiers;
         }
 
-        public Member(Member source){
+        protected Member(Member source){
             this.Annotations = source.Annotations;
             this.Modifiers = source.Modifiers;
         }

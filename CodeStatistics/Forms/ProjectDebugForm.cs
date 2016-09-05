@@ -6,12 +6,13 @@ using PathIO = System.IO.Path;
 using CodeStatistics.Data;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using CodeStatisticsCore.Handling;
 using CodeStatisticsCore.Handling.Files;
 using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Forms{
-    partial class ProjectDebugForm : Form{
+    sealed partial class ProjectDebugForm : Form{
 #if WINDOWS
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
@@ -27,10 +28,8 @@ namespace CodeStatistics.Forms{
             btnLoadOriginal.Text = Lang.Get["DebugProjectLoadOriginal"];
             btnDebug.Text = Lang.Get["DebugProjectDebug"];
 
-            foreach(File file in project.SearchData.Files){
-                if (HandlerList.GetFileHandler(file) is AbstractLanguageFileHandler){
-                    entries.Add(new RelativeFile(project.SearchData.Root, file));
-                }
+            foreach(File file in project.SearchData.Files.Where(file => HandlerList.GetFileHandler(file) is AbstractLanguageFileHandler)){
+                entries.Add(new RelativeFile(project.SearchData.Root, file));
             }
 
             textBoxFilterFiles_TextChanged(textBoxFilterFiles, new EventArgs());

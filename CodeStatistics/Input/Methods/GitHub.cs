@@ -75,8 +75,7 @@ namespace CodeStatistics.Input.Methods{
                     branches.Add((string)((Dictionary<string, object>)entry)["name"]);
                 }
 
-                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master", 1).Concat(branches), null);
-                else onRetrieved(branches, null);
+                onRetrieved(branches.Remove("master") ? Enumerable.Repeat("master", 1).Concat(branches) : branches, null);
             };
 
             try{
@@ -179,8 +178,7 @@ namespace CodeStatistics.Input.Methods{
         }
 
         private static WebClient CreateWebClient(){
-            WebClient client = new WebClient();
-            client.Proxy = null;
+            WebClient client = new WebClient{ Proxy = null };
             client.Headers.Add("User-Agent", "CodeStatistics");
             return client;
         }

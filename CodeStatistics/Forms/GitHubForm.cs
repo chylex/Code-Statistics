@@ -37,8 +37,9 @@ namespace CodeStatistics.Forms{
         }
 
         private void btnDownload_Click(object sender, EventArgs e){
-            GitHub = new GitHub(textBoxRepository.Text);
-            GitHub.Branch = (string)listBranches.SelectedItem;
+            GitHub = new GitHub(textBoxRepository.Text){
+                Branch = (string)listBranches.SelectedItem
+            };
 
             DialogResult = DialogResult.OK;
             Close();

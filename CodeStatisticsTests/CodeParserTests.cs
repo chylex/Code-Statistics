@@ -30,7 +30,7 @@ namespace CodeStatisticsTests{
 
         [TestMethod]
         public void TestValidSkipAndRead(){
-            string code = "   \n  x    yz { content { more } abc }";
+            const string code = "   \n  x    yz { content { more } abc }";
 
             // base
             CodeParser parser = new CodeParser(code);
@@ -83,7 +83,7 @@ namespace CodeStatisticsTests{
 
         [TestMethod]
         public void TestInvalidSkip(){
-            string code = "1  [ { my block } ]  ";
+            const string code = "1  [ { my block } ]  ";
 
             // base
             CodeParser parser = new CodeParser(code);
@@ -102,7 +102,7 @@ namespace CodeStatisticsTests{
 
         [TestMethod]
         public void TestSkipMatch(){
-            string code = "this is a basic skip test";
+            const string code = "this is a basic skip test";
 
             CodeParser parser1 = new CodeParser(code);
             Assert.IsTrue(parser1.SkipIfMatch("this is a "));
