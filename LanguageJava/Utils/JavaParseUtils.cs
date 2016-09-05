@@ -5,17 +5,17 @@ using LanguageJava.Handling;
 namespace LanguageJava.Utils{
     public static class JavaParseUtils{
         // verbatim strings with quotes need "" for literal
-        private static readonly Regex RegexString = new Regex(@"([""'])(?:\\[\\'""btnfru0-7]|[^\\""])*?(?:\1|$|(?=\*/))",RegexOptions.Compiled | RegexOptions.Multiline);
-        private static readonly Regex RegexCommentSingle = new Regex(@"//.*?$",RegexOptions.Compiled | RegexOptions.Multiline);
-        private static readonly Regex RegexCommentMulti = new Regex(@"/\*.*?\*/",RegexOptions.Compiled | RegexOptions.Singleline);
+        private static readonly Regex RegexString = new Regex(@"([""'])(?:\\[\\'""btnfru0-7]|[^\\""])*?(?:\1|$|(?=\*/))", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex RegexCommentSingle = new Regex(@"//.*?$", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex RegexCommentMulti = new Regex(@"/\*.*?\*/", RegexOptions.Compiled | RegexOptions.Singleline);
 
         public delegate T? ReadStruct<T>() where T : struct;
         
         public static string PrepareCodeFile(string code){
             string processed = code;
-            processed = RegexString.Replace(processed,@""""""); // beautiful
-            processed = RegexCommentSingle.Replace(processed," ");
-            processed = RegexCommentMulti.Replace(processed," ");
+            processed = RegexString.Replace(processed, @""""""); // beautiful
+            processed = RegexCommentSingle.Replace(processed, " ");
+            processed = RegexCommentMulti.Replace(processed, " ");
             return processed;
         }
 

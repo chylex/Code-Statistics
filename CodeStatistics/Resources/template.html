@@ -1,4 +1,4 @@
-<!-- TEMPLATE html -->
+﻿<!-- TEMPLATE html -->
 
 <!DOCTYPE html>
 <html>
@@ -64,8 +64,8 @@
     color: #FFF;
     background-color: #1976D2;
     font-weight: bold;
-    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
-    box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
     cursor: default;
     z-index: 1;
   }
@@ -94,7 +94,7 @@
     font-size: 20px;
     padding: 14px 20px 12px 24px;
     background-color: #EEE;
-    box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   }
 
   #content > div {
@@ -108,8 +108,8 @@
     text-align: center;
     color: #FFF;
     background-color: #1976D2;
-    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
-    box-shadow: 0px 0px 6px rgba(0,0,0,0.25);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   }
 
   h2 + p {
@@ -122,7 +122,7 @@
     font-size: 24px;
     color: #FFF;
     background-color: #2196F3;
-    text-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
   }
 
   p {
@@ -147,7 +147,7 @@
 
   .grid .card {
     background-color: #FFF;
-    box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
     border-radius: 2px;
     margin-bottom: 28px;
     padding-bottom: 8px;
@@ -228,7 +228,7 @@
   }
 
   .subtle {
-    color: rgba(0,0,0,0.5);
+    color: rgba(0, 0, 0, 0.5);
   }
   
   .smallfont {
@@ -263,11 +263,11 @@
 <!-- LITERALTEMPLATE js -->
 
 <script type="text/javascript">
-  document.addEventListener("DOMContentLoaded",function(){
+  document.addEventListener("DOMContentLoaded", function(){
     // Utility Functions
     function forEach(collection, func){
       for(var index = 0; index < collection.length; index++){
-        func(index,collection[index]);
+        func(index, collection[index]);
       }
     }
 
@@ -299,9 +299,9 @@
       setActivePage(this);
     };
       
-    forEach(document.getElementById("navigation").children,function(indCategory, eleCategory){
-      forEach(eleCategory.getElementsByTagName("a"),function(indTab, eleTab){
-        eleTab.addEventListener("click",tabEvent);
+    forEach(document.getElementById("navigation").children, function(indCategory, eleCategory){
+      forEach(eleCategory.getElementsByTagName("a"), function(indTab, eleTab){
+        eleTab.addEventListener("click", tabEvent);
 
         if (window.location.hash == eleTab.getAttribute("href")){
           setActivePage(eleTab);
@@ -328,7 +328,7 @@
         labelBackColor: "#000",
         labelBackOpacity: 0.3,
         
-        shadowColor: "rgba(0,0,0,0.75)",
+        shadowColor: "rgba(0, 0, 0, 0.75)",
         shadowBlur: 5,
         
         valueSumColor: "#000",
@@ -336,7 +336,7 @@
       };
 
       // Calculations
-      var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; },0);
+      var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; }, 0);
       var radPerValue = 2*Math.PI/valueSum;
       var startAngle = pie.startAngle == 0 ? 0 : pie.startAngle*Math.PI/180;
       var donutRadius = pie.radius*pie.donutPercentage/100;
@@ -349,8 +349,8 @@
       ctx.shadowOffsetY = 1;
 
       ctx.beginPath();
-      ctx.moveTo(centerX,centerY);
-      ctx.arc(centerX,centerY,pie.radius-1,0,2*Math.PI,false);
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, pie.radius-1, 0, 2*Math.PI, false);
       ctx.fill();
 
       ctx.shadowColor = "transparent";
@@ -361,8 +361,8 @@
         ctx.fillStyle = pie.data[part].color;
 
         ctx.beginPath();
-        ctx.moveTo(centerX,centerY);
-        ctx.arc(centerX,centerY,pie.radius,angle-0.005,(angle += pie.data[part].value*radPerValue)+0.005,false);
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, pie.radius, angle-0.005, (angle += pie.data[part].value*radPerValue)+0.005, false);
         ctx.fill();
       }
 
@@ -372,7 +372,7 @@
         ctx.globalCompositeOperation = "destination-out";
 
         ctx.beginPath();
-        ctx.arc(centerX,centerY,donutRadius,0,2*Math.PI,false);
+        ctx.arc(centerX, centerY, donutRadius, 0, 2*Math.PI, false);
         ctx.fill();
       }
 
@@ -396,7 +396,7 @@
           text: pie.data[part].label,
           x: (centerX+Math.cos(angle)*labelDist)|0,
           y: (centerY+2+Math.sin(angle)*labelDist)|0,
-          hw: 2+(Math.max(textMeasure1.width,textMeasure2.width)/2),
+          hw: 2+(Math.max(textMeasure1.width, textMeasure2.width)/2),
           hh: 13
         });
 
@@ -431,15 +431,15 @@
         if (pie.labelBackOpacity > 0){
           ctx.fillStyle = pie.labelBackColor;
           ctx.globalAlpha = pie.labelBackOpacity;
-          ctx.fillRect(Math.floor(labelData.x-labelData.hw),labelData.y-14,1+Math.ceil(labelData.hw*2),26);
+          ctx.fillRect(Math.floor(labelData.x-labelData.hw), labelData.y-14, 1+Math.ceil(labelData.hw*2), 26);
           ctx.globalAlpha = 1;
           ctx.fillStyle = pie.labelColor;
         }
 
         ctx.textBaseline = "bottom";
-        ctx.fillText(labelData.text,labelData.x,labelData.y);
+        ctx.fillText(labelData.text, labelData.x, labelData.y);
         ctx.textBaseline = "top";
-        ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%",labelData.x,labelData.y);
+        ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%", labelData.x, labelData.y);
       }
 
       // Value sum
@@ -451,7 +451,7 @@
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      ctx.fillText(valueSum,centerX-1,2+centerY);
+      ctx.fillText(valueSum, centerX-1, 2+centerY);
     }
 
     // Pie Chart Generation
@@ -472,16 +472,16 @@
         var table = document.getElementById("data-"+canvas.id);
         var data = [];
 
-        forEach(table.getElementsByTagName("tr"),function(indRow, eleRow){
-          var value = parseInt(eleRow.children[0].innerHTML.replace(/\D/g,""),10);
+        forEach(table.getElementsByTagName("tr"), function(indRow, eleRow){
+          var value = parseInt(eleRow.children[0].innerHTML.replace(/\D/g, ""), 10);
 
           if (value == 0)++chartColorIndex;
           else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
         });
 
-        createPieChart(canvas,data);
+        createPieChart(canvas, data);
 
-        canvas.setAttribute("data-pie-gen","1");
+        canvas.setAttribute("data-pie-gen", "1");
       }
     }
   });

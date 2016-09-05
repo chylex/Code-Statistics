@@ -22,9 +22,9 @@ namespace CodeStatisticsCore.Handling.Utils{
         }
 
         protected string SubstrIndex(int startIndex, int endIndex){
-            startIndex = Math.Max(0,Math.Min(length-1,startIndex));
-            endIndex = Math.Min(length,endIndex);
-            return code.Substring(startIndex,endIndex-startIndex);
+            startIndex = Math.Max(0, Math.Min(length-1, startIndex));
+            endIndex = Math.Min(length, endIndex);
+            return code.Substring(startIndex, endIndex-startIndex);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace CodeStatisticsCore.Handling.Utils{
         public CodeParser ReadTo(char chr){
             int indexStart = cursor;
             SkipTo(chr);
-            return Clone(SubstrIndex(indexStart,cursor));
+            return Clone(SubstrIndex(indexStart, cursor));
         }
 
         /// <summary>
@@ -201,9 +201,9 @@ namespace CodeStatisticsCore.Handling.Utils{
             if (Char != blockStart)return Clone("");
 
             int indexStart = cursor;
-            SkipBlock(blockStart,blockEnd);
+            SkipBlock(blockStart, blockEnd);
 
-            return Clone(SubstrIndex(indexStart+1,cursor-1));
+            return Clone(SubstrIndex(indexStart+1, cursor-1));
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace CodeStatisticsCore.Handling.Utils{
                 if (!IsIdentifierPart(Next()))break;
             }
 
-            string identifier = SubstrIndex(prevCursor,cursor);
+            string identifier = SubstrIndex(prevCursor, cursor);
 
             if (!IsValidIdentifier(identifier)){
                 cursor = prevCursor;

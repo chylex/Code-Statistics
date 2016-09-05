@@ -76,11 +76,11 @@ namespace CodeStatistics.Forms{
 
                         while(testEx != null){
                             if (testEx.GetType().FullName == "Mono.Security.Protocol.Tls.TlsException"){
-                                if (MessageBox.Show(Lang.Get["LoadGitHubTrustError"],Lang.Get["LoadGitHubError"],MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.Yes){
-                                    Process process = Process.Start("mozroots","--import --ask-remove --quiet");
+                                if (MessageBox.Show(Lang.Get["LoadGitHubTrustError"], Lang.Get["LoadGitHubError"], MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes){
+                                    Process process = Process.Start("mozroots", "--import --ask-remove --quiet");
                                     if (process != null)process.WaitForExit();
 
-                                    timer_Tick(timer,new EventArgs());
+                                    timer_Tick(timer, new EventArgs());
                                 }
 
                                 break;
@@ -110,11 +110,11 @@ namespace CodeStatistics.Forms{
 
                 switch(status){
                     case GitHub.DownloadStatus.NoInternet:
-                        MessageBox.Show(Lang.Get["LoadGitHubNoInternet"],Lang.Get["LoadGitHubError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show(Lang.Get["LoadGitHubNoInternet"], Lang.Get["LoadGitHubError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
 
                     case GitHub.DownloadStatus.NoConnection:
-                        MessageBox.Show(Lang.Get["LoadGitHubNoEstablishedConnection"],Lang.Get["LoadGitHubError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show(Lang.Get["LoadGitHubNoEstablishedConnection"], Lang.Get["LoadGitHubError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }

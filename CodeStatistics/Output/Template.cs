@@ -31,7 +31,7 @@ namespace CodeStatistics.Output{
                 int offset = 0;
 
                 foreach(TemplateToken token in tokens){
-                    offset = token.ReplaceToken(offset,list,variables,ref processedText);
+                    offset = token.ReplaceToken(offset, list, variables, ref processedText);
                 }
 
                 return processedText;

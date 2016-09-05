@@ -24,7 +24,7 @@ namespace LanguageJava.Elements{
         }
 
         public override string ToString(){
-            return base.ToString()+ReturnType+' '+Identifier+'('+string.Join(", ",ParameterTypes)+')';
+            return base.ToString()+ReturnType+' '+Identifier+'('+string.Join(", ", ParameterTypes)+')';
         }
     }
 }

@@ -7,17 +7,17 @@ namespace CodeStatistics.Output{
         private static readonly char[] DeclarationSplit = { ' ' };
 
         public static bool IsDeclaration(string line){
-            return line.StartsWith(DeclarationStart,StringComparison.Ordinal) && line.EndsWith(DeclarationEnd,StringComparison.Ordinal);
+            return line.StartsWith(DeclarationStart, StringComparison.Ordinal) && line.EndsWith(DeclarationEnd, StringComparison.Ordinal);
         }
 
         public static bool TryReadLine(string line, out TemplateDeclaration declaration){
             if (IsDeclaration(line)){
-                string stripped = line.Substring(DeclarationStart.Length,line.Length-DeclarationEnd.Length-DeclarationStart.Length);
-                string[] data = stripped.Trim().Split(DeclarationSplit,2);
+                string stripped = line.Substring(DeclarationStart.Length, line.Length-DeclarationEnd.Length-DeclarationStart.Length);
+                string[] data = stripped.Trim().Split(DeclarationSplit, 2);
 
                 if (data.Length == 2){
                     TemplateDeclarationType type = GetDeclarationType(data[0]);
-                    declaration = new TemplateDeclaration(type,data[1]);
+                    declaration = new TemplateDeclaration(type, data[1]);
 
                     return type != TemplateDeclarationType.Invalid;
                 }

@@ -28,25 +28,25 @@ namespace CodeStatistics{
                 case "in:github":
                 case "out":
                     if (argument.IsFlag){
-                        setError(Lang.Get["ErrorInvalidArgsShouldBeVariable",argument.Name]);
+                        setError(Lang.Get["ErrorInvalidArgsShouldBeVariable", argument.Name]);
                         return false;
                     }
 
                     if (argument.Name == "in:folder"){
                         if (!DirectoryIO.Exists(argument.Value)){
-                            setError(Lang.Get["ErrorInvalidArgsFileNotFound",argument.Value]);
+                            setError(Lang.Get["ErrorInvalidArgsFileNotFound", argument.Value]);
                             return false;
                         }
                     }
                     else if (argument.Name == "in:archive"){
                         if (!FileIO.Exists(argument.Value)){
-                            setError(Lang.Get["ErrorInvalidArgsFileNotFound",argument.Value]);
+                            setError(Lang.Get["ErrorInvalidArgsFileNotFound", argument.Value]);
                             return false;
                         }
                     }
                     else if (argument.Name == "in:github"){
                         if (!GitHub.IsRepositoryValid(argument.Value)){
-                            setError(Lang.Get["ErrorInvalidArgsGitHub",argument.Value]);
+                            setError(Lang.Get["ErrorInvalidArgsGitHub", argument.Value]);
                             return false;
                         }
                     }
@@ -54,7 +54,7 @@ namespace CodeStatistics{
                     return true;
             }
 
-            setError(Lang.Get["ErrorInvalidArgsUnknown",argument.Name]);
+            setError(Lang.Get["ErrorInvalidArgsUnknown", argument.Name]);
             return false;
         }
 
@@ -103,7 +103,7 @@ namespace CodeStatistics{
             switch(inputType){
                 case InputType.Dummy: return new DummyInputMethod();
                 case InputType.Folder: return new FileSearch(new string[]{ inputValue });
-                case InputType.Archive: return new ArchiveExtraction(inputValue,IOUtils.CreateTemporaryDirectory());
+                case InputType.Archive: return new ArchiveExtraction(inputValue, IOUtils.CreateTemporaryDirectory());
                 case InputType.GitHub: return new GitHub(inputValue);
                 default: return null;
             }
@@ -111,24 +111,24 @@ namespace CodeStatistics{
 
         public string GetOutputFilePath(){
             if (outputFile == null){
-                return Path.Combine(IOUtils.CreateTemporaryDirectory(),"output.html");
+                return Path.Combine(IOUtils.CreateTemporaryDirectory(), "output.html");
             }
             else{
-                return Path.IsPathRooted(outputFile) ? outputFile : Path.Combine(Environment.CurrentDirectory,outputFile);
+                return Path.IsPathRooted(outputFile) ? outputFile : Path.Combine(Environment.CurrentDirectory, outputFile);
             }
         }
 
         public string GetCustomTemplateFilePath(){
-            return Path.IsPathRooted(templateFile) ? templateFile : Path.Combine(Environment.CurrentDirectory,templateFile);
+            return Path.IsPathRooted(templateFile) ? templateFile : Path.Combine(Environment.CurrentDirectory, templateFile);
         }
 
         public string GetTemplateContents(){
             if (templateFile == null){
-                return Resources.ResourceManager.GetString("template",CultureInfo.InvariantCulture); // may be null
+                return Resources.ResourceManager.GetString("template", CultureInfo.InvariantCulture); // may be null
             }
             else{
                 try{
-                    return FileIO.ReadAllText(templateFile,Encoding.UTF8);
+                    return FileIO.ReadAllText(templateFile, Encoding.UTF8);
                 }catch(Exception){
                     return null;
                 }

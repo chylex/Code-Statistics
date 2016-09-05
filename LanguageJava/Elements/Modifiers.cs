@@ -21,7 +21,7 @@ namespace LanguageJava.Elements{
     }
 
     public static class JavaModifiers{
-        private static readonly BiDictionary<Modifiers,string> ModifierDict = new BiDictionary<Modifiers,string>{
+        private static readonly BiDictionary<Modifiers, string> ModifierDict = new BiDictionary<Modifiers, string>{
             { Modifiers.Public, "public" },
             { Modifiers.Protected, "protected" },
             { Modifiers.Private, "private" },

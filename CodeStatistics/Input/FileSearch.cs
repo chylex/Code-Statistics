@@ -67,7 +67,7 @@ namespace CodeStatistics.Input{
                         }
                     }
                     else{
-                        searchData.Add(new IOEntry(IOEntry.Type.File,rootFile));
+                        searchData.Add(new IOEntry(IOEntry.Type.File, rootFile));
                         ++entryCount[0];
                         updateNotice();
                     }
@@ -75,11 +75,11 @@ namespace CodeStatistics.Input{
 
                 if (Refresh != null)Refresh(entryCount[0]);
                 if (Finish != null)Finish(searchData);
-            },cancelToken.Token);
+            }, cancelToken.Token);
             
             task.ContinueWith(originalTask => {
                 if (Failure != null)Failure(originalTask.Exception);
-            },TaskContinuationOptions.OnlyOnFaulted);
+            }, TaskContinuationOptions.OnlyOnFaulted);
             
             task.Start();
         }
@@ -93,24 +93,24 @@ namespace CodeStatistics.Input{
                 string[] files, folders;
 
                 try{
-                    files = DirectoryIO.GetFiles(currentFolder,"*.*",SearchOption.TopDirectoryOnly);
+                    files = DirectoryIO.GetFiles(currentFolder, "*.*", SearchOption.TopDirectoryOnly);
                 }catch(Exception){
                     files = new string[0];
                 }
 
                 try{
-                    folders = DirectoryIO.GetDirectories(currentFolder,"*.*",SearchOption.TopDirectoryOnly);
+                    folders = DirectoryIO.GetDirectories(currentFolder, "*.*", SearchOption.TopDirectoryOnly);
                 }catch(Exception){
                     folders = new string[0];
                 }
 
                 foreach(string file in files){
-                    yield return new IOEntry(IOEntry.Type.File,file);
+                    yield return new IOEntry(IOEntry.Type.File, file);
                 }
 
                 foreach(string folder in folders){
                     foldersLeft.Enqueue(folder);
-                    yield return new IOEntry(IOEntry.Type.Folder,folder);
+                    yield return new IOEntry(IOEntry.Type.Folder, folder);
                 }
             }
         }

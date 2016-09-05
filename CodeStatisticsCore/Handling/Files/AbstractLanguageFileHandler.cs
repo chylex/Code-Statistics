@@ -15,16 +15,16 @@ namespace CodeStatisticsCore.Handling.Files{
         public override void SetupProject(Variables.Root variables){
             base.SetupProject(variables);
             variables.AddFlag(Key);
-            variables.AddStateObject(stateOwner,new State());
+            variables.AddStateObject(stateOwner, new State());
         }
 
         public override void Process(File file, Variables.Root variables){
-            base.Process(file,variables);
+            base.Process(file, variables);
 
             variables.Increment("fileTypeCode");
             variables.Increment(Key+"CodeFiles");
 
-            ProcessFileContents(file,variables);
+            ProcessFileContents(file, variables);
         }
 
         protected virtual void ProcessFileContents(File file, Variables.Root variables){
@@ -41,23 +41,23 @@ namespace CodeStatisticsCore.Handling.Files{
                     int realLength = ParseUtils.CountCharacters(line);
 
                     charCount += realLength;
-                    maxCharsPerLine = Math.Max(maxCharsPerLine,realLength);
+                    maxCharsPerLine = Math.Max(maxCharsPerLine, realLength);
                 }
             }
 
-            variables.Increment(Key+"LinesTotal",lineCount);
-            variables.Increment(Key+"CharsTotal",charCount);
-            variables.Maximum(Key+"LinesMax",lineCount);
-            variables.Maximum(Key+"CharsMax",charCount);
-            variables.Maximum(Key+"CharsPerLineMax",maxCharsPerLine);
+            variables.Increment(Key+"LinesTotal", lineCount);
+            variables.Increment(Key+"CharsTotal", charCount);
+            variables.Maximum(Key+"LinesMax", lineCount);
+            variables.Maximum(Key+"CharsMax", charCount);
+            variables.Maximum(Key+"CharsPerLineMax", maxCharsPerLine);
 
             State state = variables.GetStateObject<State>(stateOwner);
 
-            FileIntValue fileLines = new FileIntValue(file,lineCount);
+            FileIntValue fileLines = new FileIntValue(file, lineCount);
             state.MaxLines.Add(fileLines);
             state.MinLines.Add(fileLines);
 
-            FileIntValue fileChars = new FileIntValue(file,charCount);
+            FileIntValue fileChars = new FileIntValue(file, charCount);
             state.MaxChars.Add(fileChars);
             state.MinChars.Add(fileChars);
         }
@@ -65,26 +65,26 @@ namespace CodeStatisticsCore.Handling.Files{
         public override void FinalizeProject(Variables.Root variables){
             base.FinalizeProject(variables);
 
-            variables.Average(Key+"LinesAvg",Key+"LinesTotal",Key+"CodeFiles");
-            variables.Average(Key+"CharsAvg",Key+"CharsTotal",Key+"CodeFiles");
-            variables.Average(Key+"CharsPerLineAvg",Key+"CharsTotal",Key+"LinesTotal");
+            variables.Average(Key+"LinesAvg", Key+"LinesTotal", Key+"CodeFiles");
+            variables.Average(Key+"CharsAvg", Key+"CharsTotal", Key+"CodeFiles");
+            variables.Average(Key+"CharsPerLineAvg", Key+"CharsTotal", Key+"LinesTotal");
             
             State state = variables.GetStateObject<State>(stateOwner);
 
             foreach(FileIntValue fi in state.MaxLines){
-                variables.AddToArray(Key+"LinesTop",GetFileObject(fi,variables));
+                variables.AddToArray(Key+"LinesTop", GetFileObject(fi, variables));
             }
 
             foreach(FileIntValue fi in state.MinLines.Reverse()){
-                variables.AddToArray(Key+"LinesBottom",GetFileObject(fi,variables));
+                variables.AddToArray(Key+"LinesBottom", GetFileObject(fi, variables));
             }
 
             foreach(FileIntValue fi in state.MaxChars){
-                variables.AddToArray(Key+"CharsTop",GetFileObject(fi,variables));
+                variables.AddToArray(Key+"CharsTop", GetFileObject(fi, variables));
             }
 
             foreach(FileIntValue fi in state.MinChars.Reverse()){
-                variables.AddToArray(Key+"CharsBottom",GetFileObject(fi,variables));
+                variables.AddToArray(Key+"CharsBottom", GetFileObject(fi, variables));
             }
         }
 
@@ -93,11 +93,11 @@ namespace CodeStatisticsCore.Handling.Files{
         public abstract IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables, File file);
 
         private class State{
-            public readonly TopElementList<FileIntValue> MaxLines = new TopElementList<FileIntValue>(8,FileIntValue.SortMax);
-            public readonly TopElementList<FileIntValue> MinLines = new TopElementList<FileIntValue>(8,FileIntValue.SortMin);
+            public readonly TopElementList<FileIntValue> MaxLines = new TopElementList<FileIntValue>(8, FileIntValue.SortMax);
+            public readonly TopElementList<FileIntValue> MinLines = new TopElementList<FileIntValue>(8, FileIntValue.SortMin);
 
-            public readonly TopElementList<FileIntValue> MaxChars = new TopElementList<FileIntValue>(8,FileIntValue.SortMax);
-            public readonly TopElementList<FileIntValue> MinChars = new TopElementList<FileIntValue>(8,FileIntValue.SortMin);
+            public readonly TopElementList<FileIntValue> MaxChars = new TopElementList<FileIntValue>(8, FileIntValue.SortMax);
+            public readonly TopElementList<FileIntValue> MinChars = new TopElementList<FileIntValue>(8, FileIntValue.SortMin);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace CodeStatistics.Handling.General{
         }
 
         public override void Process(File file, Variables.Root variables){
-            base.Process(file,variables);
+            base.Process(file, variables);
             variables.Increment("fileTypeUnknown");
         }
     }

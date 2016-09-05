@@ -5,7 +5,7 @@ using LanguageJava.Utils;
 
 namespace LanguageJava.Handling{
     public class JavaState{
-        private readonly Dictionary<File,JavaFileInfo> fileInfo = new Dictionary<File,JavaFileInfo>();
+        private readonly Dictionary<File, JavaFileInfo> fileInfo = new Dictionary<File, JavaFileInfo>();
         private readonly HashSet<string> packages = new HashSet<string>();
 
         public readonly JavaGlobalInfo GlobalInfo = new JavaGlobalInfo();
@@ -18,15 +18,15 @@ namespace LanguageJava.Handling{
 
         public JavaFileInfo Process(File file){
             JavaFileInfo info = new JavaFileInfo();
-            fileInfo.Add(file,info);
+            fileInfo.Add(file, info);
 
             JavaCodeParser parser = new JavaCodeParser(JavaParseUtils.PrepareCodeFile(file.Contents));
             parser.AnnotationCallback += IncrementAnnotation;
-            parser.CodeBlockCallback += blockParser => ReadCodeBlock(blockParser,GlobalInfo);
+            parser.CodeBlockCallback += blockParser => ReadCodeBlock(blockParser, GlobalInfo);
 
-            ReadPackage(parser,info);
-            ReadImportList(parser,info);
-            ReadTopLevelTypes(parser,info);
+            ReadPackage(parser, info);
+            ReadImportList(parser, info);
+            ReadTopLevelTypes(parser, info);
 
             UpdateLocalData(info);
 
@@ -100,7 +100,7 @@ namespace LanguageJava.Handling{
             while((keyword = blockParser.ReadNextKeywordSkip()).Length > 0){
                 switch(keyword){
                     case "do":
-                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{', '}'), info);
 
                         if (blockParser.ReadNextKeywordSkip() != "while"){
                             blockParser.RevertKeywordSkip(); // should not happen
@@ -114,8 +114,8 @@ namespace LanguageJava.Handling{
                         break;
 
                     case "for":
-                        JavaCodeBlockParser cycleDeclBlock = (JavaCodeBlockParser)blockParser.ReadBlock('(',')');
-                        ReadCodeBlock(cycleDeclBlock,info);
+                        JavaCodeBlockParser cycleDeclBlock = (JavaCodeBlockParser)blockParser.ReadBlock('(', ')');
+                        ReadCodeBlock(cycleDeclBlock, info);
                         
                         JavaCodeParser cycleDeclParser = new JavaCodeParser(cycleDeclBlock.Contents);
                         cycleDeclParser.ReadTypeOf(false);
@@ -125,8 +125,8 @@ namespace LanguageJava.Handling{
                         break;
 
                     case "switch":
-                        JavaCodeBlockParser switchBlock = (JavaCodeBlockParser)blockParser.ReadBlock('{','}');
-                        ReadCodeBlock(switchBlock,info);
+                        JavaCodeBlockParser switchBlock = (JavaCodeBlockParser)blockParser.ReadBlock('{', '}');
+                        ReadCodeBlock(switchBlock, info);
 
                         switchBlock.Reset();
                         string switchKeyword;
@@ -134,7 +134,7 @@ namespace LanguageJava.Handling{
 
                         while((switchKeyword = switchBlock.ReadNextKeywordSkip()).Length > 0){
                             if (switchKeyword == "switch"){
-                                switchBlock.SkipBlock('{','}');
+                                switchBlock.SkipBlock('{', '}');
                             }
                             else if (switchKeyword == "case"){
                                 ++info.Statements[FlowStatement.SwitchCase];
@@ -154,7 +154,7 @@ namespace LanguageJava.Handling{
                     case "try":
                         bool isTryWithResources = blockParser.SkipSpaces().Char == '(';
 
-                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+                        ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{', '}'), info);
 
                         string tryKeyword;
                         int catches = 0;
@@ -175,7 +175,7 @@ namespace LanguageJava.Handling{
                                 break;
                             }
 
-                            ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{','}'),info);
+                            ReadCodeBlock((JavaCodeBlockParser)blockParser.ReadBlock('{', '}'), info);
                         }
                         
                         if (catches < info.MinCatchBlocks)info.MinCatchBlocks = catches;

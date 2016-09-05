@@ -7,7 +7,7 @@ namespace CodeStatistics{
         public delegate bool ArgumentPredicate(Argument argument, Action<string> setError);
 
         private readonly HashSet<string> flags;
-        private readonly Dictionary<string,string> variables;
+        private readonly Dictionary<string, string> variables;
         
         public string Error { get; private set; }
         public bool HasError { get { return Error != null; } }
@@ -19,7 +19,7 @@ namespace CodeStatistics{
             }
             else{
                 flags = new HashSet<string>();
-                variables = new Dictionary<string,string>(4);
+                variables = new Dictionary<string, string>(4);
 
                 HashSet<string> identifiers = new HashSet<string>();
                 Action<string> setError = err => Error = err;
@@ -27,16 +27,16 @@ namespace CodeStatistics{
                 for(int index = 0; index < args.Length; index++){
                     if (args[index][0] == '-' && args.Length > 1){
                         string name = args[index].Substring(1);
-                        string identifier = name.IndexOf(':') == -1 ? name : name.Substring(0,name.IndexOf(':'));
+                        string identifier = name.IndexOf(':') == -1 ? name : name.Substring(0, name.IndexOf(':'));
 
                         bool isVariable = index < args.Length-1 && args[index+1][0] != '-';
 
                         if (!identifiers.Add(identifier)){
-                            Error = Lang.Get["ErrorInvalidArgsDuplicateIdentifier",identifier];
+                            Error = Lang.Get["ErrorInvalidArgsDuplicateIdentifier", identifier];
                             break;
                         }
 
-                        if (!argumentValidator(isVariable ? new Argument(name,args[index+1]) : new Argument(name),setError)){
+                        if (!argumentValidator(isVariable ? new Argument(name, args[index+1]) : new Argument(name), setError)){
                             break;
                         }
 

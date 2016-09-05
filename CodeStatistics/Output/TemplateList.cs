@@ -4,14 +4,14 @@ using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     class TemplateList{
-        private readonly Dictionary<string,Template> templates = new Dictionary<string,Template>();
+        private readonly Dictionary<string, Template> templates = new Dictionary<string, Template>();
 
         public TemplateList(IList<string> lines){
             for(int lineIndex = 0; lineIndex < lines.Count; lineIndex++){
                 string line = lines[lineIndex];
                 TemplateDeclaration declaration;
 
-                if (TemplateDeclaration.TryReadLine(line,out declaration)){
+                if (TemplateDeclaration.TryReadLine(line, out declaration)){
                     var templateLines = new List<string>();
 
                     while(++lineIndex < lines.Count){
@@ -26,7 +26,7 @@ namespace CodeStatistics.Output{
                         templateLines.Add(templateLine);
                     }
 
-                    templates[declaration.Name] = declaration.CreateTemplate(string.Join("\r\n",templateLines));
+                    templates[declaration.Name] = declaration.CreateTemplate(string.Join("\r\n", templateLines));
                 }
             }
         }
@@ -34,11 +34,11 @@ namespace CodeStatistics.Output{
         public string ProcessTemplate(string templateName, Variables variables){
             Template template;
 
-            if (templates.TryGetValue(templateName,out template)){
-                return template.Process(this,variables);
+            if (templates.TryGetValue(templateName, out template)){
+                return template.Process(this, variables);
             }
             else{
-                throw new TemplateException(Lang.Get["TemplateErrorNotFound",templateName]);
+                throw new TemplateException(Lang.Get["TemplateErrorNotFound", templateName]);
             }
         }
     }

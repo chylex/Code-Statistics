@@ -69,7 +69,7 @@ namespace LanguageJava.Elements{
             public override bool CanHaveConstructors { get { return false; } }
 
             public override Member UpdateFieldInfo(Member info){
-                return new Member(info,(info.Modifiers | Modifiers.Public | Modifiers.Static | Modifiers.Final) & ~(Modifiers.Abstract | Modifiers.Protected | Modifiers.Private));
+                return new Member(info, (info.Modifiers | Modifiers.Public | Modifiers.Static | Modifiers.Final) & ~(Modifiers.Abstract | Modifiers.Protected | Modifiers.Private));
             }
 
             public override Member UpdateMethodInfo(Member info){
@@ -79,7 +79,7 @@ namespace LanguageJava.Elements{
                     newModifiers = (newModifiers | Modifiers.Abstract) & ~Modifiers.Final;
                 }
 
-                return new Member(info,newModifiers);
+                return new Member(info, newModifiers);
             }
         }
     }

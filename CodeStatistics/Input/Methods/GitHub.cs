@@ -17,7 +17,7 @@ namespace CodeStatistics.Input.Methods{
     class GitHub : IInputMethod, IDisposable{
         public const string DefaultBranch = "master";
 
-        private static readonly Regex RepositoryRegexCustom = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\. ]+)(?:/([^\\[?^:~ ]+))?$",RegexOptions.CultureInvariant);
+        private static readonly Regex RepositoryRegexCustom = new Regex(@"^([a-zA-Z0-9\-]+)/([\w\-\. ]+)(?:/([^\\[?^:~ ]+))?$", RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Checks whether a repository in the format &lt;username&gt;/&lt;repository&gt;[/&lt;branch&gt;] is valid. Allows spaces in &lt;repository&gt; that are
@@ -48,7 +48,7 @@ namespace CodeStatistics.Input.Methods{
         private event Action CancelFinish;
 
         public GitHub(string repository){
-            Match match = RepositoryRegexCustom.Match(repository.Replace(' ','-'));
+            Match match = RepositoryRegexCustom.Match(repository.Replace(' ', '-'));
 
             target = match.Groups[1].Value+'/'+match.Groups[2].Value;
             if (match.Groups.Count == 4)Branch = match.Groups[3].Value;
@@ -65,18 +65,18 @@ namespace CodeStatistics.Input.Methods{
 
             dlBranches.DownloadStringCompleted += (sender, args) => {
                 if (args.Cancelled || args.Error != null){
-                    onRetrieved(null,ProcessWebException(args.Error as WebException));
+                    onRetrieved(null, ProcessWebException(args.Error as WebException));
                     return;
                 }
 
                 List<string> branches = new List<string>(2);
 
                 foreach(object entry in (object[])new JavaScriptSerializer().DeserializeObject(args.Result)){
-                    branches.Add((string)((Dictionary<string,object>)entry)["name"]);
+                    branches.Add((string)((Dictionary<string, object>)entry)["name"]);
                 }
 
-                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master",1).Concat(branches),null);
-                else onRetrieved(branches,null);
+                if (branches.Remove("master"))onRetrieved(Enumerable.Repeat("master", 1).Concat(branches), null);
+                else onRetrieved(branches, null);
             };
 
             try{
@@ -100,7 +100,7 @@ namespace CodeStatistics.Input.Methods{
             if (DownloadFinished != null)dlRepo.DownloadFileCompleted += DownloadFinished;
 
             try{
-                dlRepo.DownloadFileAsync(ZipUrl,targetFile);
+                dlRepo.DownloadFileAsync(ZipUrl, targetFile);
                 return DownloadStatus.Started;
             }catch(WebException){
                 return DownloadStatus.NoConnection;
@@ -129,7 +129,7 @@ namespace CodeStatistics.Input.Methods{
 
         public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){
             string tmpDir = IOUtils.CreateTemporaryDirectory();
-            string tmpFile = tmpDir == null ? "github.zip" : Path.Combine(tmpDir,"github.zip");
+            string tmpFile = tmpDir == null ? "github.zip" : Path.Combine(tmpDir, "github.zip");
 
             DownloadProgressChanged = (sender, args) => {
                 callbacks.UpdateProgress(args.TotalBytesToReceive == -1 ? -1 : args.ProgressPercentage);
@@ -181,7 +181,7 @@ namespace CodeStatistics.Input.Methods{
         private static WebClient CreateWebClient(){
             WebClient client = new WebClient();
             client.Proxy = null;
-            client.Headers.Add("User-Agent","CodeStatistics");
+            client.Headers.Add("User-Agent", "CodeStatistics");
             return client;
         }
 

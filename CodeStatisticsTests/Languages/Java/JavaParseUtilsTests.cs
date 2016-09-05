@@ -6,9 +6,9 @@ namespace CodeStatisticsTests.Languages.Java{
     public class JavaParseUtilsTests{
         [TestMethod]
         public void TestFullToSimpleName(){
-            Assert.AreEqual("SimpleName",JavaParseUtils.FullToSimpleName("this.is.a.full.name.SimpleName"));
-            Assert.AreEqual("SimpleName",JavaParseUtils.FullToSimpleName("SimpleName"));
-            Assert.AreEqual(string.Empty,JavaParseUtils.FullToSimpleName("broken.name."));
+            Assert.AreEqual("SimpleName", JavaParseUtils.FullToSimpleName("this.is.a.full.name.SimpleName"));
+            Assert.AreEqual("SimpleName", JavaParseUtils.FullToSimpleName("SimpleName"));
+            Assert.AreEqual(string.Empty, JavaParseUtils.FullToSimpleName("broken.name."));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace LanguageJava.Elements{
         }
 
         public override string ToString(){
-            string memberStr = Annotations.Aggregate("",(str, annotation) => str+annotation.ToString()+' ');
+            string memberStr = Annotations.Aggregate("", (str, annotation) => str+annotation.ToString()+' ');
 
             foreach(Modifiers modifier in JavaModifiers.Values){
                 if (Modifiers.HasFlag(modifier))memberStr += JavaModifiers.ToString(modifier)+' ';

@@ -22,8 +22,8 @@ namespace CodeStatistics.Handling.General{
             }
         }
 
-        private static readonly Comparison<Variables> AssetRowSorter = (x, y) => y.GetVariable("value",0)-x.GetVariable("value",0);
-        private static readonly Comparison<Variables> AssetSizeRowSorter = (x, y) => Math.Sign((long)y.GetVariable("comph",0)<<32|y.GetVariable("compl",0)-((long)x.GetVariable("comph",0)<<32|x.GetVariable("compl",0)));
+        private static readonly Comparison<Variables> AssetRowSorter = (x, y) => y.GetVariable("value", 0)-x.GetVariable("value", 0);
+        private static readonly Comparison<Variables> AssetSizeRowSorter = (x, y) => Math.Sign((long)y.GetVariable("comph", 0)<<32|y.GetVariable("compl", 0)-((long)x.GetVariable("comph", 0)<<32|x.GetVariable("compl", 0)));
 
         private readonly Type type;
 
@@ -38,21 +38,21 @@ namespace CodeStatistics.Handling.General{
         public override void SetupProject(Variables.Root variables){
             base.SetupProject(variables);
             variables.AddFlag("assets");
-            variables.AddStateObject(this,new State());
+            variables.AddStateObject(this, new State());
         }
 
         public override void Process(File file, Variables.Root variables){
-            base.Process(file,variables);
+            base.Process(file, variables);
             variables.Increment("fileTypeAssets");
 
             State state = variables.GetStateObject<State>(this);
 
             if (++state.Count == 1){
-                variables.SetArraySorter("assetTypes",AssetRowSorter);
-                state.TypeEntry = variables.AddToArray("assetTypes",new { title = GetAssetTypeName(type), value = 0 });
+                variables.SetArraySorter("assetTypes", AssetRowSorter);
+                state.TypeEntry = variables.AddToArray("assetTypes", new { title = GetAssetTypeName(type), value = 0 });
 
-                variables.SetArraySorter("assetSizes",AssetSizeRowSorter);
-                state.SizeEntry = variables.AddToArray("assetSizes",new { title = GetAssetTypeName(type), compl = 0, comph = 0, size = 0, units = "" });
+                variables.SetArraySorter("assetSizes", AssetSizeRowSorter);
+                state.SizeEntry = variables.AddToArray("assetSizes", new { title = GetAssetTypeName(type), compl = 0, comph = 0, size = 0, units = "" });
             }
 
             state.Size += file.SizeInBytes;
@@ -62,14 +62,14 @@ namespace CodeStatistics.Handling.General{
             base.FinalizeProject(variables);
 
             State state = variables.GetStateObject<State>(this);
-            state.TypeEntry.UpdateVariable("value",state.Count);
+            state.TypeEntry.UpdateVariable("value", state.Count);
 
-            KeyValuePair<long,string> size = IOUtils.GetFriendlyFileSize(state.Size);
-            state.SizeEntry.UpdateVariable("size",(int)size.Key);
-            state.SizeEntry.UpdateVariable("units",size.Value);
+            KeyValuePair<long, string> size = IOUtils.GetFriendlyFileSize(state.Size);
+            state.SizeEntry.UpdateVariable("size", (int)size.Key);
+            state.SizeEntry.UpdateVariable("units", size.Value);
 
-            state.SizeEntry.UpdateVariable("compl",(int)(state.Size&((1L<<32)-1L)));
-            state.SizeEntry.UpdateVariable("comph",(int)(state.Size>>32));
+            state.SizeEntry.UpdateVariable("compl", (int)(state.Size&((1L<<32)-1L)));
+            state.SizeEntry.UpdateVariable("comph", (int)(state.Size>>32));
         }
 
         private class State{

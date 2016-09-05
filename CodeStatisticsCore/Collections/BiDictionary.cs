@@ -2,29 +2,29 @@
 using System.Collections.Generic;
 
 namespace CodeStatisticsCore.Collections{
-    public class BiDictionary<TKey,TValue> : IEnumerable<KeyValuePair<TKey,TValue>>{
-        private readonly Dictionary<TKey,TValue> kv;
-        private readonly Dictionary<TValue,TKey> vk;
+    public class BiDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>{
+        private readonly Dictionary<TKey, TValue> kv;
+        private readonly Dictionary<TValue, TKey> vk;
 
         public ICollection<TKey> Keys { get { return kv.Keys; } }
         public ICollection<TValue> Values { get { return vk.Keys; } }
         public int Count { get { return kv.Count; } }
 
-        public IEnumerable<KeyValuePair<TValue,TKey>> Reverse { get { return vk; } }
+        public IEnumerable<KeyValuePair<TValue, TKey>> Reverse { get { return vk; } }
 
         public BiDictionary(){
-            kv = new Dictionary<TKey,TValue>();
-            vk = new Dictionary<TValue,TKey>();
+            kv = new Dictionary<TKey, TValue>();
+            vk = new Dictionary<TValue, TKey>();
         }
 
         public BiDictionary(int capacity){
-            kv = new Dictionary<TKey,TValue>(capacity);
-            vk = new Dictionary<TValue,TKey>(capacity);
+            kv = new Dictionary<TKey, TValue>(capacity);
+            vk = new Dictionary<TValue, TKey>(capacity);
         }
 
         public void Add(TKey key, TValue value){
-            kv.Add(key,value);
-            vk.Add(value,key);
+            kv.Add(key, value);
+            vk.Add(value, key);
         }
 
         public bool ContainsKey(TKey key){
@@ -43,7 +43,7 @@ namespace CodeStatisticsCore.Collections{
         public bool RemoveKey(TKey key){
             TValue value;
             
-            if (kv.TryGetValue(key,out value) && kv.Remove(key)){
+            if (kv.TryGetValue(key, out value) && kv.Remove(key)){
                 vk.Remove(value);
                 return true;
             }
@@ -53,7 +53,7 @@ namespace CodeStatisticsCore.Collections{
         public bool RemoveValue(TValue value){
             TKey key;
             
-            if (vk.TryGetValue(value,out key) && vk.Remove(value)){
+            if (vk.TryGetValue(value, out key) && vk.Remove(value)){
                 kv.Remove(key);
                 return true;
             }
@@ -65,7 +65,7 @@ namespace CodeStatisticsCore.Collections{
         }
 
         public bool TryGetValue(TKey key, out TValue value){
-            return kv.TryGetValue(key,out value);
+            return kv.TryGetValue(key, out value);
         }
 
         public TKey GetKey(TValue value){
@@ -73,10 +73,10 @@ namespace CodeStatisticsCore.Collections{
         }
 
         public bool TryGetKey(TValue value, out TKey key){
-            return vk.TryGetValue(value,out key);
+            return vk.TryGetValue(value, out key);
         }
 
-        public IEnumerator<KeyValuePair<TKey,TValue>> GetEnumerator(){
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator(){
             return kv.GetEnumerator();
         }
 

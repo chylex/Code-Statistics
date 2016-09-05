@@ -25,14 +25,14 @@ namespace CodeStatistics.Output{
             string contents;
 
             try{
-                contents = templates.ProcessTemplate("html",variables);
+                contents = templates.ProcessTemplate("html", variables);
             }catch(Exception e){
                 LastError = e.Message;
                 return Result.TemplateError;
             }
 
             try{
-                File.WriteAllText(file,contents,Encoding.UTF8);
+                File.WriteAllText(file, contents, Encoding.UTF8);
                 return File.Exists(file) ? Result.Succeeded : Result.IoError;
             }catch(Exception e){
                 LastError = e.ToString();

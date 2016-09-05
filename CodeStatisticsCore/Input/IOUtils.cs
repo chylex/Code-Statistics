@@ -15,10 +15,10 @@ namespace CodeStatisticsCore.Input{
         /// For example, <code>FindRootPath({ "C:\Projects\One", "C:\Projects\Two" })</code> returns C:\Projects
         /// </summary>
         public static string FindRootPath(string[] paths){
-            if (paths.Length == 0)throw new ArgumentException("Array must contain at least one element.","paths");
+            if (paths.Length == 0)throw new ArgumentException("Array must contain at least one element.", "paths");
             if (paths.Length == 1)return paths[0];
 
-            List<string[]> split = paths.Select(path => path.Split(new []{ Path.DirectorySeparatorChar },StringSplitOptions.RemoveEmptyEntries)).ToList();
+            List<string[]> split = paths.Select(path => path.Split(new []{ Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries)).ToList();
             int commonElements = 0, maxCount = split.Min(path => path.Length);
 
             for(; commonElements < maxCount; commonElements++){
@@ -29,7 +29,7 @@ namespace CodeStatisticsCore.Input{
                 }
             }
 
-            string commonPath = string.Join(Path.DirectorySeparatorChar.ToString(),split[0].Take(commonElements));
+            string commonPath = string.Join(Path.DirectorySeparatorChar.ToString(), split[0].Take(commonElements));
             return commonElements == 1 && commonPath[commonPath.Length-1] == ':' ? commonPath+Path.DirectorySeparatorChar : commonPath;
         }
 
@@ -49,14 +49,14 @@ namespace CodeStatisticsCore.Input{
         /// </summary>
         public static bool CheckExtension(string path, string extension){
             string fileExt = Path.GetExtension(path);
-            return fileExt == null || fileExt == "." ? extension.Length == 0 : string.Equals(fileExt,extension,StringComparison.InvariantCultureIgnoreCase);
+            return fileExt == null || fileExt == "." ? extension.Length == 0 : string.Equals(fileExt, extension, StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
         /// Creates a randomly named directory in %TEMP%/CSTMP and returns the full path, or null if the creation fails.
         /// </summary>
         public static string CreateTemporaryDirectory(){
-            string path = Path.Combine(GetTempRoot(),"CSTMP",Path.GetRandomFileName());
+            string path = Path.Combine(GetTempRoot(), "CSTMP", Path.GetRandomFileName());
             
             try{
                 Directory.CreateDirectory(path);
@@ -71,7 +71,7 @@ namespace CodeStatisticsCore.Input{
         /// </summary>
         public static bool CleanupTemporaryDirectory(){
             try{
-                Directory.Delete(Path.Combine(GetTempRoot(),"CSTMP"),true);
+                Directory.Delete(Path.Combine(GetTempRoot(), "CSTMP"), true);
                 return true;
             }catch(Exception){
                 return false;
@@ -81,9 +81,9 @@ namespace CodeStatisticsCore.Input{
         /// <summary>
         /// Returns a friendly representation of file size, going from B to EB.
         /// </summary>
-        public static KeyValuePair<long,string> GetFriendlyFileSize(long bytes){
-            int level = bytes == 0 ? 0 : Math.Max((int)Math.Floor(Math.Log(bytes,1024))-1,0);
-            return new KeyValuePair<long,string>((long)Math.Round(bytes/Math.Pow(1024,level)),FileSizeSuffixes[level]);
+        public static KeyValuePair<long, string> GetFriendlyFileSize(long bytes){
+            int level = bytes == 0 ? 0 : Math.Max((int)Math.Floor(Math.Log(bytes, 1024))-1, 0);
+            return new KeyValuePair<long, string>((long)Math.Round(bytes/Math.Pow(1024, level)), FileSizeSuffixes[level]);
         }
 
         /// <summary>

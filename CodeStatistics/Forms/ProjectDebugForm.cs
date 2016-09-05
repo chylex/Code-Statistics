@@ -29,15 +29,15 @@ namespace CodeStatistics.Forms{
 
             foreach(File file in project.SearchData.Files){
                 if (HandlerList.GetFileHandler(file) is AbstractLanguageFileHandler){
-                    entries.Add(new RelativeFile(project.SearchData.Root,file));
+                    entries.Add(new RelativeFile(project.SearchData.Root, file));
                 }
             }
 
-            textBoxFilterFiles_TextChanged(textBoxFilterFiles,new EventArgs());
-            listBoxFiles_SelectedValueChange(listBoxFiles,new EventArgs());
+            textBoxFilterFiles_TextChanged(textBoxFilterFiles, new EventArgs());
+            listBoxFiles_SelectedValueChange(listBoxFiles, new EventArgs());
 
 #if WINDOWS
-            SendMessage(textBoxCode.Handle,0x00CB,new IntPtr(1),new []{ 16 });
+            SendMessage(textBoxCode.Handle, 0x00CB, new IntPtr(1), new []{ 16 });
 #endif
         }
 
@@ -70,7 +70,7 @@ namespace CodeStatistics.Forms{
             SetTextBoxContents(handler.PrepareFileContents(item.File.Contents));
 
             treeViewData.Nodes.Clear();
-            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File),item.File))treeViewData.Nodes.Add(node);
+            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File), item.File))treeViewData.Nodes.Add(node);
         }
 
         private void btnLoadOriginal_Click(object sender, EventArgs e){
@@ -98,7 +98,7 @@ namespace CodeStatistics.Forms{
         }
 
         private void SetTextBoxContents(string text){
-            textBoxCode.Text = text.Replace("\r","").Replace("\n",Environment.NewLine);
+            textBoxCode.Text = text.Replace("\r", "").Replace("\n", Environment.NewLine);
         }
 
         private static AbstractLanguageFileHandler GetLanguageHandler(File file){
@@ -110,7 +110,7 @@ namespace CodeStatistics.Forms{
             Variables.Root variables = new Variables.Root();
 
             handler.SetupProject(variables);
-            handler.Process(file,variables);
+            handler.Process(file, variables);
             handler.FinalizeProject(variables);
 
             return variables;

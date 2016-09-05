@@ -26,7 +26,7 @@ namespace CodeStatisticsCore.Collections {
             if (internalList.Count == 0){
                 internalList.Add(item);
             }
-            else if (sorter(item,internalList[internalList.Count-1]) <= 0){ // replace values that are smaller/equal than the new value
+            else if (sorter(item, internalList[internalList.Count-1]) <= 0){ // replace values that are smaller/equal than the new value
                 internalList.Add(item);
                 internalList.Sort(sorter);
 
@@ -53,7 +53,7 @@ namespace CodeStatisticsCore.Collections {
         }
 
         public void CopyTo(T[] array, int arrayIndex){
-            internalList.CopyTo(array,arrayIndex);
+            internalList.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(T item){

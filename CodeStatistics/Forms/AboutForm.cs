@@ -8,9 +8,9 @@ using System;
 
 namespace CodeStatistics.Forms{
     sealed partial class AboutForm : Form{
-        private static Dictionary<string,string> AboutFormData{
+        private static Dictionary<string, string> AboutFormData{
             get{
-                return new Dictionary<string,string>{
+                return new Dictionary<string, string>{
                     { "[version]", Application.ProductVersion },
                     { "[company]", Application.CompanyName }
                 };
@@ -22,13 +22,13 @@ namespace CodeStatistics.Forms{
 
             Text = Lang.Get["TitleAbout"];
             btnReadme.Text = Lang.Get["AboutReadme"];
-            textContents.Rtf = AboutFormData.Aggregate(Resources.about,(contents, kvp) => contents.Replace(kvp.Key,kvp.Value));
+            textContents.Rtf = AboutFormData.Aggregate(Resources.about, (contents, kvp) => contents.Replace(kvp.Key, kvp.Value));
 
 #if !MONO
             HelpButton = true; // Mono does not support OnHelpButtonClicked
             HelpButtonClicked += OnHelpButtonClicked;
 #else
-            btnReadme.Location = new System.Drawing.Point(292-(btnReadme.Size.Width-50),btnReadme.Location.Y); // it does however fuck up the button anchor quite well
+            btnReadme.Location = new System.Drawing.Point(292-(btnReadme.Size.Width-50), btnReadme.Location.Y); // it does however fuck up the button anchor quite well
 #endif
         }
 

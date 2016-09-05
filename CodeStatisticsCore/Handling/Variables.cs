@@ -19,11 +19,11 @@ namespace CodeStatisticsCore.Handling{
 
         public class Root : Variables{
             private readonly HashSet<string> flags = new HashSet<string>();
-            private readonly Dictionary<string,string> variables = new Dictionary<string,string>();
-            private readonly Dictionary<string,int> variablesInt = new Dictionary<string,int>();
-            private readonly Dictionary<string,List<Variables>> arrays = new Dictionary<string,List<Variables>>(4);
-            private readonly Dictionary<string,Comparison<Variables>> arraySorters = new Dictionary<string,Comparison<Variables>>(4);
-            private readonly Dictionary<object,object> stateObjects = new Dictionary<object,object>(4);
+            private readonly Dictionary<string, string> variables = new Dictionary<string, string>();
+            private readonly Dictionary<string, int> variablesInt = new Dictionary<string, int>();
+            private readonly Dictionary<string, List<Variables>> arrays = new Dictionary<string, List<Variables>>(4);
+            private readonly Dictionary<string, Comparison<Variables>> arraySorters = new Dictionary<string, Comparison<Variables>>(4);
+            private readonly Dictionary<object, object> stateObjects = new Dictionary<object, object>(4);
             
             public void AddFlag(string name){
                 flags.Add(name);
@@ -39,43 +39,43 @@ namespace CodeStatisticsCore.Handling{
 
             public void SetVariable(string name, int value){
                 variablesInt[name] = value;
-                variables[name] = value.ToString("N0",NumberFormat);
+                variables[name] = value.ToString("N0", NumberFormat);
             }
 
             public void SetVariable(string name, float value){
                 variablesInt[name] = (int)Math.Round(value);
-                variables[name] = value.ToString("#,0.#",NumberFormat);
+                variables[name] = value.ToString("#, 0.#", NumberFormat);
             }
 
             public void Increment(string name, int amount = 1){
                 if (amount == 0)return;
 
                 if (variablesInt.ContainsKey(name)){
-                    variables[name] = (variablesInt[name] += amount).ToString("N0",NumberFormat);
+                    variables[name] = (variablesInt[name] += amount).ToString("N0", NumberFormat);
                 }
                 else{
-                    variables[name] = amount.ToString("N0",NumberFormat);
+                    variables[name] = amount.ToString("N0", NumberFormat);
                     variablesInt[name] = amount;
                 }
             }
 
             public override string GetVariable(string name, string defaultValue){
                 string value;
-                return variables.TryGetValue(name,out value) ? value : defaultValue;
+                return variables.TryGetValue(name, out value) ? value : defaultValue;
             }
 
             public override int GetVariable(string name, int defaultValue){
                 int value;
-                return variablesInt.TryGetValue(name,out value) ? value : defaultValue;
+                return variablesInt.TryGetValue(name, out value) ? value : defaultValue;
             }
 
             public void AddStateObject(object owner, object obj){
-                stateObjects.Add(owner,obj);
+                stateObjects.Add(owner, obj);
             }
 
             public T GetStateObject<T>(object owner) where T : class{
                 object obj;
-                return stateObjects.TryGetValue(owner,out obj) ? obj as T : null;
+                return stateObjects.TryGetValue(owner, out obj) ? obj as T : null;
             }
 
             public ArrayAdapter AddToArray(string name, object array){
@@ -89,7 +89,7 @@ namespace CodeStatisticsCore.Handling{
                     arrays[name] = arrayList;
                 }
 
-                ArrayAdapter arrayVar = new ArrayAdapter(this,array);
+                ArrayAdapter arrayVar = new ArrayAdapter(this, array);
                 arrayList.Add(arrayVar);
                 return arrayVar;
             }
@@ -97,10 +97,10 @@ namespace CodeStatisticsCore.Handling{
             public override IEnumerable<Variables> GetArray(string name){
                 List<Variables> arrayList;
 
-                if (arrays.TryGetValue(name,out arrayList)){
+                if (arrays.TryGetValue(name, out arrayList)){
                     Comparison<Variables> comparer;
 
-                    if (arraySorters.TryGetValue(name,out comparer)){
+                    if (arraySorters.TryGetValue(name, out comparer)){
                         arrayList.Sort(comparer);
                     }
 
@@ -115,14 +115,14 @@ namespace CodeStatisticsCore.Handling{
         }
 
         public class ArrayAdapter : Variables{
-            private static readonly AnonymousDictionary.ToStringFunction ToStringFormat = o => o is int ? ((int)o).ToString("N0",NumberFormat) : o.ToString();
+            private static readonly AnonymousDictionary.ToStringFunction ToStringFormat = o => o is int ? ((int)o).ToString("N0", NumberFormat) : o.ToString();
 
             private readonly Variables parent;
-            private readonly Dictionary<string,string> variables;
+            private readonly Dictionary<string, string> variables;
 
             public ArrayAdapter(Variables parent, object array){
                 this.parent = parent;
-                this.variables = AnonymousDictionary.Create(array,ToStringFormat);
+                this.variables = AnonymousDictionary.Create(array, ToStringFormat);
             }
 
             public override bool CheckFlag(string name){
@@ -135,19 +135,19 @@ namespace CodeStatisticsCore.Handling{
             }
 
             public void UpdateVariable(string name, int newValue){
-                UpdateVariable(name,newValue.ToString("N0",NumberFormat));
+                UpdateVariable(name, newValue.ToString("N0", NumberFormat));
             }
 
             public override string GetVariable(string name, string defaultValue){
                 string value;
-                return variables.TryGetValue(name,out value) ? value : defaultValue;
+                return variables.TryGetValue(name, out value) ? value : defaultValue;
             }
 
             public override int GetVariable(string name, int defaultValue){
-                string strValue = GetVariable(name,defaultValue.ToString(NumberFormat));
+                string strValue = GetVariable(name, defaultValue.ToString(NumberFormat));
 
                 int intValue;
-                return int.TryParse(strValue,NumberStyles.AllowThousands,NumberFormat,out intValue) ? intValue : defaultValue;
+                return int.TryParse(strValue, NumberStyles.AllowThousands, NumberFormat, out intValue) ? intValue : defaultValue;
             }
 
             public override IEnumerable<Variables> GetArray(string name){

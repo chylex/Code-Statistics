@@ -10,20 +10,20 @@ namespace CodeStatistics{
         public static ProgramConfiguration Config { get; private set; }
 
         [STAThread]
-        static void Main(string[] args){
+        private static void Main(string[] args){
             Application.EnableVisualStyles();
 
 #if WINDOWS
             if (IsRunningMono()){
-                MessageBox.Show(Lang.Get["ErrorLaunchMonoOnWindowsBuild"],Lang.Get["ErrorLaunchTitle"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(Lang.Get["ErrorLaunchMonoOnWindowsBuild"], Lang.Get["ErrorLaunchTitle"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 #endif
 
-            ProgramArguments programArgs = new ProgramArguments(args,ProgramConfiguration.Validate);
+            ProgramArguments programArgs = new ProgramArguments(args, ProgramConfiguration.Validate);
 
             if (programArgs.HasError){
-                MessageBox.Show(programArgs.Error,Lang.Get["ErrorInvalidArgsTitle"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(programArgs.Error, Lang.Get["ErrorInvalidArgsTitle"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

@@ -11,7 +11,7 @@
         public readonly string Prefix;
         public readonly string Name;
 
-        public string Package { get { return Prefix.Length == 0 ? string.Empty : Prefix.Substring(0,Prefix.Length-1); } }
+        public string Package { get { return Prefix.Length == 0 ? string.Empty : Prefix.Substring(0, Prefix.Length-1); } }
         public string FullName { get { return Prefix+Name; } }
 
         public TypeIdentifier(string prefix, string name){

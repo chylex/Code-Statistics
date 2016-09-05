@@ -37,7 +37,7 @@ namespace CodeStatistics.Handling{
 
                 int updateCounter = 0, updateInterval = totalEntries/400;
 
-                if (Progress != null)Progress(0,processedEntries,totalEntries);
+                if (Progress != null)Progress(0, processedEntries, totalEntries);
 
                 Action checkProgress;
 
@@ -45,7 +45,7 @@ namespace CodeStatistics.Handling{
                     checkProgress = () => {
                         if (++updateCounter > updateInterval && Progress != null){
                             updateCounter = 0;
-                            Progress((int)Math.Floor(100F*processedWeight/totalWeight),processedEntries,totalEntries);
+                            Progress((int)Math.Floor(100F*processedWeight/totalWeight), processedEntries, totalEntries);
                         }
                     };
                 }
@@ -64,7 +64,7 @@ namespace CodeStatistics.Handling{
                     }
 
                     foreach(IFolderHandler folderHandler in folderHandlers){
-                        folderHandler.Process(folder,variables);
+                        folderHandler.Process(folder, variables);
                     }
 
                     ++processedEntries;
@@ -88,7 +88,7 @@ namespace CodeStatistics.Handling{
                         handler.SetupProject(variables);
                     }
 
-                    handler.Process(file,variables);
+                    handler.Process(file, variables);
 
                     ++processedEntries;
                     ++updateCounter;
@@ -101,13 +101,13 @@ namespace CodeStatistics.Handling{
                 }
 
                 // Finalize
-                if (Progress != null)Progress(100,processedEntries,totalEntries);
+                if (Progress != null)Progress(100, processedEntries, totalEntries);
                 if (Finish != null)Finish(variables);
-            },cancelToken.Token);
+            }, cancelToken.Token);
             
             task.ContinueWith(originalTask => {
                 if (Failure != null)Failure(originalTask.Exception);
-            },TaskContinuationOptions.OnlyOnFaulted);
+            }, TaskContinuationOptions.OnlyOnFaulted);
             
             task.Start();
         }

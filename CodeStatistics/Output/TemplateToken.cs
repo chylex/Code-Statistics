@@ -6,41 +6,41 @@ using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Output{
     abstract class TemplateToken{
-        private static readonly Regex MatchToken = new Regex(@"{(\w+(?::[\w\s]+)*)}",RegexOptions.Compiled);
+        private static readonly Regex MatchToken = new Regex(@"{(\w+(?::[\w\s]+)*)}", RegexOptions.Compiled);
         private static readonly char[] DynamicValueSplit = { ':' };
 
         public static IEnumerable<TemplateToken> FindTokens(string text){
             foreach(Match match in MatchToken.Matches(text)){
-                TemplateToken token = FromContent(match.Index,match.Length,match.Groups[1].Value);
+                TemplateToken token = FromContent(match.Index, match.Length, match.Groups[1].Value);
 
-                if (token == null)throw new TemplateException(Lang.Get["TemplateErrorUnknownToken",match.Groups[1].Value]);
+                if (token == null)throw new TemplateException(Lang.Get["TemplateErrorUnknownToken", match.Groups[1].Value]);
                 else yield return token;
             }
         }
 
         private static TemplateToken FromContent(int indexStart, int indexEnd, string declaration){
             if (declaration.IndexOf(':') != -1){
-                string[] dynamic = declaration.Split(DynamicValueSplit,3);
+                string[] dynamic = declaration.Split(DynamicValueSplit, 3);
                 string dynamicValueType = dynamic[0].ToUpperInvariant();
 
                 if (dynamic.Length == 3){
                     switch(dynamicValueType){
-                        case "IF": return new Condition(indexStart,indexEnd,dynamic[1],dynamic[2]);
-                        case "FOR": return new Cycle(indexStart,indexEnd,dynamic[1],dynamic[2]);
-                        case "VAR": return new Variable(indexStart,indexEnd,dynamic[1],dynamic[2]);
+                        case "IF": return new Condition(indexStart, indexEnd, dynamic[1], dynamic[2]);
+                        case "FOR": return new Cycle(indexStart, indexEnd, dynamic[1], dynamic[2]);
+                        case "VAR": return new Variable(indexStart, indexEnd, dynamic[1], dynamic[2]);
                         default: return null;
                     }
                 }
                 else if (dynamic.Length == 2){
                     switch(dynamicValueType){
-                        case "VAR": return new Variable(indexStart,indexEnd,dynamic[1]);
+                        case "VAR": return new Variable(indexStart, indexEnd, dynamic[1]);
                         default: return null;
                     }
                 }
                 else return null;
             }
 
-            return new Template(indexStart,indexEnd,declaration);
+            return new Template(indexStart, indexEnd, declaration);
         }
 
         private readonly int index, length;
@@ -52,7 +52,7 @@ namespace CodeStatistics.Output{
 
         public int ReplaceToken(int currentOffset, TemplateList list, Variables variables, ref string text){
             int prevLength = text.Length;
-            text = text.Remove(index+currentOffset,length).Insert(index+currentOffset,GetTokenContents(list,variables));
+            text = text.Remove(index+currentOffset, length).Insert(index+currentOffset, GetTokenContents(list, variables));
             return currentOffset+text.Length-prevLength;
         }
 
@@ -66,7 +66,7 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return list.ProcessTemplate(templateName,variables);
+                return list.ProcessTemplate(templateName, variables);
             }
         }
 
@@ -80,7 +80,7 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return variables.GetVariable(variableName,defaultValue);
+                return variables.GetVariable(variableName, defaultValue);
             }
         }
 
@@ -92,7 +92,7 @@ namespace CodeStatistics.Output{
             }
 
             protected override string GetTokenContents(TemplateList list, Variables variables){
-                return variables.CheckFlag(conditionFlag) ? list.ProcessTemplate(templateName,variables) : "";
+                return variables.CheckFlag(conditionFlag) ? list.ProcessTemplate(templateName, variables) : "";
             }
         }
 
@@ -107,7 +107,7 @@ namespace CodeStatistics.Output{
                 StringBuilder build = new StringBuilder();
 
                 foreach(Variables entry in variables.GetArray(cycleVariable)){
-                    build.Append(list.ProcessTemplate(templateName,entry));
+                    build.Append(list.ProcessTemplate(templateName, entry));
                 }
 
                 return build.ToString();

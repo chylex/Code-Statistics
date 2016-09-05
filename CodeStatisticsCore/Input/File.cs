@@ -13,7 +13,7 @@ namespace CodeStatisticsCore.Input{
         public string Contents{
             get{
                 if (_contents == "\0"){
-                    _contents = System.IO.File.ReadAllText(FullPath,Encoding.UTF8).Replace(@"\r","").TrimEnd();
+                    _contents = System.IO.File.ReadAllText(FullPath, Encoding.UTF8).Replace(@"\r", "").TrimEnd();
                 }
 
                 return _contents;
@@ -34,7 +34,7 @@ namespace CodeStatisticsCore.Input{
             if (fullPath == null)throw new ArgumentNullException("fullPath");
 
             this.FullPath = fullPath;
-            this.Ext = Path.GetExtension(fullPath).Replace(".","").ToLowerInvariant();
+            this.Ext = Path.GetExtension(fullPath).Replace(".", "").ToLowerInvariant();
 
             this._contents = "\0";
             this._size = -1;

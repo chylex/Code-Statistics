@@ -19,7 +19,7 @@ namespace CodeStatistics.Input.Methods{
         public void BeginProcess(ProjectLoadForm.UpdateCallbacks callbacks){
             callbacks.UpdateInfoLabel(Lang.Get["LoadArchiveExtracting"]);
 
-            ZipArchive archive = new ZipArchive(file,extractPath);
+            ZipArchive archive = new ZipArchive(file, extractPath);
 
             cancel = archive.ExtractAsync(path => {
                 callbacks.OnReady(new FileSearch(new string[]{ path }));

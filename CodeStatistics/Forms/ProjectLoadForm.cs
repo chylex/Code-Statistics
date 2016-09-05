@@ -59,13 +59,13 @@ namespace CodeStatistics.Forms{
             search.Finish += data => this.InvokeOnUIThread(() => {
                 labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
                 labelLoadData.Text = "";
-                UpdateProgress(ProgressBarStyle.Continuous,0);
+                UpdateProgress(ProgressBarStyle.Continuous, 0);
 
                 project = new Project(data);
 
                 project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
-                    UpdateProgress(ProgressBarStyle.Continuous,percentage);
-                    labelLoadData.Text = Lang.Get["LoadProjectProcessingFiles",processedEntries,totalEntries];
+                    UpdateProgress(ProgressBarStyle.Continuous, percentage);
+                    labelLoadData.Text = Lang.Get["LoadProjectProcessingFiles", processedEntries, totalEntries];
                 });
 
                 project.Finish += vars => this.InvokeOnUIThread(() => {
@@ -83,7 +83,7 @@ namespace CodeStatistics.Forms{
                     #endif
 
                     while(!GenerateOutputFile()){
-                        DialogResult res = MessageBox.Show(lastOutputGenError,Lang.Get["LoadProjectError"],MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
+                        DialogResult res = MessageBox.Show(lastOutputGenError, Lang.Get["LoadProjectError"], MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
 
                         if (res == DialogResult.Cancel){
                             DialogResult = DialogResult.Abort;
@@ -93,7 +93,7 @@ namespace CodeStatistics.Forms{
                     }
 
                     if (Program.Config.AutoOpenBrowser){
-                        btnOpenOutput_Click(null,new EventArgs());
+                        btnOpenOutput_Click(null, new EventArgs());
                     }
 
                     if (Program.Config.CloseOnFinish){
@@ -123,7 +123,7 @@ namespace CodeStatistics.Forms{
                 });
 
                 project.Failure += ex => this.InvokeOnUIThread(() => {
-                    MessageBox.Show(Lang.Get["LoadProjectErrorProcessing",ex.ToString()],Lang.Get["LoadProjectError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show(Lang.Get["LoadProjectErrorProcessing", ex.ToString()], Lang.Get["LoadProjectError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Close();
                 });
 
@@ -131,7 +131,7 @@ namespace CodeStatistics.Forms{
             });
 
             search.Failure += ex => this.InvokeOnUIThread(() => {
-                MessageBox.Show(Lang.Get["LoadProjectErrorFileSearch",ex.ToString()],Lang.Get["LoadProjectError"],MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show(Lang.Get["LoadProjectErrorFileSearch", ex.ToString()], Lang.Get["LoadProjectError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             });
 
@@ -148,17 +148,17 @@ namespace CodeStatistics.Forms{
 
             outputFile = Program.Config.GetOutputFilePath();
 
-            GenerateHtml generator = new GenerateHtml(template.Split('\n','\r'),variables);
+            GenerateHtml generator = new GenerateHtml(template.Split('\n', '\r'), variables);
 
             switch(generator.ToFile(outputFile)){
                 case GenerateHtml.Result.Succeeded: return true;
 
                 case GenerateHtml.Result.TemplateError:
-                    lastOutputGenError = Lang.Get["LoadProjectErrorInvalidTemplate",generator.LastError];
+                    lastOutputGenError = Lang.Get["LoadProjectErrorInvalidTemplate", generator.LastError];
                     return false;
 
                 case GenerateHtml.Result.IoError:
-                    lastOutputGenError = Lang.Get["LoadProjectErrorIO",generator.LastError];
+                    lastOutputGenError = Lang.Get["LoadProjectErrorIO", generator.LastError];
                     return false;
 
                 default:
@@ -244,8 +244,8 @@ namespace CodeStatistics.Forms{
 
             public void UpdateProgress(int progress){
                 form.InvokeOnUIThread(() => {
-                    if (progress == -1)form.UpdateProgress(ProgressBarStyle.Marquee,100);
-                    else form.UpdateProgress(ProgressBarStyle.Continuous,progress);
+                    if (progress == -1)form.UpdateProgress(ProgressBarStyle.Marquee, 100);
+                    else form.UpdateProgress(ProgressBarStyle.Continuous, progress);
                 });
             }
 

@@ -47,7 +47,7 @@ namespace CodeStatistics.Forms{
                 if (files == null || files.Length == 0)return;
 
                 if (files.Length == 1 && ZipArchive.CanHandleFile(files[0])){
-                    InputMethod = new ArchiveExtraction(files[0],IOUtils.CreateTemporaryDirectory());
+                    InputMethod = new ArchiveExtraction(files[0], IOUtils.CreateTemporaryDirectory());
                 }
                 else{
                     InputMethod = new FileSearch(files);
@@ -79,7 +79,7 @@ namespace CodeStatistics.Forms{
             };
 
             if (dialog.ShowDialog() == DialogResult.OK){
-                InputMethod = new ArchiveExtraction(dialog.FileName,IOUtils.CreateTemporaryDirectory());
+                InputMethod = new ArchiveExtraction(dialog.FileName, IOUtils.CreateTemporaryDirectory());
                 DialogResult = DialogResult.OK;
                 Close();
             }

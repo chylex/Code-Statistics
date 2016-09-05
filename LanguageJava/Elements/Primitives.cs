@@ -14,7 +14,7 @@ namespace LanguageJava.Elements{
     }
 
     public static class JavaPrimitives{
-        private static readonly BiDictionary<Primitives,string> PrimitiveDict = new BiDictionary<Primitives,string>{
+        private static readonly BiDictionary<Primitives, string> PrimitiveDict = new BiDictionary<Primitives, string>{
             { Primitives.Boolean, "boolean" },
             { Primitives.Byte, "byte" },
             { Primitives.Short, "short" },

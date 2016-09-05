@@ -80,7 +80,7 @@ namespace LanguageJava.Handling{
         public JavaCodeParser ReadToIfBalanced(char chr){
             int indexStart = cursor;
             SkipToIfBalanced(chr);
-            return (JavaCodeParser)Clone(SubstrIndex(indexStart,cursor));
+            return (JavaCodeParser)Clone(SubstrIndex(indexStart, cursor));
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace LanguageJava.Handling{
                     }
                 }
                 else if (SkipSpaces().Char == '<'){
-                    SkipBlock('<','>');
+                    SkipBlock('<', '>');
                     identifier = string.Empty;
                 }
                 else break;
@@ -132,7 +132,7 @@ namespace LanguageJava.Handling{
             if (simpleName.Length == 0)return null;
 
             if (SkipSpaces().Char == '('){ // skip arguments and ignore
-                SkipBlock('(',')');
+                SkipBlock('(', ')');
             }
             
             Annotation annotation = new Annotation(simpleName);
@@ -145,7 +145,7 @@ namespace LanguageJava.Handling{
         /// Skips spaces and finds all following annotations.
         /// </summary>
         public List<Annotation> SkipReadAnnotationList(){
-            return JavaParseUtils.ReadStructList(this,ReadAnnotation,1);
+            return JavaParseUtils.ReadStructList(this, ReadAnnotation, 1);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace LanguageJava.Handling{
             string type = ((JavaCodeParser)ReadToSkip(';')).ReadFullTypeName(true);
             if (type.Length == 0)return null;
 
-            return new Import(type,isStatic);
+            return new Import(type, isStatic);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace LanguageJava.Handling{
         /// Skips spaces and finds all following modifiers.
         /// </summary>
         public List<Modifiers> SkipReadModifierList(){
-            return JavaParseUtils.ReadStructList(this,ReadModifier,2);
+            return JavaParseUtils.ReadStructList(this, ReadModifier, 2);
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace LanguageJava.Handling{
         /// Skips spaces and reads following member info (list of annotations and modifiers).
         /// </summary>
         public Member SkipReadMemberInfo(){
-            return new Member(SkipReadAnnotationList(),SkipReadModifierList());
+            return new Member(SkipReadAnnotationList(), SkipReadModifierList());
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace LanguageJava.Handling{
             SkipSpaces();
 
             if (Char == '<'){
-                SkipBlock('<','>');
+                SkipBlock('<', '>');
                 SkipSpaces();
             }
 
@@ -234,8 +234,8 @@ namespace LanguageJava.Handling{
         public JavaCodeParser SkipTypeArrayAndGenerics(){
             do{
                 SkipSpaces();
-                if (Char == '[')SkipBlock('[',']');
-                if (Char == '<')SkipBlock('<','>');
+                if (Char == '[')SkipBlock('[', ']');
+                if (Char == '<')SkipBlock('<', '>');
                 if (Char == '.')SkipIfMatch("...");
             }
             while(!IsEOF && (Char == '[' || Char == '<'));
@@ -298,8 +298,8 @@ namespace LanguageJava.Handling{
             string identifier = SkipSpaces().ReadIdentifier();
             if (identifier.Length == 0)return null;
 
-            Type readType = new Type(type.Value,identifier,memberInfo);
-            ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(readType);
+            Type readType = new Type(type.Value, identifier, memberInfo);
+            ((JavaCodeParser)SkipTo('{').ReadBlock('{', '}')).ReadTypeContents(readType);
 
             return readType;
         }
@@ -336,8 +336,8 @@ namespace LanguageJava.Handling{
                     string identifier = SkipSpaces().ReadIdentifier();
                     if (identifier.Length == 0)break; // error, break out
 
-                    Type nestedType = new Type(declaration.Value,identifier,memberInfo);
-                    ((JavaCodeParser)SkipTo('{').ReadBlock('{','}')).ReadTypeContents(nestedType);
+                    Type nestedType = new Type(declaration.Value, identifier, memberInfo);
+                    ((JavaCodeParser)SkipTo('{').ReadBlock('{', '}')).ReadTypeContents(nestedType);
 
                     SkipSpacesAndSemicolons();
 
@@ -347,7 +347,7 @@ namespace LanguageJava.Handling{
 
                 // static / instance initializer
                 if (Char == '{'){
-                    Method method = new Method(memberInfo.Modifiers.HasFlag(Modifiers.Static) ? "<clinit>" : "<init>",TypeOf.Void(),memberInfo);
+                    Method method = new Method(memberInfo.Modifiers.HasFlag(Modifiers.Static) ? "<clinit>" : "<init>", TypeOf.Void(), memberInfo);
                     SkipProcessCodeBlock();
 
                     type.GetData().Methods.Add(method);
@@ -361,7 +361,7 @@ namespace LanguageJava.Handling{
                     int prevCursor = cursor;
                     string identifier = SkipSpaces().ReadIdentifier();
                     
-                    if (identifier.Length == 0 && string.Equals(returnOrFieldType.Value.AsSimpleType(),type.Identifier)){ // constructor
+                    if (identifier.Length == 0 && string.Equals(returnOrFieldType.Value.AsSimpleType(), type.Identifier)){ // constructor
                         identifier = Method.ConstructorIdentifier;
                         returnOrFieldType = TypeOf.Void();
                     }
@@ -369,11 +369,11 @@ namespace LanguageJava.Handling{
                     if (identifier.Length == 0)break; // error, break out
 
                     if (SkipSpaces().Char == '('){ // method
-                        List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(',')')).ReadMethodParameterList();
+                        List<TypeOf> parameterList = ((JavaCodeParser)ReadBlock('(', ')')).ReadMethodParameterList();
 
                         if (type.Declaration == Type.DeclarationType.Annotation){
                             if (SkipSpaces().SkipIfMatch("default^n")){
-                                memberInfo = new Member(memberInfo,memberInfo.Modifiers | Modifiers.Default);
+                                memberInfo = new Member(memberInfo, memberInfo.Modifiers | Modifiers.Default);
                                 SkipTo(';');
                             }
                         }
@@ -382,7 +382,7 @@ namespace LanguageJava.Handling{
                                 while(true){
                                     ReadFullTypeName();
 
-                                    if (SkipSpaces().Char == ',')Skip().SkipSpaces();
+                                    if (SkipSpaces().Char == ', ')Skip().SkipSpaces();
                                     else break;
                                 }
                             }
@@ -394,14 +394,14 @@ namespace LanguageJava.Handling{
                             SkipSpacesAndSemicolons();
                         }
                         
-                        type.GetData().Methods.Add(new Method(identifier,returnOrFieldType.Value,parameterList,type.GetData().UpdateMethodInfo(memberInfo)));
+                        type.GetData().Methods.Add(new Method(identifier, returnOrFieldType.Value, parameterList, type.GetData().UpdateMethodInfo(memberInfo)));
                     }
                     else{ // field
                         Type.TypeData data = type.GetData();
                         cursor = prevCursor;
 
                         foreach(string fieldIdentifier in ReadToIfBalanced(';').ReadFieldIdentifierList()){
-                            data.Fields.Add(new Field(fieldIdentifier,returnOrFieldType.Value,data.UpdateFieldInfo(memberInfo)));
+                            data.Fields.Add(new Field(fieldIdentifier, returnOrFieldType.Value, data.UpdateFieldInfo(memberInfo)));
                         }
                         
                         Skip();
@@ -423,7 +423,7 @@ namespace LanguageJava.Handling{
                     System.Diagnostics.Debugger.Break();
                 }
                 
-                SkipBlock('{','}');
+                SkipBlock('{', '}');
                 SkipSpacesAndSemicolons();
                 ++skippedMembers;
             }
@@ -446,7 +446,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(identifier);
 
-                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
+                if (SkipToIfBalanced(', ').Char == ', ')Skip().SkipSpaces();
                 else break;
             }
 
@@ -466,7 +466,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(type.Value);
 
-                if (SkipTo(',').Char == ',')Skip().SkipSpaces();
+                if (SkipTo(', ').Char == ', ')Skip().SkipSpaces();
                 else break;
             }
 
@@ -486,7 +486,7 @@ namespace LanguageJava.Handling{
 
                 list.Add(value);
 
-                if (SkipToIfBalanced(',').Char == ',')Skip().SkipSpaces();
+                if (SkipToIfBalanced(', ').Char == ', ')Skip().SkipSpaces();
                 else break;
             }
 
@@ -499,10 +499,10 @@ namespace LanguageJava.Handling{
         /// </summary>
         private void SkipProcessCodeBlock(){
             if (CodeBlockCallback == null){
-                SkipBlock('{','}');
+                SkipBlock('{', '}');
             }
             else{
-                CodeBlockCallback(new JavaCodeBlockParser(ReadBlock('{','}').Contents));
+                CodeBlockCallback(new JavaCodeBlockParser(ReadBlock('{', '}').Contents));
             }
         }
     }
