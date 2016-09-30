@@ -19,6 +19,7 @@ namespace CodeStatistics.Forms{
             btnProjectFolder.Text = Lang.Get["MenuProjectFromFolder"];
             btnProjectArchive.Text = Lang.Get["MenuProjectFromArchive"];
             btnProjectGitHub.Text = Lang.Get["MenuProjectFromGitHub"];
+            btnViewOptions.Text = Lang.Get["MenuViewOptions"];
             btnViewSourceCode.Text = Lang.Get["MenuViewSourceCode"];
             btnViewAbout.Text = Lang.Get["MenuViewAbout"];
 
@@ -93,6 +94,10 @@ namespace CodeStatistics.Forms{
                 DialogResult = DialogResult.OK;
                 Close();
             }
+        }
+
+        private void btnViewOptions_Click(object sender, EventArgs e){
+            // TODO
         }
 
         private void btnViewSourceCode_Click(object sender, EventArgs e){

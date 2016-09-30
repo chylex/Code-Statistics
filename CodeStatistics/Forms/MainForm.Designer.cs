@@ -29,6 +29,7 @@
             this.btnViewAbout = new System.Windows.Forms.Button();
             this.tableBottomPanel = new System.Windows.Forms.TableLayoutPanel();
             this.btnProjectArchive = new System.Windows.Forms.Button();
+            this.btnViewOptions = new System.Windows.Forms.Button();
             this.tableBottomPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,7 +100,7 @@
             this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableBottomPanel.Controls.Add(this.btnViewAbout, 1, 0);
             this.tableBottomPanel.Controls.Add(this.btnViewSourceCode, 0, 0);
-            this.tableBottomPanel.Location = new System.Drawing.Point(12, 158);
+            this.tableBottomPanel.Location = new System.Drawing.Point(12, 207);
             this.tableBottomPanel.Name = "tableBottomPanel";
             this.tableBottomPanel.RowCount = 1;
             this.tableBottomPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -121,13 +122,29 @@
             this.btnProjectArchive.UseVisualStyleBackColor = false;
             this.btnProjectArchive.Click += new System.EventHandler(this.btnProjectArchive_Click);
             // 
+            // btnViewOptions
+            // 
+            this.btnViewOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnViewOptions.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnViewOptions.FlatAppearance.BorderSize = 0;
+            this.btnViewOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnViewOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnViewOptions.Location = new System.Drawing.Point(12, 163);
+            this.btnViewOptions.Name = "btnViewOptions";
+            this.btnViewOptions.Size = new System.Drawing.Size(312, 38);
+            this.btnViewOptions.TabIndex = 6;
+            this.btnViewOptions.UseVisualStyleBackColor = false;
+            this.btnViewOptions.Click += new System.EventHandler(this.btnViewOptions_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(336, 213);
+            this.ClientSize = new System.Drawing.Size(336, 262);
+            this.Controls.Add(this.btnViewOptions);
             this.Controls.Add(this.btnProjectArchive);
             this.Controls.Add(this.tableBottomPanel);
             this.Controls.Add(this.btnProjectGitHub);
@@ -151,6 +168,7 @@
         private System.Windows.Forms.Button btnViewAbout;
         private System.Windows.Forms.TableLayoutPanel tableBottomPanel;
         private System.Windows.Forms.Button btnProjectArchive;
+        private System.Windows.Forms.Button btnViewOptions;
 
     }
 }

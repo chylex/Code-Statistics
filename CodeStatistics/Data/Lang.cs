@@ -26,6 +26,7 @@ namespace CodeStatistics.Data{
                 { "MenuProjectFromFolder", "Project From Folder" },
                 { "MenuProjectFromGitHub", "Project From GitHub" },
                 { "MenuProjectFromArchive", "Project From Archive" },
+                { "MenuViewOptions", "Options" },
                 { "MenuViewSourceCode", "Source Code" },
                 { "MenuViewAbout", "About" },
 
