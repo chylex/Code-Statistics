@@ -59,7 +59,7 @@ namespace CodeStatistics.Forms.Project{
                 labelLoadData.Text = "";
                 UpdateProgress(ProgressBarStyle.Continuous, 0);
 
-                project = new Project(data);
+                project = new Handling.Project(data);
 
                 project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
                     UpdateProgress(ProgressBarStyle.Continuous, percentage);

@@ -4,6 +4,10 @@ using CodeStatistics.Data;
 using CodeStatistics.Input.Methods;
 using CodeStatisticsCore.Forms;
 
+#if MONO
+using System.Diagnostics;
+#endif
+
 namespace CodeStatistics.Forms.Input{
     sealed partial class GitHubForm : Form{
         public GitHub GitHub { get; private set; }
@@ -78,8 +82,11 @@ namespace CodeStatistics.Forms.Input{
                         while(testEx != null){
                             if (testEx.GetType().FullName == "Mono.Security.Protocol.Tls.TlsException"){
                                 if (MessageBox.Show(Lang.Get["LoadGitHubTrustError"], Lang.Get["LoadGitHubError"], MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes){
-                                    Process process = Process.Start("mozroots", "--import --ask-remove --quiet");
-                                    if (process != null)process.WaitForExit();
+                                    using(Process process = Process.Start("mozroots", "--import --ask-remove --quiet")){
+                                        if (process != null){
+                                            process.WaitForExit();
+                                        }
+                                    }
 
                                     timer_Tick(timer, new EventArgs());
                                 }
