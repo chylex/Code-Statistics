@@ -1,5 +1,4 @@
-﻿using CodeStatistics.Data;
-namespace CodeStatistics.Forms {
+﻿namespace CodeStatistics.Forms.Project {
     partial class ProjectDebugForm {
         /// <summary>
         /// Required designer variable.

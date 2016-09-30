@@ -2,7 +2,8 @@
 using System.Windows.Forms;
 using CodeStatistics.Forms;
 using CodeStatistics.Data;
-using CodeStatistics.Input.Methods;
+using CodeStatistics.Forms.Project;
+using CodeStatistics.Input;
 using CodeStatisticsCore.Input;
 
 namespace CodeStatistics{

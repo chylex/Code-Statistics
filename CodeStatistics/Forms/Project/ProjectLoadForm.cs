@@ -1,22 +1,20 @@
-﻿using CodeStatistics.Handling;
-using CodeStatistics.Input;
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using CodeStatistics.Output;
 using System.Diagnostics;
 using System.Globalization;
-using CodeStatistics.Data;
-using CodeStatistics.Input.Methods;
 using System.IO;
+using System.Windows.Forms;
+using CodeStatistics.Data;
+using CodeStatistics.Input;
+using CodeStatistics.Output;
 using CodeStatisticsCore.Forms;
 using CodeStatisticsCore.Handling;
 
-namespace CodeStatistics.Forms{
+namespace CodeStatistics.Forms.Project{
     sealed partial class ProjectLoadForm : Form{
         private readonly IInputMethod inputMethod;
         private FileSearch search;
-        private Project project;
+        private Handling.Project project;
         private Variables variables;
 
         private string outputFile;

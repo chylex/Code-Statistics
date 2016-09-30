@@ -1,7 +1,7 @@
 ﻿using System;
-using CodeStatistics.Forms;
 using System.Threading;
 using CodeStatistics.Data;
+using CodeStatistics.Forms.Project;
 using CodeStatistics.Input.Helpers;
 
 namespace CodeStatistics.Input.Methods{

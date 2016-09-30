@@ -1,17 +1,16 @@
-﻿using CodeStatistics.Handling;
-using System.Windows.Forms;
-using System;
-using System.Runtime.InteropServices;
-using PathIO = System.IO.Path;
-using CodeStatistics.Data;
-using System.Diagnostics;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using CodeStatistics.Data;
+using CodeStatistics.Handling;
 using CodeStatisticsCore.Handling;
 using CodeStatisticsCore.Handling.Files;
 using CodeStatisticsCore.Input;
 
-namespace CodeStatistics.Forms{
+namespace CodeStatistics.Forms.Project{
     sealed partial class ProjectDebugForm : Form{
 #if WINDOWS
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
@@ -20,7 +19,7 @@ namespace CodeStatistics.Forms{
 
         private readonly List<RelativeFile> entries = new List<RelativeFile>(64);
 
-        public ProjectDebugForm(Project project){
+        public ProjectDebugForm(Handling.Project project){
             InitializeComponent();
 
             Text = Lang.Get["TitleDebug"];

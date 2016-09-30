@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -73,16 +73,16 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GitHubForm.cs">
+    <Compile Include="Forms\Input\GitHubForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\GitHubForm.Designer.cs">
+    <Compile Include="Forms\Input\GitHubForm.Designer.cs">
       <DependentUpon>GitHubForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProjectDebugForm.cs">
+    <Compile Include="Forms\Project\ProjectDebugForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ProjectDebugForm.Designer.cs">
+    <Compile Include="Forms\Project\ProjectDebugForm.Designer.cs">
       <DependentUpon>ProjectDebugForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Handling\General\AssetHandler.cs" />
@@ -95,7 +95,7 @@
     <Compile Include="Input\Methods\ArchiveExtraction.cs" />
     <Compile Include="Input\Methods\DummyInputMethod.cs" />
     <Compile Include="Input\Methods\GitHub.cs" />
-    <Compile Include="Input\Methods\IInputMethod.cs" />
+    <Compile Include="Input\IInputMethod.cs" />
     <Compile Include="Input\Helpers\MultiFolderDialog.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -112,10 +112,10 @@
     <Compile Include="Output\TemplateToken.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramArguments.cs" />
-    <Compile Include="Forms\ProjectLoadForm.cs">
+    <Compile Include="Forms\Project\ProjectLoadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ProjectLoadForm.Designer.cs">
+    <Compile Include="Forms\Project\ProjectLoadForm.Designer.cs">
       <DependentUpon>ProjectLoadForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgramConfiguration.cs" />

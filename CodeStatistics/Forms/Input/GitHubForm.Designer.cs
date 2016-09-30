@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Forms {
+﻿namespace CodeStatistics.Forms.Input {
     partial class GitHubForm {
         /// <summary>
         /// Required designer variable.

@@ -5,11 +5,11 @@ using System.ComponentModel;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Web.Script.Serialization;
-using CodeStatistics.Forms;
 using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
 using CodeStatistics.Data;
+using CodeStatistics.Forms.Project;
 using CodeStatistics.Input.Helpers;
 using CodeStatisticsCore.Input;
 

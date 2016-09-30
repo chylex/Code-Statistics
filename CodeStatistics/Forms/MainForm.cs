@@ -6,6 +6,7 @@ using CodeStatistics.Input.Methods;
 using CodeStatistics.Input;
 using CodeStatistics.Input.Helpers;
 using System.Drawing;
+using CodeStatistics.Forms.Input;
 using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Forms{

@@ -5,8 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FileIO = System.IO.File;
 using DirectoryIO = System.IO.Directory;
-using CodeStatistics.Input.Methods;
-using CodeStatistics.Forms;
+using CodeStatistics.Forms.Project;
 using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Input{

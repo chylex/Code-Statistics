@@ -1,10 +1,10 @@
-﻿using CodeStatistics.Data;
-using CodeStatistics.Input.Methods;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using CodeStatistics.Data;
+using CodeStatistics.Input.Methods;
 using CodeStatisticsCore.Forms;
 
-namespace CodeStatistics.Forms{
+namespace CodeStatistics.Forms.Input{
     sealed partial class GitHubForm : Form{
         public GitHub GitHub { get; private set; }
 

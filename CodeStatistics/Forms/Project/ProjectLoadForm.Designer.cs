@@ -1,4 +1,4 @@
-﻿namespace CodeStatistics.Forms {
+﻿namespace CodeStatistics.Forms.Project {
     partial class ProjectLoadForm {
         /// <summary>
         /// Required designer variable.

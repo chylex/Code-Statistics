@@ -1,5 +1,5 @@
 ﻿using System;
-using CodeStatistics.Forms;
+using CodeStatistics.Forms.Project;
 
 namespace CodeStatistics.Input.Methods{
     class DummyInputMethod : IInputMethod{
