@@ -44,7 +44,7 @@ namespace CodeStatisticsCore.Handling{
 
             public void SetVariable(string name, float value){
                 variablesInt[name] = (int)Math.Round(value);
-                variables[name] = value.ToString("#, 0.#", NumberFormat);
+                variables[name] = value.ToString("#,0.#", NumberFormat);
             }
 
             public void Increment(string name, int amount = 1){
