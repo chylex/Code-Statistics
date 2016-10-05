@@ -110,6 +110,7 @@
     <Compile Include="Output\TemplateDeclaration.cs" />
     <Compile Include="Output\TemplateException.cs" />
     <Compile Include="Output\TemplateList.cs" />
+    <Compile Include="Output\TemplateReader.cs" />
     <Compile Include="Output\TemplateToken.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramArguments.cs" />
@@ -159,10 +160,8 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\template.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\about.rtf" />
@@ -177,9 +176,18 @@
       <Name>LanguageJava</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Template\lang.java.html" />
+    <Content Include="Resources\Template\main.script.html" />
+    <Content Include="Resources\Template\main.style.html" />
+    <Content Include="Resources\Template\template.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Mono xbuild.bat /p:Configuration=Mono /p:PostBuildEvent= "$(SolutionPath)"</PostBuildEvent>
+    <PostBuildEvent>rmdir "$(TargetDir)Template" /S /Q
+xcopy "$(ProjectDir)Resources\Template" "$(TargetDir)Template" /E /I
+
+if $(ConfigurationName) == Mono xbuild.bat /p:Configuration=Mono /p:PostBuildEvent= "$(SolutionPath)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

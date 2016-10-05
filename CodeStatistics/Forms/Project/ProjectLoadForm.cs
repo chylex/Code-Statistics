@@ -139,16 +139,16 @@ namespace CodeStatistics.Forms.Project{
         }
 
         private bool GenerateOutputFile(){
-            string template = Program.Config.GetTemplateContents();
+            string templateFile = Program.Config.GetTemplateFilePath();
 
-            if (template == null){
+            if (templateFile == null){
                 lastOutputGenError = Lang.Get["LoadProjectErrorNoTemplate"];
                 return false;
             }
 
             outputFile = Program.Config.GetOutputFilePath();
 
-            GenerateHtml generator = new GenerateHtml(template.Split('\n', '\r'), variables);
+            GenerateHtml generator = new GenerateHtml(new TemplateReader(templateFile), variables); // TODO error handling
 
             switch(generator.ToFile(outputFile)){
                 case GenerateHtml.Result.Succeeded:

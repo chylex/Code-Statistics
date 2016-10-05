@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using CodeStatisticsCore.Handling;
@@ -15,8 +14,8 @@ namespace CodeStatistics.Output{
 
         public string LastError { get; private set; }
 
-        public GenerateHtml(IList<string> templateLines, Variables variables){
-            this.templates = new TemplateList(templateLines);
+        public GenerateHtml(TemplateReader templateReader, Variables variables){
+            this.templates = new TemplateList(templateReader);
             this.variables = variables;
             this.LastError = string.Empty;
         }

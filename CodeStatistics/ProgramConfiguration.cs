@@ -1,9 +1,6 @@
 ﻿using CodeStatistics.Input;
 using System;
-using System.Globalization;
 using System.IO;
-using CodeStatistics.Properties;
-using System.Text;
 using CodeStatistics.Data;
 using DirectoryIO = System.IO.Directory;
 using FileIO = System.IO.File;
@@ -122,16 +119,12 @@ namespace CodeStatistics{
             return Path.IsPathRooted(templateFile) ? templateFile : Path.Combine(Environment.CurrentDirectory, templateFile);
         }
 
-        public string GetTemplateContents(){
+        public string GetTemplateFilePath(){
             if (templateFile == null){
-                return Resources.ResourceManager.GetString("template", CultureInfo.InvariantCulture); // may be null
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "template.html");
             }
             else{
-                try{
-                    return FileIO.ReadAllText(templateFile, Encoding.UTF8);
-                }catch(Exception){
-                    return null;
-                }
+                return templateFile;
             }
         }
     }

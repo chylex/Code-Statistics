@@ -1,0 +1,226 @@
+<!-- LITERALTEMPLATE script -->
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+    // Utility Functions
+    function forEach(collection, func){
+      for(var index = 0; index < collection.length; index++){
+        func(index, collection[index]);
+      }
+    }
+
+    // Page List
+    var activePage, activePageMenu;
+
+    function setActivePage(ele){
+      if (!ele)return;
+
+      if (activePageMenu)activePageMenu.classList.remove("active");
+      if (activePage)activePage.style.display = "none";
+
+      activePageMenu = ele;
+      activePage = document.getElementById(ele.getAttribute("href").substr(1));
+      if (!activePage)return;
+
+      activePageMenu.classList.add("active");
+      activePage.style.display = "block";
+
+      generateCharts(activePage);
+    }
+
+    setActivePage(document.getElementById("nav-default"));
+
+    // Category Events
+    var tabEvent = function(e){
+      e.preventDefault();
+      window.location.hash = this.getAttribute("href");
+      setActivePage(this);
+    };
+      
+    forEach(document.getElementById("navigation").children, function(indCategory, eleCategory){
+      forEach(eleCategory.getElementsByTagName("a"), function(indTab, eleTab){
+        eleTab.addEventListener("click", tabEvent);
+
+        if (window.location.hash === eleTab.getAttribute("href")){
+          setActivePage(eleTab);
+        }
+      });
+    });
+
+    // Pie Chart (modified version of Lightning Tracker chart renderer)
+    function createPieChart(ele, data){
+      // Setup
+      var ctx = ele.getContext("2d");
+      var width = ctx.canvas.clientWidth, height = ctx.canvas.clientHeight, centerX = (width/2)|0, centerY = (height/2)|0;
+      
+      var pie = {
+        data: data,
+        
+        radius: 95,
+        donutPercentage: 50,
+        startAngle: 270,
+        
+        labelColor: "#fff",
+        labelFont: "11px sans-serif",
+        labelDistance: 0.5,
+        labelBackColor: "#000",
+        labelBackOpacity: 0.3,
+        
+        shadowColor: "rgba(0, 0, 0, 0.75)",
+        shadowBlur: 5,
+        
+        valueSumColor: "#000",
+        valueSumFont: "36px sans-serif"
+      };
+
+      // Calculations
+      var valueSum = pie.data.reduce(function(prev, current){ return prev+current.value; }, 0);
+      var radPerValue = 2*Math.PI/valueSum;
+      var startAngle = pie.startAngle === 0 ? 0 : pie.startAngle*Math.PI/180;
+      var donutRadius = pie.radius*pie.donutPercentage/100;
+
+      // Shadow
+      ctx.restore();
+
+      ctx.shadowColor = pie.shadowColor;
+      ctx.shadowBlur = pie.shadowBlur;
+      ctx.shadowOffsetY = 1;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.arc(centerX, centerY, pie.radius-1, 0, 2*Math.PI, false);
+      ctx.fill();
+
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+
+      // Wedge rendering
+      for(var part = 0, angle = startAngle; part < pie.data.length; part++){
+        ctx.fillStyle = pie.data[part].color;
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, pie.radius, angle-0.005, (angle += pie.data[part].value*radPerValue)+0.005, false);
+        ctx.fill();
+      }
+
+      // Donut
+      if (pie.donutPercentage > 0){
+        ctx.restore();
+        ctx.globalCompositeOperation = "destination-out";
+
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, donutRadius, 0, 2*Math.PI, false);
+        ctx.fill();
+      }
+
+      // Labels
+      ctx.restore();
+      ctx.globalCompositeOperation = "source-over";
+
+      ctx.font = pie.labelFont;
+      ctx.fillStyle = pie.labelColor;
+      ctx.textAlign = "center";
+
+      var labelList = [];
+
+      for(var part = 0, angle = startAngle, labelDist = donutRadius+(pie.radius-donutRadius)*pie.labelDistance; part < pie.data.length; part++){
+        angle += pie.data[part].value*radPerValue/2;
+
+        var textMeasure1 = ctx.measureText(pie.data[part].label), textMeasure2 = ctx.measureText((100*pie.data[part].value/valueSum).toFixed(1)+"%");
+
+        labelList.push({
+          val: pie.data[part].value,
+          text: pie.data[part].label,
+          x: (centerX+Math.cos(angle)*labelDist)|0,
+          y: (centerY+2+Math.sin(angle)*labelDist)|0,
+          hw: 2+(Math.max(textMeasure1.width, textMeasure2.width)/2),
+          hh: 13
+        });
+
+        angle += pie.data[part].value*radPerValue/2;
+      }
+
+      labelList.sort(function(obj1, obj2){
+        return obj2.val-obj1.val;
+      });
+
+      for(var label = 0; label < labelList.length; label++){
+        var labelData = labelList[label];
+
+        var intersects = false;
+        var x1 = labelData.x-labelData.hw, y1 = labelData.y-labelData.hh;
+        var x2 = labelData.x+labelData.hw, y2 = labelData.y+labelData.hh;
+
+        for(var prevLabel = 0; prevLabel < label; prevLabel++){
+          var prevLabelData = labelList[prevLabel];
+
+          var px1 = prevLabelData.x-prevLabelData.hw, py1 = prevLabelData.y-prevLabelData.hh;
+          var px2 = prevLabelData.x+prevLabelData.hw, py2 = prevLabelData.y+prevLabelData.hh;
+
+          if (!(x2 < px1 || y2 < py1 || x1 > px2 || y1 > py2)){
+            intersects = true;
+            break;
+          }
+        }
+
+        if (intersects)continue;
+
+        if (pie.labelBackOpacity > 0){
+          ctx.fillStyle = pie.labelBackColor;
+          ctx.globalAlpha = pie.labelBackOpacity;
+          ctx.fillRect(Math.floor(labelData.x-labelData.hw), labelData.y-14, 1+Math.ceil(labelData.hw*2), 26);
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = pie.labelColor;
+        }
+
+        ctx.textBaseline = "bottom";
+        ctx.fillText(labelData.text, labelData.x, labelData.y);
+        ctx.textBaseline = "top";
+        ctx.fillText((100*labelData.val/valueSum).toFixed(1)+"%", labelData.x, labelData.y);
+      }
+
+      // Value sum
+      ctx.restore();
+      ctx.globalCompositeOperation = "source-over";
+
+      ctx.font = pie.valueSumFont;
+      ctx.fillStyle = pie.valueSumColor;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      ctx.fillText(valueSum, centerX-1, 2+centerY);
+    }
+
+    // Pie Chart Generation
+    function generateCharts(parent){
+      var chartColors = [
+        "#e25668", "#e28956", "#e2cf56", "#aee256", "#56e289",
+        "#56e2cf", "#56aee2", "#5668e2", "#8a56e2", "#cf56e2"
+      ];
+
+      var chartColorIndex = -1;
+
+      var charts = parent.getElementsByTagName("canvas");
+
+      for(var chartInd = 0; chartInd < charts.length; chartInd++){
+        var canvas = charts[chartInd];
+        if (canvas.getAttribute("data-pie-gen"))continue;
+
+        var table = document.getElementById("data-"+canvas.id);
+        var data = [];
+
+        forEach(table.getElementsByTagName("tr"), function(indRow, eleRow){
+          var value = parseInt(eleRow.children[0].innerHTML.replace(/\D/g, ""), 10);
+
+          if (value === 0)++chartColorIndex;
+          else data.push({ value: value, label: eleRow.children[1].innerHTML, color: chartColors[(++chartColorIndex)%chartColors.length] });
+        });
+
+        createPieChart(canvas, data);
+
+        canvas.setAttribute("data-pie-gen", "1");
+      }
+    }
+  });
+</script>

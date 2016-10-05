@@ -31,12 +31,13 @@ namespace CodeStatistics.Output{
             switch(str.ToUpperInvariant()){
                 case "TEMPLATE": return TemplateDeclarationType.Dynamic;
                 case "LITERALTEMPLATE": return TemplateDeclarationType.Literal;
+                case "INCLUDE": return TemplateDeclarationType.Include;
                 default: return TemplateDeclarationType.Invalid;
             }
         }
 
         public enum TemplateDeclarationType{
-            Invalid, Literal, Dynamic
+            Invalid, Literal, Dynamic, Include
         }
 
         public readonly TemplateDeclarationType Type;

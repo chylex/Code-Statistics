@@ -6,7 +6,9 @@ namespace CodeStatistics.Output{
     class TemplateList{
         private readonly Dictionary<string, Template> templates = new Dictionary<string, Template>();
 
-        public TemplateList(IList<string> lines){
+        public TemplateList(TemplateReader reader){
+            IList<string> lines = reader.ReadLines();
+
             for(int lineIndex = 0; lineIndex < lines.Count; lineIndex++){
                 string line = lines[lineIndex];
                 TemplateDeclaration declaration;

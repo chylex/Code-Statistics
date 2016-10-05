@@ -61,18 +61,14 @@ namespace CodeStatistics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1250\deff0\deflang1029{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}{\f1\fnil\fcharset238 Microsoft Sans Serif;}}
+        ///{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sl360\slmult1\lang1036\b\f0\fs20 CodeStatistics\lang1029\f1  [version]\lang1036\b0\f0\par
+        ///\pard\sa200\sl276\slmult1\lang1029\f1 Utility to analyse and generate statistics for code and asset files in programming projects.\par
+        ///If you have feedback or bug reports, click the Help button to visit the official GitHub r [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string about {
             get {
                 return ResourceManager.GetString("about", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        /// </summary>
-        internal static string template {
-            get {
-                return ResourceManager.GetString("template", resourceCulture);
             }
         }
     }

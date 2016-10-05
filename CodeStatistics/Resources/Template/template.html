@@ -1,0 +1,125 @@
+<!-- TEMPLATE html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="CodeStatistics {var:csVersion}">
+  
+  <title>{var:projectName:My Project} - Code Statistics {var:csVersion}</title>
+  
+  {style}
+  {script}
+</head>
+<body>
+  <div id="wrap">
+    <div id="navigation">
+      <ul>
+        {navigationList}
+      </ul>
+    </div>
+    <div id="content">
+      {contentList}
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- INCLUDE main.style.html -->
+<!-- INCLUDE main.script.html -->
+
+<!-- TEMPLATE navigationList -->
+
+<li><span>General</span>
+  <ul>
+    <li><a href="#overview" id="nav-default">Overview</a></li>
+    {if:assets:navigationListGeneralAssets}
+  </ul>
+</li>
+{if:java:navigationListJava}
+
+<!-- TEMPLATE navigationListGeneralAssets -->
+
+<li><a href="#assets">Assets</a></li>
+
+<!-- TEMPLATE contentList -->
+
+{contentOverview}
+
+{if:assets:contentAssets}
+{if:java:contentJava}
+
+<!-- TEMPLATE contentOverview -->
+
+<div id="overview">
+  <h2>Overview</h2>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h3>Files</h3>
+        <table id="data-pie-file-types" class="summary">
+          <tr><td>{var:fileTypeCode:0}</td><td>Code</td></tr>
+          <tr><td>{var:fileTypeAssets:0}</td><td>Assets</td></tr>
+          <tr><td>{var:fileTypeUnknown:0}</td><td>Unknown</td></tr>
+        </table>
+        <canvas id="pie-file-types" height="200"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Directory Structure</h3>
+        <table id="data-pie-files-folders" class="summary">
+          <tr><td>{var:dirStructureFiles:0}</td><td>Files</td></tr>
+          <tr><td>{var:dirStructureFolders:0}</td><td>Folders</td></tr>
+        </table>
+        <canvas id="pie-files-folders" height="200"></canvas>
+      </div>
+    </div>
+    <div>
+      {if:java:contentJavaOverview}
+    </div>
+    <div>
+      <div class="card">
+        <h3>Assets</h3>
+        <table id="data-pie-assets-overview" class="summary">
+          {for:assetTypes:contentAssetRow}
+        </table>
+        <canvas id="pie-assets-overview" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentAssetRow -->
+
+<tr><td>{var:value:0}</td><td>{var:title}</td></tr>
+
+<!-- TEMPLATE contentAssets -->
+
+<div id="assets">
+  <h2>Assets ({var:fileTypeAssets:0})</h2>
+  <div class="grid">
+    <div class="grid-half">
+      <div class="card">
+        <h3>Types</h3>
+        <table id="data-pie-assets" class="summary">
+          {for:assetTypes:contentAssetRow}
+        </table>
+        <canvas id="pie-assets" height="200"></canvas>
+      </div>
+    </div>
+    <div class="grid-half">
+      <div class="card">
+        <h3>File Sizes</h3>
+        <table id="data-pie-assets-sizes" class="summary">
+          {for:assetSizes:contentAssetSizeRow}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE contentAssetSizeRow -->
+
+<tr><td>{var:size} {var:units}</td><td>{var:title}</td></tr>
+
+<!-- INCLUDE lang.java.html -->
