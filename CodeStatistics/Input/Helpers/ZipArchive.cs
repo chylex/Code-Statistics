@@ -55,7 +55,9 @@ namespace CodeStatistics.Input.Helpers{
         }
 
         public CancellationTokenSource ExtractAsync(Action<string> onFinished){
-            if (cancelToken != null)cancelToken.Cancel();
+            if (cancelToken != null){
+                cancelToken.Cancel();
+            }
 
             cancelToken = new CancellationTokenSource();
 
@@ -64,7 +66,7 @@ namespace CodeStatistics.Input.Helpers{
                     if (cancelToken.IsCancellationRequested)return;
                     ExtractFile(entry);
                 }
-                    
+                
                 onFinished(extractPath);
             }).Start();
 
@@ -94,7 +96,10 @@ namespace CodeStatistics.Input.Helpers{
 
         public void Dispose(){
             ((IDisposable)inner).Dispose();
-            if (cancelToken != null)cancelToken.Dispose();
+
+            if (cancelToken != null){
+                cancelToken.Dispose();
+            }
         }
 
         public class ArchiveEntry{

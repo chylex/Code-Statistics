@@ -28,7 +28,10 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public void CancelProcess(Action onCancelFinish){
-            if (cancel != null)cancel.Cancel();
+            if (cancel != null){
+                cancel.Cancel();
+            }
+
             onCancelFinish();
         }
     }

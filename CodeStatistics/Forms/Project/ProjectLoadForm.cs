@@ -30,7 +30,9 @@ namespace CodeStatistics.Forms.Project{
             btnDebugProject.Text = Lang.Get["LoadProjectDebug"];
             btnBreakPoint.Text = Lang.Get["LoadProjectBreakpoint"];
 
-            if (Program.Config.NoGui)Opacity = 0;
+            if (Program.Config.NoGui){
+                Opacity = 0;
+            }
         }
 
         public ProjectLoadForm(IInputMethod inputMethod) : this(){
@@ -50,23 +52,23 @@ namespace CodeStatistics.Forms.Project{
             labelLoadInfo.Text = Lang.Get["LoadProjectSearchIO"];
             labelLoadData.Text = "";
 
-            search.Refresh += count => this.InvokeOnUIThread(() => {
+            search.Refresh += count => this.InvokeSafe(() => {
                 labelLoadData.Text = count.ToString(CultureInfo.InvariantCulture);
             });
 
-            search.Finish += data => this.InvokeOnUIThread(() => {
+            search.Finish += data => this.InvokeSafe(() => {
                 labelLoadInfo.Text = Lang.Get["LoadProjectProcess"];
                 labelLoadData.Text = "";
                 UpdateProgress(ProgressBarStyle.Continuous, 0);
 
                 project = new Handling.Project(data);
 
-                project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeOnUIThread(() => {
+                project.Progress += (percentage, processedEntries, totalEntries) => this.InvokeSafe(() => {
                     UpdateProgress(ProgressBarStyle.Continuous, percentage);
                     labelLoadData.Text = Lang.Get["LoadProjectProcessingFiles", processedEntries, totalEntries];
                 });
 
-                project.Finish += vars => this.InvokeOnUIThread(() => {
+                project.Finish += vars => this.InvokeSafe(() => {
                     variables = Program.Config.IsDebuggingTemplate ? new Variables.Dummy() : vars;
 
                     labelLoadInfo.Text = Lang.Get["LoadProjectProcessingDone"];
@@ -75,9 +77,9 @@ namespace CodeStatistics.Forms.Project{
                     flowLayoutButtonsReady.Visible = true;
 
                     #if DEBUG
-                        flowLayoutButtonsDebug.Visible = true;
+                    flowLayoutButtonsDebug.Visible = true;
                     #else
-                        flowLayoutButtonsDebug.Visible = Program.Config.IsDebuggingProject;
+                    flowLayoutButtonsDebug.Visible = Program.Config.IsDebuggingProject;
                     #endif
 
                     while(!GenerateOutputFile()){
@@ -120,7 +122,7 @@ namespace CodeStatistics.Forms.Project{
                     }
                 });
 
-                project.Failure += ex => this.InvokeOnUIThread(() => {
+                project.Failure += ex => this.InvokeSafe(() => {
                     MessageBox.Show(Lang.Get["LoadProjectErrorProcessing", ex.ToString()], Lang.Get["LoadProjectError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Close();
                 });
@@ -128,7 +130,7 @@ namespace CodeStatistics.Forms.Project{
                 project.ProcessAsync();
             });
 
-            search.Failure += ex => this.InvokeOnUIThread(() => {
+            search.Failure += ex => this.InvokeSafe(() => {
                 MessageBox.Show(Lang.Get["LoadProjectErrorFileSearch", ex.ToString()], Lang.Get["LoadProjectError"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             });
@@ -149,7 +151,8 @@ namespace CodeStatistics.Forms.Project{
             GenerateHtml generator = new GenerateHtml(template.Split('\n', '\r'), variables);
 
             switch(generator.ToFile(outputFile)){
-                case GenerateHtml.Result.Succeeded: return true;
+                case GenerateHtml.Result.Succeeded:
+                    return true;
 
                 case GenerateHtml.Result.TemplateError:
                     lastOutputGenError = Lang.Get["LoadProjectErrorInvalidTemplate", generator.LastError];
@@ -171,26 +174,14 @@ namespace CodeStatistics.Forms.Project{
             }
 
             progressBarLoad.Style = style;
-
-            int percValue = percentage*10;
-
-            // instant progress bar update hack
-            if (percValue == progressBarLoad.Maximum){
-                progressBarLoad.Value = percValue;
-                progressBarLoad.Value = percValue-1;
-                progressBarLoad.Value = percValue;
-            }
-            else{
-                progressBarLoad.Value = percValue+1;
-                progressBarLoad.Value = percValue;
-            }
+            progressBarLoad.SetValueInstant(percentage*10);
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
             if (variables == null){
-                if (project != null)project.Cancel(() => this.InvokeOnUIThread(OnCancel));
-                else if (search != null)search.CancelProcess(() => this.InvokeOnUIThread(OnCancel));
-                else if (inputMethod != null)inputMethod.CancelProcess(() => this.InvokeOnUIThread(OnCancel));
+                if (project != null)project.Cancel(() => this.InvokeSafe(OnCancel));
+                else if (search != null)search.CancelProcess(() => this.InvokeSafe(OnCancel));
+                else if (inputMethod != null)inputMethod.CancelProcess(() => this.InvokeSafe(OnCancel));
                 else return;
             }
 
@@ -208,19 +199,25 @@ namespace CodeStatistics.Forms.Project{
         }
 
         private void btnOpenOutput_Click(object sender, EventArgs e){
-            if (outputFile == null)return;
+            if (outputFile == null){
+                return;
+            }
 
             Process.Start(outputFile);
         }
 
         private void btnDebugProject_Click(object sender, EventArgs e){
-            if (project == null || variables == null)return;
+            if (project == null || variables == null){
+                return;
+            }
 
             new ProjectDebugForm(project).ShowDialog();
         }
 
         private void btnBreakPoint_Click(object sender, EventArgs e){
-            if (project == null || variables == null)return;
+            if (project == null || variables == null){
+                return;
+            }
 
             Debugger.Break();
         }
@@ -233,22 +230,26 @@ namespace CodeStatistics.Forms.Project{
             }
 
             public void UpdateInfoLabel([Localizable(true)] string text){
-                form.InvokeOnUIThread(() => form.labelLoadInfo.Text = text);
+                form.InvokeSafe(() => form.labelLoadInfo.Text = text);
             }
 
             public void UpdateDataLabel([Localizable(true)] string text){
-                form.InvokeOnUIThread(() => form.labelLoadData.Text = text);
+                form.InvokeSafe(() => form.labelLoadData.Text = text);
             }
 
             public void UpdateProgress(int progress){
-                form.InvokeOnUIThread(() => {
-                    if (progress == -1)form.UpdateProgress(ProgressBarStyle.Marquee, 100);
-                    else form.UpdateProgress(ProgressBarStyle.Continuous, progress);
+                form.InvokeSafe(() => {
+                    if (progress == -1){
+                        form.UpdateProgress(ProgressBarStyle.Marquee, 100);
+                    }
+                    else{
+                        form.UpdateProgress(ProgressBarStyle.Continuous, progress);
+                    }
                 });
             }
 
             public void OnReady(FileSearch fileSearch){
-                form.InvokeOnUIThread(() => form.OnReady(fileSearch));
+                form.InvokeSafe(() => form.OnReady(fileSearch));
             }
         }
     }

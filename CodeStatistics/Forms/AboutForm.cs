@@ -24,23 +24,23 @@ namespace CodeStatistics.Forms{
             btnReadme.Text = Lang.Get["AboutReadme"];
             textContents.Rtf = AboutFormData.Aggregate(Resources.about, (contents, kvp) => contents.Replace(kvp.Key, kvp.Value));
 
-#if !MONO
+            #if !MONO
             HelpButton = true; // Mono does not support OnHelpButtonClicked
             HelpButtonClicked += OnHelpButtonClicked;
-#else
+            #else
             btnReadme.Location = new System.Drawing.Point(292-(btnReadme.Size.Width-50), btnReadme.Location.Y); // it does however fuck up the button anchor quite well
-#endif
+            #endif
         }
 
-        private void btnReadme_Click(object sender, EventArgs e){
+        private static void btnReadme_Click(object sender, EventArgs e){
             Process.Start("https://github.com/chylex/Code-Statistics/blob/master/README.md");
         }
 
-#if !MONO
-        private void OnHelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e){
+        #if !MONO
+        private static void OnHelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e){
             e.Cancel = true;
             Process.Start("https://github.com/chylex/Code-Statistics/issues");
         }
-#endif
+        #endif
     }
 }

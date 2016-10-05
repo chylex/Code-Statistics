@@ -43,7 +43,10 @@ namespace CodeStatistics.Forms{
 
                 if (files == null){
                     string file = fileDropData as string;
-                    if (file != null)files = new[]{ file };
+
+                    if (file != null){
+                        files = new[]{ file };
+                    }
                 }
 
                 if (files == null || files.Length == 0)return;

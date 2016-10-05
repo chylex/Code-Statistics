@@ -4,10 +4,6 @@ using CodeStatistics.Data;
 using CodeStatistics.Forms.Utils;
 using CodeStatistics.Input.Methods;
 
-#if MONO
-using System.Diagnostics;
-#endif
-
 namespace CodeStatistics.Forms.Input{
     sealed partial class GitHubForm : Form{
         public GitHub GitHub { get; private set; }
@@ -25,7 +21,9 @@ namespace CodeStatistics.Forms.Input{
             btnDownload.Text = Lang.Get["LoadGitHubDownload"];
             btnCancel.Text = Lang.Get["LoadGitHubCancel"];
 
-            if (Program.Config.NoGui)Opacity = 0;
+            if (Program.Config.NoGui){
+                Opacity = 0;
+            }
 
             Disposed += (sender, args) => {
                 if (GitHub != null)GitHub.Dispose();
@@ -69,20 +67,21 @@ namespace CodeStatistics.Forms.Input{
 
                 GitHub github = new GitHub(textBoxRepository.Text);
 
-                GitHub.DownloadStatus status = github.RetrieveBranchList((branches, ex) => this.InvokeOnUIThread(() => {
+                GitHub.DownloadStatus status = github.RetrieveBranchList((branches, ex) => this.InvokeSafe(() => {
                     github.Dispose();
                     listBranches.Items.Clear();
 
                     if (ex != null){
                         btnDownload.Enabled = false;
                         listBranches.Items.Add(new ItemBranchTechnical("LoadGitHubBranchFailure"));
-#if MONO
+
+                        #if MONO
                         Exception testEx = ex.InnerException;
 
                         while(testEx != null){
                             if (testEx.GetType().FullName == "Mono.Security.Protocol.Tls.TlsException"){
                                 if (MessageBox.Show(Lang.Get["LoadGitHubTrustError"], Lang.Get["LoadGitHubError"], MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes){
-                                    using(Process process = Process.Start("mozroots", "--import --ask-remove --quiet")){
+                                    using(System.Diagnostics.Process process = System.Diagnostics.Process.Start("mozroots", "--import --ask-remove --quiet")){
                                         if (process != null){
                                             process.WaitForExit();
                                         }
@@ -96,7 +95,8 @@ namespace CodeStatistics.Forms.Input{
 
                             testEx = testEx.InnerException;
                         }
-#endif
+                        #endif
+
                         return;
                     }
 

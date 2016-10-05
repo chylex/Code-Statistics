@@ -58,7 +58,9 @@ namespace CodeStatistics.Input.Helpers{
 
         private static Assembly LoadAssembly(string name){
             foreach(AssemblyName ass in Assembly.GetExecutingAssembly().GetReferencedAssemblies()){
-                if (ass.Name.Equals(name))return Assembly.Load(ass);
+                if (ass.Name.Equals(name)){
+                    return Assembly.Load(ass);
+                }
             }
 
             return null;

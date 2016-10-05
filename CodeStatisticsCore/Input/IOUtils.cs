@@ -90,11 +90,11 @@ namespace CodeStatisticsCore.Input{
         /// Returns the temporary folder for currently running system.
         /// </summary>
         private static string GetTempRoot(){
-#if WINDOWS
+            #if WINDOWS
             return Environment.ExpandEnvironmentVariables("%TEMP%");
-#else
+            #else
             return Path.GetTempPath();
-#endif
+            #endif
         }
     }
 }

@@ -13,10 +13,10 @@ using CodeStatisticsCore.Input;
 
 namespace CodeStatistics.Forms.Project{
     sealed partial class ProjectDebugForm : Form{
-#if WINDOWS
+        #if WINDOWS
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr handle, int message, IntPtr wParam, int[] lParam);
-#endif
+        #endif
 
         private readonly List<RelativeFile> entries = new List<RelativeFile>(64);
 
@@ -35,9 +35,9 @@ namespace CodeStatistics.Forms.Project{
             textBoxFilterFiles_TextChanged(textBoxFilterFiles, new EventArgs());
             listBoxFiles_SelectedValueChange(listBoxFiles, new EventArgs());
 
-#if WINDOWS
+            #if WINDOWS
             SendMessage(textBoxCode.Handle, 0x00CB, new IntPtr(1), new []{ 16 });
-#endif
+            #endif
         }
 
         private void textBoxFilterFiles_TextChanged(object sender, EventArgs e){
@@ -50,10 +50,8 @@ namespace CodeStatistics.Forms.Project{
                 }
             }
             else{
-                foreach(RelativeFile file in entries){
-                    if (file.RelativePath.Contains(textBoxFilterFiles.Text)){
-                        listBoxFiles.Items.Add(file);
-                    }
+                foreach(RelativeFile file in entries.Where(file => file.RelativePath.Contains(textBoxFilterFiles.Text))){
+                    listBoxFiles.Items.Add(file);
                 }
             }
 

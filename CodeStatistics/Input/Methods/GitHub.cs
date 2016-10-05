@@ -51,11 +51,16 @@ namespace CodeStatistics.Input.Methods{
             Match match = RepositoryRegexCustom.Match(repository.Replace(' ', '-'));
 
             target = match.Groups[1].Value+'/'+match.Groups[2].Value;
-            if (match.Groups.Count == 4)Branch = match.Groups[3].Value;
+
+            if (match.Groups.Count == 4){
+                Branch = match.Groups[3].Value;
+            }
         }
 
         public DownloadStatus RetrieveBranchList(BranchListRetrieved onRetrieved){
-            if (dlBranches != null || dlRepo != null)Reset();
+            if (dlBranches != null || dlRepo != null){
+                Reset();
+            }
 
             if (!NetworkInterface.GetIsNetworkAvailable()){
                 return DownloadStatus.NoInternet;
@@ -87,7 +92,9 @@ namespace CodeStatistics.Input.Methods{
         }
 
         public DownloadStatus DownloadRepositoryZip(string targetFile){
-            if (dlBranches != null || dlRepo != null)Reset();
+            if (dlBranches != null || dlRepo != null){
+                Reset();
+            }
 
             if (!NetworkInterface.GetIsNetworkAvailable()){
                 return DownloadStatus.NoInternet;
@@ -95,8 +102,13 @@ namespace CodeStatistics.Input.Methods{
 
             dlRepo = CreateWebClient();
 
-            if (DownloadProgressChanged != null)dlRepo.DownloadProgressChanged += DownloadProgressChanged;
-            if (DownloadFinished != null)dlRepo.DownloadFileCompleted += DownloadFinished;
+            if (DownloadProgressChanged != null){
+                dlRepo.DownloadProgressChanged += DownloadProgressChanged;
+            }
+
+            if (DownloadFinished != null){
+                dlRepo.DownloadFileCompleted += DownloadFinished;
+            }
 
             try{
                 dlRepo.DownloadFileAsync(ZipUrl, targetFile);
@@ -137,7 +149,10 @@ namespace CodeStatistics.Input.Methods{
 
             DownloadFinished = (sender, args) => {
                 if (args.Cancelled){ // apparently randomly throws IOException and ObjectDisposedException... WHAT THE FUCK .NET
-                    if (CancelFinish != null)CancelFinish();
+                    if (CancelFinish != null){
+                        CancelFinish();
+                    }
+
                     return;
                 }
 

@@ -59,7 +59,7 @@
             this.btnReadme.Size = new System.Drawing.Size(50, 23);
             this.btnReadme.TabIndex = 1;
             this.btnReadme.UseVisualStyleBackColor = false;
-            this.btnReadme.Click += new System.EventHandler(this.btnReadme_Click);
+            this.btnReadme.Click += new System.EventHandler(btnReadme_Click);
             // 
             // AboutForm
             // 

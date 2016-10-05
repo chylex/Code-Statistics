@@ -37,7 +37,10 @@ namespace CodeStatistics.Input{
 
                 Action updateNotice = () => {
                     if (--nextNotice < 0){
-                        if (Refresh != null)Refresh(entryCount[0]);
+                        if (Refresh != null){
+                            Refresh(entryCount[0]);
+                        }
+
                         nextNotice = 100+rand.Next(50);
                     }
                 };
@@ -46,7 +49,10 @@ namespace CodeStatistics.Input{
 
                 foreach(string rootFile in rootFiles){
                     if (cancelToken.IsCancellationRequested){
-                        if (CancelFinish != null)CancelFinish();
+                        if (CancelFinish != null){
+                            CancelFinish();
+                        }
+
                         return;
                     }
 
@@ -56,7 +62,10 @@ namespace CodeStatistics.Input{
                     if (isDirectory.Value){
                         foreach(IOEntry entry in EnumerateEntriesSafe(rootFile)){
                             if (cancelToken.IsCancellationRequested){
-                                if (CancelFinish != null)CancelFinish();
+                                if (CancelFinish != null){
+                                    CancelFinish();
+                                }
+
                                 return;
                             }
 
@@ -72,12 +81,19 @@ namespace CodeStatistics.Input{
                     }
                 }
 
-                if (Refresh != null)Refresh(entryCount[0]);
-                if (Finish != null)Finish(searchData);
+                if (Refresh != null){
+                    Refresh(entryCount[0]);
+                }
+
+                if (Finish != null){
+                    Finish(searchData);
+                }
             }, cancelToken.Token);
             
             task.ContinueWith(originalTask => {
-                if (Failure != null)Failure(originalTask.Exception);
+                if (Failure != null){
+                    Failure(originalTask.Exception);
+                }
             }, TaskContinuationOptions.OnlyOnFaulted);
             
             task.Start();

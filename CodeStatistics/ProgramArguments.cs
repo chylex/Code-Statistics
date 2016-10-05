@@ -40,8 +40,12 @@ namespace CodeStatistics{
                             break;
                         }
 
-                        if (isVariable)variables[name] = args[index+1];
-                        else flags.Add(name);
+                        if (isVariable){
+                            variables[name] = args[index+1];
+                        }
+                        else{
+                            flags.Add(name);
+                        }
                     }
                 }
             }

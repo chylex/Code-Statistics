@@ -25,8 +25,12 @@ namespace CodeStatistics.Input{
         }
 
         public void Add(IOEntry entry){
-            if (entry.EntryType == IOEntry.Type.File)files.Add(new File(entry.Path));
-            else folders.Add(entry.Path);
+            if (entry.EntryType == IOEntry.Type.File){
+                files.Add(new File(entry.Path));
+            }
+            else{
+                folders.Add(entry.Path);
+            }
         }
     }
 }

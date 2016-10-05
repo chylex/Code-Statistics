@@ -14,12 +14,12 @@ namespace CodeStatistics{
         private static void Main(string[] args){
             Application.EnableVisualStyles();
 
-#if WINDOWS
+            #if WINDOWS
             if (IsRunningMono()){
                 MessageBox.Show(Lang.Get["ErrorLaunchMonoOnWindowsBuild"], Lang.Get["ErrorLaunchTitle"], MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-#endif
+            #endif
 
             ProgramArguments programArgs = new ProgramArguments(args, ProgramConfiguration.Validate);
 
