@@ -11,7 +11,7 @@ namespace CodeStatistics.Forms{
         private static Dictionary<string, string> AboutFormData{
             get{
                 return new Dictionary<string, string>{
-                    { "[version]", Application.ProductVersion },
+                    { "[version]", Program.Version },
                     { "[company]", Application.CompanyName }
                 };
             }

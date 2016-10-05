@@ -8,6 +8,9 @@ using CodeStatisticsCore.Input;
 
 namespace CodeStatistics{
     static class Program{
+        public const string Version = "0.9-Beta";
+        public const string VersionFull = "0.9.0.0";
+
         public static ProgramConfiguration Config { get; private set; }
 
         [STAThread]
