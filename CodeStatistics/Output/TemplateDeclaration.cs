@@ -6,6 +6,8 @@ namespace CodeStatistics.Output{
         private const string DeclarationEnd = "-->";
         private static readonly char[] DeclarationSplit = { ' ' };
 
+        private static readonly TemplateDeclaration Default = new TemplateDeclaration();
+
         public static bool IsDeclaration(string line){
             return line.StartsWith(DeclarationStart, StringComparison.Ordinal) && line.EndsWith(DeclarationEnd, StringComparison.Ordinal);
         }
@@ -23,7 +25,7 @@ namespace CodeStatistics.Output{
                 }
             }
 
-            declaration = new TemplateDeclaration();
+            declaration = Default;
             return false;
         }
 
