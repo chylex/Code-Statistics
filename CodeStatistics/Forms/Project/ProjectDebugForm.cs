@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using CodeStatistics.Data;
 using CodeStatistics.Handling;
+using CodeStatisticsCore.Collections;
 using CodeStatisticsCore.Handling;
 using CodeStatisticsCore.Handling.Files;
 using CodeStatisticsCore.Input;
@@ -64,11 +65,13 @@ namespace CodeStatistics.Forms.Project{
             if (item == null)return;
             
             AbstractLanguageFileHandler handler = GetLanguageHandler(item.File);
-
             SetTextBoxContents(handler.PrepareFileContents(item.File.Contents));
 
             treeViewData.Nodes.Clear();
-            foreach(TreeNode node in handler.GenerateTreeViewData(GenerateVariables(item.File), item.File))treeViewData.Nodes.Add(node);
+
+            foreach(Node node in handler.GenerateTreeViewData(GenerateVariables(item.File), item.File)){
+                treeViewData.Nodes.Add(ConvertNode(node));
+            }
         }
 
         private void btnLoadOriginal_Click(object sender, EventArgs e){
@@ -97,6 +100,16 @@ namespace CodeStatistics.Forms.Project{
 
         private void SetTextBoxContents(string text){
             textBoxCode.Text = text.Replace("\r", "").Replace("\n", Environment.NewLine);
+        }
+
+        private static TreeNode ConvertNode(Node node){
+            TreeNode treeNode = new TreeNode(node.Text);
+
+            foreach(Node childNode in node.Children){
+                treeNode.Nodes.Add(ConvertNode(childNode));
+            }
+
+            return treeNode;
         }
 
         private static AbstractLanguageFileHandler GetLanguageHandler(File file){

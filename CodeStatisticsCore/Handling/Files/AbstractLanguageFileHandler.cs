@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using CodeStatisticsCore.Collections;
 using CodeStatisticsCore.Handling.Utils;
 using CodeStatisticsCore.Input;
@@ -90,7 +89,7 @@ namespace CodeStatisticsCore.Handling.Files{
 
         protected abstract object GetFileObject(FileIntValue fi, Variables.Root variables);
         public abstract string PrepareFileContents(string contents);
-        public abstract IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables, File file);
+        public abstract IEnumerable<Node> GenerateTreeViewData(Variables.Root variables, File file);
 
         private class State{
             public readonly TopElementList<FileIntValue> MaxLines = new TopElementList<FileIntValue>(8, FileIntValue.SortMax);
