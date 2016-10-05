@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+using CodeStatisticsCore.Collections;
 using CodeStatisticsCore.Handling;
 using CodeStatisticsCore.Handling.Files;
 using CodeStatisticsCore.Handling.Utils;
@@ -276,7 +276,7 @@ namespace LanguageJava{
             return JavaParseUtils.PrepareCodeFile(contents);
         }
 
-        public override IEnumerable<TreeNode> GenerateTreeViewData(Variables.Root variables, File file){
+        public override IEnumerable<Node> GenerateTreeViewData(Variables.Root variables, File file){
             JavaFileInfo info = variables.GetStateObject<JavaState>(this).GetFile(file);
 
             foreach(Type type in info.Types){
@@ -284,44 +284,44 @@ namespace LanguageJava{
             }
         }
 
-        private static TreeNode GenerateTreeViewDataForType(JavaFileInfo fileInfo, Type type){
+        private static Node GenerateTreeViewDataForType(JavaFileInfo fileInfo, Type type){
             Type.TypeData data = type.GetData();
             Type.DataEnum dataEnum = data as Type.DataEnum;
 
-            TreeNode node = new TreeNode(type.ToString());
+            Node node = new Node(type.ToString());
 
             if (fileInfo != null){
-                TreeNode packageNode = new TreeNode("[Package]");
-                packageNode.Nodes.Add(fileInfo.Package);
-                node.Nodes.Add(packageNode);
+                Node packageNode = new Node("[Package]");
+                packageNode.Add(fileInfo.Package);
+                node.Add(packageNode);
 
-                TreeNode importNode = new TreeNode("[Imports]");
-                foreach(Import import in fileInfo.Imports)importNode.Nodes.Add(import.ToString());
-                node.Nodes.Add(importNode);
+                Node importNode = new Node("[Imports]");
+                importNode.AddRangeAsStrings(fileInfo.Imports);
+                node.Add(importNode);
             }
 
             if (data.Fields.Count > 0){
-                TreeNode fieldNode = new TreeNode("[Fields]");
-                foreach(Field field in data.Fields)fieldNode.Nodes.Add(field.ToString());
-                node.Nodes.Add(fieldNode);
+                Node fieldNode = new Node("[Fields]");
+                fieldNode.AddRangeAsStrings(data.Fields);
+                node.Add(fieldNode);
             }
 
             if (data.Methods.Count > 0){
-                TreeNode methodNode = new TreeNode("[Methods]");
-                foreach(Method method in data.Methods)methodNode.Nodes.Add(method.ToString());
-                node.Nodes.Add(methodNode);
+                Node methodNode = new Node("[Methods]");
+                methodNode.AddRangeAsStrings(data.Methods);
+                node.Add(methodNode);
             }
             
             if (type.NestedTypes.Count > 0){
-                TreeNode nestedNode = new TreeNode("[Nested Types]");
-                foreach(Type nestedType in type.NestedTypes)nestedNode.Nodes.Add(GenerateTreeViewDataForType(null, nestedType));
-                node.Nodes.Add(nestedNode);
+                Node nestedNode = new Node("[Nested Types]");
+                nestedNode.AddRange(type.NestedTypes.Select(nestedType => GenerateTreeViewDataForType(null, nestedType)));
+                node.Add(nestedNode);
             }
 
             if (dataEnum != null){
-                TreeNode enumNode = new TreeNode("[Enum Values]");
-                foreach(string value in dataEnum.EnumValues)enumNode.Nodes.Add(value);
-                node.Nodes.Add(enumNode);
+                Node enumNode = new Node("[Enum Values]");
+                enumNode.AddRange(dataEnum.EnumValues);
+                node.Add(enumNode);
             }
 
             return node;
