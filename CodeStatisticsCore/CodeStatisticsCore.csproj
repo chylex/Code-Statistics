@@ -41,6 +41,7 @@
     <Compile Include="Collections\CharacterRangeSet.cs" />
     <Compile Include="Collections\CounterDictionary.cs" />
     <Compile Include="Collections\EnumDictionary.cs" />
+    <Compile Include="Collections\Node.cs" />
     <Compile Include="Collections\TopElementList.cs" />
     <Compile Include="Handling\Files\AbstractFileHandler.cs" />
     <Compile Include="Handling\Files\AbstractLanguageFileHandler.cs" />
