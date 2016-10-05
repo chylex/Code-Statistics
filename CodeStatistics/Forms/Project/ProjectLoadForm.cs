@@ -5,9 +5,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using CodeStatistics.Data;
+using CodeStatistics.Forms.Utils;
 using CodeStatistics.Input;
 using CodeStatistics.Output;
-using CodeStatisticsCore.Forms;
 using CodeStatisticsCore.Handling;
 
 namespace CodeStatistics.Forms.Project{

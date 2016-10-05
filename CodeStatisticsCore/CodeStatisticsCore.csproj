@@ -34,7 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\AnonymousDictionary.cs" />
@@ -43,7 +42,6 @@
     <Compile Include="Collections\CounterDictionary.cs" />
     <Compile Include="Collections\EnumDictionary.cs" />
     <Compile Include="Collections\TopElementList.cs" />
-    <Compile Include="Forms\FormUtils.cs" />
     <Compile Include="Handling\Files\AbstractFileHandler.cs" />
     <Compile Include="Handling\Files\AbstractLanguageFileHandler.cs" />
     <Compile Include="Handling\IFileHandler.cs" />

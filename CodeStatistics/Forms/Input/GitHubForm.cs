@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using CodeStatistics.Data;
+using CodeStatistics.Forms.Utils;
 using CodeStatistics.Input.Methods;
-using CodeStatisticsCore.Forms;
 
 #if MONO
 using System.Diagnostics;
