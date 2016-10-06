@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeStatistics.Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -17,26 +18,26 @@ namespace CodeStatistics.Output{
             List<string> lines = new List<string>();
 
             if (!File.Exists(mainFile)){
-                throw new FileNotFoundException("Main template file not found.", mainFile);
+                throw new TemplateException(Lang.Get["TemplateErrorMainFileMissing", mainFile]);
             }
 
             ReadFileToList(mainFile, lines);
             return lines;
         }
-
-        private void ReadFileToList(string file, ICollection<string> lines){
+        
+        private void ReadFileToList(string file, ICollection<string> lines){ // TODO move to Lang
             string contents;
 
             try{
                 contents = File.ReadAllText(file, Encoding.UTF8);
             }catch(Exception e){
-                throw new TemplateException("Error reading a template file: "+file, e);
+                throw new TemplateException(Lang.Get["TemplateErrorFileRead", file], e);
             }
 
             string[] contentLines = contents.Split('\n', '\r');
 
             if (contentLines.Length == 0){
-                throw new TemplateException("Template file is empty: "+file);
+                throw new TemplateException(Lang.Get["TemplateErrorFileEmpty", file]);
             }
 
             foreach(string line in contentLines){
@@ -48,7 +49,7 @@ namespace CodeStatistics.Output{
                     }
                 }
                 else if (line.Trim().Length > 0){
-                    throw new TemplateException("Template file does not begin with a template declaration: "+file);
+                    throw new TemplateException(Lang.Get["TemplateErrorFileMissingDeclaration", file]);
                 }
             }
 
@@ -60,10 +61,10 @@ namespace CodeStatistics.Output{
                         string includedFile = Path.Combine(sourcePath, declaration.Name);
 
                         if (!IsFilePathValid(includedFile)){
-                            throw new TemplateException("Included template file must be in the same directory: "+declaration.Name);
+                            throw new TemplateException(Lang.Get["TemplateErrorIncludedFileWrongPath", declaration.Name]);
                         }
                         else if (!File.Exists(includedFile)){
-                            throw new TemplateException("Included template file not found: "+includedFile);
+                            throw new TemplateException(Lang.Get["TemplateErrorIncludedFileMissing", includedFile]);
                         }
                         else{
                             ReadFileToList(includedFile, lines);
