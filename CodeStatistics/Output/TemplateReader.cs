@@ -30,10 +30,29 @@ namespace CodeStatistics.Output{
             try{
                 contents = File.ReadAllText(file, Encoding.UTF8);
             }catch(Exception e){
-                throw new Exception("Error reading a template file: "+file, e);
+                throw new TemplateException("Error reading a template file: "+file, e);
             }
 
-            foreach(string line in contents.Split('\n', '\r')){
+            string[] contentLines = contents.Split('\n', '\r');
+
+            if (contentLines.Length == 0){
+                throw new TemplateException("Template file is empty: "+file);
+            }
+
+            foreach(string line in contentLines){
+                TemplateDeclaration declaration;
+
+                if (TemplateDeclaration.TryReadLine(line, out declaration)){
+                    if (declaration.DefinesTemplate){
+                        break;
+                    }
+                }
+                else if (line.Trim().Length > 0){
+                    throw new TemplateException("Template file does not begin with a template declaration: "+file);
+                }
+            }
+
+            foreach(string line in contentLines){
                 TemplateDeclaration declaration;
 
                 if (TemplateDeclaration.TryReadLine(line, out declaration)){
@@ -41,10 +60,10 @@ namespace CodeStatistics.Output{
                         string includedFile = Path.Combine(sourcePath, declaration.Name);
 
                         if (!IsFilePathValid(includedFile)){
-                            throw new UnauthorizedAccessException("Included template file must be in the same directory: "+declaration.Name);
+                            throw new TemplateException("Included template file must be in the same directory: "+declaration.Name);
                         }
                         else if (!File.Exists(includedFile)){
-                            throw new FileNotFoundException("Included template file not found.", includedFile);
+                            throw new TemplateException("Included template file not found: "+includedFile);
                         }
                         else{
                             ReadFileToList(includedFile, lines);

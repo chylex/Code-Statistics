@@ -45,6 +45,12 @@ namespace CodeStatistics.Output{
         public readonly TemplateDeclarationType Type;
         public readonly string Name;
 
+        public bool DefinesTemplate{
+            get{
+                return Type == TemplateDeclarationType.Dynamic || Type == TemplateDeclarationType.Literal;
+            }
+        }
+
         private TemplateDeclaration(TemplateDeclarationType type, string name){
             this.Type = type;
             this.Name = name;
