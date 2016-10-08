@@ -148,7 +148,16 @@ namespace CodeStatistics.Forms.Project{
 
             outputFile = Program.Config.GetOutputFilePath();
 
-            GenerateHtml generator = new GenerateHtml(new TemplateReader(templateFile), variables); // TODO error handling
+            TemplateList templateList;
+
+            try{
+                templateList = new TemplateReader(templateFile).ReadTemplates();
+            }catch(TemplateException e){
+                lastOutputGenError = e.Message;
+                return false;
+            }
+
+            GenerateHtml generator = new GenerateHtml(templateList, variables);
 
             switch(generator.ToFile(outputFile)){
                 case GenerateHtml.Result.Succeeded:

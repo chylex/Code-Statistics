@@ -83,7 +83,8 @@ namespace CodeStatistics.Data{
                 { "TemplateErrorIncludedFileWrongPath", "Included template file must be in the same directory: $1" },
                 { "TemplateErrorFileRead", "Error reading a template file: $1" },
                 { "TemplateErrorFileEmpty", "Template file is empty: $1" },
-                { "TemplateErrorFileMissingDeclaration", "Template file does not begin with a template declaration: $1" },
+                { "TemplateErrorFileMissingDeclaration", "Template file $1 is missing declaration on line $2." },
+                { "TemplateErrorDuplicate", "Template with this name already exists: $1" },
                 { "TemplateErrorNotFound", "Template not found: $1" },
                 { "TemplateErrorUnknownToken", "Unknown template token: $1" }
             };

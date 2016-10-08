@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CodeStatistics.Data;
 using CodeStatisticsCore.Handling;
 
@@ -6,30 +7,15 @@ namespace CodeStatistics.Output{
     class TemplateList{
         private readonly Dictionary<string, Template> templates = new Dictionary<string, Template>();
 
-        public TemplateList(TemplateReader reader){
-            IList<string> lines = reader.ReadLines();
+        public void AddTemplate(TemplateDeclaration declaration, string text){
+            AddTemplate(declaration.Name, declaration.CreateTemplate(text));
+        }
 
-            for(int lineIndex = 0; lineIndex < lines.Count; lineIndex++){
-                string line = lines[lineIndex];
-                TemplateDeclaration declaration;
-
-                if (TemplateDeclaration.TryReadLine(line, out declaration)){
-                    var templateLines = new List<string>();
-
-                    while(++lineIndex < lines.Count){
-                        string templateLine = lines[lineIndex];
-                        if (templateLine.Length == 0)continue;
-
-                        if (TemplateDeclaration.IsDeclaration(templateLine)){
-                            --lineIndex;
-                            break;
-                        }
-
-                        templateLines.Add(templateLine);
-                    }
-
-                    templates[declaration.Name] = declaration.CreateTemplate(string.Join("\r\n", templateLines));
-                }
+        public void AddTemplate(string templateName, Template template){
+            try{
+                templates.Add(templateName, template);
+            }catch(ArgumentException e){
+                throw new TemplateException(Lang.Get["TemplateErrorDuplicate", templateName], e);
             }
         }
 

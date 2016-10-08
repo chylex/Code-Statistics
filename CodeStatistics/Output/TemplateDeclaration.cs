@@ -8,14 +8,22 @@ namespace CodeStatistics.Output{
 
         private static readonly TemplateDeclaration Default = new TemplateDeclaration();
 
-        public static bool IsDeclaration(string line){
+        private static bool IsDeclaration(string line){
             return line.StartsWith(DeclarationStart, StringComparison.Ordinal) && line.EndsWith(DeclarationEnd, StringComparison.Ordinal);
+        }
+
+        public static bool IsValidDeclaration(string line){
+            if (IsDeclaration(line)){
+                string[] data = GetDeclarationContents(line).Split(DeclarationSplit, 2);
+                return data.Length == 2 && GetDeclarationType(data[0]) != TemplateDeclarationType.Invalid;
+            }
+
+            return false;
         }
 
         public static bool TryReadLine(string line, out TemplateDeclaration declaration){
             if (IsDeclaration(line)){
-                string stripped = line.Substring(DeclarationStart.Length, line.Length-DeclarationEnd.Length-DeclarationStart.Length);
-                string[] data = stripped.Trim().Split(DeclarationSplit, 2);
+                string[] data = GetDeclarationContents(line).Split(DeclarationSplit, 2);
 
                 if (data.Length == 2){
                     TemplateDeclarationType type = GetDeclarationType(data[0]);
@@ -27,6 +35,10 @@ namespace CodeStatistics.Output{
 
             declaration = Default;
             return false;
+        }
+
+        private static string GetDeclarationContents(string line){
+            return line.Substring(DeclarationStart.Length, line.Length-DeclarationEnd.Length-DeclarationStart.Length).Trim();
         }
 
         private static TemplateDeclarationType GetDeclarationType(string str){

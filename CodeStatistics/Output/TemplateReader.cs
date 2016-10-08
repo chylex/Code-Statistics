@@ -1,6 +1,5 @@
 ﻿using CodeStatistics.Data;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -14,18 +13,18 @@ namespace CodeStatistics.Output{
             this.sourcePath = Path.GetDirectoryName(mainFile);
         }
 
-        public IList<string> ReadLines(){
-            List<string> lines = new List<string>();
+        public TemplateList ReadTemplates(){
+            TemplateList templates = new TemplateList();
 
             if (!File.Exists(mainFile)){
                 throw new TemplateException(Lang.Get["TemplateErrorMainFileMissing", mainFile]);
             }
 
-            ReadFileToList(mainFile, lines);
-            return lines;
+            ReadFileToList(mainFile, templates);
+            return templates;
         }
         
-        private void ReadFileToList(string file, ICollection<string> lines){ // TODO move to Lang
+        private void ReadFileToList(string file, TemplateList list){
             string contents;
 
             try{
@@ -40,24 +39,29 @@ namespace CodeStatistics.Output{
                 throw new TemplateException(Lang.Get["TemplateErrorFileEmpty", file]);
             }
 
-            foreach(string line in contentLines){
+            for(int lineIndex = 0; lineIndex < contentLines.Length; lineIndex++){
+                string line = contentLines[lineIndex];
+
                 TemplateDeclaration declaration;
 
                 if (TemplateDeclaration.TryReadLine(line, out declaration)){
                     if (declaration.DefinesTemplate){
-                        break;
+                        StringBuilder build = new StringBuilder();
+
+                        while(++lineIndex < contentLines.Length){
+                            string templateLine = contentLines[lineIndex];
+
+                            if (TemplateDeclaration.IsValidDeclaration(templateLine)){
+                                --lineIndex;
+                                break;
+                            }
+
+                            build.Append(templateLine).Append("\r\n");
+                        }
+
+                        list.AddTemplate(declaration, build.ToString());
                     }
-                }
-                else if (line.Trim().Length > 0){
-                    throw new TemplateException(Lang.Get["TemplateErrorFileMissingDeclaration", file]);
-                }
-            }
-
-            foreach(string line in contentLines){
-                TemplateDeclaration declaration;
-
-                if (TemplateDeclaration.TryReadLine(line, out declaration)){
-                    if (declaration.Type == TemplateDeclaration.TemplateDeclarationType.Include){
+                    else if (declaration.Type == TemplateDeclaration.TemplateDeclarationType.Include){
                         string includedFile = Path.Combine(sourcePath, declaration.Name);
 
                         if (!IsFilePathValid(includedFile)){
@@ -67,14 +71,13 @@ namespace CodeStatistics.Output{
                             throw new TemplateException(Lang.Get["TemplateErrorIncludedFileMissing", includedFile]);
                         }
                         else{
-                            ReadFileToList(includedFile, lines);
+                            ReadFileToList(includedFile, list);
                         }
-
-                        continue;
                     }
                 }
-
-                lines.Add(line);
+                else if (line.Trim().Length > 0){
+                    throw new TemplateException(Lang.Get["TemplateErrorFileMissingDeclaration", file, lineIndex]);
+                }
             }
         }
 

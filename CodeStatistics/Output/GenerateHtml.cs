@@ -14,8 +14,8 @@ namespace CodeStatistics.Output{
 
         public string LastError { get; private set; }
 
-        public GenerateHtml(TemplateReader templateReader, Variables variables){
-            this.templates = new TemplateList(templateReader);
+        public GenerateHtml(TemplateList templateList, Variables variables){
+            this.templates = templateList;
             this.variables = variables;
             this.LastError = string.Empty;
         }
