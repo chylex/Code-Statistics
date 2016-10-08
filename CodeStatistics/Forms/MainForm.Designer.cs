@@ -70,9 +70,10 @@
             this.btnViewSourceCode.FlatAppearance.BorderSize = 0;
             this.btnViewSourceCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnViewSourceCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnViewSourceCode.Location = new System.Drawing.Point(3, 3);
+            this.btnViewSourceCode.Location = new System.Drawing.Point(0, 0);
+            this.btnViewSourceCode.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.btnViewSourceCode.Name = "btnViewSourceCode";
-            this.btnViewSourceCode.Size = new System.Drawing.Size(150, 37);
+            this.btnViewSourceCode.Size = new System.Drawing.Size(153, 38);
             this.btnViewSourceCode.TabIndex = 2;
             this.btnViewSourceCode.UseVisualStyleBackColor = false;
             this.btnViewSourceCode.Click += new System.EventHandler(this.btnViewSourceCode_Click);
@@ -84,9 +85,10 @@
             this.btnViewAbout.FlatAppearance.BorderSize = 0;
             this.btnViewAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnViewAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnViewAbout.Location = new System.Drawing.Point(159, 3);
+            this.btnViewAbout.Location = new System.Drawing.Point(159, 0);
+            this.btnViewAbout.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.btnViewAbout.Name = "btnViewAbout";
-            this.btnViewAbout.Size = new System.Drawing.Size(150, 37);
+            this.btnViewAbout.Size = new System.Drawing.Size(153, 38);
             this.btnViewAbout.TabIndex = 3;
             this.btnViewAbout.UseVisualStyleBackColor = false;
             this.btnViewAbout.Click += new System.EventHandler(this.btnViewAbout_Click);
@@ -100,11 +102,11 @@
             this.tableBottomPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableBottomPanel.Controls.Add(this.btnViewAbout, 1, 0);
             this.tableBottomPanel.Controls.Add(this.btnViewSourceCode, 0, 0);
-            this.tableBottomPanel.Location = new System.Drawing.Point(12, 207);
+            this.tableBottomPanel.Location = new System.Drawing.Point(12, 212);
             this.tableBottomPanel.Name = "tableBottomPanel";
             this.tableBottomPanel.RowCount = 1;
             this.tableBottomPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableBottomPanel.Size = new System.Drawing.Size(312, 43);
+            this.tableBottomPanel.Size = new System.Drawing.Size(312, 38);
             this.tableBottomPanel.TabIndex = 4;
             // 
             // btnProjectArchive
@@ -130,7 +132,7 @@
             this.btnViewOptions.FlatAppearance.BorderSize = 0;
             this.btnViewOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnViewOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnViewOptions.Location = new System.Drawing.Point(12, 163);
+            this.btnViewOptions.Location = new System.Drawing.Point(12, 168);
             this.btnViewOptions.Name = "btnViewOptions";
             this.btnViewOptions.Size = new System.Drawing.Size(312, 38);
             this.btnViewOptions.TabIndex = 6;
