@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Code Statistics</Product>
+    <Description>Code Statistics</Description>
+    <Authors>chylex</Authors>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <RepositoryUrl>https://github.com/chylex/Code-Statistics</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/chylex/Code-Statistics</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>CodeStatistics</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+</Project>
