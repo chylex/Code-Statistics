@@ -1,0 +1,173 @@
+﻿[Exclude]
+.git
+.gitignore
+
+[Associate-Code]
+cl    generic
+cob   generic
+cr    generic
+d     generic
+dart  generic
+elm   generic
+erl   generic
+f     generic
+forth generic
+go    generic
+haml  generic
+hs    generic
+hx    generic
+jl    generic
+lhs   generic
+lisp  generic
+lua   generic
+m     generic
+ml    generic
+p     generic
+pas   generic
+pl    generic
+py    generic
+q     generic
+r     generic
+rb    generic
+rs    generic
+sql   generic
+st    generic
+swift generic
+tcl   generic
+tex   generic
+v     generic
+
+# Shell
+bat generic
+ps1 generic
+sh  generic
+
+# C / C++
+c   generic
+h   generic
+cc  generic
+hh  generic
+cpp generic
+hpp generic
+c++ generic
+h++ generic
+cxx generic
+hxx generic
+
+# .NET / MS
+asp  generic
+aspx generic
+cs   generic
+fs   generic
+qs   generic
+vb   generic
+vbs  generic
+
+# JVM
+clj    generic
+cljs   generic
+gradle generic
+groovy generic
+java   generic
+kt     generic
+kts    generic
+scala  generic
+
+# Web
+coffee generic
+css    generic
+htm    generic
+html   generic
+js     generic
+less   generic
+php    generic
+php3   generic
+php4   generic
+php5   generic
+php6   generic
+php7   generic
+sass   generic
+scss   generic
+ts     generic
+xhtml  generic
+
+[Associate-Asset]
+aif  audio
+aifc audio
+aiff audio
+au   audio
+flac audio
+m4a  audio
+mid  audio
+midi audio
+mp3  audio
+ogg  audio
+opus audio
+snd  audio
+wav  audio
+wave audio
+wma  audio
+
+3g2  video
+3gp  video
+avi  video
+m2v  video
+m4v  video
+mkv  video
+mov  video
+mp4  video
+mpeg video
+mpg  video
+ogv  video
+qt   video
+webm video
+wmv  video
+
+apng image
+bmp  image
+gif  image
+ico  image
+icns image
+jpe  image
+jpeg image
+jpg  image
+png  image
+svg  image
+tga  image
+tif  image
+tiff image
+webp image
+
+3ds   model
+blend model
+dae   model
+fbx   model
+lwo   model
+obj   model
+skp   model
+stl   model
+wrl   model
+
+cfg  document
+csv  document
+doc  document
+docm document
+docx document
+json document
+ini  document
+md   document
+odt  document
+pdf  document
+rtf  document
+toml document
+txt  document
+yaml document
+yml  document
+xml  document
+
+fnt   font
+fon   font
+otf   font
+ttf   font
+woff  font
+woff2 font

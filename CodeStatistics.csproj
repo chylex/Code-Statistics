@@ -18,4 +18,12 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\default.codestatistics" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\default.codestatistics" />
+  </ItemGroup>
+
 </Project>
